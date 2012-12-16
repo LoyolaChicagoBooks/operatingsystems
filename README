@@ -1,0 +1,32 @@
+Notes:
+
+1. Everything you need is in "source"
+
+2. Each lecture is organized as follows:
+   - top-level restructured text file kept directly in source (e.g. ipc.rst)
+   - all examples should be kept in a subdirectory with a matching name
+     e.g. ipc.rst references diagrams and code in ipc/diagrams and ipc/code,
+     all of which are under source. This keeps each lecture somewhat self
+     contained but supports the use case of being able to edit any lecture
+     quickly.
+
+   - I recommend using includeliteral for extensive examples. You'll notice
+     this, especially in the ipc.rst lecture. There are also examples of
+     how to include figures and tables. (I have found rst's CSV tables to
+     be quite slick and a huge time saver.)
+
+3. Building is done from the top-level
+   - make sure you have Python setup on your computer and Sphinx. If you
+     set up Python on Windows or Ubuntu, you will need the setuptools and
+     should be able to run "easy_install -U sphinx". It is pretty much
+     a no-brainer
+
+   - make targets
+     latexpdf -> creates PDF book of our lectures by way of LaTeX (which must
+       therefore be installed.
+     html -> creates a beautiful site from our lectures
+     epub -> creates an eBook for your e-reading device
+
+   - all targets are created in build. I should probably put this directory
+     in .gitignore. Be careful not to add it by mistake for now.
+     
