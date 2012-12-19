@@ -12,6 +12,7 @@ Contents:
    :numbered:
    :maxdepth: 2
 
+   syllabus
    introduction
    processes
    scheduling
