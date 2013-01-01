@@ -1,35 +1,5 @@
-Course Goals
+Introduction
 ============
-
-- To understand the structure, components, and algorithms involved in
-  operating system kernels:
-
-  - scheduling
-  - virtual memory
-  - file systems
-
-- To understand user space components' interaction with the operating
-  system:
-
-  - processes
-  - files
-  - threads
-  - mutual exclusion
-  - dynamic memory management
-  - inter process communication
-
-Course Materials
-----------------
-
-- Required
-  - Operating Systems Design and Implementation - Third Edition,
-  Andrew S. Tanenbaum
-  - Minix-3 Virtual Appliance for Virtual Box (to be provided)
-  - Access to a Linux installation with GCC 4.x installed 
-
-- Recommended
-  - Advanced Programming in the UNIX Environment - Second Edition - Stevens
-  - C Programming Language - Second Edition - Ritchie
 
 Outline for the course
 ----------------------
@@ -45,7 +15,7 @@ Outline for the course
 #. Virtual Memory - paging algorithms
 #. User process memory management - stack, heap, data, garbage collectors
 
-About Joe Kaylor, co-Instructor
+About Joe Kaylor, Instructor
 -------------------------------
 
 - Worked as a software engineer for 9 years. 
@@ -90,14 +60,14 @@ About George K. Thiruvathukal, co-Instructor
 Getting Minix Running
 ---------------------
 
-- Simplest approach is to download ready made VMs located at
-  http://joekaylor.net/~joe/minix-3/.
+- Simplest approach is to download ready made VMs.
 
-  - VMs are built with Minix 3.1.8
-  - Tested with VMware player 3.1.4
-  - Tested with Virtual Box 4.1.0
+  - VMs are built with Minix 3.2.1
+  - VMware player 5.0.0 - http://static.joekaylor.net/osdi/Minix_3_2_1_for_vmware.zip
+  - Virtual Box 4.2.6 - http://static.joekaylor.net/osdi/Minix_3_2_1_for_virtualbox.zip
+  - KVM under Ubuntu Linux 12.04 - http://static.joekaylor.net/osdi/minix_3_2_1_for_kvm.tar.gz
 
-- Next simplest approach is to download the 3.1.8 ISO image from
+- Next simplest approach is to download the 3.2.1 ISO image from
   minix3.org and follow the instructions available on the front page
   for your favorite virtualization solution 
 
