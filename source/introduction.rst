@@ -28,6 +28,7 @@ Getting Minix Running
 - Next simplest approach is to download the 3.2.1 ISO image from
   minix3.org and follow the instructions available on the front page
   for your favorite virtualization solution 
+- I have recorded a screen cast showing the install of Minix 3.2.1 in VMware Fusion on OSX. You can view this screen cast here - http://static.joekaylor.net/osdi/Minix3-OSX-2.mp4
 - Assuming you use one of the pre-made VMs, follow these steps to get
   into an X11 desktop:
 
