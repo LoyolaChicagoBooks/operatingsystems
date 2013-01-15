@@ -15,48 +15,6 @@ Outline for the course
 #. Virtual Memory - paging algorithms
 #. User process memory management - stack, heap, data, garbage collectors
 
-About Joe Kaylor, Instructor
--------------------------------
-
-- Worked as a software engineer for 9 years. 
-  - General Dynamics C4S
-  - Purdue University 
-  - Quantitative Risk Management
-
-- B.S. at Purdue, West Lafayette in 2006
-
-- M.S. at Loyola University Chicago in 2010 (Dijkstra Award)
-  - Publications with Drs. Thiruvathukal and Läufer
-  - 2 times in IEEE CISE magazine
-  - 3 times in peer reviewed journals (2 times as first author)
-  - 1 time as an author of a book chapter through CRC Press
-  - 1 time as a technical report
-
-- My research interests include:
-  - Storage - file systems: NOFS, OLFS, RestFS
-  - Virtual Memory - various projects
-  - Compilers: MSIL:GC, static code analysis
-  - Operating system kernels - various projects
-
-About George K. Thiruvathukal, co-Instructor
---------------------------------------------
-
-- Full Professor of Computer Science, 2011
-
-- Research Interests
-
-  - All Things Distributed, especially languages, operating systems and middleware to support it.
-  - High-Performance Computing: multithreaded and parallel execution
-  - Computer Science Education/Outreach
-  - Markup Languages and Electronic Editing
-  - Digital Humanities 
-  - Platform Studies
-
-- Author of 3 Books and nearly 100 publications: conferences, journals, book chapters.
-- Associate Editor in Chief at CISE Magazine (IEEE/AIP) and Computing Now
-- See http://thiruvathukal.com for additional details.
-
-
 Getting Minix Running
 ---------------------
 
@@ -70,19 +28,15 @@ Getting Minix Running
 - Next simplest approach is to download the 3.2.1 ISO image from
   minix3.org and follow the instructions available on the front page
   for your favorite virtualization solution 
-
-Getting Minix Running
----------------------
-
 - Assuming you use one of the pre-made VMs, follow these steps to get
   into an X11 desktop:
 
   #. Boot the VM
   #. At the login screen, enter 'root'.
-  #. You shouldn't be asked for the password. You should just get a command line
+  #. Enter your password
   #. At the command line, run the command 'xdm;exit'
   #. This will give you a graphical login
-  #. Enter 'root' as the user and leave the password blank.
+  #. Enter 'root' as the user and supply your password.
   #. After pressing enter, you should get a graphical interface with two terminals.
 
 Shutting Minix Down
@@ -90,10 +44,9 @@ Shutting Minix Down
 
 #. At any command prompt, issue the command 'shutdown'.
 #. Wait for a few seconds
-#. When you see 'd0p0s0»' on the screen, power down the VM.
+#. When you see "MINIX will now be shut down …" on the screen, power down the VM.
 
-In our experience, suspending the VM only works about 2 out of 3 times in Virtual Box.
-
+In our experience, suspending the VM rather than powering down does not work consistently in Minix. This is better supported by other guest operating systems like Linux / Windows / OSX
 
 Crash Course on the UNIX Shell
 ------------------------------
