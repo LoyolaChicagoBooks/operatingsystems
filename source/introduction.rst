@@ -356,7 +356,7 @@ C - memory management
 
    int main(int argc, char* argv[]) {
       const char *msg = "Hello world";
-      char *msg2 = (char*)calloc(sizeof(char) * strlen(msg)+1);
+      char *msg2 = (char*)calloc(0, sizeof(char) * strlen(msg)+1);
       strncpy(msg2, msg, strlen(msg));
       printf("%s\n", msg2);
       free(msg2);
