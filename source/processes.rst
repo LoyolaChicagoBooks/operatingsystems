@@ -48,9 +48,6 @@ Process Memory Layout
 
    -  one per n-threads for user mode threads
 
-Process Memory Layout (continued)
----------------------------------
-
 -  layout of and allocation of text, data, bss, and initial values for
    first thread’s stack and heap are the responsibility of the loader
 
