@@ -13,9 +13,6 @@ Processes 1/2
 
    -  Interprocess communication
 
-Processes - 2/2
----------------
-
 -  Every process has a parent
 
    -  top most process in UNIX is "init"
@@ -165,15 +162,17 @@ Position Independent Code Example: main.cc
 
 ::
 
+	#include "list.hh"
+	#include "debug.hh"
+	#include "tests.hh"
+	#include <stdio.h>
+	
+	int main(int argc, char *argv[]) {
+		int passCount = runTests();
+		printf("%d tests passed\n", passCount);
+		return 0;
+	}
 
-    #include <unistd.h>
-    const char *msg = "abcdefg";
-
-    int main(int argc, char* argv[]) {
-        const char *x = msg + 1;
-        write(1, x, 1);
-        return (0);
-    }
 
 gcc -S main.c
 -------------
@@ -182,39 +181,86 @@ For the entire output, please run ``gcc -S main.c`` on your computer.
 
 ::
 
-    .globl msg
-    .section .rodata
-    .LC0:
-    .string "abcdefg"
-    .data
-    .align 8
-    .type msg, @object
-    .size msg, 8
-    msg:
-    .quad .LC0
-    .text
-    .globl main
-    .type main, @function
+
+		.file	"main.cc"
+		.section	.rodata
+	.LC0:
+		.string	"%d tests passed\n"
+		.text
+		.globl	main
+		.type	main, @function
+	main:
+	.LFB0:
+		.cfi_startproc
+		pushq	%rbp
+		.cfi_def_cfa_offset 16
+		.cfi_offset 6, -16
+		movq	%rsp, %rbp
+		.cfi_def_cfa_register 6
+		subq	$32, %rsp
+		movl	%edi, -20(%rbp)
+		movq	%rsi, -32(%rbp)
+		call	_Z8runTestsv
+		movl	%eax, -4(%rbp)
+		movl	-4(%rbp), %eax
+		movl	%eax, %esi
+		movl	$.LC0, %edi
+		movl	$0, %eax
+		call	printf
+		movl	$0, %eax
+		leave
+		.cfi_def_cfa 7, 8
+		ret
+		.cfi_endproc
+	.LFE0:
+		.size	main, .-main
+		.ident	"GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
+		.section	.note.GNU-stack,"",@progbits
+
 
 gcc -S -fpic main.c
 -------------------
 
 ::
 
-    .globl msg
-    .section .rodata
-    .LC0:
-    .string "abcdefg"
-    .section .data.rel.local
-    .align 8
-    .type msg, @object
-    .size msg, 8
-    msg:
-    .quad .LC0
-    .text
-    .globl main
-    .type main, @function
-    ...
+
+		.file	"main.cc"
+		.section	.rodata
+	.LC0:
+		.string	"%d tests passed\n"
+		.text
+		.globl	main
+		.type	main, @function
+	main:
+	.LFB0:
+		.cfi_startproc
+		pushq	%rbp
+		.cfi_def_cfa_offset 16
+		.cfi_offset 6, -16
+		movq	%rsp, %rbp
+		.cfi_def_cfa_register 6
+		subq	$32, %rsp
+		movl	%edi, -20(%rbp)
+		movq	%rsi, -32(%rbp)
+		call	_Z8runTestsv@PLT
+		movl	%eax, -4(%rbp)
+		movl	-4(%rbp), %eax
+		movl	%eax, %esi
+		leaq	.LC0(%rip), %rdi
+		movl	$0, %eax
+		call	printf@PLT
+		movl	$0, %eax
+		leave
+		.cfi_def_cfa 7, 8
+		ret
+		.cfi_endproc
+	.LFE0:
+		.size	main, .-main
+		.ident	"GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
+		.section	.note.GNU-stack,"",@progbits
+
+
+.. note:: See the difference on line 23 of both assembly outputs.
 
 Shared vs. Static LIbraries
 ---------------------------
@@ -234,9 +280,6 @@ Shared - disadvantages:
 -  Requires more advanced compiler code generators. Different processors
    have special features regarding memory offset registers or function
    table size limitations.
-
-Shared vs. Static LIbraries, continued
---------------------------------------
 
 Static - advantages:
 
@@ -478,10 +521,6 @@ wait() and waitpid() examples
 Files and I/O
 -------------
 
-What are files?
----------------
-
-Add figure here...
 
 Common attributes of all (UNIX) files
 -------------------------------------
@@ -512,6 +551,7 @@ Common attributes of all (UNIX) files
 -  Beyond these few things, there's a great degree of variety in
    semantics and structure for various file types
 
+
 Types of Files in Unix
 ----------------------
 
@@ -531,6 +571,7 @@ Types of Files in Unix
 
 -  Doors (Solaris only)
 
+
 Regular Files
 -------------
 
@@ -546,6 +587,7 @@ Regular Files
    -  Can be accessed in random order
 
 -  Exceptions exist for device restrictions such as exit for tape drives
+
 
 Folders
 -------
@@ -853,8 +895,8 @@ Typical Write Algorithm
     }
     close(fd)
 
-Typical Read Algorithm
-----------------------
+Reading from a File
+-------------------
 
 size\_t read(int fd, void \*buf, size\_t count);
 
