@@ -26,8 +26,18 @@ Your job in this assignment will be:
      - Once all of the lines of "ps" have been consumed, print the tree. To keep this simple, you may use indentation to indicate that a process is the parent of another process.
  #. You may submit your assignment using Google Code, BitBucket, or GitHub. It is ok to use a public repository.
 
+Tentative Due Date
+------------------
+Sunday, February 17th at midnight. As that date approaches I will check to see how everyone is doing and adjust the date if necessary. Start working on this project right away! 
+
+Deliverables
+------------
+You will need to setup a public source control repository either though Bit Bucket or Google Code. You are welcome to use either Subversion, Mercurial, or Git. Subversion and Git work well in both Linux and Minix. Currently, there is no working version of Mercurial in Minix. If you choose to use Mercurial, you will have to find a way to transfer files into your Minix VM. 
+
+What you will turn in for this assignment will be a URL that points to your source repository e-mailed to joekaylor@gmail.com. When grading, I will grab source as of the latest version prior to the deadline. 
+
 Notes
 -----
-You are allowed to talk to others as you work on this. Keep in mind, however, that you will need to be able to answer questions about what you learned in this assignment -- and all future assignments -- on the quizzes. So please make sure you spend time thinking about and doing the assignment on your own.
+You are allowed to talk to others as you work on this. Keep in mind, however, that you will need to be able to answer questions about what you learned in this assignment -- and all future assignments -- in the exams. So please make sure you spend time thinking about and doing the assignment on your own.
 
 
