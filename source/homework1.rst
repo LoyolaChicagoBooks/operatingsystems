@@ -5,11 +5,14 @@ Summary
 -------
 The purpose of this assignment is to learn to work with Linux / Minix and familiarize yourself with basic data structures, string manipulation/parsing, etc. We will be writing a program that takes the output of the "ps" command and presents the list of processes as a proper tree. It will be left to your imagination to decide how to best present the tree of processes, but a simple indentation scheme should be sufficient.
 
-The first part of this assignment will be to get this program working on Minix. This means:
- #. You will need to get a Minix virtual machine running. See lecture #1 notes!
+The first part of this assignment will be to get this program working on Linux. This means:
+ #. You will need access to an existing Linux machine or you will need to setup Linux in a virtual machine.
  #. Make sure you know how to edit, compile, and run C programs on this platform. This will require you learn a simple editor (e.g. nano), the C/C++ compiler (gcc/g++), and a debugger (gdb)
  #. Make sure you know how to setup version control for this and all future assignments.
 
+The second part of this assignment will be to port the program from Linux to Minix. This means:
+ #. You will need to setup a Minix virtual machine. See the first lecture's notes for reference.
+ #. You will need to get a copy of your code running on Minix. Minix has a slightly different output format for the ps command and a slightly different process tree structure. You will have to make your program flexible enough to handle this.
 
 Details
 -------
