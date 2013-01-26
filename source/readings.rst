@@ -22,8 +22,8 @@ Tasks for this Assignment
      - Citations
  #. The paper may be submitted as a PDF or Word document
  #. The presentation may be submitted as a PDF or Power-Point document.
- #. You must do at least reading as a paper.
- #. You may do at most two presentations.
+ #. You must write at least one paper.
+ #. You may give at most two presentations.
  #. You are welcome to do more than three papers, but you will only be graded on the first three.
 
 Acceptable Papers for this Assignment
@@ -32,15 +32,18 @@ Acceptable Papers for this Assignment
  #. Any paper that is primarily about a research operating system and has been published at an IEEE or ACM sponsored conference. Good examples of research operating systems are - Minix, XINU, L4-Fiasco, Singularity, Plan-9 / Inferno, Amoeba.
  #. Any paper about a filesystem implementation
  #. Any paper about a virtual memory manager
+ #. Any paper about kernel architecture (monolithic, micro, exo-kernels, etc…)
  #. Any papers about window managers or shells
- #. Any paper not from the above two categories approved by me.
+ #. Papers containing performance evaluations of any operating system facility.
+ #. Theoretical papers on process/disk scheduling or page replacement policies.
+ #. Any paper not from the above categories that is approved by the instructor.
 
 Not Acceptable Papers (but still interesting to read!) for this Assignment
 --------------------------------------------------------------------------
  #. Papers that are primarily about networking or networks.
  #. Papers that are primarily about network security (other security is okay).
  #. Papers that are primarily about hardware
- #. Papers not published through an IEEE or ACM sponsored conference.
+ #. Papers not published through an IEEE or ACM sponsored conference (you'll see prominent logos on the conference websites).
 
 Due Dates
 ---------

@@ -17,6 +17,9 @@ The second part of this assignment will be to port the program from Linux to Min
 Details
 -------
 Your job in this assignment will be:
+ #. You must use C or C++ on Linux and Minix for this project. 
+ #. A Makefile to build your project.
+ #. A README.txt file describing how to run your program.
  #. Use the popen() call to establish a pipe to the "ps" command. We'll use this to capture a snapshot of the list of currently running processes on your system. You will need to figure out how the options of the PID and PPID in Minix. For example, on Linux ps, ps -ef shows the PID and PPID. On Minix, it's slightly different (of course), so you'll want to read the Minix man page for ps.
  #. A big part of the job is to learn how "ps" works (read man page!) and figure out what all of the columns represent.
  #. Write a program that builds a process tree.
@@ -32,9 +35,21 @@ Sunday, February 17th at midnight. As that date approaches I will check to see h
 
 Deliverables
 ------------
-You will need to setup a public source control repository either though Bit Bucket or Google Code. You are welcome to use either Subversion, Mercurial, or Git. Subversion and Git work well in both Linux and Minix. Currently, there is no working version of Mercurial in Minix. If you choose to use Mercurial, you will have to find a way to transfer files into your Minix VM. 
+You will need to setup a public source control repository either though Google Code, BitBucket, or GitHub. You are welcome to use either Subversion, Mercurial, or Git. Subversion and Git work well in both Linux and Minix. Currently, there is no working version of Mercurial in Minix. If you choose to use Mercurial, you will have to find a way to transfer files into your Minix VM. 
 
-What you will turn in for this assignment will be a URL that points to your source repository e-mailed to joekaylor@gmail.com. When grading, I will grab source as of the latest version prior to the deadline. 
+Before the due date, you will need to e-mail your source repository URL to joekaylor@gmail.com. If you choose to use a private repository, you will need to add access for me to get to your code. I have accounts on all three services with the username joekaylor or joekaylor@gmail.com. When grading, I will pull the source code from your repository as of the latest version prior to the deadline.
+
+How You Will be Graded
+----------------------
+ #. 1pt  - Does your program compile in Linux and Minix (Makefile) ?
+ #. 1pt  - README.txt
+ #. 10pt - Does your program print an accurate tree-like structure in Linux?
+ #. 10pt - Does your program print an accurate tree-like structure in Minix?
+ #. 4pt  - Is your code readable?
+		- No extremely long functions (I shouldn't need to scroll up or down to read your function)
+		- Use of indentation
+		- Good choices of function and variable names (no strict rules, just be readable)
+ #. 4pt  - Does your program have some degree of unit test coverage?
 
 Notes
 -----
