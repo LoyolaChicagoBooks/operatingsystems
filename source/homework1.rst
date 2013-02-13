@@ -29,9 +29,9 @@ Your job in this assignment will be:
      - Once all of the lines of "ps" have been consumed, print the tree. To keep this simple, you may use indentation to indicate that a process is the parent of another process.
  #. You may submit your assignment using Google Code, BitBucket, or GitHub. It is ok to use a public repository.
 
-Tentative Due Date
-------------------
-Sunday, February 17th at midnight. As that date approaches I will check to see how everyone is doing and adjust the date if necessary. Start working on this project right away! 
+Due Date
+--------
+Wednesday, February 20th at midnight. No further extensions.
 
 Deliverables
 ------------
