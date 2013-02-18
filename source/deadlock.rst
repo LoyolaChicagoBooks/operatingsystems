@@ -112,6 +112,60 @@ Optimization to Dijkstra's Solution
 - In solution #1, all of the possible deadlock free permutations can be achieved. Because of this, more concurrency is possible.
 - The downside to solution #1 is that it is typically more complex to implement
 
+
+Deadlock Avoidance Implementation
+---------------------------------
+
+- aka. Banker's algorithm
+- aka. Dijkstra's solution
+
+::
+
+	typedef struct {
+		int LockNumber;
+		void* LockObject;
+	} lock;
+
+	void multi_lock(lock* locks, int count) {
+		sort(locks, count);
+		for(int i = 0; i < count; i++) {
+			lock(locks[i]);
+		}
+	}
+
+
+Deadlock Prevention Implementation
+----------------------------------
+
+- aka. optimization to Dijkstra's solution
+- This is just one implementation approach. Others involving lock tables or coordinators also exist
+
+::
+
+	typedef struct {
+		int LockNumber;
+		void* LockObject;
+	} lock;
+
+	void multi_lock(lock* locks, int count) {
+		while(1) {
+			int i = 0;
+			for(i = 0; i < count; i++) {
+				if(!try_lock(locks[i])) {
+					for(int j = 0; j < i; j++) {
+						unlock(locks[j]);
+					}
+				}
+				break;
+			}
+			if(i == count) {
+				return;
+			}
+		}
+	}
+
+
+
 Example of Deadlock
 -------------------
 
