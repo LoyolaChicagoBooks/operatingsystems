@@ -155,8 +155,8 @@ Deadlock Prevention Implementation
 					for(int j = 0; j < i; j++) {
 						unlock(locks[j]);
 					}
+				      break;
 				}
-				break;
 			}
 			if(i == count) {
 				return;
