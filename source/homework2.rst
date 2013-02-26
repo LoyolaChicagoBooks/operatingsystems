@@ -24,7 +24,7 @@ Requirements for the implementation
 
 Due Date
 --------
-To be determined
+Friday March 29th at midnight.
 
 
 Deliverables
