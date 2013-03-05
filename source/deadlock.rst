@@ -200,9 +200,19 @@ Example of Deadlock
 ::
 
 	void method4() {
-		e.lock();
-		e.unlock();
+		d.lock();
+		d.unlock();
 	}
+
+
+Lock Order Graph
+----------------
+
+.. figure:: deadlock/lock_order_graph.*
+	:align: center
+	:width: 450px
+	:alt: Undirected Lock Graph
+
 
 Multi-Lock Solutions in Windows
 -------------------------------
