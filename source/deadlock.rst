@@ -214,6 +214,15 @@ Lock Order Graph
 	:alt: Undirected Lock Graph
 
 
+Lock Order Graph with Method1() and Method4() in Two Threads
+------------------------------------------------------------
+
+.. figure:: deadlock/lock_order_graph_methods.*
+	:align: center
+	:width: 450px
+	:alt: Undirected Lock Graph
+
+
 Multi-Lock Solutions in Windows
 -------------------------------
 
