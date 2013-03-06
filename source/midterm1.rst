@@ -101,6 +101,22 @@ Questions
 	}
 
 
+Lock Order Graph
+----------------
+
+.. figure:: deadlock/lock_order_graph.*
+	:align: center
+	:width: 450px
+	:alt: Undirected Lock Graph
+
+
+Lock Order Graph with Method1() and Method4() in Two Threads
+------------------------------------------------------------
+
+.. figure:: deadlock/lock_order_graph_methods.*
+	:align: center
+	:width: 450px
+	:alt: Undirected Lock Graph
 
 
 #. Draw the lock graph for the functions (directed graph that shows possible lock orders)
