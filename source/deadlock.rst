@@ -388,7 +388,7 @@ Lock Fairness. Pros / Cons
 	- Reduces starvation
 	- Creates more predictable execution patterns
 - Cons:
-	- If a thread locks in a loop, letting a thread re-acquire a lock if its quantum isn't complete can improve total performance.
+	- If a thread locks in a loop, letting a thread re-acquire a lock if its quantum isn't complete can improve total performance. Fair locks don't always allow for a lock to be re-acquired if the quantum isn't finished. This can lead to shorter quantums which will hurt throughput.
 	- Lock fairness can create short quantums for short locks. This can in-turn hurt locality
 
 
