@@ -19,10 +19,9 @@ Contents:
    mutualexclusion
    deadlock
    ipc
-   threads
    kernelmm
    userlandmm
-   filesystems
    storage
-   networking
+   fs
+   research
 
