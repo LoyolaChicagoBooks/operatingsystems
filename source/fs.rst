@@ -319,8 +319,6 @@ User-Mode Filesystems
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     void ExampleFS::AbsPath(
@@ -343,8 +341,6 @@ Example pass-through FUSE Filesystem
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     int ExampleFS::Readlink(
@@ -366,8 +362,6 @@ Example pass-through FUSE Filesystem
 
 Example pass-through FUSE Filesystem
 ------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -393,8 +387,6 @@ Example pass-through FUSE Filesystem
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     int ExampleFS::Symlink(const char *path, const char *link) {
@@ -412,8 +404,6 @@ Example pass-through FUSE Filesystem
 
 Example pass-through FUSE Filesystem
 ------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -434,8 +424,6 @@ Example pass-through FUSE Filesystem
 
 Example pass-through FUSE Filesystem
 ------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -462,8 +450,6 @@ Example pass-through FUSE Filesystem
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     int ExampleFS::Open(const char *path, 
@@ -485,8 +471,6 @@ Example pass-through FUSE Filesystem
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     int ExampleFS::Statfs(const char *path, struct statvfs *statInfo) {
@@ -507,8 +491,6 @@ Example pass-through FUSE Filesystem
 
 Example pass-through FUSE Filesystem
 ------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -533,8 +515,6 @@ Example pass-through FUSE Filesystem
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     int ExampleFS::Getxattr(const char *path, 
@@ -558,8 +538,6 @@ Example pass-through FUSE Filesystem
 Example pass-through FUSE Filesystem
 ------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     int ExampleFS::Opendir(const char *path, 
@@ -574,8 +552,6 @@ Example pass-through FUSE Filesystem
 
 Example pass-through FUSE Filesystem
 ------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -599,8 +575,6 @@ Example pass-through FUSE Filesystem
 
 Example pass-through FUSE Filesystem
 ------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 

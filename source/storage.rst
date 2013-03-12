@@ -193,8 +193,6 @@ RAID - 5
 RAID - 5 Parity
 ---------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     size_t parityWrite(
@@ -215,8 +213,6 @@ RAID - 5 Parity
 RAID - 5 Parity
 ---------------
 
-{language=C, basicstyle=, indent=xleftmargin}
-
 ::
 
     size_t parityRead(int fd0, int fd1, void *buf, size_t count) {
@@ -233,8 +229,6 @@ RAID - 5 Parity
 
 RAID - 5 Parity
 ---------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -256,8 +250,6 @@ RAID - 5 Parity
 
 RAID - 5 Parity
 ---------------
-
-{language=C, basicstyle=, indent=xleftmargin}
 
 ::
 

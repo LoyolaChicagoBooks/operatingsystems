@@ -57,8 +57,6 @@ NOFS
 An Example NOFS Filesystem in 3 Slides
 --------------------------------------
 
-{language=Java, basicstyle=, indent=xleftmargin}
-
 ::
 
     @RootFolderObject
@@ -94,8 +92,6 @@ An Example NOFS Filesystem in 3 Slides
 An Example NOFS Filesystem in 3 Slides
 --------------------------------------
 
-{language=Java, basicstyle=, indent=xleftmargin}
-
 ::
 
       @Executable
@@ -129,8 +125,6 @@ An Example NOFS Filesystem in 3 Slides
 
 An Example NOFS Filesystem in 3 Slides
 --------------------------------------
-
-{language=Java, basicstyle=, indent=xleftmargin}
 
 ::
 
@@ -273,8 +267,6 @@ RestFS - Communications
 
 RestFS - Google Search
 ----------------------
-
-{language=bash, basicstyle=, indent=xleftmargin}
 
 ::
 
