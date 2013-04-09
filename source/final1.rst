@@ -24,8 +24,8 @@ Topics Covered
 - Implementing Files and Folders
 
 
-Questions
----------
+Questions - Virtual Memory
+--------------------------
 
 #. What is Virtual Memory responsible for? 
 
@@ -49,8 +49,44 @@ Questions
 
 #. If I have the following distance string - 4, 4, 1, inf., 7, 2, 2. What is the page fault rate for a physical memory size of 2? For 5? (See 8.35 in the notes)
 
+#. What is a working set?
+
+#. What is the difference between local and global paging?
+
+#. Why does DMA need its pages to be locked?
+
+#. Explain how COW (Copy on Write) works when a program calls fork() and then writes to a data structure.
+
+#. List the steps in the process of a page fault (8.51, 52)
 
 
+Questions - Storage and Devices
+-------------------------------
 
+#. Is a hard disk a character or a block device?
+
+#. What is RAID 0?
+
+#. What is RAID 1?
+
+#. What is RAID 5?
+
+#. Explain how to calculate the parity of two bytes into a third byte.
+
+#. What does parity have to do with RAID 5?
+
+#. What is the policy of the Shortest Seek First disk scheduling algorithm?
+
+#. What is the down side of Shortest Seek First?
+
+#. What is the policy of the Elevator Algorithm?
+
+#. Which part of the disk does the Elevator Algorithm favor in terms of average response time?
+
+#. How does FSCAN modify Shortest Seek First to get rid of its disadvantage?
+
+
+Questions - Implementing Files and Folders
+------------------------------------------
 
 
