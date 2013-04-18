@@ -24,6 +24,13 @@ Topics Covered
 - Implementing Files and Folders
 
 
+Likely Extra-Credit Topics
+--------------------------
+
+- User-Mode memory management
+- Midterm lecture material
+
+
 Questions - Virtual Memory
 --------------------------
 
@@ -88,5 +95,27 @@ Questions - Storage and Devices
 
 Questions - Implementing Files and Folders
 ------------------------------------------
+
+#. Linked lists are used to map files onto some sequence of blocks in some filesystem implementations. What are the advantages / disadvantages of this?
+
+#. What change does FAT make from the linked list approach?
+
+#. What are the advantages to FAT? What are the disadvantages?
+
+#. Explain what an inode is
+
+#. Why are several pointers (zones) to the first few data blocks stored in the first inode of the Minix inode structure? What benefit does this give?
+
+#. Explain what an indirect and double indirect zone are. Draw a diagram.
+
+#. Why are block caches needed? What do they help?
+
+#. What responsibilities does a VFS (Virtual Filesystem) manage?
+
+#. What is FUSE? How does VFS enable it?
+
+
+ 
+
 
 
