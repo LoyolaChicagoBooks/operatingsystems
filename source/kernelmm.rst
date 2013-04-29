@@ -566,19 +566,19 @@ Modeling - Distance Strings
 
        image
 
--  :math:`$C1 = 4$`, :math:`$C2 = 3$`, :math:`$C3 = 3$`,
-   :math:`$C4 = 3$`, :math:`$C5 = 2$`, :math:`$C6 = 1$`,
-   :math:`$C7 = 0$`, :math:`$Cinf = 8$`
+-  :math:`$C1 = 4$`, :math:`$C2 = 2$`, :math:`$C3 = 1$`,
+   :math:`$C4 = 3$`, :math:`$C5 = 2$`, :math:`$C6 = 2$`,
+   :math:`$C7 = 1$`, :math:`$Cinf = 8$`
 
 -  So, for various memory sizes:
 
--  :math:`$F1 = 3+3+3+2+1+0+8 = 20$`
+-  :math:`$F1 = 2+1+3+2+2+1+8 = 19$`
 
--  :math:`$F2 = 3+3+2+1+0+8 = 17$`
+-  :math:`$F2 = 1+3+2+2+1+8 = 17$`
 
--  :math:`$F5 = 0+8 = 8$`
+-  :math:`$F5 = 2+1+8 = 11$`
 
--  :math:`$F6 = 8 = 8$`
+-  :math:`$F6 = 1+8 = 9$`
 
 Design Considerations for Paging Systems
 ----------------------------------------
