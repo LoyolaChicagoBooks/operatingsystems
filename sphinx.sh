@@ -5,4 +5,4 @@
 rm -rf build/
 make html
 make epub
-make latexpdf
+make LATEXOPTS=' -interaction=batchmode ' latexpdf
