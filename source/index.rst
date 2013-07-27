@@ -3,10 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Operating Systems Lectures's documentation!
-======================================================
+Welcome to Operating Systems Design and Implementation
+=========================================================
 
-Contents:
+You have reached the home of Operating Systems (COMP 374-410) at Loyola University Chicago in
+the Computer Science Department. This course is normally taught by Joe Kaylor or
+George K. Thiruvathukal.
+
+Table of Contents
+--------------------
 
 .. toctree::
    :numbered:
