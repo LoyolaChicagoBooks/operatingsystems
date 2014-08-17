@@ -15,40 +15,6 @@ Outline for the course
 #. Virtual Memory - paging algorithms
 #. User process memory management - stack, heap, data, garbage collectors
 
-Getting Minix Running
----------------------
-
-- Simplest approach is to download ready made VMs.
-
-  - VMs are built with Minix 3.2.1
-  - VMware player 5.0.0 - http://static.joekaylor.net/osdi/Minix_3_2_1_for_vmware.zip
-  - Virtual Box 4.2.6 - http://static.joekaylor.net/osdi/Minix_3_2_1_for_virtualbox.zip
-  - KVM under Ubuntu Linux 12.04 - http://static.joekaylor.net/osdi/minix_3_2_1_for_kvm.tar.gz
-
-- Next simplest approach is to download the 3.2.1 ISO image from
-  minix3.org and follow the instructions available on the front page
-  for your favorite virtualization solution 
-- I have recorded a screen cast showing the install of Minix 3.2.1 in VMware Fusion on OSX. You can view this screen cast here - http://static.joekaylor.net/osdi/Minix3-OSX-2.mp4
-- Assuming you use one of the pre-made VMs, follow these steps to get
-  into an X11 desktop:
-
-  #. Boot the VM
-  #. At the login screen, enter 'root'.
-  #. Enter your password
-  #. At the command line, run the command 'xdm;exit'
-  #. This will give you a graphical login
-  #. Enter 'root' as the user and supply your password.
-  #. After pressing enter, you should get a graphical interface with two terminals.
-
-Shutting Minix Down
--------------------
-
-#. At any command prompt, issue the command 'shutdown'.
-#. Wait for a few seconds
-#. When you see "MINIX will now be shut down …" on the screen, power down the VM.
-
-In our experience, suspending the VM rather than powering down does not work consistently in Minix. This is better supported by other guest operating systems like Linux / Windows / OSX
-
 Crash Course on the UNIX Shell
 ------------------------------
 
