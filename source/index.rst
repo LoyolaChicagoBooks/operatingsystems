@@ -19,6 +19,7 @@ Table of Contents
 
    syllabus
    linux_vm
+   windows_vm
    introduction
    processes
    scheduling
