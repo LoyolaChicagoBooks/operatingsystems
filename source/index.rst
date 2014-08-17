@@ -18,6 +18,7 @@ Table of Contents
    :maxdepth: 2
 
    syllabus
+   linux_vm
    introduction
    processes
    scheduling
