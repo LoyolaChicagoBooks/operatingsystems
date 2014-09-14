@@ -78,7 +78,7 @@ Examining process memory layout
 -  Command to try in Linux:
 
 -  using code at
-   http://code.google.com/p/operating-system-code-samples/source/
+   https://bitbucket.org/loyolachicagocs_books/systems-code-samples/src
 
 -  run c\_intro/layout:
 
@@ -359,7 +359,8 @@ fork() example
 --------------
 
 Source:
-http://code.google.com/p/operating-system-code-samples/source/browse/trunk/fork/main.cc.
+
+https://bitbucket.org/loyolachicagocs_books/systems-code-samples/src/ad9c34e89fb8fe4cf9f0ed23820c5360fdf63d0d/fork/main.cc?at=default
 
 ::
 
