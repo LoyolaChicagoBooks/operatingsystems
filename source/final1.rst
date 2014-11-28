@@ -31,6 +31,28 @@ Likely Extra-Credit Topics
 - Midterm lecture material
 
 
+Questions - Inter-process Communication
+---------------------------------------
+
+#. List the following forms of IPC from faster performance to slower performance: files, named pipes and memory mapped files
+
+#. What guarantees does a named-pipe give you? 
+
+#. What guarantee do I lose if I send too much data at once over a named-pipe?
+
+#. Is it safe to use pointers in memory mapped regions? Why?
+
+#. Re-write these structs so that they’ll work properly with memory mapped files:
+
+
+.. literalinclude:: ipc/code/absolute.c
+   :language: c
+   :linenos:
+
+
+#. Why is it dangerous to call functions like malloc() or free() inside a signal handler? What methods should you limit yourself to?
+
+
 Questions - Virtual Memory
 --------------------------
 
