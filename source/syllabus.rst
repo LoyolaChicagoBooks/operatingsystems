@@ -22,7 +22,7 @@ Graduate students are also expected to do work above and beyond the undergraduat
 Book/Materials
 --------------
 - Required:
-	- Operating Systems: Design and Implementation (Third or Fourth edition) by Andrew S. Tanenbaum and Albert S. Woodhull
+	- Modern Operating Systems by Andrew Tanenbaum. ISBN: 978-0133591620 (There are a few versions of this book, be sure to get the one with this ISBN!)
 - Recommended:
 	- Advanced Programming in the UNIX Environment (2nd Edition) by W. Richard Stevens and Stephen A. Rago
 	- C Programming Language (2nd Edition) by Brian W. Kernighan and Dennis M. Ritchie
