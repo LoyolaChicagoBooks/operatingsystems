@@ -29,7 +29,7 @@ Friday March 29th at midnight.
 
 Deliverables
 ------------
-A link to your source repository e-mailed to joekaylor@gmail.com. You may re-use your repository from Homework 1, but be sure to e-mail the link either way.
+A link to your source repository e-mailed to sarah.kaylor@outlook.com. You may re-use your repository from Homework 1, but be sure to e-mail the link either way.
 
 How You Will be Graded
 ----------------------

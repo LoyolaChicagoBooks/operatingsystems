@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Operating Systems Lectures'
-copyright = u'2012, Joe Kaylor and George K. Thiruvathukal'
+copyright = u'2012-2015, Sarah Kaylor and George K. Thiruvathukal'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -229,7 +229,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'OperatingSystemsLectures.tex', u'Operating Systems Lectures Documentation',
-   u'Joe Kaylor and George K. Thiruvathukal', 'manual'),
+   u'Sarah Kaylor and George K. Thiruvathukal', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -259,7 +259,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'operatingsystemslectures', u'Operating Systems Lectures Documentation',
-     [u'Joe Kaylor and George K. Thiruvathukal'], 1)
+     [u'Sarah Kaylor and George K. Thiruvathukal'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -273,7 +273,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'OperatingSystemsLectures', u'Operating Systems Lectures Documentation',
-   u'Joe Kaylor and George K. Thiruvathukal', 'OperatingSystemsLectures', 'One line description of project.',
+   u'Sarah Kaylor and George K. Thiruvathukal', 'OperatingSystemsLectures', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -291,9 +291,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'Operating Systems Lectures'
-epub_author = u'Joe Kaylor and George K. Thiruvathukal'
-epub_publisher = u'Joe Kaylor and George K. Thiruvathukal'
-epub_copyright = u'2012, Joe Kaylor and George K. Thiruvathukal'
+epub_author = u'Sarah Kaylor and George K. Thiruvathukal'
+epub_publisher = u'Sarah Kaylor and George K. Thiruvathukal'
+epub_copyright = u'2015, Sarah Kaylor and George K. Thiruvathukal'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

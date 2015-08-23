@@ -7,7 +7,7 @@ Welcome to Operating Systems Design and Implementation
 =========================================================
 
 You have reached the home of Operating Systems (COMP 374-410) at Loyola University Chicago in
-the Computer Science Department. This course is normally taught by Joe Kaylor or
+the Computer Science Department. This course is normally taught by Sarah Kaylor or
 George K. Thiruvathukal.
 
 Table of Contents

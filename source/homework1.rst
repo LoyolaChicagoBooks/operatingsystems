@@ -37,7 +37,7 @@ Deliverables
 ------------
 You will need to setup a public source control repository either though Google Code, BitBucket, or GitHub. You are welcome to use either Subversion, Mercurial, or Git. Subversion and Git work well in both Linux and Minix. Currently, there is no working version of Mercurial in Minix. If you choose to use Mercurial, you will have to find a way to transfer files into your Minix VM. 
 
-Before the due date, you will need to e-mail your source repository URL to joekaylor@gmail.com. If you choose to use a private repository, you will need to add access for me to get to your code. I have accounts on all three services with the username joekaylor or joekaylor@gmail.com. When grading, I will pull the source code from your repository as of the latest version prior to the deadline.
+Before the due date, you will need to e-mail your source repository URL to sarah.kaylor@outlook.com. If you choose to use a private repository, you will need to add access for me to get to your code. I have accounts on all three services with the username sarahkaylor or sarah.kaylor@outlook.com. When grading, I will pull the source code from your repository as of the latest version prior to the deadline.
 
 How You Will be Graded
 ----------------------
