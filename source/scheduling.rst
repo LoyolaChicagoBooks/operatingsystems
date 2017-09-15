@@ -316,7 +316,7 @@ Solution to Example Real World RTS Problem
 
 - It appears that we also have 
 - 8ms of extra time before our deadline 
-- 21ms of idle CPU time every 42ms
+- 25ms of idle CPU time every 42ms
 - So, we can save money by using a slower CPU, ABS, and/or sensors.
 
 Types of Real-Time Scheduler Implementations
