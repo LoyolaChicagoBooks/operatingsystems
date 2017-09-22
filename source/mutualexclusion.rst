@@ -360,11 +360,11 @@ Semaphores - Implementation
 
 	void down() {
 		spin_lock(&lock);
-		while(_count == 0) {
+		while(semaphore == 0) {
 			spin_unlock(&lock);
 			spin_lock(&lock);
 		}
-		_count -= 1;
+		semaphore -= 1;
 		spin_unlock(&lock);
 	}
 
