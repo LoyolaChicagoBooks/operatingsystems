@@ -3,12 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Operating Systems Design and Implementation
-=========================================================
+Welcome to Operating Systems
+=============================
 
-You have reached the home of Operating Systems (COMP 374-410) at Loyola University Chicago in
-the Computer Science Department. This course is normally taught by Sarah Kaylor or
-George K. Thiruvathukal.
+You have reached the home of Operating Systems (COMP 310-410) at Loyola University Chicago in
+the Computer Science Department. 
 
 Table of Contents
 --------------------
@@ -16,7 +15,6 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   syllabus
    linux_vm
    windows_vm
    introduction
