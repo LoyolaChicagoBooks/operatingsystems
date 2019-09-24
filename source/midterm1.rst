@@ -1,3 +1,5 @@
+:orphan:
+
 Midterm Exam Prep
 =================
 

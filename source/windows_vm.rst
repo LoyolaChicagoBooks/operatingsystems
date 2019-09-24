@@ -16,14 +16,14 @@ Create a new VM
 
 	
 Choose the install disk
----------------
+-----------------------------
 
 .. figure:: windows_vm/2_choose_disk.jpg
 	:width: 650px
 
 
 Fill out Easy-Install settings
----------------
+-------------------------------
 
 .. figure:: windows_vm/3_easy_install.jpg
 	:width: 650px
@@ -51,7 +51,7 @@ Start the VM
 	:width: 650px
 
 Wait for Easy-Install to complete
----------------
+----------------------------------
 
 - The VM will reboot several times. The install took about 20 minutes on my Macbook Pro. 
 

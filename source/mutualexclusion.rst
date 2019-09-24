@@ -570,7 +570,7 @@ Semaphores - reader/writer locks
 
 Semaphores - pthreads
 ---------------------
-- int sem_init(sem_t *sem, int pshared, unsigned int value)
+- ``int sem_init(sem_t *sem, int pshared, unsigned int value)``
 - sem is the semaphore
 - pshared - where the semaphore can be shard:
 	- 0 - threads of a process - must be located in the heap 

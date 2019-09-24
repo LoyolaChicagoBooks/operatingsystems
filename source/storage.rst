@@ -100,11 +100,11 @@ Hard Disk Geometry - LBA
 ------------------------
 
 -  A CHS tuple can be converted to an LBA address with the following
-   formula: :math:`$A = (C * N_h + H) * N_s + (S - 1)$`
+   formula: :math:`$A = (C x Nh + H) * Ns + (S - 1)$`
 
--  :math:`$N_h$` is the total number of heads
+-  :math:`$Nh$` is the total number of heads
 
--  :math:`$N_s$` is the total number of sectors
+-  :math:`$Ns$` is the total number of sectors
 
 Storage and Failure
 -------------------
