@@ -9,14 +9,9 @@ Welcome to Operating Systems
 You have reached the home of Operating Systems (COMP 310-410) at Loyola University Chicago in
 the Computer Science Department. 
 
-Table of Contents
---------------------
-
 .. toctree::
    :maxdepth: 2
 
-   linux_vm
-   windows_vm
    introduction
    processes
    scheduling
@@ -28,4 +23,6 @@ Table of Contents
    storage
    fs
    research
+   linux_vm
+   windows_vm
 
