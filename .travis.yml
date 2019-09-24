@@ -1,0 +1,37 @@
+sudo: false
+language: python
+python:
+- '3.4'
+addons:
+  apt:
+    packages:
+    - latex-xcolor
+    - texlive-base
+    - texlive-latex-base
+    - texlive-latex-recommended
+    - texlive-fonts-recommended
+    - texlive-fonts-extra
+    - texlive-latex-extra
+    - texlive-formats-extra
+    - texlive-bibtex-extra
+    - texlive-humanities
+    - texinfo
+    - texlive-science
+    - latexmk
+script:
+- pip install -r requirements.txt
+- ./get-code-examples.sh
+- BOOK_VERSION=$(./get-current-version.sh) travis-sphinx build -s source
+- BOOK_VERSION=$(./get-current-version.sh) make latexpdf
+after_success:
+- travis-sphinx deploy --cname os.cs.luc.edu
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  file_glob: true
+  file:
+    - ./**/OperatingSystems.pdf
+  skip_cleanup: true
+  on:
+    repo: LoyolaChicagoBooks/operatingsystems
+    tags: true
