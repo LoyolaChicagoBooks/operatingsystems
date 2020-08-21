@@ -1,20 +1,6 @@
 Introduction
 ============
 
-Outline for the course
-----------------------
-
-#. Introduction to Operating Systems
-#. Introduction to the C programming language
-#. Process lifecycle - memory model, loaders, invocation
-#. Process separation - kernel / user mode, interrupts, context switches, memory protection
-#. Process scheduling - process states, scheduling algorithms,
-#. Threading - locks, deadlock, starvation
-#. Inter process communication - shared memory, pipes, etc...
-#. Virtual Memory - segments, swapping, demand paging
-#. Virtual Memory - paging algorithms
-#. User process memory management - stack, heap, data, garbage collectors
-
 Crash Course on the UNIX Shell
 ------------------------------
 
@@ -25,10 +11,10 @@ print the contents of a file to standard out::
 
    $ cat file
 
-print the contents of more than one file (use '{' and '}' to create lists)::
+print the contents of more than one file (use '{' and '}' to create lists, a form known as bracket expansion)::
 
+   $ cat file1 file2 file3
    $ cat {file1,file2,file3}
-
 
 creating folders (-p creates parent folders if they don't already exist)::
 
@@ -38,7 +24,15 @@ creating folders (-p creates parent folders if they don't already exist)::
 creating files (or update time stamp of existing files)::
 
    $ touch file1
+   $ touch file1 file2 file3
    $ touch {file1,file2,file3}
+
+You can also create an empty file as follows::
+
+   > filename.txt
+
+Be careful. Many operations can be *destructive* if you are not careful.
+
 
 more useful commands
 --------------------
@@ -52,7 +46,7 @@ read the contents of a file, one screen at a time::
 
    $ less file1.txt
 
-search a file for some text:
+search a file for some text::
 
    $ grep "hello world" file1.txt
    $ grep -e "hello.* d" file1.txt
@@ -62,7 +56,8 @@ Files and Folders
 
 creating files::
 
-   $ touch file1
+   > file1
+
 
 deleting files::
 
@@ -104,11 +99,11 @@ UNIX file permissions
 
 changing the user / group ownership of a file::
 
-   $ chown joe:users file1
+   $ chown username:users file1
 
 changing the user/group ownership of an entire folder and its children::
 
-   $ chown -R joe:users folder1
+   $ chown -R username:users folder1
 
 setting the owning user's permission to be read,write, and execute::
 
@@ -147,7 +142,7 @@ Backround Processes and Jobs
 ----------------------------
 
 - if you're running a long running process and want to send suspended
-  it to the background, just press ctrl+z
+  it to the background, just press `Ctrl+z`
 - to unsuspend it and keep it in the background, use the 'bg' command
 - to bring the process back to the foreground, use the 'fg' command
 - to bring the process back, just 
@@ -204,6 +199,7 @@ C - Hello World
 ::
 
   #include «stdio.h»
+
   int main(int argc, char* argv[]) {
      printf("Hello world\n");
      getchar();
@@ -273,7 +269,7 @@ structured types::
 
    foobar x;
 
-c - type casting
+C - type casting
 ----------------
 
 ::
@@ -292,16 +288,16 @@ c - type casting
 
 
 
-C- strings
-----------
+C - chacater strings (arrays)
+--------------------------------
 
-- Strings in C are implemented as arrays of type char.
+- Strings in C are implemented as *arrays* of type char.
 - Strings are all null terminated.
 
   - ``"Hello World"`` would be the following array:
   - ``{ 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', 0 }``
   - ``strlen("Hello World")`` returns 11, and uses 12 bytes of memory
-  - When allocating space for a string, always allocate one more byte.
+  - When allocating space for a string, always allocate one extra byte to store the null terminator.
 
 C - memory management
 ---------------------
@@ -487,6 +483,39 @@ Crash course on GCC
 - GCC is the GNU Compiler Collection
 - Several languages exist: C, C++, ADA, Fortran, Java, Objective-C, and Go
 - GCC was one of the early GNU projects
+
+
+Where to find it?
+-------------------
+
+You'll want to make sure both of these commands are available::
+
+   $ which gcc
+   /usr/bin/gcc
+
+   $ which make
+   /usr/bin/make
+
+
+What if I cannot find them?
+
+- Install Linux or Windows Subsystem for Linux on a PC
+- Install Homebrew (on MacOS)
+- Install a cloud-based shell
+
+These topics are covered in COMP 141 (Tools course).
+
+Installing on Ubuntu
+---------------------
+
+::
+   apt install build-essential
+
+OS X
+-------
+
+- Has a mostly working `gcc` setup via Xcode
+- Use Homebrew to install `gcc`, `make`, and more current versions of open source software.
 
 Compiling C with GCC
 --------------------
@@ -723,8 +752,13 @@ History of Windows NT/XP/Vista/7
   - Virtualization support
   - New taskbar!
 
-.. todo:: 
-   "Missing figure for Windows* Architecture"
+
+- Windows 10
+
+  - Continued improvements to virtualization
+  - Windows Terminal
+  - Windows Subsystem For Linux (1 and 2)
+  - Native Linux Kernel Support for Windows
 
 
 History of Linux
@@ -771,9 +805,6 @@ History of Linux
   - Much better virtual memory performance
   - Early competitor to the 2nd generation of virtualization support
   (IBM and zOS being the 1st generation)
-
-.. todo:: 
-   "Need to get the chart of OS releases/point releases by year."
 
 Types of computer systems
 -------------------------
@@ -887,12 +918,6 @@ Microkernel OS
   - Minix (still a work in progress)
   - OS-X (via Mach)
   - Hurd (via Mach, then L4)
-
-Microkernels and Performance
-----------------------------
-
-.. todo::
-   "Need figure here"
 
 Monolithic Kernel OS
 --------------------
