@@ -80,6 +80,8 @@ Step 9: Log into the new VM and Launch a terminal
 Step 10: Install course software
 --------------------------------
 
+.. note:: These screen shots were prepared awhile ago. Please use ``apt-get install build-essential``. This is a metapackage that gives you everything needed for our class. You may also want to include ``cmake``, which will be used in some of my  examples.
+
 .. figure:: linux_vm/12_install_software.jpg
 	:width: 650px
 
