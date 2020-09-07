@@ -349,39 +349,9 @@ Source:
 
 https://github.com/LoyolaChicagoCode/systems-code-examples/blob/master/fork/main.cc
 
-::
-
-    #include <stdio.h>
-    #include <unistd.h>
-    #include <fcntl.h>
-    #include <string.h>
-
-    int main(int argc, char* argv[]) {
-            int SomeValue = 100;
-            int pid = fork();
-            int fd = open("test_file", O_WRONLY|O_CREAT|O_TRUNC, 0666);
-
-            const char *parentMessage = "1111111";
-            const char *childMessage =  "22222222222222\n";
-
-            if(pid > 0) {
-                    printf("hello from the parent process, chid pid = %d\n", pid);
-                    sleep(2);
-                    printf("parent's SomeValue = %d\n", SomeValue);
-                    write(fd, parentMessage, strlen(parentMessage) * sizeof(char));
-            } else if(pid == 0) {
-                    printf("hello from the child process\n");
-                    SomeValue = 200;
-                    printf("child's SomeValue = %d\n", SomeValue);
-                    write(fd, childMessage, strlen(childMessage) * sizeof(char));
-            } else {
-                    printf("fork() failed!!\n");
-            }
-
-            close(fd);
-
-            return 0;
-    }
+.. literalinclude:: ../examples/systems-code-examples/fork/main.c
+   :language: c
+   :linenos:
 
 Process Creation with clone()
 -----------------------------
@@ -485,23 +455,9 @@ Causes of process termination
 wait() and waitpid() examples
 -----------------------------
 
-::
-
-    int main(int argc, char* argv[]) {
-        pid_t pid = fork();
-        if(pid == 0) {
-            abort();    //child process exits
-        }
-        int status;
-        wait(&status); // wait for child to exit
-        if(WIFEXITED(status)) {
-            printf("normal exit. exit code = %d\n", WEXITSTATUS(status));
-        } else if(WIFSIGNALED(status)) {
-            printf("abnormal termination, signal number = %d\n", WTERMSIG(status));
-        } else if(WIFSTOPPED(status)) {
-            printf("child stopped, signal number = %d\n", WSTOPSIG(status));
-        }
-    }
+.. literalinclude:: ../examples/systems-code-examples/wait/main.c
+   :language: c
+   :linenos:
 
 Files and I/O
 -------------
@@ -719,104 +675,146 @@ umask() access()
 Filesystem Calls
 ----------------
 
-open(): opens/creates files and returns a file descriptor
+.. list-table:: Filesystem Calls
+   :widths: 10 20
+   :header-rows: 1
 
-creat(): creates new files
+   * - Function
+     - Description
 
-close(): closes a file descriptor (reduces references to the file)
+   * - ``open()``
+     - opens/creates files and returns a file descriptor
 
-lseek(): updates a file descriptor's current file offset
+   * - ``creat()``
+     - creates new files
 
-read(): reads data from a file descriptor into a buffer
+   * - ``close()``
+     - closes a file descriptor (reduces references to the file)
 
-write(): writes data from a buffer to a file descriptor
+   * - ``lseek()``
+     - updates a file descriptor's current file offset
 
-dup(): duplicates one file descriptor
+   * - ``read()``
+     - reads data from a file descriptor into a buffer
 
-dup2(): updates a file descriptor to point to another one
+   * - ``write()``
+     - writes data from a buffer to a file descriptor
 
-fcntl(): changes file properties (asynchronous I/O, file locks)
+   * - ``dup()``
+     - duplicates one file descriptor
 
-ioctl(): a 'catch all' interface that interacts with device files,
-setting atypical properties, etc...
+   * - ``dup2()``
+     - updates a file descriptor to point to another one
 
-stat(): returns rwx bits, size, timestamps, and other details
+   * - ``fcntl()``
+     - changes file properties (asynchronous I/O, file locks)
 
-access(): tests for read, write, execute, or existence of a file
+   * - ``ioctl()``
+     - a 'catch all' interface that interacts with device files, setting atypical properties, etc...
 
-umask(): updates file creation mask
+   * - ``stat()``
+     - returns rwx bits, size, timestamps, and other details
 
-chmod(): updates rwx bits
+   * - ``access()``
+     - tests for read, write, execute, or existence of a file
+
+   * - ``umask()``
+     - updates file creation mask
+
+   * - ``chmod()``
+     - updates rwx bits
 
 Filesystem System Calls
 -----------------------
 
-chown(): changes file user/group ownership
+.. list-table:: Filesystem Calls
+   :widths: 10 20
+   :header-rows: 1
 
-truncate(): change the length of a file (grow or shrink)
+   * - ``chown()``
+     - changes file user/group ownership
 
-link(): create a hard link
+   * - ``truncate()``
+     - change the length of a file (grow or shrink)
 
-unlink(): remove a name in the filesystem and possibly the file it
-refers to (no processes have the file open)
+   * - ``link()``
+     - create a hard link
 
-rmdir(): deletes empty directories
+   * - ``unlink()``
+     - remove a name in the filesystem and possibly the file it refers to (no processes have the file open)
 
-remove(): combines unlink/rmdir into one call
+   * - ``rmdir()``
+     - deletes empty directories
 
-rename(): renames a file, possibly changing its parent folder
+   * - ``remove()``
+     - combines unlink/rmdir into one call
 
-symlink(): creates a symbolic link
+   * - ``rename()``
+     - renames a file, possibly changing its parent folder
 
-readlink(): reads the value of a symbolic link
+   * - ``symlink()``
+     - creates a symbolic link
 
-utime(): updates the access and modification time
+   * - ``readlink()``
+     - reads the value of a symbolic link
 
-mkdir(): creates a folder
+   * - ``utime()``
+     - updates the access and modification time
 
-opendir(): opens a folder for reading
+   * - ``mkdir()``
+     - creates a folder
 
-readdir(): reads the next entry in a folder
+   * - ``opendir()``
+     - opens a folder for reading
 
-rewinddir(): resets directory entry to beginning
+   * - ``readdir()``
+     - reads the next entry in a folder
 
-closedir(): closes a directory descriptor
+   * - ``rewinddir()``
+     - resets directory entry to beginning
 
-chdir() - changes current working directory
+   * - ``closedir()``
+     - closes a directory descriptor
 
-getcwd() - gets current working directory
+   * - ``chdir()``
+     - changes current working directory
 
-sync() - flushes buffer cache for filesystem to disk
+   * - ``getcwd()``
+     - gets current working directory
+
+   * - ``sync()``
+     - flushes buffer cache for filesystem to disk
 
 Opening Files with open()
 -------------------------
 
-int open(const char \*pathname, int flags, mode\_t mode)
+.. code-block:: c
 
-int open(const char \*pathname, int flags)
+   int open(const char *pathname, int flags, mode_t mode)
+   int open(const char *pathname, int flags)
 
 -  *pathname* is the path to the file
 
 -  *flags* can be combinations of:
 
-   -  O\_APPEND: open in append mode
+   -  ``O_APPEND``: open in append mode
 
-   -  O\_ASYNC: use signal driven asynchronous I/O
+   -  ``O_ASYNC``: use signal driven asynchronous I/O
 
-   -  O\_CREAT: create the file if it does not exist
+   -  ``O_CREAT``: create the file if it does not exist
 
-   -  O\_DIRECT: minimize use of the buffer cache
+   -  ``O_DIRECT``: minimize use of the buffer cache
 
-   -  O\_SYNC: opened for synchronous I/O - block until write calls are
+   -  ``O_SYNC``: opened for synchronous I/O - block until write calls are
       committed to hardware
 
-   -  O\_TRUNC: if file already exists, truncate it to length 0
+   -  ``O_TRUNC``: if file already exists, truncate it to length 0
 
    -  and many others...
 
--  *mode* is used for O\_CREAT and is typically passed as an octal:
+-  *mode* is used for ``O_CREAT`` and is typically passed as an octal:
 
-   -  0XYZ, X is for user, Y is for group, Z is for others
+   -  ``0XYZ``, ``X`` is for user, ``Y`` is for group, ``Z`` is for others
 
    -  each digit, being an octal digit is composed of three bits
 
@@ -826,11 +824,11 @@ int open(const char \*pathname, int flags)
 
    -  the least significant bit is execute permissions
 
-   -  0700 means user has rwx, group and other have no access
+   -  ``0700`` means user has rwx, group and other have no access
 
-   -  0660 means user/group have rw, other has no acess
+   -  ``0660`` means user/group have rw, other has no acess
 
--  return value of open() is the file descriptor, or -1 if an error
+-  return value of ``open()`` is the file descriptor, or -1 if an error
    happens
 
 Closing files with close()
@@ -847,7 +845,9 @@ int close(int fd)
 Writing to a File
 -----------------
 
-ssize\_t write(int fd, const void \*buf, size\_t count);
+.. code-block:: c
+
+   ssize_t write(int fd, const void *buf, size_t count);
 
 -  fd is an opened file descriptor
 
@@ -858,15 +858,15 @@ ssize\_t write(int fd, const void \*buf, size\_t count);
 
 -  the return value of the method will be
 
-   -  :math:`$return == - 1$` if an error is encountered
+   -  `return == -1` if an error is encountered
 
-   -  :math:`$return == count$` in most successful cases
+   -  `return == count` in most successful cases
 
-   -  :math:`$return < count$` in some implementations (network
-      filesystems in some cases)
+   -  `return < count` in some implementations (network filesystems in some cases)
 
 Typical Write Algorithm
 -----------------------
+
 
 ::
 
@@ -883,18 +883,20 @@ Typical Write Algorithm
 Reading from a File
 -------------------
 
-size\_t read(int fd, void \*buf, size\_t count);
+.. code-block:: c
+
+   size_t read(int fd, void *buf, size_t count);
 
 -  takes as arguments a file descriptor, a destination buffer, and the
    number of bytes to read into that buffer
 
 -  the return values of the method will be:
 
-   -  :math:`$return == -1$` if an error occurred
+   -  ``return == -1`` if an error occurred
 
-   -  :math:`$return == 0$` if EOF is encountered
+   -  ``return == 0`` if EOF is encountered
 
-   -  :math:`$return == count$` in most success cases
+   -  ``return == count`` in most success cases
 
 Typical Read Algorithm
 ----------------------
