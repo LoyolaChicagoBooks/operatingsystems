@@ -208,112 +208,45 @@ Loading shared libraries (.so)
 -  The dynamic linker simply loads the text, data, and bss sections of
    each object file into the program's address space
 
-Position Independent Code Example: main.cc
+Position Independent Code Example
 ------------------------------------------
 
-::
+-  The source can be found in `systems-code-examples/pic`.
 
-	#include "list.hh"
-	#include "debug.hh"
-	#include "tests.hh"
-	#include <stdio.h>
-	
-	int main(int argc, char *argv[]) {
-		int passCount = runTests();
-		printf("%d tests passed\n", passCount);
-		return 0;
-	}
+-  For this example, you can build it using `make -f Makefile.pic`. 
 
+-  The main purpose of this example is to show the difference between generating PIC vs. non-PIC. 
 
-gcc -S main.c
--------------
+main.cc
+---------
 
-For the entire output, please run ``gcc -S main.c`` on your computer.
-
-::
+.. literalinclude:: ../examples/systems-code-examples/pic/main.c
+   :language: c
+   :linenos:
 
 
-		.file	"main.cc"
-		.section	.rodata
-	.LC0:
-		.string	"%d tests passed\n"
-		.text
-		.globl	main
-		.type	main, @function
-	main:
-	.LFB0:
-		.cfi_startproc
-		pushq	%rbp
-		.cfi_def_cfa_offset 16
-		.cfi_offset 6, -16
-		movq	%rsp, %rbp
-		.cfi_def_cfa_register 6
-		subq	$32, %rsp
-		movl	%edi, -20(%rbp)
-		movq	%rsi, -32(%rbp)
-		call	_Z8runTestsv
-		movl	%eax, -4(%rbp)
-		movl	-4(%rbp), %eax
-		movl	%eax, %esi
-		movl	$.LC0, %edi
-		movl	$0, %eax
-		call	printf
-		movl	$0, %eax
-		leave
-		.cfi_def_cfa 7, 8
-		ret
-		.cfi_endproc
-	.LFE0:
-		.size	main, .-main
-		.ident	"GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
-		.section	.note.GNU-stack,"",@progbits
+main.nopic.s - non-position independent code (gcc -fno-pic)
+--------------------------------------------------------------
+
+.. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/main.nopic.s
+   :linenos:
+   :end-before: cfi_endproc
 
 
-gcc -S -fpic main.c
--------------------
+main.nopic.s - non-position independent code (gcc -fpic, default option)
+---------------------------------------------------------------------------
 
-::
+.. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/main.pic.s
+   :linenos:
+   :end-before: cfi_endproc
 
+What's the difference?
+-------------------------
 
-		.file	"main.cc"
-		.section	.rodata
-	.LC0:
-		.string	"%d tests passed\n"
-		.text
-		.globl	main
-		.type	main, @function
-	main:
-	.LFB0:
-		.cfi_startproc
-		pushq	%rbp
-		.cfi_def_cfa_offset 16
-		.cfi_offset 6, -16
-		movq	%rsp, %rbp
-		.cfi_def_cfa_register 6
-		subq	$32, %rsp
-		movl	%edi, -20(%rbp)
-		movq	%rsi, -32(%rbp)
-		call	_Z8runTestsv@PLT
-		movl	%eax, -4(%rbp)
-		movl	-4(%rbp), %eax
-		movl	%eax, %esi
-		leaq	.LC0(%rip), %rdi
-		movl	$0, %eax
-		call	printf@PLT
-		movl	$0, %eax
-		leave
-		.cfi_def_cfa 7, 8
-		ret
-		.cfi_endproc
-	.LFE0:
-		.size	main, .-main
-		.ident	"GCC: (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3"
-		.section	.note.GNU-stack,"",@progbits
+.. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/diff-pic-vs-nopic.diff
+   :linenos:
 
-
-.. note:: See the difference on line 23 of both assembly outputs.
-
-Shared vs. Static LIbraries
+Shared vs. Static Libraries
 ---------------------------
 
 Shared - advantages
