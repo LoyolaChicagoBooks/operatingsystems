@@ -82,6 +82,60 @@ Examining process memory layout
 
 -  run c\_intro/layout:
 
+Running the Example
+---------------------
+
+-  Most of our examples are written in C with some C++.
+
+-  To run the examples, you need to generate a `Makefile` using `cmake`. We use `cmake` to improve portability between Unix systems.
+
+-  Make sure you are in the `systems-code-examples` folder.
+
+-  Generate the `Makefile` using `cmake`::
+
+     $ cd c_intro
+     $ cmake .
+     -- The C compiler identification is GNU 9.3.0
+     -- The CXX compiler identification is GNU 9.3.0
+     -- Check for working C compiler: /usr/bin/cc
+     -- Check for working C compiler: /usr/bin/cc -- works
+     -- Detecting C compiler ABI info
+     -- Detecting C compiler ABI info - done
+     -- Detecting C compile features
+     -- Detecting C compile features - done
+     -- Check for working CXX compiler: /usr/bin/c++
+     -- Check for working CXX compiler: /usr/bin/c++ -- works
+     -- Detecting CXX compiler ABI info
+     -- Detecting CXX compiler ABI info - done
+     -- Detecting CXX compile features
+     -- Detecting CXX compile features - done
+     >> Linux
+     -- Configuring done
+     -- Generating done
+     -- Build files have been written to: /home/gkt/Work/systems-code-examples/c_intro
+
+
+-  Run `make` to crate the executable::
+
+     $ make
+     Scanning dependencies of target c-intro-demo
+     [ 20%] Building CXX object CMakeFiles/c-intro-demo.dir/main.cc.o
+     [ 40%] Building CXX object CMakeFiles/c-intro-demo.dir/debug.cc.o
+     [ 60%] Building CXX object CMakeFiles/c-intro-demo.dir/list.cc.o
+     [ 80%] Building CXX object CMakeFiles/c-intro-demo.dir/tests.cc.o
+     [100%] Linking CXX executable bin/c-intro-demo
+     [100%] Built target c-intro-demo
+
+-  Not that for all of our examples, the output executable appears in the `bin` subdirectory.
+     
+-  Run the `layout` shell script::
+
+     ./layout
+     section               size   addr
+     .text                 3957    4352
+     .data                   24   20480
+     .bss                     8   20504
+     
 Loading Programs
 ----------------
 
