@@ -12,6 +12,7 @@ the Computer Science Department.
 .. toctree::
    :maxdepth: 2
 
+   meta
    introduction
    processes
    scheduling
