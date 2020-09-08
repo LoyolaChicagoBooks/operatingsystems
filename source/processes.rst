@@ -1,5 +1,5 @@
-Processes 1/2
-=============
+Introduction to Processes
+===========================
 
 -  An executing program or job
 
@@ -72,24 +72,27 @@ Multithreaded Memory Layout
 
        Memory Layout for Multithreaded Programs
 
-Examining process memory layout
--------------------------------
+Preliminaries
+-----------------
 
--  Command to try in Linux:
+-  Code for examples in these notes can be found at https://github.com/gkthiruvathukal/systems-code-examples.
 
--  using code at
-   https://github.com/LoyolaChicagoCode/systems-code-examples
+-  You can use ``git clone https://github.com/gkthiruvathukal/systems-code-examples`` to clone to a folder ``systems-code-examples``.
 
--  run c\_intro/layout:
+-  All subsequent examples that are full-working demonstrations will be referenced as ``systems-code-examples/<example-name>``.
 
-Running the Example
----------------------
+-  To run examples, make sure you have `gcc`, `cmake`, and `make` on your computer.
+
+-  We only have tested on Ubuntu Linux, MacOS, and Windows Subsystem for Linux 2 (with Ubuntu 20.04 LTS). Most others should work.
+
+
+
+Examine Process Layout Example
+---------------------------------
 
 -  Most of our examples are written in C with some C++.
 
--  To run the examples, you need to generate a `Makefile` using `cmake`. We use `cmake` to improve portability between Unix systems.
-
--  Make sure you are in the `systems-code-examples` folder.
+-  `cd systems-code-examples/c_intro`
 
 -  Generate the `Makefile` using `cmake`::
 
@@ -126,11 +129,14 @@ Running the Example
      [100%] Linking CXX executable bin/c-intro-demo
      [100%] Built target c-intro-demo
 
--  Not that for all of our examples, the output executable appears in the `bin` subdirectory.
-     
--  Run the `layout` shell script::
+-  Note that for all of our examples, the output executable appears in the `bin` subdirectory.
 
-     ./layout
+-  Note also that almost all of our examples use `cmake` and `make` as shown here.
+     
+-  Run the `layout` shell script, which shows the size of the text, data, and bss in *bytes*::
+
+     $ ./layout
+
      section               size   addr
      .text                 3957    4352
      .data                   24   20480
@@ -148,16 +154,17 @@ Loading Programs
 
 -  loader goes through executable and adjusts the list of external
    symbols to point to the correct spots in memory (to shared libraries)
-   - try the 'nm' command
 
--  once program is ready, loader invokes \_start() method
+-  try the ``nm`` command to see the symbols in a compiled object/executable.
 
--  \_start() calls \_init() for each shared library
+-  once program is ready, loader invokes ``_start()`` method
 
--  \_start() initializes static constructors of objects defined as
+-  ``_start()`` calls ``_init()`` for each shared library
+
+-  ``_start()`` initializes static constructors of objects defined as
    global variables
 
--  \_start() calls main() and program begins
+-  ``_start()`` calls main() and program begins
 
 Loading shared libraries (.so)
 ------------------------------
@@ -165,9 +172,8 @@ Loading shared libraries (.so)
 -  Libraries also have a data, bss, and text segment
 
 -  Memory references in shared libraries are position independent (GCC
-   -fpic/-fPIC flags)
-
--  -fpic option (see next slide for details)
+   ``-fpic`` or ``-fPIC`` flagsA. Newer GCC makes PIC defualt. Use ``-fno-pic``
+   if you notice this.
 
 -  Linker must resolve all of these position independent memory accesses
    to local accesses. This is accomplished by writing the GOT for each
@@ -181,8 +187,8 @@ Loading shared libraries (.so)
    processes without reloading. So, the same library may have different
    offsets for different programs
 
-more about -fpic option
------------------------
+more about GCC pic option
+---------------------------
 
 Based on the *man page* for ``gcc``
 
@@ -202,7 +208,7 @@ Loading shared libraries (.so)
 
 -  Static libraries do not contain position independent code
 
--  Static libraries are simply a collection of unlinked .o (object)
+-  Static libraries are simply a collection of unlinked ``.o`` (object)
    files
 
 -  The dynamic linker simply loads the text, data, and bss sections of
@@ -211,9 +217,9 @@ Loading shared libraries (.so)
 Position Independent Code Example
 ------------------------------------------
 
--  The source can be found in `systems-code-examples/pic`.
+-  The source can be found in ``systems-code-examples/pic``.
 
--  For this example, you can build it using `make -f Makefile.pic`. 
+-  For this example, you can build it using ``make -f Makefile.pic``. 
 
 -  The main purpose of this example is to show the difference between generating PIC vs. non-PIC. 
 
@@ -246,16 +252,16 @@ What's the difference?
 .. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/diff-pic-vs-nopic.diff
    :linenos:
 
-Shared vs. Static Libraries
----------------------------
+Shared Libraries - Evaluation
+---------------------------------
 
-Shared - advantages
+Strengths
 
 -  Reduced memory footprint. If two programs load the same shared
    library, the .text segment is reused across processes thanks to the
    GOT
 
-Shared - disadvantages:
+Weaknesses
 
 -  Requires a more advanced virtual memory implementation in the
    operating system. Sometimes not practical for simple or embedded
@@ -265,7 +271,10 @@ Shared - disadvantages:
    have special features regarding memory offset registers or function
    table size limitations.
 
-Static - advantages:
+Static Libraries - Evaluation
+--------------------------------
+
+Strengths
 
 -  Makes sense when re-use is not desired. A good example would be
    installer executables with very large .data segments.
@@ -274,10 +283,16 @@ Static - advantages:
 
 -  Fewer instructions generated for GOT lookups (minor issue)
 
+Weaknesses
+
+-  Much larger memory footprint. Little reuse of common code between
+   applications.
+
+
 Libraries vs. Statically-Linked Programs
 ----------------------------------------
 
-Dynamic linking - advantages:
+Dynamic Linking advantages:
 
 -  Memory footprint
 
@@ -287,7 +302,7 @@ Dynamic linking - advantages:
 
 -  Smaller executables
 
-Static linking - advantages:
+Static linking advantages:
 
 -  When deploying software, dependencies are less of a concern (e.g.
    missing dependencies, incorrectly upgraded dependencies, custom
@@ -310,7 +325,7 @@ separation the following protections are afforded:
 
 -  A process can fully manage the memory that it can access - garbage
    collection, explicit allocation/deallocation, method call and
-   parameter passing standards, stack management, etc...
+   parameter passing standards, stack management, etc.
 
 -  A crash, exception, resource starvation, deadlock, or other fault in
    one process does not directly affect other processes
@@ -322,10 +337,11 @@ separation the following protections are afforded:
 Process Creation with fork()
 ----------------------------
 
-"man fork": creates a new process by duplicating the calling process.
-The new process, referred to as the child, is an exact duplicate of the
-calling process, referred to as the parent, except for the following
-points:
+From the ``fork()`` man page:
+
+-  ``fork()`` creates a new process by duplicating the calling process. 
+   The new process, referred to as the child, is an exact duplicate of the calling process,
+   referred to as the parent, except for the following points:
 
 -  the child has its own unique process id (PID)
 
@@ -333,21 +349,27 @@ points:
 
 -  the parent's threads are not recreated on the child
 
-interesting point: in Linux, fork() != fork(); fork() calls clone() From
-the man page:
+interesting point: in Linux, ``fork() != fork()``; ``fork()`` calls ``clone()``
 
--  fork() returns the child PID to the parent
+From the man page:
 
--  fork() returns 0 to the child
+-  ``fork()`` returns the child PID to the parent
 
--  fork() returns -1 if the child cannot be created
+-  ``fork()`` returns 0 to the child
+
+-  ``fork()`` returns -1 if the child cannot be created
 
 fork() example
 --------------
 
-Source:
+See ``systems-code-examples/fork`` if you want to run this program.
 
-https://github.com/LoyolaChicagoCode/systems-code-examples/blob/master/fork/main.cc
+::
+   
+   $ cd systems-code-examples/fork
+   $ cmake
+   $ make
+
 
 .. literalinclude:: ../examples/systems-code-examples/fork/main.c
    :language: c
@@ -356,64 +378,64 @@ https://github.com/LoyolaChicagoCode/systems-code-examples/blob/master/fork/main
 Process Creation with clone()
 -----------------------------
 
--  similar to fork() in that a child process is created.
+-  similar to ``fork()`` in that a child process is created.
 
--  clone() allows different parts of the parent process to be shared
+-  ``clone()`` allows different parts of the parent process to be shared
    with the child process
 
 -  flags for creating a light weight process (kernel thread):
 
-   -  CLONE\_FS - share FS information (chroot, chdir, umask)
+   -  ``CLONE_FS`` - share FS information (chroot, chdir, umask)
 
-   -  CLONE\_FILES - share file descriptor table
+   -  ``CLONE_FILES`` - share file descriptor table
 
-   -  CLONE\_SIGHAND - share signal handlers
+   -  ``CLONE_SIGHAND`` - share signal handlers
 
-   -  CLONE\_VM - share page table
+   -  ``CLONE_VM`` - share page table
 
 -  many more flags exist - don't forget this little known capability!
 
--  glibc's version of fork, calls clone without any of these flags
+-  glibc's version of ``fork()``, calls ``clone()`` without any of these flags
 
--  clone() not present in every UNIX OS (available in Linux but not
+-  ``clone()`` not present in every UNIX OS (available in Linux but not
    Minix)
 
 Windows CreateProcess() and CreateThread()
 ------------------------------------------
 
--  Different from UNIX fork()/clone() - parts of processes are not
+-  Different from UNIX ``fork()``/``clone()`` - parts of processes are not
    shared
 
 -  Windows has two flavors:
 
-   -  CreateProcess() - creates a new process, equivalent of calling
-      fork() then execve() in UNIX
+   -  ``CreateProcess()`` - creates a new process, equivalent of calling
+      ``fork()`` then ``execve()`` in UNIX
 
-   -  CreateThread() - equivalent of creating clone() with thread flags
+   -  ``CreateThread()`` - equivalent of creating ``clone()`` with thread flags
 
 -  Is this a disadvantage?
 
    -  For most use cases and most programs, no.
 
-   -  The vast majority of calls to clone() in UNIX are equivalent to
-      CreateThread()
+   -  The vast majority of calls to ``clone()`` in UNIX are equivalent to
+      ``CreateThread()``
 
-   -  The vast majority of calls to fork() in UNIX are equivalent to
-      CreateProcess()
+   -  The vast majority of calls to ``fork()`` in UNIX are equivalent to
+      ``CreateProcess()``
 
 Emulating fork() on Windows
 ---------------------------
 
-A well known system, Cygwin, implements fork() on Windows as follows:
+A well known system, Cygwin, implements ``fork()`` on Windows as follows:
 
-1. cygwin.dll calls CreateProcess() to create a suspended child process
+1. cygwin.dll calls ``CreateProcess()`` to create a suspended child process
 
-2. parent process calls setjmp to save registers
+2. parent process calls ``setjmp()`` to save registers
 
 3. parent process copies its BSS and DATA sections to the child's
    address space.
 
-4. parent wakes child up and waits on a named mutex
+4. parent wakes child up and waits on a named mutex (mutual exclusion mechanism).
 
 5. child wakes up, realizes it was a forked process, then longjumps to
    the saved jump buffer. child unlock's
@@ -426,16 +448,16 @@ A well known system, Cygwin, implements fork() on Windows as follows:
 8. Child wakes up and copies any memory mapped regions the parent
    signals to the child through shared memory
 
-9. fork() system call in Cygwin does not use copy on write, but "copy on
-   fork". this is similar to fork() implementations in early UNIX
+9. ``fork()`` system call in Cygwin does not use copy on write, but "copy on
+   fork". this is similar to ``fork()`` implementations in early UNIX
    operating systems
 
 Causes of process termination
 -----------------------------
 
--  Normal exit–return from main(...)
+-  Normal exit–return from ``main(...)``
 
--  Error exit–return from main(...) with an error code
+-  Error exit–return from ``main(...)`` with an error code
 
 -  Fatal error
 
@@ -455,6 +477,8 @@ Causes of process termination
 wait() and waitpid() examples
 -----------------------------
 
+See ``systems-code-examples/wait`` if you want to run this program.
+
 .. literalinclude:: ../examples/systems-code-examples/wait/main.c
    :language: c
    :linenos:
@@ -468,13 +492,13 @@ Common attributes of all (UNIX) files
 
 -  All files:
 
-   -  Live in the filesystem namespace (under '/')
+   -  Live in the filesystem namespace (under root, or ``/``). No drive letters!
 
    -  Have a name
 
    -  Implement read, write, open, close, and select system calls.
 
--  All can be contained in either normal or 'special' folders
+-  All can be contained in either normal or *special* folders
 
 -  All have a concept of a:
 
@@ -663,17 +687,8 @@ Filesystem System Calls
    DOS part of this acronym seems to greatly apply to all operating
    systems.
 
-A Nearly (In)complete LIst
---------------------------
-
-open() creat() close() lseek() read() write() dup() dup2() fcntl()
-ioctl() stat() fstat() lstat() chmod() chown() truncate() link()
-unlink() remove() rename() symlink() readlink() utime() mkdir() rmdir()
-opendir() readdir() rewinddir() closedir() chdir() getcwd() sync()
-umask() access()
-
-Filesystem Calls
-----------------
+Filesystem System Calls
+-------------------------
 
 .. list-table:: Filesystem Calls
    :widths: 10 20
@@ -724,8 +739,8 @@ Filesystem Calls
    * - ``chmod()``
      - updates rwx bits
 
-Filesystem System Calls
------------------------
+More Filesystem System Calls
+------------------------------
 
 .. list-table:: Filesystem Calls
    :widths: 10 20
@@ -834,7 +849,9 @@ Opening Files with open()
 Closing files with close()
 --------------------------
 
-int close(int fd)
+.. code-block:: c
+
+   int close(int fd)
 
 -  *fd* argument is a file descriptor returned by a call to: open, dup,
    pipe, etc...
@@ -867,8 +884,7 @@ Writing to a File
 Typical Write Algorithm
 -----------------------
 
-
-::
+.. code-block:: c
 
     const char *data = "foobar";
     int fd = open("file", O_CREAT | O_TRUNC | O_RDWR, 0666);
@@ -901,7 +917,7 @@ Reading from a File
 Typical Read Algorithm
 ----------------------
 
-::
+.. code-block:: c
 
     int fd = open("file", O_RDONLY, 0666);
     char buffer[5];
@@ -919,16 +935,16 @@ Seeking within a File
 
 -  The use of seek calls have performance implications (more later...)
 
--  off\_t lseek(int fd, off\_t offset, int whence)
+-  ``off_t lseek(int fd, off_t offset, int whence)``
 
    -  fd is a file descriptor
 
    -  offset is the number of bytes relative to whence
 
-   -  whence is one of SEEK\_SET (beginning of file), SEEK\_CUR (current
-      position of the file descriptor), or SEEK\_END (end of the file)
+   -  whence is one of ``SEEK_SET`` (beginning of file), ``SEEK_CUR`` (current
+      position of the file descriptor), or ``SEEK_END`` (end of the file)
 
-   -  The off\_t type is typically a 64-bit signed integerIt is possible
+   -  The ``off_t`` type is typically a 64-bit signed integer. It is possible
       to seek both within and outside of a file.
 
 -  Seeking outside of a file will cause the value of 0 to be written
@@ -959,7 +975,9 @@ program (more later...)
 Duplicating File Descriptors
 ----------------------------
 
-int dup(int fd) : duplicate a file descriptor
+.. code-block:: c
+
+   int dup(int fd) : duplicate a file descriptor
 
 -  accepts a file descriptor and returns a copy of it with a new id
 
@@ -975,25 +993,27 @@ int dup(int fd) : duplicate a file descriptor
 Redirecting File Descriptors
 ----------------------------
 
-int dup2(int oldfd, int newfd) : redirect a file descriptor
+.. code-block:: c
 
--  makes newfd be a copy of oldfd
+   int dup2(int oldfd, int newfd) : redirect a file descriptor
 
--  if newfd is open, it is automatically closed
+-  makes ``newfd`` be a copy of ``oldfd``
 
--  This call differs from dup() in that both of the file descriptors in
+-  if ``newfd`` is open, it is automatically closed
+
+-  This call differs from ``dup()`` in that both of the file descriptors in
    this case share the same file offset.
 
--  So, calling lseek() on one will cause the offset of the other to
+-  So, calling ``lseek()`` on one will cause the offset of the other to
    change.
 
--  dup and dup2 are used to redirect stdin, stdout, and stderr on the
+-  ``dup()`` and ``dup2()`` are used to redirect **stdin**, **stdout**, and **stderr** on the
    command line (sometimes to combine them)
 
 Redirecting File Descriptors code example
 -----------------------------------------
 
-::
+.. code-block:: c
 
     int main(int argc, char* argv[]) {
         int pipes[2];
@@ -1016,7 +1036,7 @@ Redirecting File Descriptors code example
 Reading Folders
 ---------------
 
-::
+.. code-block:: c
 
     int main(int argc, char* argv[]) {
         const char *dir = "/";
@@ -1071,6 +1091,14 @@ Simple I/O Performance Experiment
     dd if=/dev/zero of=tmp.dat bs=100000 count=10 - 834 MB/s
     dd if=/dev/zero of=tmp.dat bs=1000000 count=1 - 461 MB/s
 
+In general:
+
+-   Increasing block size improves performance.
+
+-   This is a single run of ``dd`` for each block size. Multiple runs would likely result in higher average throughput.
+
+-   System load at any given time can impact the observed performance numbers.
+
 Reading/Writing Performance
 ---------------------------
 
@@ -1097,7 +1125,7 @@ Reading/Writing Performance
 Performance Example
 -------------------
 
-::
+.. code-block:: c
 
     char *file_data1 = "1234567890";
     char *file_data2 = "abcdefghijk";
@@ -1129,20 +1157,5 @@ Performance Example
             close(fd);
             return 0;
     }
-
-Vectored I/O in Windows
------------------------
-
--  Windows has a similar facility to readv and writev: ReadFileScatter
-   and WriteFileScatter are analogous.
-
--  Windows also has additional asynchronous I/O capabilities for these
-   and related functions.
-
--  This allows programs to be notified when individual buffers have
-   completed reading or writing.
-
--  This capability was an important part of the performance improvements
-   in recent editions of SQL Server.
 
 
