@@ -15,6 +15,7 @@ the Computer Science Department.
    meta
    introduction
    processes
+   files-io
    scheduling
    mutualexclusion
    deadlock
