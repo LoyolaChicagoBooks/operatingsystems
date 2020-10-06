@@ -295,4 +295,17 @@ epub_copyright = u'2013-2020, ' + authors
 #epub_tocdepth = 3
 
 # Allow duplicate toc entries.
-#epub_tocdup = True
+
+rst_epilog = """
+
+.. |systems-code-examples-repo| replace:: `systems-code-examples on GitHub <https://github.com/gkthiruvathukal/systems-code-examples>`__
+
+.. |systems-code-examples-url| replace:: https://github.com/gkthiruvathukal/systems-code-examples
+
+.. |systems-code-examples-clone| replace:: ``git clone https://github.com/gkthiruvathukal/systems-code-examples``
+
+
+"""
+
+
+epub_tocdup = True

@@ -75,9 +75,9 @@ Multithreaded Memory Layout
 Preliminaries
 -----------------
 
--  Code for examples in these notes can be found at https://github.com/gkthiruvathukal/systems-code-examples.
+-  Code for examples in maintained at |systems-code-examples-url| 
 
--  You can use ``git clone https://github.com/gkthiruvathukal/systems-code-examples`` to clone to a folder ``systems-code-examples``.
+-  You can use |systems-code-examples-clone| to clone to a folder ``systems-code-examples``.
 
 -  All subsequent examples that are full-working demonstrations will be referenced as ``systems-code-examples/<example-name>``.
 
@@ -92,7 +92,10 @@ Examine Process Layout Example
 
 -  Most of our examples are written in C with some C++.
 
--  `cd systems-code-examples/c_intro`
+-  Getting the code
+
+   |systems-code-examples-clone|
+   ``cd systems-code-examples/c_intro``
 
 -  Generate the `Makefile` using `cmake`::
 
@@ -217,7 +220,11 @@ Loading shared libraries (.so)
 Position Independent Code Example
 ------------------------------------------
 
--  The source can be found in ``systems-code-examples/pic``.
+- Get the code
+
+  |systems-code-examples-clone|
+
+  ``cd systems-code-examples/pic``
 
 -  For this example, you can build it using ``make -f Makefile.pic``. 
 
