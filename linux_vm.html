@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing a Linux Virtual Machine with VMware &mdash; Operating Systems v0.9.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installing a Windows Virtual Machine with VMware" href="windows_vm.html" />
+    <link rel="prev" title="Storage Research at Loyola" href="research.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing a Linux Virtual Machine with VMware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vmware-fusion-vs-player-vs-workstation">VMware Fusion vs Player vs Workstation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-create-a-vm">Step 1: Create a VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-create-the-vm-with-an-installer-disk">Step 2: Create the VM with an installer disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-locate-the-iso-file">Step 3: Locate the ISO file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-fill-out-easy-install-details">Step 4: Fill out Easy-Install details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-customize-settings">Step 5: Customize settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-6-processors-and-memory">Step 6: Processors and memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-7-start-the-vm">Step 7: Start the VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-8-wait-for-easy-install-to-complete">Step 8: Wait for Easy-Install to complete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-9-log-into-the-new-vm-and-launch-a-terminal">Step 9: Log into the new VM and Launch a terminal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-10-install-course-software">Step 10: Install course software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-11-install-security-updates">Step 11: Install security updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-12-reboot">Step 12: Reboot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Operating Systems</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installing a Linux Virtual Machine with VMware</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/linux_vm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-a-linux-virtual-machine-with-vmware">
+<h1>Installing a Linux Virtual Machine with VMware<a class="headerlink" href="#installing-a-linux-virtual-machine-with-vmware" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="vmware-fusion-vs-player-vs-workstation">
+<h2>VMware Fusion vs Player vs Workstation<a class="headerlink" href="#vmware-fusion-vs-player-vs-workstation" title="Permalink to this headline">¶</a></h2>
+<p>The instructions given here are with VMware Fusion on OSX. The steps are nearly identical for the other two VMware products.</p>
+</div>
+<div class="section" id="step-1-create-a-vm">
+<h2>Step 1: Create a VM<a class="headerlink" href="#step-1-create-a-vm" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/1_create_vm.jpg"><img alt="_images/1_create_vm.jpg" src="_images/1_create_vm.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-2-create-the-vm-with-an-installer-disk">
+<h2>Step 2: Create the VM with an installer disk<a class="headerlink" href="#step-2-create-the-vm-with-an-installer-disk" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/2_create_w_disk.jpg"><img alt="_images/2_create_w_disk.jpg" src="_images/2_create_w_disk.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-3-locate-the-iso-file">
+<h2>Step 3: Locate the ISO file<a class="headerlink" href="#step-3-locate-the-iso-file" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/3_pick_iso.jpg"><img alt="_images/3_pick_iso.jpg" src="_images/3_pick_iso.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-4-fill-out-easy-install-details">
+<h2>Step 4: Fill out Easy-Install details<a class="headerlink" href="#step-4-fill-out-easy-install-details" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/4_easy_install.jpg"><img alt="_images/4_easy_install.jpg" src="_images/4_easy_install.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-5-customize-settings">
+<h2>Step 5: Customize settings<a class="headerlink" href="#step-5-customize-settings" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/5_customize.jpg"><img alt="_images/5_customize.jpg" src="_images/5_customize.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-6-processors-and-memory">
+<h2>Step 6: Processors and memory<a class="headerlink" href="#step-6-processors-and-memory" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/6_processors_and_memory.jpg"><img alt="_images/6_processors_and_memory.jpg" src="_images/6_processors_and_memory.jpg" style="width: 650px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/7_processors_and_memory.jpg"><img alt="_images/7_processors_and_memory.jpg" src="_images/7_processors_and_memory.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-7-start-the-vm">
+<h2>Step 7: Start the VM<a class="headerlink" href="#step-7-start-the-vm" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/8_start_vm.jpg"><img alt="_images/8_start_vm.jpg" src="_images/8_start_vm.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-8-wait-for-easy-install-to-complete">
+<h2>Step 8: Wait for Easy-Install to complete<a class="headerlink" href="#step-8-wait-for-easy-install-to-complete" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/9_easy_install.jpg"><img alt="_images/9_easy_install.jpg" src="_images/9_easy_install.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-9-log-into-the-new-vm-and-launch-a-terminal">
+<h2>Step 9: Log into the new VM and Launch a terminal<a class="headerlink" href="#step-9-log-into-the-new-vm-and-launch-a-terminal" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/10_install_done.jpg"><img alt="_images/10_install_done.jpg" src="_images/10_install_done.jpg" style="width: 650px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/11_launch_terminal.jpg"><img alt="_images/11_launch_terminal.jpg" src="_images/11_launch_terminal.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-10-install-course-software">
+<h2>Step 10: Install course software<a class="headerlink" href="#step-10-install-course-software" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These screen shots were prepared awhile ago. Please use <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">build-essential</span></code>. This is a metapackage that gives you everything needed for our class. You may also want to include <code class="docutils literal notranslate"><span class="pre">cmake</span></code>, which will be used in some of my  examples.</p>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/12_install_software.jpg"><img alt="_images/12_install_software.jpg" src="_images/12_install_software.jpg" style="width: 650px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/13_install_software.jpg"><img alt="_images/13_install_software.jpg" src="_images/13_install_software.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-11-install-security-updates">
+<h2>Step 11: Install security updates<a class="headerlink" href="#step-11-install-security-updates" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/14_security_updates.jpg"><img alt="_images/14_security_updates.jpg" src="_images/14_security_updates.jpg" style="width: 650px;" /></a>
+</div>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/15_security_updates.jpg"><img alt="_images/15_security_updates.jpg" src="_images/15_security_updates.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+<div class="section" id="step-12-reboot">
+<h2>Step 12: Reboot<a class="headerlink" href="#step-12-reboot" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/16_reboot.jpg"><img alt="_images/16_reboot.jpg" src="_images/16_reboot.jpg" style="width: 650px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="windows_vm.html" class="btn btn-neutral float-right" title="Installing a Windows Virtual Machine with VMware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="research.html" class="btn btn-neutral float-left" title="Storage Research at Loyola" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

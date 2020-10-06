@@ -1,0 +1,1267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; Operating Systems v0.9.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to Processes" href="processes.html" />
+    <link rel="prev" title="About the Book" href="meta.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#crash-course-on-the-unix-shell">Crash Course on the UNIX Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bin-bash">/bin/bash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-useful-commands">more useful commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#files-and-folders">Files and Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unix-file-permissions">UNIX file permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">UNIX file permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combining-commands">Combining commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backround-processes-and-jobs">Backround Processes and Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#background-processes">Background Processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-course-on-unix-editors">Crash Course on UNIX Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#choosing-an-editor">Choosing an Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-course-in-c-programming">Crash Course in C Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-hello-world">C - Hello World</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-header-files">C - header files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-operator-precedence-highest-to-lowest">C - operator precedence (highest to lowest)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-type-declaration">C - type declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-type-casting">C - type casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-chacater-strings-arrays">C - chacater strings (arrays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-memory-management">C - memory management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-pointers">C - pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">C - pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">C - pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-functions">C - functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-functions-headers">C - functions / headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-macros">C - macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-course-on-gcc">Crash course on GCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#where-to-find-it">Where to find it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-on-ubuntu">Installing on Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#os-x">OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compiling-c-with-gcc">Compiling C with GCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-assembly-code-with-gcc">Accessing assembly code with GCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#useful-options-in-gcc-designed-to-help-you">Useful options in GCC (designed to <em>help</em> you)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#crash-course-on-gnu-makefiles">Crash Course on GNU Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-makefile-example">Simple makefile example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-makefiles">Running makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#history-of-operating-systems">History of Operating Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#first-generation-operating-systems">First Generation Operating Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#second-generation-systems">Second Generation Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#third-generation-systems">Third Generation Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fourth-generation-systems">Fourth Generation Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#history-of-windows-nt-xp-vista-7">History of Windows NT/XP/Vista/7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#history-of-linux">History of Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-computer-systems">Types of computer systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-processing-systems">batch processing systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-sharing-systems">time sharing systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#personal-parallel-computers">personal / parallel computers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clusters-clouds-grids">clusters / clouds / grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-operating-systems">Types of operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#single-program-simple-os">Single program / simple OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#real-time-os">Real-time OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#microkernel-os">Microkernel OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monolithic-kernel-os">Monolithic Kernel OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#distributed-os">Distributed OS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Operating Systems</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="crash-course-on-the-unix-shell">
+<h2>Crash Course on the UNIX Shell<a class="headerlink" href="#crash-course-on-the-unix-shell" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="bin-bash">
+<h2>/bin/bash<a class="headerlink" href="#bin-bash" title="Permalink to this headline">¶</a></h2>
+<p>print the contents of a file to standard out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat file
+</pre></div>
+</div>
+<p>print the contents of more than one file (use ‘{‘ and ‘}’ to create lists, a form known as bracket expansion):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat file1 file2 file3
+$ cat {file1,file2,file3}
+</pre></div>
+</div>
+<p>creating folders (-p creates parent folders if they don’t already exist):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir foobar
+$ mkdir -p foo/bar/baz
+</pre></div>
+</div>
+<p>creating files (or update time stamp of existing files):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ touch file1
+$ touch file1 file2 file3
+$ touch {file1,file2,file3}
+</pre></div>
+</div>
+<p>You can also create an empty file as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">filename</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Be careful. Many operations can be <em>destructive</em> if you are not careful.</p>
+</div>
+<div class="section" id="more-useful-commands">
+<h2>more useful commands<a class="headerlink" href="#more-useful-commands" title="Permalink to this headline">¶</a></h2>
+<p>print text to the console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &quot;hello world&quot;
+$ echo -e &quot;hello\t\t world\n&quot;
+</pre></div>
+</div>
+<p>read the contents of a file, one screen at a time:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ less file1.txt
+</pre></div>
+</div>
+<p>search a file for some text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep &quot;hello world&quot; file1.txt
+$ grep -e &quot;hello.* d&quot; file1.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="files-and-folders">
+<h2>Files and Folders<a class="headerlink" href="#files-and-folders" title="Permalink to this headline">¶</a></h2>
+<p>creating files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">file1</span>
+</pre></div>
+</div>
+<p>deleting files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rm file1
+$ rm file2
+</pre></div>
+</div>
+<p>creating folders:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir foo
+</pre></div>
+</div>
+<p>deleting folders:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rm -rf foo
+</pre></div>
+</div>
+<p>Moving a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mv file1 folder/file1
+</pre></div>
+</div>
+<p>Renaming a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mv file1 file2
+</pre></div>
+</div>
+</div>
+<div class="section" id="unix-file-permissions">
+<h2>UNIX file permissions<a class="headerlink" href="#unix-file-permissions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>UNIX files have a concept of access permissions and ownership</li>
+<li>ownership is to a user and a user’s group</li>
+<li>access permissions are read, write, and execute as applied to the
+owning user, the group, and all others</li>
+<li>if a folder is marked as executable, its contents can be listed and
+it can be entered into. if it is not, files in it can be accessed
+but not listed.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>UNIX file permissions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>changing the user / group ownership of a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chown username:users file1
+</pre></div>
+</div>
+<p>changing the user/group ownership of an entire folder and its children:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chown -R username:users folder1
+</pre></div>
+</div>
+<p>setting the owning user’s permission to be read,write, and execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod u+rwx file1
+</pre></div>
+</div>
+<p>setting the group’s permissions to be read, and execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod g+rx file1
+</pre></div>
+</div>
+<p>removing permissions from “group” and “other” to write to the file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chmod go-w file1
+</pre></div>
+</div>
+</div>
+<div class="section" id="combining-commands">
+<h2>Combining commands<a class="headerlink" href="#combining-commands" title="Permalink to this headline">¶</a></h2>
+<p>searching two files for a pattern, then writing the results to a report:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat {file1, file2} | grep -e &quot;Hello.*&quot; » report.txt
+</pre></div>
+</div>
+<p>counting the number of lines in two files and printing result to console:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat {file1, file2} | wc -l
+</pre></div>
+</div>
+<p>executing the second command only if the first succeeds:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat file1 | grep -e &quot;Hello.*&quot; &amp;&amp; echo &quot;found a match!&quot;
+</pre></div>
+</div>
+<p>taking the output of one command as an argument for another:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep &quot;Hello&quot; `ls *.txt`
+$ echo &quot;result: &quot; `cat file1 | wc -l`
+</pre></div>
+</div>
+</div>
+<div class="section" id="backround-processes-and-jobs">
+<h2>Backround Processes and Jobs<a class="headerlink" href="#backround-processes-and-jobs" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>if you’re running a long running process and want to send suspended
+it to the background, just press <cite>Ctrl+z</cite></li>
+<li>to unsuspend it and keep it in the background, use the ‘bg’ command</li>
+<li>to bring the process back to the foreground, use the ‘fg’ command</li>
+<li>to bring the process back, just</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tail -f logfile.log
+$ ^Z
+[1] + Stopped tail -f logfile.log
+$ jobs -l
+[1] + 5123 Stopped tail -f logfile.log
+$ bg 1
+[1] + tail -f logfile.log &amp;
+$ jobs -l
+[1]+ 5123 Running tail -f logfile.log
+$ fg 1
+tail -f logfile.log
+</pre></div>
+</div>
+</div>
+<div class="section" id="background-processes">
+<h2>Background Processes<a class="headerlink" href="#background-processes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Background processes will allow you to make the most of the machine
+you have available to you.</li>
+<li>If you have a long running process or task, or if you don’t want the
+task you’ve launched to take over the terminal, just append ‘&amp;’ to
+the command to launch it as a background task</li>
+<li>Beware: multiple processes will print to the same console which may
+become garbled.</li>
+</ul>
+</div>
+<div class="section" id="crash-course-on-unix-editors">
+<h2>Crash Course on UNIX Editors<a class="headerlink" href="#crash-course-on-unix-editors" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="choosing-an-editor">
+<h2>Choosing an Editor<a class="headerlink" href="#choosing-an-editor" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In Minix, your choices are limited. More ideal choices like
+MonoDevelop, gedit, Eclipse, or Intellij-Idea are not present.</li>
+<li>Your choices are basically: Emacs, vim, or nano.</li>
+<li>We recommend starting with nano. It takes the least time to learn.</li>
+<li>Emacs and vim have many more features that will increase your
+productivity if you learn them, but both have a learning curve. It
+is my opinion that vim has a steeper learning curve than Emacs, but
+each his/her own.</li>
+</ul>
+</div>
+<div class="section" id="crash-course-in-c-programming">
+<h2>Crash Course in C Programming<a class="headerlink" href="#crash-course-in-c-programming" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="c-hello-world">
+<h2>C - Hello World<a class="headerlink" href="#c-hello-world" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include «stdio.h»</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Hello world</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+   <span class="n">getchar</span><span class="p">();</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-header-files">
+<h2>C - header files<a class="headerlink" href="#c-header-files" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">List of Important Header Files</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Filename</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>assert.h</td>
+<td>runtime assertion macro library</td>
+</tr>
+<tr class="row-odd"><td>complex.h</td>
+<td>arithmetic library - trig functions, complex numbers</td>
+</tr>
+<tr class="row-even"><td>ctype.h</td>
+<td>character type library (isdigit, islower, isupper, etc…)</td>
+</tr>
+<tr class="row-odd"><td>errno.h</td>
+<td>error definition file for system error numbers</td>
+</tr>
+<tr class="row-even"><td>limits.h</td>
+<td>system limit constants defined, data type limits defined</td>
+</tr>
+<tr class="row-odd"><td>math.h</td>
+<td>arithmetic library</td>
+</tr>
+<tr class="row-even"><td>setjmp.h</td>
+<td>defines setjmp/longjmp - good for implementing exceptions, cooperative multi-tasking</td>
+</tr>
+<tr class="row-odd"><td>signal.h</td>
+<td>system singals - more when we talk about IPC</td>
+</tr>
+<tr class="row-even"><td>stdarg.h</td>
+<td>var_args helpers, important for printf(“, ….) like functions</td>
+</tr>
+<tr class="row-odd"><td>stddef.h</td>
+<td>defines NULL, wchar_t, size_t, ptrdiff_t</td>
+</tr>
+<tr class="row-even"><td>stdio.h</td>
+<td>defines printf, putchar, getchar, other file I/O methods</td>
+</tr>
+<tr class="row-odd"><td>stdlib.h</td>
+<td>defines heap management, environment variable management, random number generators, and integer to string converters</td>
+</tr>
+<tr class="row-even"><td>string.h</td>
+<td>string manipulation methods</td>
+</tr>
+<tr class="row-odd"><td>time.h</td>
+<td>time / date functions and types</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="c-operator-precedence-highest-to-lowest">
+<h2>C - operator precedence (highest to lowest)<a class="headerlink" href="#c-operator-precedence-highest-to-lowest" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">.</span></code>, <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">++</span></code> (postfix) , <code class="docutils literal notranslate"><span class="pre">--</span></code> (postfix)</li>
+<li><code class="docutils literal notranslate"><span class="pre">++</span></code> (prefix), <code class="docutils literal notranslate"><span class="pre">--</span></code> (prefix), <code class="docutils literal notranslate"><span class="pre">+</span></code> (unary), <code class="docutils literal notranslate"><span class="pre">-</span></code> (unary), <code class="docutils literal notranslate"><span class="pre">!</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, (type), <code class="docutils literal notranslate"><span class="pre">*</span></code> (dereference), <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (address-of), sizeof</li>
+<li><code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> (bitwise shift left/right)</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;=</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (bitwise and)</li>
+<li><code class="docutils literal notranslate"><span class="pre">^</span></code> (bitwise xor)</li>
+<li><code class="docutils literal notranslate"><span class="pre">|</span></code> (bitwise or)</li>
+<li><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> (logical and)</li>
+<li><code class="docutils literal notranslate"><span class="pre">||</span></code> (logical or)</li>
+<li><code class="docutils literal notranslate"><span class="pre">?</span></code> : (ternary operator)</li>
+<li><code class="docutils literal notranslate"><span class="pre">=</span></code>, <code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, <code class="docutils literal notranslate"><span class="pre">/=</span></code>, <code class="docutils literal notranslate"><span class="pre">%=</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;=</span></code>, <code class="docutils literal notranslate"><span class="pre">^=</span></code>, <code class="docutils literal notranslate"><span class="pre">|=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;=</span></code>, (assignment operators)</li>
+<li><code class="docutils literal notranslate"><span class="pre">,</span></code> (expression separator)</li>
+</ol>
+</div>
+<div class="section" id="c-type-declaration">
+<h2>C - type declaration<a class="headerlink" href="#c-type-declaration" title="Permalink to this headline">¶</a></h2>
+<p>simple types:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">uint</span><span class="p">;</span>
+<span class="n">typedef</span> <span class="n">unsigned</span> <span class="n">long</span> <span class="n">file_size</span><span class="p">;</span>
+<span class="n">typedef</span> <span class="nb">int</span><span class="o">*</span> <span class="n">intptr</span><span class="p">;</span>
+
+<span class="n">uint</span> <span class="n">myVal</span> <span class="o">=</span> <span class="mi">55</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>structured types:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="n">foo</span><span class="p">;</span>
+   <span class="n">char</span> <span class="n">bar</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">foobar</span><span class="p">;</span>
+
+<span class="n">foobar</span> <span class="n">x</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-type-casting">
+<h2>C - type casting<a class="headerlink" href="#c-type-casting" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">2.2</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">x</span><span class="p">;</span>         <span class="o">//</span> <span class="n">y</span> <span class="n">now</span> <span class="n">has</span> <span class="n">the</span> <span class="n">value</span> <span class="mf">2.</span> <span class="n">loss</span> <span class="n">of</span> <span class="n">precision</span>
+<span class="nb">int</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="mf">4.2</span><span class="p">;</span>      <span class="o">//</span> <span class="mf">2.5</span> <span class="ow">and</span> <span class="mf">4.2</span> <span class="n">are</span> <span class="n">floats</span><span class="p">,</span> <span class="n">they</span> <span class="n">multiply</span> <span class="k">as</span> <span class="nb">float</span>
+                        <span class="o">//</span> <span class="n">first</span><span class="p">,</span> <span class="n">you</span> <span class="n">get</span> <span class="mf">10.5</span><span class="p">,</span> <span class="n">then</span> <span class="n">cast</span> <span class="n">to</span> <span class="nb">int</span> <span class="ow">and</span> <span class="n">you</span> <span class="n">get</span> <span class="mi">10</span>
+<span class="nb">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="nb">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nb">float</span> <span class="n">o</span> <span class="o">=</span> <span class="n">m</span> <span class="o">/</span> <span class="n">n</span><span class="p">;</span>        <span class="o">//</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">,</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">3</span> <span class="ow">is</span> <span class="nb">int</span> <span class="nb">type</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">is</span> <span class="mf">1.</span>
+                        <span class="o">//</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">assinged</span> <span class="n">to</span> <span class="nb">float</span> <span class="ow">and</span> <span class="n">becomes</span> <span class="mf">1.0</span>
+<span class="nb">float</span> <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="n">m</span> <span class="o">/</span> <span class="n">n</span>  <span class="o">//</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">,</span> <span class="n">one</span> <span class="n">variable</span> <span class="ow">is</span> <span class="n">of</span> <span class="nb">type</span> <span class="nb">float</span><span class="p">,</span> <span class="n">so</span>
+                        <span class="o">//</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">p</span> <span class="ow">is</span> <span class="mf">1.333333</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-chacater-strings-arrays">
+<h2>C - chacater strings (arrays)<a class="headerlink" href="#c-chacater-strings-arrays" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Strings in C are implemented as <em>arrays</em> of type char.</li>
+<li>Strings are all null terminated.<ul>
+<li><code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">World&quot;</span></code> would be the following array:</li>
+<li><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">'H',</span> <span class="pre">'e',</span> <span class="pre">'l',</span> <span class="pre">'l',</span> <span class="pre">'o',</span> <span class="pre">'</span> <span class="pre">',</span> <span class="pre">'W',</span> <span class="pre">'o',</span> <span class="pre">'r',</span> <span class="pre">'l',</span> <span class="pre">'d',</span> <span class="pre">0</span> <span class="pre">}</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">strlen(&quot;Hello</span> <span class="pre">World&quot;)</span></code> returns 11, and uses 12 bytes of memory</li>
+<li>When allocating space for a string, always allocate one extra byte to store the null terminator.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="c-memory-management">
+<h2>C - memory management<a class="headerlink" href="#c-memory-management" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Most C implementations do not have garbage collectors. All memory
+management is done explicitly</li>
+<li>Calls involved are <code class="docutils literal notranslate"><span class="pre">malloc()</span></code>, <code class="docutils literal notranslate"><span class="pre">calloc()</span></code>, and <code class="docutils literal notranslate"><span class="pre">free()</span></code>.</li>
+<li>In this method, ‘msg’ is stored on the stack and ‘msg2’ is stored on
+the heap.</li>
+<li>stack variables are freed automatically, heap variables are not</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include «stdio.h»</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+   <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">;</span>
+   <span class="n">char</span> <span class="o">*</span><span class="n">msg2</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+   <span class="n">strncpy</span><span class="p">(</span><span class="n">msg2</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg2</span><span class="p">);</span>
+   <span class="n">free</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-pointers">
+<h2>C - pointers<a class="headerlink" href="#c-pointers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Two important keywords in C are ‘*’ and ‘&amp;’</li>
+<li><ul class="first">
+<li><ul class="first">
+<li>pointer dereference</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&amp; - value address</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">55</span><span class="p">;</span>            <span class="o">//</span> <span class="n">integer</span> <span class="n">variable</span> <span class="o">-</span> <span class="mi">55</span>
+<span class="nb">int</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>           <span class="o">//</span> <span class="n">integer</span> <span class="n">variable</span> <span class="o">-</span> <span class="mi">100</span>
+<span class="nb">int</span><span class="o">*</span> <span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>           <span class="o">//</span> <span class="n">b</span> <span class="n">now</span> <span class="n">holds</span> <span class="n">the</span> <span class="n">address</span> <span class="n">of</span> <span class="n">a</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">56</span><span class="p">;</span>                <span class="o">//</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">now</span> <span class="mi">56</span><span class="p">,</span> <span class="n">b</span> <span class="n">still</span> <span class="n">has</span> <span class="n">the</span> <span class="n">same</span> <span class="n">value</span> <span class="p">(</span><span class="n">address</span> <span class="n">of</span> <span class="n">a</span><span class="p">)</span>
+<span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="mi">70</span><span class="p">;</span>               <span class="o">//</span> <span class="o">*</span><span class="n">b</span> <span class="n">dereferences</span> <span class="n">the</span> <span class="n">pointer</span> <span class="n">of</span> <span class="n">b</span><span class="o">.</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span>
+                       <span class="o">//</span> <span class="n">sets</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="mi">70</span> <span class="n">to</span> <span class="n">the</span> <span class="n">address</span> <span class="n">b</span> <span class="n">points</span> <span class="n">to</span><span class="o">.</span>
+                       <span class="o">//</span> <span class="n">effectively</span><span class="p">,</span> <span class="n">this</span> <span class="n">sets</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">q</span><span class="p">;</span>                <span class="o">//</span> <span class="n">b</span> <span class="n">now</span> <span class="n">points</span> <span class="n">to</span> <span class="n">q</span><span class="o">.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">*</span><span class="n">b</span><span class="p">;</span>                <span class="o">//</span> <span class="o">*</span><span class="n">b</span> <span class="n">dereferences</span> <span class="n">pointer</span> <span class="n">of</span> <span class="n">b</span><span class="o">.</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="mi">100</span> <span class="n">because</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">100</span>
+                       <span class="o">//</span> <span class="n">value</span> <span class="n">of</span> <span class="n">q</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">assigned</span> <span class="n">to</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>C - pointers<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="n">a</span><span class="p">;</span>
+   <span class="nb">int</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">foobar</span><span class="p">;</span>
+
+<span class="n">foobar</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">foobar</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">sizeof</span><span class="p">(</span><span class="n">foobar</span><span class="p">));</span>
+
+<span class="n">x</span><span class="o">-&gt;</span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>             <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="n">because</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">address</span>
+<span class="n">x</span><span class="o">-&gt;</span><span class="n">b</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="n">foobar</span> <span class="n">y</span><span class="p">;</span>
+<span class="n">y</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>              <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">&#39;.&#39;</span> <span class="n">because</span> <span class="n">y</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">value</span> <span class="nb">type</span>
+<span class="n">y</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+
+<span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>          <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">&#39;.&#39;</span> <span class="n">because</span> <span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">dereferenced</span> <span class="n">pointer</span>
+                       <span class="o">//</span> <span class="ow">and</span> <span class="n">therefore</span> <span class="n">a</span> <span class="n">value</span> <span class="nb">type</span>
+
+<span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>C - pointers<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">x</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>   <span class="o">//</span> <span class="n">auto</span><span class="o">-</span><span class="n">initialized</span> <span class="n">array</span> <span class="n">of</span> <span class="mi">5</span> <span class="n">elements</span>
+<span class="nb">int</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>           <span class="o">//</span> <span class="n">address</span> <span class="n">of</span> <span class="n">first</span> <span class="n">element</span>
+<span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>                    <span class="o">//</span> <span class="n">address</span> <span class="n">of</span> <span class="n">second</span> <span class="n">element</span>
+<span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>                 <span class="o">//</span> <span class="n">value</span> <span class="n">of</span> <span class="n">second</span> <span class="n">element</span> <span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>            <span class="o">//</span> <span class="n">value</span> <span class="n">of</span> <span class="mi">3</span><span class="n">rd</span> <span class="n">element</span> <span class="ow">is</span> <span class="n">now</span> <span class="mi">20</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="o">*</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-functions">
+<h2>C - functions<a class="headerlink" href="#c-functions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>in C, functions have a name, return type, and parameter list</li>
+<li>since C is a single pass compiler, the definition of a function must
+appear before the reference to the function:</li>
+</ul>
+<p>Example where the functions are declared before use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="nb">sum</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nb">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;2+2=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example where a function is defined but not fully declared before
+first use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;2+2=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="nb">sum</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nb">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-functions-headers">
+<h2>C - functions / headers<a class="headerlink" href="#c-functions-headers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A good place to put function declarations is in a .h or .hh file</li>
+<li>Since C is a single pass compiler, you have to take some care to make sure that a header is not read twice. macros help with this:</li>
+<li>The macro ‘ifndef’ means if not defined. This causes the C compiler to only continue parsing if ‘FUNC_H’ is not yet defined</li>
+</ul>
+<p>myfunc.h contents:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#ifndef FUNC_H</span>
+<span class="c1">#define FUNC_H</span>
+
+<span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="c1">#endif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="c-macros">
+<h2>C - macros<a class="headerlink" href="#c-macros" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>C has a macro preprocessor. C processes the source file and expands
+all macros and then compiles the expanded source</li>
+<li>Be sure to be careful about parenthesis!</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define add(x, y) x + y</span>
+<span class="c1">#define mul(x,y) x * y</span>
+
+<span class="nb">int</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+   <span class="nb">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>expands to (approximately):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+   <span class="nb">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">#define add(x, y) (x) + (y)</span>
+<span class="c1">#define mul(x,y) (x) * (y)</span>
+
+<span class="nb">int</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+   <span class="nb">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>expands to (approximately):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nb">int</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+   <span class="nb">int</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="crash-course-on-gcc">
+<h2>Crash course on GCC<a class="headerlink" href="#crash-course-on-gcc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>GCC is the GNU Compiler Collection</li>
+<li>Several languages exist: C, C++, ADA, Fortran, Java, Objective-C, and Go</li>
+<li>GCC was one of the early GNU projects</li>
+</ul>
+</div>
+<div class="section" id="where-to-find-it">
+<h2>Where to find it?<a class="headerlink" href="#where-to-find-it" title="Permalink to this headline">¶</a></h2>
+<p>You’ll want to make sure both of these commands are available:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ which gcc
+/usr/bin/gcc
+
+$ which make
+/usr/bin/make
+</pre></div>
+</div>
+<p>What if I cannot find them?</p>
+<ul class="simple">
+<li>Install Linux or Windows Subsystem for Linux on a PC</li>
+<li>Install Homebrew (on MacOS)</li>
+<li>Install a cloud-based shell</li>
+</ul>
+<p>These topics are covered in COMP 141 (Tools course).</p>
+</div>
+<div class="section" id="installing-on-ubuntu">
+<h2>Installing on Ubuntu<a class="headerlink" href="#installing-on-ubuntu" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>::</dt>
+<dd>apt install build-essential</dd>
+</dl>
+</div>
+<div class="section" id="os-x">
+<h2>OS X<a class="headerlink" href="#os-x" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Has a mostly working <cite>gcc</cite> setup via Xcode</li>
+<li>Use Homebrew to install <cite>gcc</cite>, <cite>make</cite>, and more current versions of open source software.</li>
+</ul>
+</div>
+<div class="section" id="compiling-c-with-gcc">
+<h2>Compiling C with GCC<a class="headerlink" href="#compiling-c-with-gcc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Compilation with GCC has two phases:
+- source to object file translation (compilation)
+- object file to executable or library translation (linking)</li>
+</ul>
+<p>Example compilation command (compiles hello.c to hello.o):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcc -c hello.c -o hello.o
+$ gcc -c helper.c -o helper.o
+</pre></div>
+</div>
+<p>Example linker command (links hello.o and helper.o to program hello):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcc -o hello hello.o helper.o
+</pre></div>
+</div>
+<p>Example with libraries in linker (links hello.o and helper.o, references pthreads shared library):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcc -o hello hello.o helper.o -lpthread
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-assembly-code-with-gcc">
+<h2>Accessing assembly code with GCC<a class="headerlink" href="#accessing-assembly-code-with-gcc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Modern compilers have several phases. GCC has a:<ol class="arabic">
+<li>lexer / parser (produces an AST)</li>
+<li>intermediate code generator (produces IL byte code)</li>
+<li>assembly code generator (produces machine specific code)</li>
+<li>object file generator (generates encoded machine instructions)</li>
+<li>linker (assembles many object files into a program)</li>
+</ol>
+</li>
+<li>With GCC, it is possble to access the output of phases 3, 4, and 5.</li>
+<li><dl class="first docutils">
+<dt>To get assembly output, use the following command line:</dt>
+<dd><ul class="first last">
+<li>gcc -S test.c -o test.s</li>
+<li>test.s will contain machine specific assembly source</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="useful-options-in-gcc-designed-to-help-you">
+<h2>Useful options in GCC (designed to <em>help</em> you)<a class="headerlink" href="#useful-options-in-gcc-designed-to-help-you" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>-Wall : makes GCC print all language warnings</li>
+<li>-O2: for the linker, turns on the optimizer</li>
+<li>-g: generates debug symbols (useful for the debugger)</li>
+<li>-fpic: generates object files that can be used in a shared library</li>
+<li>-I adds a folder to search for header files</li>
+</ul>
+</div>
+<div class="section" id="crash-course-on-gnu-makefiles">
+<h2>Crash Course on GNU Makefiles<a class="headerlink" href="#crash-course-on-gnu-makefiles" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">A makefile is a list of rules. Each rule contains:
+- a target
+- dependent files or rules
+- commands to produce the target</p>
+</li>
+<li><p class="first">Makefiles manage source file dependencies. They also allow for rapid
+builds because the make command can detect if something has already
+been built or if it is out of date.</p>
+</li>
+<li><p class="first">The form of a make file rule is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="p">:</span> <span class="n">dependent_file1</span> <span class="n">dependent_file2</span>
+   <span class="n">command</span> <span class="n">to</span> <span class="n">build</span> <span class="n">target</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The concept of a makefile might at first glance appear <em>old school</em>
+but the same ideas are used in modern IDEs, including Visual Studio,
+MonoDevelop, and Eclipse and is required for developing <em>in the large</em>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="simple-makefile-example">
+<h2>Simple makefile example<a class="headerlink" href="#simple-makefile-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CC=/usr/pkg/bin/g++
+CFLAGS= -g -Wall -I.
+LINKFLAGS= -g -Wall
+
+all: demo
+
+demo: list.o main.o tests.o debug.o
+   $(CC) $(LINKFLAGS) -o demo list.o main.o tests.o debug.o
+
+debug.o: debug.cc debug.hh
+   $(CC) $(CFLAGS) -c debug.cc -o debug.o
+
+tests.o: tests.cc debug.hh list.hh
+   $(CC) $(CFLAGS) -c tests.cc -o tests.o
+
+list.o: list.hh list.cc debug.hh
+   $(CC) $(CFLAGS) -c list.cc -o list.o
+
+main.o: main.cc list.hh debug.hh tests.hh
+   $(CC) $(CFLAGS) -c main.cc -o main.o
+
+clean:
+   rm -f *.o demo
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-makefiles">
+<h2>Running makefiles<a class="headerlink" href="#running-makefiles" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Makefiles are run with the <code class="docutils literal notranslate"><span class="pre">make</span></code> command.</li>
+<li>The make command will parse the Makefile and build what is not built
+taking dependencies into account</li>
+<li>Example uses:
+- <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">all</span></code> – runs the target ‘all’
+- <code class="docutils literal notranslate"><span class="pre">make</span></code> – runs default target (all)
+- <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> – runs target ‘clean’</li>
+</ul>
+</div>
+<div class="section" id="history-of-operating-systems">
+<h2>History of Operating Systems<a class="headerlink" href="#history-of-operating-systems" title="Permalink to this headline">¶</a></h2>
+<p>What is an Operating System?</p>
+<ul class="simple">
+<li>An image of the machine to a program
+- Defines contracts for various types of hardware into categories
+- Each program doesn’t have to know how to work with every type of
+network card, they each just have to interact with a networking
+library</li>
+<li>A resource manager
+- Manages permissions, scheduling, and access to hardware resources</li>
+<li>A collection of programs
+- OS Kernel
+- Device drivers
+- System runtime libraries
+- Graphical environments
+- Service Management</li>
+</ul>
+</div>
+<div class="section" id="first-generation-operating-systems">
+<h2>First Generation Operating Systems<a class="headerlink" href="#first-generation-operating-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Single program machines</li>
+<li>Vacuum tubes, plug boards, punch cards</li>
+<li>Stored program concept introduced in EDVAC, 1945, but would be many years before we had an OS.</li>
+<li>All programming done in machine language</li>
+<li>No programming languages</li>
+<li>No operating systems</li>
+<li>All programs are numerical calculations</li>
+<li>Up to 1950’s</li>
+</ul>
+</div>
+<div class="section" id="second-generation-systems">
+<h2>Second Generation Systems<a class="headerlink" href="#second-generation-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>1950s - 1960s</li>
+<li>Introduction of transistors</li>
+<li>Era of the mainframe and batch processing system</li>
+<li>Assembly languages and FORTRAN</li>
+<li>Batch systems composed of:
+- Card readers
+- Processors
+- Printers</li>
+</ul>
+</div>
+<div class="section" id="third-generation-systems">
+<h2>Third Generation Systems<a class="headerlink" href="#third-generation-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>1960s - 1980s</li>
+<li>Integrated circuits</li>
+<li>Beginning of the concept of backwards&nbsp;compatibility&nbsp;and machine images / abstractions.</li>
+<li>IBM System/360, Z series machines</li>
+<li>Multi-programming
+- When one job was waiting for I/O operations to complete, it would
+be paused and allow another job to run
+- Accomplished by partitioning memory into pre-defined segments</li>
+</ul>
+</div>
+<div class="section" id="fourth-generation-systems">
+<h2>Fourth Generation Systems<a class="headerlink" href="#fourth-generation-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>1980s - present</li>
+<li>LSI / VLSI - integrated circuits</li>
+<li>Era of mini-computers and micro-processors</li>
+<li>Early UNIX operating systems</li>
+<li>Early MS-DOS operating systems</li>
+<li>1980s - UNIX, OS/2, Amiga, RiscOS, MS-DOS, MacOS</li>
+<li>1990s - MacOS, Linux, Windows, Solaris, BSDs, HP-UX, AIX, zOS</li>
+<li>2000s - MacOS, Linux, Windows</li>
+</ul>
+</div>
+<div class="section" id="history-of-windows-nt-xp-vista-7">
+<h2>History of Windows NT/XP/Vista/7<a class="headerlink" href="#history-of-windows-nt-xp-vista-7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Windows NT 3/4
+- NT 3.1 was first created as a direct competitor to OS/2
+- Had Win32 / POSIX / OS-2 subsystems
+- First Windows OS to support virtual memory
+- Preemptively multi-tasking kernel
+- First version of Windows with NTFS
+- Generally outperformed Linux operating systems until 2.4.x Linux
+kernels (<a class="reference external" href="http://www.mindcraft.com/whitepapers/openbench1.html">http://www.mindcraft.com/whitepapers/openbench1.html</a>)
+- Beginning of Microsoft’s replacement of UNIX Market</li>
+<li>Windows 2000
+- Next generation of OS kernel, faster, Win 9x GUI
+- NTFS 3.x - native encryption / compression, junctions, sparse files, disk quotas
+- Active Directory!
+- Beginning of MS security woes for IIS and worms in general</li>
+<li>Windows XP<ul>
+<li>Longest, largest install base of any Windows OS</li>
+<li>Various kernel improvements over 2000</li>
+<li>SP0 - SP2, MS experienced many security nightmares</li>
+<li>Around 2003, with Linux 2.6, Linux began to perform better than
+Windows XP in many non GUI operations</li>
+<li>Stability improved greatly in XP, many kernel subsystems were
+pulled into user-mode (csrss.exe)</li>
+<li>Consolidation of development frameworks around .NET and Visual
+Studio began to gain steam.</li>
+<li>Improved NTFS: volume shadow copy, better dynamic volume support</li>
+</ul>
+</li>
+<li>Vista<ul>
+<li>released after two false starts in development</li>
+<li>display manager moved from kernel to user mode</li>
+<li>introduction of Aero</li>
+<li>much more advanced memory manager
+- very incorrectly criticized too - unused memory is wasted memory!
+- largest performance problems were due to how much “hot memory”
+was kept available</li>
+<li>first non-linux desktop system to support NUMA</li>
+<li>new version of NTFS
+- dynamic resizing possible
+- transaction support</li>
+<li>UAC</li>
+<li>new driver model - vendors caught by surprise</li>
+</ul>
+</li>
+<li>Windows 7<ul>
+<li>Mostly a refreshed version of Vista bu tan important one nonetheless</li>
+<li>Fixes to memory manager’s “hot memory” problem</li>
+<li>Mainstream 64-bit support by hardware vendors (finally!)</li>
+<li>Many UI cleanups that Vista failed on</li>
+<li>Virtualization support</li>
+<li>New taskbar!</li>
+</ul>
+</li>
+<li>Windows 10<ul>
+<li>Continued improvements to virtualization</li>
+<li>Windows Terminal</li>
+<li>Windows Subsystem For Linux (1 and 2)</li>
+<li>Native Linux Kernel Support for Windows</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="history-of-linux">
+<h2>History of Linux<a class="headerlink" href="#history-of-linux" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>89 - 93 – 0.x:
+- Inspired by Dr. Tanenbaum’s Minix operating system.
+- Used Minix FS format
+- Developed on various 386/486 machines
+- Protected memory, no swapper
+- Processes, no kernel theads</li>
+<li>94 – 96 1.x:
+- Torvalds declares Linux to be “fully matured”.
+- Support for X-11
+- Support for non x86 begins to appear: SPARC, PPC, etc…</li>
+<li>96 - 01 – 2.0/2.2
+- Begins to become usable by advanced to intermediate hobbyists
+- SMP support. Linux “scales” to 4-8 CPUs
+- No real kernel thread support
+- Greatly improved FS implementations
+- Other vendors begin taking interest. Hardware support improves greatly</li>
+<li>01-03 – 2.4
+- much improved FS support - journaling, picks up legacy UNIX FS
+implementations (XFS from IRIX especially)
+- much improved hardware vendor support, IBM, HP, and others
+- much improved, but ever changing virtual memory implementations
+- begins to be&nbsp;competitive&nbsp;with Windows / UNIX in terms of performance
+- still no real kernel thread support.</li>
+<li>03-11 – 2.6
+- Much improved SMP support. By mid 2000s, support for CPU counts seen in Windows Server / Solaris / AIX were a reality for Linux.
+- Huge server install base. Killer app: Apache
+- non-technical user base increases by leaps and bounds
+- non personal computer / server installations - cell phones, media centers, industrial, etc… increase by leaps and bounds
+- Genuine kernel threads support
+- Surpasses Windows / UNIX performance for non-GUI operations
+- Much better FS support- ext3, ext4, reiser, xfs; still room for
+improvement based on NTFS progress
+- Filesystm stability comes into parity with other operating systems
+- Much better GUI performance - mostly from driver support
+- Much better virtual memory performance
+- Early competitor to the 2nd generation of virtualization support
+(IBM and zOS being the 1st generation)</li>
+</ul>
+</div>
+<div class="section" id="types-of-computer-systems">
+<h2>Types of computer systems<a class="headerlink" href="#types-of-computer-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>batch processing</li>
+<li>personal /&nbsp;parallel computers</li>
+<li>clusters</li>
+<li>grid computers</li>
+<li>distributed systems</li>
+<li>gaming consoles</li>
+<li>handheld/tablet computers</li>
+<li>smart phones</li>
+</ul>
+</div>
+<div class="section" id="batch-processing-systems">
+<h2>batch processing systems<a class="headerlink" href="#batch-processing-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>very typical of early systems</li>
+<li>offline processing</li>
+<li>program and data are prepared</li>
+<li>program and data are loaded onto machine</li>
+<li>machine executes process</li>
+<li>machine stores results</li>
+<li>results are interpreted and output</li>
+</ul>
+<p>Batch systems remain important, especially in CPU-bound environments where predictable performance is a requirement.</p>
+</div>
+<div class="section" id="time-sharing-systems">
+<h2>time sharing systems<a class="headerlink" href="#time-sharing-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>multiple users share the computer simultaneously</li>
+<li>operating system gives a small portion of CPU time to each user</li>
+<li>main use cases for telnet and the internet in the past</li>
+<li>possible to run interactive programs such as editors, compilers, take user input, etc…</li>
+</ul>
+</div>
+<div class="section" id="personal-parallel-computers">
+<h2>personal / parallel computers<a class="headerlink" href="#personal-parallel-computers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>used to be the case that personal and parallel computers were in a different category</li>
+<li>machine has many CPUs. ranges from as few as two to as many as 64</li>
+<li>have shared memory across the processors (memory hierarchies)</li>
+<li>operating system use symmetric multi-processing (SMP)</li>
+<li>each CPU runs a copy of the OS</li>
+<li>cost of machines is typically O(n^2) where N is the CPU count</li>
+<li>programs that require a high amount of communication run best on these types of systems (OpenMP programs for example)</li>
+</ul>
+</div>
+<div class="section" id="clusters-clouds-grids">
+<h2>clusters / clouds / grids<a class="headerlink" href="#clusters-clouds-grids" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>alternative to parallel systems</li>
+<li>clusters
+- cost of system is O(n), where n is the CPU count
+- typically a collection of inexpensive PCs
+- doesn’t have shared memory across all processors
+- all machines are typically in one location</li>
+<li>clouds - Azure, EC2, etc…<ul>
+<li>commercial version of a cluster - company builds and&nbsp;maintains&nbsp;a large set of machines in one or more clusters.</li>
+<li>makes money by renting out one or more nodes in the cluster</li>
+</ul>
+</li>
+<li>grids - typically universities, volunteer computing<ul>
+<li>not all at one location, perhaps across the internet</li>
+<li>donation of idle CPU time - SETI, <a class="reference external" href="mailto:Folding&#37;&#52;&#48;Home">Folding<span>&#64;</span>Home</a>, etc…</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types-of-operating-systems">
+<h2>Types of operating systems<a class="headerlink" href="#types-of-operating-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Single program / OS</li>
+<li>Real - time</li>
+<li>Microkernel</li>
+<li>Monolithic kernel</li>
+<li>Distributed</li>
+</ul>
+</div>
+<div class="section" id="single-program-simple-os">
+<h2>Single program / simple OS<a class="headerlink" href="#single-program-simple-os" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Usually exist for single purpose computers such as older cellular phones, industrial machinery, automobiles, ATMs, older cash registers, etc…</li>
+<li>Composed of either<ul>
+<li>a combined operating system / application</li>
+<li>a single operating system program and single application</li>
+</ul>
+</li>
+<li>Examples:
+- MS-DOS or CP/M + simple program
+- Some uses of OS/2 - especially in ATMs</li>
+</ul>
+</div>
+<div class="section" id="real-time-os">
+<h2>Real-time OS<a class="headerlink" href="#real-time-os" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Used where application’s most important concern is completing a task on a deadline and at regular intervals rather than performance
+- Sensor measurement / scanners, especially medical
+- Industrial applications
+- Automobile applications such as anti-lock brakes, traction control</li>
+<li>Typically make use of cooperative multitasking</li>
+<li>Examples:
+- QNX
+- MicroC
+- VxWorks
+- Layered systems on top of MS-D</li>
+</ul>
+</div>
+<div class="section" id="microkernel-os">
+<h2>Microkernel OS<a class="headerlink" href="#microkernel-os" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Basic operating system services including swapper, driver management, process scheduling, and system call handlers are separated into N kernel processes that pass messages to each other through the microkernel</li>
+<li>Microkernel is very small</li>
+<li>Typically have much more context switch overhead</li>
+<li>Message passing schemes present an additional engineering problem</li>
+<li>Successful examples:
+- Minix (still a work in progress)
+- OS-X (via Mach)
+- Hurd (via Mach, then L4)</li>
+</ul>
+</div>
+<div class="section" id="monolithic-kernel-os">
+<h2>Monolithic Kernel OS<a class="headerlink" href="#monolithic-kernel-os" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Single kernel process that manages swapper, drivers, system calls, etc…</li>
+<li>Examples:
+- Earlier versions of Windows
+- UNIX: AIX, HP-UX
+- Linux, Free/Net/OpenBSD</li>
+<li>Lower context switch overhead</li>
+<li>Many believe that they are easier to develop for</li>
+</ul>
+</div>
+<div class="section" id="distributed-os">
+<h2>Distributed OS<a class="headerlink" href="#distributed-os" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Presents to an application a single system image of more than one
+computer on a network</li>
+<li>Examples:
+- Amoeba
+- Plan 9
+- Mosix extensions to Linux</li>
+<li>Commercially successful examples: none</li>
+<li>Most distributed computing is accomplished by compilers and runtime
+libraries outside of the operating system</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="processes.html" class="btn btn-neutral float-right" title="Introduction to Processes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="meta.html" class="btn btn-neutral float-left" title="About the Book" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

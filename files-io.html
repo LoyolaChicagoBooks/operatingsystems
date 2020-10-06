@@ -1,0 +1,855 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Files and I/O &mdash; Operating Systems v0.9.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Process/Thread Scheduling" href="scheduling.html" />
+    <link rel="prev" title="Introduction to Processes" href="processes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Files and I/O</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-attributes-of-all-unix-files">Common attributes of all (UNIX) files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-files-in-unix">Types of Files in Unix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#regular-files">Regular Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#folders">Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbolic-links">Symbolic Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#block-device-files">Block Device Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#character-device-files">Character Device Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#named-pipes-fifos">Named Pipes/FIFOs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unix-domain-sockets">Unix Domain Sockets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filesystem-system-calls">Filesystem System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Filesystem System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-filesystem-system-calls">More Filesystem System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opening-files-with-open">Opening Files with open()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#closing-files-with-close">Closing files with close()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-to-a-file">Writing to a File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typical-write-algorithm">Typical Write Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-from-a-file">Reading from a File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typical-read-algorithm">Typical Read Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seeking-within-a-file">Seeking within a File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standard-file-descriptors">Standard File Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#duplicating-file-descriptors">Duplicating File Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#redirecting-file-descriptors">Redirecting File Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#redirecting-file-descriptors-code-example">Redirecting File Descriptors code example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-folders">Reading Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#looking-ahead-i-o-performance">Looking Ahead: I/O Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-i-o-performance-experiment">Simple I/O Performance Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-writing-performance">Reading/Writing Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-example">Performance Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Operating Systems</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Files and I/O</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/files-io.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="files-and-i-o">
+<h1>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="common-attributes-of-all-unix-files">
+<h2>Common attributes of all (UNIX) files<a class="headerlink" href="#common-attributes-of-all-unix-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>All files:<ul>
+<li>Live in the filesystem namespace (under root, or <code class="docutils literal notranslate"><span class="pre">/</span></code>). No drive letters!</li>
+<li>Have a name</li>
+<li>Implement read, write, open, close, and select system calls.</li>
+</ul>
+</li>
+<li>All can be contained in either normal or <em>special</em> folders</li>
+<li>All have a concept of a:<ul>
+<li>Owning user and group</li>
+</ul>
+</li>
+<li>Read/write/execute bits for the owning user/group, and for other
+users/groups</li>
+<li>A list of custom extended attributes</li>
+<li>Creation date/time</li>
+<li>Last accessed date/time</li>
+<li>Beyond these few things, there’s a great degree of variety in
+semantics and structure for various file types</li>
+</ul>
+</div>
+<div class="section" id="types-of-files-in-unix">
+<h2>Types of Files in Unix<a class="headerlink" href="#types-of-files-in-unix" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Regular files</li>
+<li>Symbolic links</li>
+<li>Folders</li>
+<li>Block device files</li>
+<li>Character device files</li>
+<li>Named pipes/FIFOs</li>
+<li>UNIX domain sockets</li>
+<li>Doors (Solaris only)</li>
+</ul>
+</div>
+<div class="section" id="regular-files">
+<h2>Regular Files<a class="headerlink" href="#regular-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Persist data from programs. Reside in filesystems.</li>
+<li>In addition to owner/permissions. Regular files have:<ul>
+<li>A committed and defined size (which differ for filesystems that
+support sparse files)</li>
+<li>Can be accessed sequentially</li>
+<li>Can be accessed in random order</li>
+</ul>
+</li>
+<li>Exceptions exist for device restrictions such as exit for tape drives</li>
+</ul>
+</div>
+<div class="section" id="folders">
+<h2>Folders<a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In early UNIX implementations, folders were files that listed other
+files and had a special bit set to make them folders.</li>
+<li>Folders were modified by reading from and writing to the file.</li>
+<li>Some of these semantics still exist</li>
+<li>Early operating systems did not support folders:<ul>
+<li>Macintosh file system (circa 1984)</li>
+<li>CP/M file system (predecessor to MS-DOS and FAT)</li>
+</ul>
+</li>
+<li>Folders do not have a file size</li>
+<li>The execute bit for a folder determines:<ul>
+<li>If the contents of the folder may be listed</li>
+<li>If a program may change use it as its working folder</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="symbolic-links">
+<h2>Symbolic Links<a class="headerlink" href="#symbolic-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Symbolic links are a type of file that points to another file or
+folder.</li>
+<li>The pointer can be either a relative or absolute path.</li>
+<li>Support exists in many modern operating systems (OS X, UNIX, and
+Windows)</li>
+<li>A symbolic link that refers to a file or folder that does not exist
+is called ‘broken’</li>
+<li>File system operations on a symbolic link work on the file that they
+point to with the exception of the unlink system call (to delete the
+symbolic link)</li>
+<li>Other system calls exist to help determine if a file/folder is a
+symbolic link or a real file/folder</li>
+</ul>
+</div>
+<div class="section" id="block-device-files">
+<h2>Block Device Files<a class="headerlink" href="#block-device-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Block device files are file abstractions for devices exposed by the
+operating system.</li>
+<li>Common device block files are:<ul>
+<li>Hard disks</li>
+<li>CD/DVD/Blu-Ray drives</li>
+<li>Floppy drives</li>
+<li>USB media</li>
+<li>Mapped memory devices (RAM disks, or diagnostic devices)</li>
+</ul>
+</li>
+<li>Block devices support:<ul>
+<li>Random access</li>
+<li>Buffered read/write (through some characteristic block size)</li>
+<li>Block device files are either automatically exposed by the
+operating system through special file systems or are user created
+through special system programs and system calls. Approaches vary.</li>
+<li>Early Linux depended upon special programs</li>
+<li>Modern Linux uses special filesystems (devfs, sysfs)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="character-device-files">
+<h2>Character Device Files<a class="headerlink" href="#character-device-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Character device files are file abstractions for devices exposed by
+the operating system.</li>
+<li>Common character devices are:<ul>
+<li>terminals</li>
+<li>serial ports</li>
+<li>modems</li>
+<li>network cards</li>
+<li>video/sound devices</li>
+<li>tape drives</li>
+</ul>
+</li>
+<li>Most character devices do not support random access.</li>
+<li>Those that do, typically have a high cost for seek operations</li>
+</ul>
+</div>
+<div class="section" id="named-pipes-fifos">
+<h2>Named Pipes/FIFOs<a class="headerlink" href="#named-pipes-fifos" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Named pipes are pipes that exist in the filesystem.</li>
+<li>Allow for pipe operations in sets of programs that have different
+lifetimes such as client server programs.</li>
+<li>We will dig into more detail on pipes when we discuss inter-process
+communication.</li>
+</ul>
+</div>
+<div class="section" id="unix-domain-sockets">
+<h2>Unix Domain Sockets<a class="headerlink" href="#unix-domain-sockets" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Domain sockets are sockets that have a name in the filesystem.</li>
+<li>Similar to named pipes except they can be created in a streaming or
+datagram mode</li>
+<li>Unlike regular sockets, domain sockets do not have an underlying
+TCP/IP or UDP/IP protocol</li>
+</ul>
+</div>
+<div class="section" id="filesystem-system-calls">
+<h2>Filesystem System Calls<a class="headerlink" href="#filesystem-system-calls" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A majority of the system calls in a UNIX operating system exist to
+operate upon files</li>
+<li>The acronym MS-DOS expands to MicroSoft Disk Operating System. The
+DOS part of this acronym seems to greatly apply to all operating
+systems.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Filesystem System Calls<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">open()</span></code></td>
+<td>opens/creates files and returns a file descriptor</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">creat()</span></code></td>
+<td>creates new files</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">close()</span></code></td>
+<td>closes a file descriptor (reduces references to the file)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">lseek()</span></code></td>
+<td>updates a file descriptor’s current file offset</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">read()</span></code></td>
+<td>reads data from a file descriptor into a buffer</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">write()</span></code></td>
+<td>writes data from a buffer to a file descriptor</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">dup()</span></code></td>
+<td>duplicates one file descriptor</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">dup2()</span></code></td>
+<td>updates a file descriptor to point to another one</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">fcntl()</span></code></td>
+<td>changes file properties (asynchronous I/O, file locks)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">ioctl()</span></code></td>
+<td>a ‘catch all’ interface that interacts with device files, setting atypical properties, etc…</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">stat()</span></code></td>
+<td>returns rwx bits, size, timestamps, and other details</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">access()</span></code></td>
+<td>tests for read, write, execute, or existence of a file</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">umask()</span></code></td>
+<td>updates file creation mask</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">chmod()</span></code></td>
+<td>updates rwx bits</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="more-filesystem-system-calls">
+<h2>More Filesystem System Calls<a class="headerlink" href="#more-filesystem-system-calls" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><code class="docutils literal notranslate"><span class="pre">chown()</span></code></th>
+<th class="head">changes file user/group ownership</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">truncate()</span></code></td>
+<td>change the length of a file (grow or shrink)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">link()</span></code></td>
+<td>create a hard link</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">unlink()</span></code></td>
+<td>remove a name in the filesystem and possibly the file it refers to (no processes have the file open)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rmdir()</span></code></td>
+<td>deletes empty directories</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">remove()</span></code></td>
+<td>combines unlink/rmdir into one call</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rename()</span></code></td>
+<td>renames a file, possibly changing its parent folder</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">symlink()</span></code></td>
+<td>creates a symbolic link</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">readlink()</span></code></td>
+<td>reads the value of a symbolic link</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">utime()</span></code></td>
+<td>updates the access and modification time</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">mkdir()</span></code></td>
+<td>creates a folder</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">opendir()</span></code></td>
+<td>opens a folder for reading</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">readdir()</span></code></td>
+<td>reads the next entry in a folder</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rewinddir()</span></code></td>
+<td>resets directory entry to beginning</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">closedir()</span></code></td>
+<td>closes a directory descriptor</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">chdir()</span></code></td>
+<td>changes current working directory</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">getcwd()</span></code></td>
+<td>gets current working directory</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">sync()</span></code></td>
+<td>flushes buffer cache for filesystem to disk</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="opening-files-with-open">
+<h2>Opening Files with open()<a class="headerlink" href="#opening-files-with-open" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">mode_t</span> <span class="n">mode</span><span class="p">)</span>
+<span class="kt">int</span> <span class="n">open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><em>pathname</em> is the path to the file</li>
+<li><em>flags</em> can be combinations of:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">O_APPEND</span></code>: open in append mode</li>
+<li><code class="docutils literal notranslate"><span class="pre">O_ASYNC</span></code>: use signal driven asynchronous I/O</li>
+<li><code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code>: create the file if it does not exist</li>
+<li><code class="docutils literal notranslate"><span class="pre">O_DIRECT</span></code>: minimize use of the buffer cache</li>
+<li><code class="docutils literal notranslate"><span class="pre">O_SYNC</span></code>: opened for synchronous I/O - block until write calls are
+committed to hardware</li>
+<li><code class="docutils literal notranslate"><span class="pre">O_TRUNC</span></code>: if file already exists, truncate it to length 0</li>
+<li>and many others…</li>
+</ul>
+</li>
+<li><em>mode</em> is used for <code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code> and is typically passed as an octal:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">0XYZ</span></code>, <code class="docutils literal notranslate"><span class="pre">X</span></code> is for user, <code class="docutils literal notranslate"><span class="pre">Y</span></code> is for group, <code class="docutils literal notranslate"><span class="pre">Z</span></code> is for others</li>
+<li>each digit, being an octal digit is composed of three bits</li>
+<li>the most significant bit is read permissions</li>
+<li>the next most significant bit is write permissions</li>
+<li>the least significant bit is execute permissions</li>
+<li><code class="docutils literal notranslate"><span class="pre">0700</span></code> means user has rwx, group and other have no access</li>
+<li><code class="docutils literal notranslate"><span class="pre">0660</span></code> means user/group have rw, other has no acess</li>
+</ul>
+</li>
+<li>return value of <code class="docutils literal notranslate"><span class="pre">open()</span></code> is the file descriptor, or -1 if an error
+happens</li>
+</ul>
+</div>
+<div class="section" id="closing-files-with-close">
+<h2>Closing files with close()<a class="headerlink" href="#closing-files-with-close" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">close</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><em>fd</em> argument is a file descriptor returned by a call to: open, dup,
+pipe, etc…</li>
+<li>return value is 0 on success or -1 on failure (bad file descriptor,
+interrupted by signal)</li>
+</ul>
+</div>
+<div class="section" id="writing-to-a-file">
+<h2>Writing to a File<a class="headerlink" href="#writing-to-a-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">write</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>fd is an opened file descriptor</li>
+<li>but is a buffer</li>
+<li>count is the number of bytes from that buffer to write to the file at
+the current offset</li>
+<li>the return value of the method will be<ul>
+<li><cite>return == -1</cite> if an error is encountered</li>
+<li><cite>return == count</cite> in most successful cases</li>
+<li><cite>return &lt; count</cite> in some implementations (network filesystems in some cases)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="typical-write-algorithm">
+<h2>Typical Write Algorithm<a class="headerlink" href="#typical-write-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="s">&quot;foobar&quot;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span> <span class="o">|</span> <span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
+<span class="kt">size_t</span> <span class="n">length</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kt">size_t</span> <span class="n">written</span> <span class="o">=</span> <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">data</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+   <span class="n">offset</span> <span class="o">+=</span> <span class="n">written</span><span class="p">;</span>
+   <span class="n">length</span> <span class="o">--</span> <span class="n">written</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reading-from-a-file">
+<h2>Reading from a File<a class="headerlink" href="#reading-from-a-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>takes as arguments a file descriptor, a destination buffer, and the
+number of bytes to read into that buffer</li>
+<li>the return values of the method will be:<ul>
+<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">-1</span></code> if an error occurred</li>
+<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">0</span></code> if EOF is encountered</li>
+<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">count</span></code> in most success cases</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="typical-read-algorithm">
+<h2>Typical Read Algorithm<a class="headerlink" href="#typical-read-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
+<span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="k">while</span><span class="p">((</span><span class="n">length</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">length</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="seeking-within-a-file">
+<h2>Seeking within a File<a class="headerlink" href="#seeking-within-a-file" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Not all files support seeking.</li>
+<li>The use of seek calls is how random access I/O is performed</li>
+<li>The use of seek calls have performance implications (more later…)</li>
+<li><code class="docutils literal notranslate"><span class="pre">off_t</span> <span class="pre">lseek(int</span> <span class="pre">fd,</span> <span class="pre">off_t</span> <span class="pre">offset,</span> <span class="pre">int</span> <span class="pre">whence)</span></code><ul>
+<li>fd is a file descriptor</li>
+<li>offset is the number of bytes relative to whence</li>
+<li>whence is one of <code class="docutils literal notranslate"><span class="pre">SEEK_SET</span></code> (beginning of file), <code class="docutils literal notranslate"><span class="pre">SEEK_CUR</span></code> (current
+position of the file descriptor), or <code class="docutils literal notranslate"><span class="pre">SEEK_END</span></code> (end of the file)</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">off_t</span></code> type is typically a 64-bit signed integer. It is possible
+to seek both within and outside of a file.</li>
+</ul>
+</li>
+<li>Seeking outside of a file will cause the value of 0 to be written
+from the end of the file to the seek position.</li>
+<li>Filesystems that support sparse files, will optimize this to prevent
+unnecessary write operations.</li>
+</ul>
+</div>
+<div class="section" id="standard-file-descriptors">
+<h2>Standard File Descriptors<a class="headerlink" href="#standard-file-descriptors" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>stdin</dt>
+<dd>standard input. default is the input pipe from the console; default
+value is 0</dd>
+<dt>stdout</dt>
+<dd>standard output. default is the output pipe to the console; default
+value is 1</dd>
+<dt>stderr</dt>
+<dd>standard error. default is the output pipe to the console; default
+value is 2</dd>
+</dl>
+<p>every program is initialized with these three file descriptors open by
+default. their specific targets may have been redirected by the parent
+program (more later…)</p>
+</div>
+<div class="section" id="duplicating-file-descriptors">
+<h2>Duplicating File Descriptors<a class="headerlink" href="#duplicating-file-descriptors" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dup</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">)</span> <span class="o">:</span> <span class="n">duplicate</span> <span class="n">a</span> <span class="n">file</span> <span class="n">descriptor</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>accepts a file descriptor and returns a copy of it with a new id</li>
+<li>the duplicated file descriptor has an independent file offset and
+reference to the file</li>
+<li>reasons to duplicate file descriptors:<ul>
+<li>for use in multi-threading, to avoid calls to lseek()</li>
+<li>one call necessary for redirecting stdin/stdout/stderr</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="redirecting-file-descriptors">
+<h2>Redirecting File Descriptors<a class="headerlink" href="#redirecting-file-descriptors" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dup2</span><span class="p">(</span><span class="kt">int</span> <span class="n">oldfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">newfd</span><span class="p">)</span> <span class="o">:</span> <span class="n">redirect</span> <span class="n">a</span> <span class="n">file</span> <span class="n">descriptor</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>makes <code class="docutils literal notranslate"><span class="pre">newfd</span></code> be a copy of <code class="docutils literal notranslate"><span class="pre">oldfd</span></code></li>
+<li>if <code class="docutils literal notranslate"><span class="pre">newfd</span></code> is open, it is automatically closed</li>
+<li>This call differs from <code class="docutils literal notranslate"><span class="pre">dup()</span></code> in that both of the file descriptors in
+this case share the same file offset.</li>
+<li>So, calling <code class="docutils literal notranslate"><span class="pre">lseek()</span></code> on one will cause the offset of the other to
+change.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dup()</span></code> and <code class="docutils literal notranslate"><span class="pre">dup2()</span></code> are used to redirect <strong>stdin</strong>, <strong>stdout</strong>, and <strong>stderr</strong> on the
+command line (sometimes to combine them)</li>
+</ul>
+</div>
+<div class="section" id="redirecting-file-descriptors-code-example">
+<h2>Redirecting File Descriptors code example<a class="headerlink" href="#redirecting-file-descriptors-code-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">pipes</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">pipe</span><span class="p">(</span><span class="n">pipes</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">input</span> <span class="o">=</span> <span class="n">pipes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">output</span> <span class="o">=</span> <span class="n">pipes</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">//parent process</span>
+        <span class="n">dup2</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1">//redirect stdin</span>
+        <span class="n">close</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>    <span class="c1">//close unused half of pipe</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child sent value = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">//child process</span>
+        <span class="n">dup2</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">//redirect STDOUT</span>
+        <span class="n">close</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>        <span class="c1">//close unused half of pipe</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reading-folders">
+<h2>Reading Folders<a class="headerlink" href="#reading-folders" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">dir</span> <span class="o">=</span> <span class="s">&quot;/&quot;</span><span class="p">;</span>
+    <span class="kt">DIR</span> <span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="n">opendir</span><span class="p">(</span><span class="n">dir</span><span class="p">);</span>
+
+    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">de</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">((</span><span class="n">de</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;name %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">de</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">closedir</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="looking-ahead-i-o-performance">
+<h2>Looking Ahead: I/O Performance<a class="headerlink" href="#looking-ahead-i-o-performance" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Achieving good I/O performance is about choosing the right buffering
+strategy.</li>
+<li>Reading/Writing with small buffers will lead to lower throughput.</li>
+<li>Reading/Writing with large buffers will create a longer wait for
+read/write to return.</li>
+<li>This time could be used processing the data.</li>
+<li>balance must be achieved.</li>
+<li>Producer/Consumer models are advantageous:<ul>
+<li>One process/thread reads a file (producer)</li>
+<li>Another process/thread runs computation (consumer)</li>
+<li>This way, you’re computing and performing I/O at the same
+timeConsider memory mapped I/O - (more later when we talk about
+IPC)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="simple-i-o-performance-experiment">
+<h2>Simple I/O Performance Experiment<a class="headerlink" href="#simple-i-o-performance-experiment" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span> <span class="n">count</span><span class="o">=</span><span class="mi">1000000</span> <span class="o">-</span> <span class="mi">671</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span>
+<span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">10</span> <span class="n">count</span><span class="o">=</span><span class="mi">100000</span> <span class="o">-</span> <span class="mf">5.9</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
+<span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">100</span> <span class="n">count</span><span class="o">=</span><span class="mi">10000</span> <span class="o">-</span> <span class="mf">38.9</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
+<span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1000</span> <span class="n">count</span><span class="o">=</span><span class="mi">1000</span> <span class="o">-</span> <span class="mi">244</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
+<span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">10000</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">537</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
+<span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">100000</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span> <span class="o">-</span> <span class="mi">834</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
+<span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1000000</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">461</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
+</pre></div>
+</div>
+<p>In general:</p>
+<ul class="simple">
+<li>Increasing block size improves performance.</li>
+<li>This is a single run of <code class="docutils literal notranslate"><span class="pre">dd</span></code> for each block size. Multiple runs would likely result in higher average throughput.</li>
+<li>System load at any given time can impact the observed performance numbers.</li>
+</ul>
+</div>
+<div class="section" id="reading-writing-performance">
+<h2>Reading/Writing Performance<a class="headerlink" href="#reading-writing-performance" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Another approach to consider is Vectored I/O a.k.a. Gather-Scatter</li>
+<li>Programs will often separate reads/writes into different calls.</li>
+<li>One example would be a program that writes a header and then the
+content in two separate calls.</li>
+<li>Additional calls involve additional context switches and decreased
+performance.</li>
+<li>Vectored I/O allows several read/write calls to be combined.</li>
+<li>Smart operating system implementations will also allow them to be
+read/written out of order.</li>
+<li>This can make for significant performance gains.</li>
+<li>We’ll see more about this when we study the elevator algorithm as we
+look deeper into storage topics.</li>
+</ul>
+</div>
+<div class="section" id="performance-example">
+<h2>Performance Example<a class="headerlink" href="#performance-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="o">*</span><span class="n">file_data1</span> <span class="o">=</span> <span class="s">&quot;1234567890&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">file_data2</span> <span class="o">=</span> <span class="s">&quot;abcdefghijk&quot;</span><span class="p">;</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">file_data3</span> <span class="o">=</span> <span class="s">&quot;lmnopqrstuvwxyz&quot;</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file_name</span> <span class="o">=</span> <span class="s">&quot;temp.dat&quot;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+
+        <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;open returned (-1)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+                <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">struct</span> <span class="n">iovec</span> <span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+        <span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_base</span> <span class="o">=</span> <span class="n">file_data1</span><span class="p">;</span>
+        <span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">file_data1</span><span class="p">);</span>
+        <span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_base</span> <span class="o">=</span> <span class="n">file_data2</span><span class="p">;</span>
+        <span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">file_data2</span><span class="p">);</span>
+        <span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_base</span> <span class="o">=</span> <span class="n">file_data3</span><span class="p">;</span>
+        <span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">file_data3</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">written</span> <span class="o">=</span> <span class="n">writev</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffers</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">written</span> <span class="o">==</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;writev returned (-1)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+                <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;wrote %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">written</span><span class="p">);</span>
+
+        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scheduling.html" class="btn btn-neutral float-right" title="Process/Thread Scheduling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="processes.html" class="btn btn-neutral float-left" title="Introduction to Processes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

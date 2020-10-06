@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to Operating Systems &mdash; Operating Systems v0.9.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="About the Book" href="meta.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home" alt="Documentation Home"> Operating Systems
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                v0.9.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Operating Systems</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to Operating Systems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-operating-systems">
+<h1>Welcome to Operating Systems<a class="headerlink" href="#welcome-to-operating-systems" title="Permalink to this headline">¶</a></h1>
+<p>You have reached the home of Operating Systems (COMP 310-410) at Loyola University Chicago in
+the Computer Science Department.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="meta.html#build-status">Build Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meta.html#book-info">Book Info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meta.html#book-examples">Book Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meta.html#contact">Contact</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#crash-course-on-the-unix-shell">Crash Course on the UNIX Shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#bin-bash">/bin/bash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#more-useful-commands">more useful commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#files-and-folders">Files and Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#unix-file-permissions">UNIX file permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id1">UNIX file permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#combining-commands">Combining commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#backround-processes-and-jobs">Backround Processes and Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#background-processes">Background Processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#crash-course-on-unix-editors">Crash Course on UNIX Editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#choosing-an-editor">Choosing an Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#crash-course-in-c-programming">Crash Course in C Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-hello-world">C - Hello World</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-header-files">C - header files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-operator-precedence-highest-to-lowest">C - operator precedence (highest to lowest)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-type-declaration">C - type declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-type-casting">C - type casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-chacater-strings-arrays">C - chacater strings (arrays)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-memory-management">C - memory management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-pointers">C - pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id2">C - pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#id3">C - pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-functions">C - functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-functions-headers">C - functions / headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#c-macros">C - macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#crash-course-on-gcc">Crash course on GCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#where-to-find-it">Where to find it?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#installing-on-ubuntu">Installing on Ubuntu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#os-x">OS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#compiling-c-with-gcc">Compiling C with GCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#accessing-assembly-code-with-gcc">Accessing assembly code with GCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#useful-options-in-gcc-designed-to-help-you">Useful options in GCC (designed to <em>help</em> you)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#crash-course-on-gnu-makefiles">Crash Course on GNU Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#simple-makefile-example">Simple makefile example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#running-makefiles">Running makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#history-of-operating-systems">History of Operating Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#first-generation-operating-systems">First Generation Operating Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#second-generation-systems">Second Generation Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#third-generation-systems">Third Generation Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#fourth-generation-systems">Fourth Generation Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#history-of-windows-nt-xp-vista-7">History of Windows NT/XP/Vista/7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#history-of-linux">History of Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#types-of-computer-systems">Types of computer systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#batch-processing-systems">batch processing systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#time-sharing-systems">time sharing systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#personal-parallel-computers">personal / parallel computers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#clusters-clouds-grids">clusters / clouds / grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#types-of-operating-systems">Types of operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#single-program-simple-os">Single program / simple OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#real-time-os">Real-time OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#microkernel-os">Microkernel OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#monolithic-kernel-os">Monolithic Kernel OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#distributed-os">Distributed OS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#process-memory-layout">Process Memory Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#id1">Process Memory Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#multithreaded-memory-layout">Multithreaded Memory Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#preliminaries">Preliminaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#examine-process-layout-example">Examine Process Layout Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#loading-programs">Loading Programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#loading-shared-libraries-so">Loading shared libraries (.so)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#more-about-gcc-pic-option">more about GCC pic option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#id2">Loading shared libraries (.so)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#position-independent-code-example">Position Independent Code Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#main-cc">main.cc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#main-nopic-s-non-position-independent-code-gcc-fno-pic">main.nopic.s - non-position independent code (gcc -fno-pic)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#main-nopic-s-non-position-independent-code-gcc-fpic-default-option">main.nopic.s - non-position independent code (gcc -fpic, default option)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#what-s-the-difference">What’s the difference?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#shared-libraries-evaluation">Shared Libraries - Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#static-libraries-evaluation">Static Libraries - Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#libraries-vs-statically-linked-programs">Libraries vs. Statically-Linked Programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#process-protection">Process Protection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#process-creation-with-fork">Process Creation with fork()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#fork-example">fork() example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#process-creation-with-clone">Process Creation with clone()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#windows-createprocess-and-createthread">Windows CreateProcess() and CreateThread()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#emulating-fork-on-windows">Emulating fork() on Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#causes-of-process-termination">Causes of process termination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="processes.html#wait-and-waitpid-examples">wait() and waitpid() examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#common-attributes-of-all-unix-files">Common attributes of all (UNIX) files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#types-of-files-in-unix">Types of Files in Unix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#regular-files">Regular Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#folders">Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#symbolic-links">Symbolic Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#block-device-files">Block Device Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#character-device-files">Character Device Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#named-pipes-fifos">Named Pipes/FIFOs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#unix-domain-sockets">Unix Domain Sockets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#filesystem-system-calls">Filesystem System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#id1">Filesystem System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#more-filesystem-system-calls">More Filesystem System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#opening-files-with-open">Opening Files with open()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#closing-files-with-close">Closing files with close()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#writing-to-a-file">Writing to a File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#typical-write-algorithm">Typical Write Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#reading-from-a-file">Reading from a File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#typical-read-algorithm">Typical Read Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#seeking-within-a-file">Seeking within a File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#standard-file-descriptors">Standard File Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#duplicating-file-descriptors">Duplicating File Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#redirecting-file-descriptors">Redirecting File Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#redirecting-file-descriptors-code-example">Redirecting File Descriptors code example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#reading-folders">Reading Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#looking-ahead-i-o-performance">Looking Ahead: I/O Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#performance">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#simple-i-o-performance-experiment">Simple I/O Performance Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#reading-writing-performance">Reading/Writing Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files-io.html#performance-example">Performance Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#kernel-mode-vs-user-mode">Kernel Mode vs. User Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#interrupts">Interrupts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#hardware-interrupts-pc-architecture">Hardware Interrupts - PC Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#hardware-interrupts-sources">Hardware Interrupts - Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#software-interrupts">Software Interrupts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#goals-of-a-process-scheduler">Goals of a Process Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#types-of-scheduling-strategies">Types of Scheduling Strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#os-support">OS Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#types-of-processes-to-schedule">Types of Processes to Schedule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#preemptive-scheduling-key-terms">Preemptive Scheduling Key Terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#process-states">Process states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#choosing-a-quantum">Choosing a Quantum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#context-switches">Context Switches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#context-switching-how-it-works">Context switching - How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#degrees-of-preemption">Degrees of Preemption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#round-robin-process-scheduling">Round - Robin Process Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#scheduling-with-multiple-queues">Scheduling with Multiple Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#real-time-schedulers">Real-time Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#example-real-world-rts-problem">Example Real World RTS Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#solution-to-example-real-world-rts-problem">Solution to Example Real World RTS Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#types-of-real-time-scheduler-implementations">Types of Real-Time Scheduler Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#additional-concerns-in-advanced-scheduler-implementations">Additional Concerns in Advanced Scheduler Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#process-priority-and-scheduling-in-linux">Process Priority and Scheduling in Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#linux-real-time-scheduler">Linux Real Time Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#linux-preemptive-scheduler">Linux Preemptive Scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#nice-values">Nice Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#process-scheduling-in-windows">Process Scheduling in Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#user-mode-schedulers">User-Mode Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#user-mode-threads-why">User-Mode Threads: Why?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#user-mode-threads-why-not">User-Mode Threads: Why Not?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#gnu-pth-user-mode-pthreads">GNU - Pth - User Mode Pthreads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scheduling.html#pthreads-kernel-threads">PThreads - Kernel Threads</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#critical-sections">Critical Sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#identifying-the-critical-section">Identifying the Critical Section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#execution-orders-and-atomicity">Execution Orders and Atomicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id1">Execution Orders and Atomicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#characteristics-of-a-good-locking-solution">Characteristics of a Good Locking Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#achieving-atomicity-serializability">Achieving Atomicity / Serializability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#types-of-pessimistic-locks">Types of Pessimistic Locks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#types-of-optimistic-locks">Types of Optimistic Locks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#when-to-consider-optimistic-locking">When to Consider Optimistic Locking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#disabling-interrupts">Disabling Interrupts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#strict-alternation">Strict Alternation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#spin-locks">Spin Locks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#spin-locks-implementation">Spin Locks - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id2">Spin Locks - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id3">Spin Locks - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id4">Spin Locks - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#pthreads-mutex">Pthreads - Mutex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#mutexes-in-windows">Mutexes in Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#semaphores-some-history">Semaphores - some history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#semaphores">Semaphores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#semaphores-implementation">Semaphores - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#binary-semaphores">Binary semaphores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#event-semaphores">Event semaphores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id5">Semaphores - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id6">Semaphores - Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#semaphores-reader-writer-locks">Semaphores - reader / writer locks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id7">Semaphores - reader/writer locks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#semaphores-pthreads">Semaphores - pthreads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#windows-semaphores">Windows - Semaphores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#monitors-condition-variables">Monitors / Condition Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#monitors">Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#monitor-bounded-buffer">Monitor - bounded buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#id8">Monitor - bounded buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#semaphore-reader-writer-lock">Semaphore - reader/writer lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#monitors-reader-writer-locks">Monitors - Reader / Writer locks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#pthreads-condition-variables">Pthreads - Condition Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mutualexclusion.html#windows-condition-variables">Windows - Condition Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#deadlock-definition">Deadlock - definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dining-philosophers-problem">Dining Philosophers Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dining-philosophers-deadlock-scenario">Dining Philosophers - deadlock scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dining-philosophers-lock-graph">Dining Philosophers - Lock Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dining-philosophers">Dining Philosophers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dining-philosophers-solution-1">Dining Philosophers - solution 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dining-philosophers-solution-2">Dining Philosophers - solution 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#dijkstra-s-solution-bankers-algorithm">Dijkstra’s Solution / Bankers Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#optimization-to-dijkstra-s-solution">Optimization&nbsp;to Dijkstra’s Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#deadlock-avoidance-implementation">Deadlock Avoidance Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#deadlock-prevention-implementation">Deadlock Prevention Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#example-of-deadlock">Example of Deadlock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#multi-lock-solutions-in-windows">Multi-Lock Solutions in Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#multi-lock-solutions-in-linux-minix">Multi-Lock Solutions in Linux/Minix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#deadlock-with-lock-ordering">Deadlock with Lock Ordering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#starvation">Starvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#guidlines-to-avoid-starvation">Guidlines to Avoid Starvation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#livelock">Livelock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#lock-fairness">Lock Fairness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deadlock.html#lock-fairness-pros-cons">Lock Fairness. Pros / Cons</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#ipc-performance-hierarchy">IPC Performance Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#pipes">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id1">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#pipes-linux">Pipes - Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#pipes-context-switches">Pipes - Context Switches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#named-pipes-fifos">Named Pipes / FIFOs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#example-usage-of-a-regular-pipe-in-linux">Example usage of a regular pipe in Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#named-pipes-common-usages">Named Pipes - Common Usages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#named-pipes-atomic-reads-writes">Named Pipes - Atomic Reads / Writes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#signals">Signals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#list-of-important-signals">List of Important Signals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#handling-signals-example">Handling Signals - Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#sending-signals-example">Sending Signals - Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#signals-interrupted-system-calls">Signals - Interrupted System Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#signals-reentrant-functions">Signals - Reentrant Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id2">Signals - Reentrant Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#signals-sending-in-code">Signals - Sending In Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#example-implementing-sleep-with-alarm">Example - implementing sleep() with alarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#example-better-sleep-implementation">Example - “better” sleep implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#demonstrating-the-sleepfor-problem">Demonstrating the sleepFor problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#history-of-sleep-and-why-signals-are-scary">History of sleep and why signals are scary.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#other-uses-for-alarm">Other uses for alarm(…)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#memory-mapped-files">Memory Mapped Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id3">Memory Mapped Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id4">Memory Mapped Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#memory-mapped-files-virtual-addresses">Memory Mapped Files - Virtual Addresses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#absolute-memory-addressing">Absolute Memory Addressing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#relative-memory-addressing">Relative Memory Addressing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#linux-minix-use-of-mmap">Linux / Minix - Use of mmap()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#mmap-simple-example">mmap - simple example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id5">mmap - simple example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#memory-mapped-files-atomicity">Memory Mapped Files - Atomicity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#memory-mapped-files-bounded-buffer">Memory Mapped Files - Bounded Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id6">Memory Mapped Files - Bounded Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id7">Memory Mapped Files - Bounded Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id8">Memory Mapped Files - Bounded Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id9">Memory Mapped Files - Bounded Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id10">Memory Mapped Files - Bounded Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#memory-mapped-files-fast-i-o">Memory Mapped Files - Fast I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id11">Memory Mapped Files - Fast I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#files-ipc">Files - IPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#files-exposing-current-state">Files - Exposing Current State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#spool-folders">Spool Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#spool-folders-cron">Spool Folders - Cron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#spool-folders-cups">Spool Folders - CUPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#lock-files">Lock Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#doors">Doors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#server-code">Server Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#client-code">Client Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#domain-sockets">Domain Sockets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#domain-sockets-example">Domain Sockets - Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id12">Domain Sockets - Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ipc.html#id13">Domain Sockets - Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#what-is-virtual-memory">What is Virtual Memory?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#memory-management-units">Memory Management Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#pages-and-page-tables">Pages and Page Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id1">Pages and Page Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id2">Pages and Page Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#whats-in-a-page-table-entry">What’s in a Page Table Entry?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#page-table-entries">Page Table Entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id3">Page Table Entries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#two-level-page-table-thanks-wikipedia">Two Level Page Table (thanks Wikipedia)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#mmu-address-translation-algorithm">MMU - Address Translation Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#page-faults">Page Faults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#page-faults-unix">Page Faults - UNIX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#page-faults-windows">Page Faults - Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#page-replacement-swapping">Page Replacement / Swapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id4">Page Replacement / Swapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id5">Page Replacement / Swapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms">Swapper Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-page-classification">Swapper Algorithms - Page Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-nru">Swapper Algorithms - NRU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-fifo">Swapper Algorithms - FIFO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-second-chance-fifo">Swapper Algorithms - Second Chance FIFO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-clock">Swapper Algorithms - Clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-lru">Swapper Algorithms - LRU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-lru-nfu">Swapper Algorithms - LRU/NFU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#swapper-algorithms-lru-nfu-aging">Swapper Algorithms - LRU/NFU - Aging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id6">Swapper Algorithms - LRU/NFU - Aging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#beladys-anomoly">Belady’s Anomoly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#beladys-anomoly-thanks-wikipedia">Belady’s Anomoly (thanks Wikipedia)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id7">Belady’s Anomoly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#modeling-page-replacement">Modeling Page Replacement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id8">Modeling Page Replacement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#modeling-lru">Modeling LRU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id9">Modeling LRU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#modeling-distance-strings">Modeling - Distance Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id10">Modeling - Distance Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id11">Modeling - Distance Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#design-considerations-for-paging-systems">Design Considerations for Paging Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#working-sets">Working Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#taking-advantage-of-locality">Taking Advantage of Locality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#costs-of-paging-different-page-classes">Costs of Paging Different Page Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id12">Costs of Paging Different Page Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id13">Costs of Paging Different Page Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#local-vs-global-paging">Local vs Global Paging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#page-locking">Page Locking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#cow-copy-on-write">COW: Copy on Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id14">COW: Copy on Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#backing-store">Backing Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#hibernation">Hibernation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#vm-performance-hot-memory">VM Performance - Hot Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id15">Modeling - Distance Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#summary-page-fault-handling">Summary: Page Fault Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernelmm.html#id16">Summary: Page Fault Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#why-userland-memory-management">Why Userland Memory Management?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id1">Why Userland Memory Management?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#heap-management">Heap Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#the-heap">The Heap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#the-memory-manager">The Memory Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#characteristics-of-memory-allocation">Characteristics of Memory Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id2">Characteristics of Memory Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#characteristics-of-a-good-memory-manager">Characteristics of a Good Memory Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#a-refresher-on-the-memory-hierarchy">A Refresher on the Memory Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#program-locality">Program Locality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#fragmentation">Fragmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#reducing-fragmentation-of-the-heap">Reducing Fragmentation of the Heap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#best-fit-vs-next-fit">Best-Fit vs Next-Fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#best-fit">Best-Fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#managing-free-space">Managing Free Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#bugs-and-explicit-allocators">Bugs and Explicit Allocators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#debugging-malloc-free">Debugging malloc / free</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#expanding-the-heap">Expanding the Heap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#recommended-reading">Recommended Reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#problems-with-manual-deallocation">Problems with manual deallocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id3">Problems with manual deallocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#avoiding-problems-with-manual-deallocation">Avoiding problems with manual deallocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#a-simple-malloc-free-implementation-example-from-ibm-developer-works">A simple Malloc / Free Implementation (Example from IBM Developer Works)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#a-simple-malloc-free-implementation">A simple Malloc / Free Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id4">A simple Malloc / Free Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id5">A simple Malloc / Free Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id6">A simple Malloc / Free Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#garbage-collection">Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id7">Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#requirements-for-garbage-collectors">Requirements for Garbage Collectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#goals-for-a-garbage-collector">Goals for a Garbage Collector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#disadvantages-to-garbage-collection">Disadvantages to Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id8">Disadvantages to Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#reachability">Reachability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#reference-counting-garbage-collectors">Reference Counting Garbage Collectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#pros-cons-of-reference-counting-garbage-collectors">Pros-Cons of Reference Counting Garbage Collectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#mark-and-sweep-garbage-collection">Mark-and-Sweep Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#mark-and-compact-garbage-collection">Mark-and-Compact Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#garbage-collection-costs">Garbage Collection Costs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#incremental-garbage-collection">Incremental Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id9">Incremental Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#generational-garbage-collection">Generational Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#id10">Generational Garbage Collection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userlandmm.html#buyer-beware">Buyer Beware</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#storage-devices">Storage Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#ide-ata">IDE/ATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#atapi">ATAPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#sata-serial-ata">SATA - Serial ATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#hard-disk-geometry-chs">Hard Disk Geometry - CHS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id1">Hard Disk Geometry - CHS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#hard-disk-geometry-lba">Hard Disk Geometry - LBA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#storage-and-failure">Storage and Failure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#maximizing-availability-raid">Maximizing Availability - RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#raid">RAID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#raid-0">RAID - 0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#raid-1">RAID - 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#raid-5">RAID - 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#raid-5-parity">RAID - 5 Parity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id2">RAID - 5 Parity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id3">RAID - 5 Parity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id4">RAID - 5 Parity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#raid-5-parity-and-recovery">RAID 5 - Parity and Recovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#disk-partitioning">Disk Partitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id5">Disk Partitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#disk-arms-heads">Disk Arms / Heads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id6">Hard Disk Geometry - CHS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#characteristics-of-a-good-disk-scheduling-algorithm">Characteristics of a Good Disk Scheduling Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#disk-scheduling-algorithms">Disk Scheduling Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#fifo">FIFO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#shortest-seek-first">Shortest Seek First</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id7">Shortest Seek First</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#elevator-algorithm">Elevator Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#id8">Elevator Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#evaluation-of-the-elevator-algorithm">Evaluation of the Elevator Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#fscan">FSCAN</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id1">Implementing Files and Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#linked-lists">Linked-Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id2">Linked-Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#file-allocation-tables-fat">File Allocation Tables (FAT)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id3">File Allocation Tables (FAT)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#inodes">inodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#minix-inode">Minix - inode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id4">Minix - inode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id5">inodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#block-caches">Block Caches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id6">Block Caches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id7">Block Caches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#folders-and-path-traversal">Folders and Path Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#path-traversal">Path Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#virtual-filesystems-vfs">Virtual Filesystems / VFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id8">Virtual Filesystems / VFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#virtual-filesystems-and-stacking">Virtual Filesystems and Stacking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#virtual-filesystems-and-user-mode">Virtual Filesystems and User-Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#user-mode-filesystems">User-Mode Filesystems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id9">User-Mode Filesystems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#example-pass-through-fuse-filesystem">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id10">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id11">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id12">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id13">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id14">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id15">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id16">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id17">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id18">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id19">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id20">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#id21">Example pass-through FUSE Filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html#fuse">FUSE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="research.html#filesystems-research-at-loyola">Filesystems Research at Loyola</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#nofs">NOFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id1">NOFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#an-example-nofs-filesystem-in-3-slides">An Example NOFS Filesystem in 3 Slides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id2">An Example NOFS Filesystem in 3 Slides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id3">An Example NOFS Filesystem in 3 Slides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#nofs-running-the-sample">NOFS - Running the Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id4">NOFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#nofs-architecture-relation-to-fuse-and-the-os">NOFS - Architecture - Relation to FUSE and the OS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#nofs-architecture-translation-of-domain-model-to-files">NOFS - Architecture - Translation of Domain Model to Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#nofs-architecture-method-execution">NOFS - Architecture - Method Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#restfs">RestFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#restfs-service-composition">RestFS - Service Composition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id5">RestFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#restfs-communications">RestFS - Communications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#restfs-google-search">RestFS - Google Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#restfs-authentication">RestFS - Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id6">RestFS - Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id7">RestFS - Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#id8">RestFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research.html#restfs-future-directions">RestFS - Future Directions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#vmware-fusion-vs-player-vs-workstation">VMware Fusion vs Player vs Workstation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-1-create-a-vm">Step 1: Create a VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-2-create-the-vm-with-an-installer-disk">Step 2: Create the VM with an installer disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-3-locate-the-iso-file">Step 3: Locate the ISO file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-4-fill-out-easy-install-details">Step 4: Fill out Easy-Install details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-5-customize-settings">Step 5: Customize settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-6-processors-and-memory">Step 6: Processors and memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-7-start-the-vm">Step 7: Start the VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-8-wait-for-easy-install-to-complete">Step 8: Wait for Easy-Install to complete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-9-log-into-the-new-vm-and-launch-a-terminal">Step 9: Log into the new VM and Launch a terminal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-10-install-course-software">Step 10: Install course software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-11-install-security-updates">Step 11: Install security updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_vm.html#step-12-reboot">Step 12: Reboot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#vmware-fusion-vs-player-vs-workstation">VMware Fusion vs Player vs Workstation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#create-a-new-vm">Create a new VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#choose-the-install-disk">Choose the install disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#fill-out-easy-install-settings">Fill out Easy-Install settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#customize-vm-settings">Customize VM settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#start-the-vm">Start the VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#wait-for-easy-install-to-complete">Wait for Easy-Install to complete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#easy-install-is-finished">Easy-Install is finished</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#install-visual-studio-attaching-the-disk-file">Install Visual Studio - attaching the disk file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#install-visual-studio-start-the-installer">Install Visual Studio - start the installer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#launch-and-sign-into-visual-studio">Launch and sign into Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#install-vmware-player">Install VMware Player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#install-mercurial">Install Mercurial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#configuring-and-installing-software-and-security-updates">Configuring and installing software and security updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="windows_vm.html#reboot-the-vm">Reboot the VM</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="meta.html" class="btn btn-neutral float-right" title="About the Book" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
