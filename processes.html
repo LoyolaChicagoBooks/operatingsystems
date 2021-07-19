@@ -409,15 +409,130 @@ each object file into the program’s address space</p></li>
 </div>
 <div class="section" id="main-cc">
 <h2>main.cc<a class="headerlink" href="#main-cc" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;abcdefg&quot;</span><span class="p">;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="p">}</span>
+<span class="linenos">14</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="main-nopic-s-non-position-independent-code-gcc-fno-pic">
 <h2>main.nopic.s - non-position independent code (gcc -fno-pic)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fno-pic" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>	.file	&quot;main.c&quot;
+<span class="linenos"> 2</span>	.text
+<span class="linenos"> 3</span>	.globl	msg
+<span class="linenos"> 4</span>	.section	.rodata
+<span class="linenos"> 5</span>.LC0:
+<span class="linenos"> 6</span>	.string	&quot;abcdefg&quot;
+<span class="linenos"> 7</span>	.data
+<span class="linenos"> 8</span>	.align 8
+<span class="linenos"> 9</span>	.type	msg, @object
+<span class="linenos">10</span>	.size	msg, 8
+<span class="linenos">11</span>msg:
+<span class="linenos">12</span>	.quad	.LC0
+<span class="linenos">13</span>	.text
+<span class="linenos">14</span>	.globl	main
+<span class="linenos">15</span>	.type	main, @function
+<span class="linenos">16</span>main:
+<span class="linenos">17</span>.LFB0:
+<span class="linenos">18</span>	.cfi_startproc
+<span class="linenos">19</span>	endbr64
+<span class="linenos">20</span>	pushq	%rbp
+<span class="linenos">21</span>	.cfi_def_cfa_offset 16
+<span class="linenos">22</span>	.cfi_offset 6, -16
+<span class="linenos">23</span>	movq	%rsp, %rbp
+<span class="linenos">24</span>	.cfi_def_cfa_register 6
+<span class="linenos">25</span>	subq	$32, %rsp
+<span class="linenos">26</span>	movl	%edi, -20(%rbp)
+<span class="linenos">27</span>	movq	%rsi, -32(%rbp)
+<span class="linenos">28</span>	movq	msg(%rip), %rax
+<span class="linenos">29</span>	addq	$1, %rax
+<span class="linenos">30</span>	movq	%rax, -8(%rbp)
+<span class="linenos">31</span>	movq	-8(%rbp), %rax
+<span class="linenos">32</span>	movl	$1, %edx
+<span class="linenos">33</span>	movq	%rax, %rsi
+<span class="linenos">34</span>	movl	$1, %edi
+<span class="linenos">35</span>	call	write
+<span class="linenos">36</span>	movl	$0, %eax
+<span class="linenos">37</span>	leave
+<span class="linenos">38</span>	.cfi_def_cfa 7, 8
+<span class="linenos">39</span>	ret
+</pre></div>
+</div>
 </div>
 <div class="section" id="main-nopic-s-non-position-independent-code-gcc-fpic-default-option">
 <h2>main.nopic.s - non-position independent code (gcc -fpic, default option)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fpic-default-option" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>	.file	&quot;main.c&quot;
+<span class="linenos"> 2</span>	.text
+<span class="linenos"> 3</span>	.globl	msg
+<span class="linenos"> 4</span>	.section	.rodata
+<span class="linenos"> 5</span>.LC0:
+<span class="linenos"> 6</span>	.string	&quot;abcdefg&quot;
+<span class="linenos"> 7</span>	.section	.data.rel.local,&quot;aw&quot;
+<span class="linenos"> 8</span>	.align 8
+<span class="linenos"> 9</span>	.type	msg, @object
+<span class="linenos">10</span>	.size	msg, 8
+<span class="linenos">11</span>msg:
+<span class="linenos">12</span>	.quad	.LC0
+<span class="linenos">13</span>	.text
+<span class="linenos">14</span>	.globl	main
+<span class="linenos">15</span>	.type	main, @function
+<span class="linenos">16</span>main:
+<span class="linenos">17</span>.LFB0:
+<span class="linenos">18</span>	.cfi_startproc
+<span class="linenos">19</span>	endbr64
+<span class="linenos">20</span>	pushq	%rbp
+<span class="linenos">21</span>	.cfi_def_cfa_offset 16
+<span class="linenos">22</span>	.cfi_offset 6, -16
+<span class="linenos">23</span>	movq	%rsp, %rbp
+<span class="linenos">24</span>	.cfi_def_cfa_register 6
+<span class="linenos">25</span>	subq	$32, %rsp
+<span class="linenos">26</span>	movl	%edi, -20(%rbp)
+<span class="linenos">27</span>	movq	%rsi, -32(%rbp)
+<span class="linenos">28</span>	movq	msg@GOTPCREL(%rip), %rax
+<span class="linenos">29</span>	movq	(%rax), %rax
+<span class="linenos">30</span>	addq	$1, %rax
+<span class="linenos">31</span>	movq	%rax, -8(%rbp)
+<span class="linenos">32</span>	movq	-8(%rbp), %rax
+<span class="linenos">33</span>	movl	$1, %edx
+<span class="linenos">34</span>	movq	%rax, %rsi
+<span class="linenos">35</span>	movl	$1, %edi
+<span class="linenos">36</span>	call	write@PLT
+<span class="linenos">37</span>	movl	$0, %eax
+<span class="linenos">38</span>	leave
+<span class="linenos">39</span>	.cfi_def_cfa 7, 8
+<span class="linenos">40</span>	ret
+</pre></div>
+</div>
 </div>
 <div class="section" id="what-s-the-difference">
 <h2>What’s the difference?<a class="headerlink" href="#what-s-the-difference" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">diff</span> <span class="n">main</span><span class="o">.</span><span class="n">pic</span><span class="o">.</span><span class="n">s</span> <span class="n">main</span><span class="o">.</span><span class="n">nopic</span><span class="o">.</span><span class="n">s</span>
+<span class="linenos"> 2</span><span class="mi">7</span><span class="n">c7</span>
+<span class="linenos"> 3</span><span class="o">&lt;</span> 	<span class="o">.</span><span class="n">section</span>	<span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rel</span><span class="o">.</span><span class="n">local</span><span class="p">,</span><span class="s2">&quot;aw&quot;</span>
+<span class="linenos"> 4</span><span class="o">---</span>
+<span class="linenos"> 5</span><span class="o">&gt;</span> 	<span class="o">.</span><span class="n">data</span>
+<span class="linenos"> 6</span><span class="mi">28</span><span class="p">,</span><span class="mi">29</span><span class="n">c28</span>
+<span class="linenos"> 7</span><span class="o">&lt;</span> 	<span class="n">movq</span>	<span class="n">msg</span><span class="nd">@GOTPCREL</span><span class="p">(</span><span class="o">%</span><span class="n">rip</span><span class="p">),</span> <span class="o">%</span><span class="n">rax</span>
+<span class="linenos"> 8</span><span class="o">&lt;</span> 	<span class="n">movq</span>	<span class="p">(</span><span class="o">%</span><span class="n">rax</span><span class="p">),</span> <span class="o">%</span><span class="n">rax</span>
+<span class="linenos"> 9</span><span class="o">---</span>
+<span class="linenos">10</span><span class="o">&gt;</span> 	<span class="n">movq</span>	<span class="n">msg</span><span class="p">(</span><span class="o">%</span><span class="n">rip</span><span class="p">),</span> <span class="o">%</span><span class="n">rax</span>
+<span class="linenos">11</span><span class="mi">36</span><span class="n">c35</span>
+<span class="linenos">12</span><span class="o">&lt;</span> 	<span class="n">call</span>	<span class="n">write</span><span class="nd">@PLT</span>
+<span class="linenos">13</span><span class="o">---</span>
+<span class="linenos">14</span><span class="o">&gt;</span> 	<span class="n">call</span>	<span class="n">write</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="shared-libraries-evaluation">
 <h2>Shared Libraries - Evaluation<a class="headerlink" href="#shared-libraries-evaluation" title="Permalink to this headline">¶</a></h2>
@@ -515,6 +630,41 @@ $ cmake
 $ make
 </pre></div>
 </div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 2</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 3</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 4</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+<span class="linenos"> 7</span>    <span class="kt">int</span> <span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="linenos"> 8</span>    <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+<span class="linenos"> 9</span>    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">parentMessage</span> <span class="o">=</span> <span class="s">&quot;1111111&quot;</span><span class="p">;</span>
+<span class="linenos">12</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">childMessage</span> <span class="o">=</span>  <span class="s">&quot;22222222222222</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">15</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the parent process, chid pid = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
+<span class="linenos">16</span>        <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="linenos">17</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;parent&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">SomeValue</span><span class="p">);</span>
+<span class="linenos">18</span>        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">parentMessage</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">parentMessage</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="linenos">19</span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">20</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the child process</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">21</span>        <span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="linenos">22</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">SomeValue</span><span class="p">);</span>
+<span class="linenos">23</span>        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">childMessage</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">childMessage</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="linenos">24</span>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="linenos">25</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;fork() failed!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">26</span>    <span class="p">}</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="linenos">31</span><span class="p">}</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="process-creation-with-clone">
 <h2>Process Creation with clone()<a class="headerlink" href="#process-creation-with-clone" title="Permalink to this headline">¶</a></h2>
@@ -602,6 +752,32 @@ system calls</p></li>
 <div class="section" id="wait-and-waitpid-examples">
 <h2>wait() and waitpid() examples<a class="headerlink" href="#wait-and-waitpid-examples" title="Permalink to this headline">¶</a></h2>
 <p>See <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> if you want to run this program.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 2</span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 3</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 4</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 5</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+<span class="linenos"> 9</span>    <span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+<span class="linenos">10</span>    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">11</span>        <span class="n">abort</span><span class="p">();</span>    <span class="c1">//child process exits</span>
+<span class="linenos">12</span>    <span class="p">}</span>
+<span class="linenos">13</span>    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
+<span class="linenos">14</span>    <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span> <span class="c1">// wait for child to exit</span>
+<span class="linenos">15</span>    <span class="k">if</span><span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+<span class="linenos">16</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;normal exit. exit code = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+<span class="linenos">17</span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+<span class="linenos">18</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;abnormal termination, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+<span class="linenos">19</span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">WIFSTOPPED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+<span class="linenos">20</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child stopped, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WSTOPSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
+<span class="linenos">21</span>    <span class="p">}</span>
+<span class="linenos">22</span><span class="p">}</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>
+</pre></div>
+</div>
 </div>
 </div>
 
