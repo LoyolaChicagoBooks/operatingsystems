@@ -36,6 +36,10 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements.txt
 
+      - name: Get Code Examples
+        run: |
+          ./get-code-examples.sh
+
       - name: Generate HTML
         run: |
           make html
