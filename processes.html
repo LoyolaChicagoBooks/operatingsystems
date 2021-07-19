@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Introduction to Processes &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Introduction to Processes &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +65,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -171,6 +173,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -182,7 +186,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/processes.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -199,22 +203,25 @@
   <div class="section" id="introduction-to-processes">
 <h1>Introduction to Processes<a class="headerlink" href="#introduction-to-processes" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>An executing program or job</li>
-<li>Components<ul>
-<li>Memory address space</li>
-<li>Program image</li>
-<li>Handles to files</li>
-<li>Interprocess communication</li>
+<li><p>An executing program or job</p></li>
+<li><p>Components</p>
+<ul>
+<li><p>Memory address space</p></li>
+<li><p>Program image</p></li>
+<li><p>Handles to files</p></li>
+<li><p>Interprocess communication</p></li>
 </ul>
 </li>
-<li>Every process has a parent<ul>
-<li>top most process in UNIX is “init”</li>
-<li>Windows top most processes are:<ul>
-<li>system.exe - OS kernel</li>
-<li>csrss.exe - handles user mode win32 calls</li>
-<li>wininit.exe - manages system services</li>
-<li>explorer.exe - OS shell</li>
-<li>winlogin.exe - OS login service</li>
+<li><p>Every process has a parent</p>
+<ul>
+<li><p>top most process in UNIX is “init”</p></li>
+<li><p>Windows top most processes are:</p>
+<ul>
+<li><p>system.exe - OS kernel</p></li>
+<li><p>csrss.exe - handles user mode win32 calls</p></li>
+<li><p>wininit.exe - manages system services</p></li>
+<li><p>explorer.exe - OS shell</p></li>
+<li><p>winlogin.exe - OS login service</p></li>
 </ul>
 </li>
 </ul>
@@ -223,22 +230,24 @@
 <div class="section" id="process-memory-layout">
 <h2>Process Memory Layout<a class="headerlink" href="#process-memory-layout" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Text - machine instructions of a program.</li>
-<li>Data - initialized static data and constants</li>
-<li>BSS - uninitialized static data</li>
-<li>Heap - dynamic memory of a process<ul>
-<li>one or more per process</li>
+<li><p>Text - machine instructions of a program.</p></li>
+<li><p>Data - initialized static data and constants</p></li>
+<li><p>BSS - uninitialized static data</p></li>
+<li><p>Heap - dynamic memory of a process</p>
+<ul>
+<li><p>one or more per process</p></li>
 </ul>
 </li>
-<li>Stack - local variables, call stack, return values<ul>
-<li>one per thread for kernel mode threads</li>
-<li>one per n-threads for user mode threads</li>
+<li><p>Stack - local variables, call stack, return values</p>
+<ul>
+<li><p>one per thread for kernel mode threads</p></li>
+<li><p>one per n-threads for user mode threads</p></li>
 </ul>
 </li>
-<li>layout of and allocation of text, data, bss, and initial values for
-first thread’s stack and heap are the responsibility of the loader</li>
-<li>management of stack and heap are through the process’s runtime
-library and program instructions</li>
+<li><p>layout of and allocation of text, data, bss, and initial values for
+first thread’s stack and heap are the responsibility of the loader</p></li>
+<li><p>management of stack and heap are through the process’s runtime
+library and program instructions</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
@@ -246,7 +255,7 @@ library and program instructions</li>
 <blockquote>
 <div><div class="figure align-center" id="id3">
 <img alt="Memory Layout" src="_images/memory_layout.png" />
-<p class="caption"><span class="caption-text">Memory Layout</span></p>
+<p class="caption"><span class="caption-text">Memory Layout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -255,30 +264,29 @@ library and program instructions</li>
 <blockquote>
 <div><div class="figure align-center" id="id4">
 <img alt="Memory Layout for Multithreaded Programs" src="_images/memory_layout_multithreaded.png" />
-<p class="caption"><span class="caption-text">Memory Layout for Multithreaded Programs</span></p>
+<p class="caption"><span class="caption-text">Memory Layout for Multithreaded Programs</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Code for examples in maintained at <a class="reference external" href="https://github.com/gkthiruvathukal/systems-code-examples">https://github.com/gkthiruvathukal/systems-code-examples</a></li>
-<li>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code> to clone to a folder <code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code>.</li>
-<li>All subsequent examples that are full-working demonstrations will be referenced as <code class="docutils literal notranslate"><span class="pre">systems-code-examples/&lt;example-name&gt;</span></code>.</li>
-<li>To run examples, make sure you have <cite>gcc</cite>, <cite>cmake</cite>, and <cite>make</cite> on your computer.</li>
-<li>We only have tested on Ubuntu Linux, MacOS, and Windows Subsystem for Linux 2 (with Ubuntu 20.04 LTS). Most others should work.</li>
+<li><p>Code for examples in maintained at <a class="reference external" href="https://github.com/gkthiruvathukal/systems-code-examples">https://github.com/gkthiruvathukal/systems-code-examples</a></p></li>
+<li><p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code> to clone to a folder <code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code>.</p></li>
+<li><p>All subsequent examples that are full-working demonstrations will be referenced as <code class="docutils literal notranslate"><span class="pre">systems-code-examples/&lt;example-name&gt;</span></code>.</p></li>
+<li><p>To run examples, make sure you have <cite>gcc</cite>, <cite>cmake</cite>, and <cite>make</cite> on your computer.</p></li>
+<li><p>We only have tested on Ubuntu Linux, MacOS, and Windows Subsystem for Linux 2 (with Ubuntu 20.04 LTS). Most others should work.</p></li>
 </ul>
 </div>
 <div class="section" id="examine-process-layout-example">
 <h2>Examine Process Layout Example<a class="headerlink" href="#examine-process-layout-example" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Most of our examples are written in C with some C++.</p>
-</li>
-<li><p class="first">Getting the code</p>
+<li><p>Most of our examples are written in C with some C++.</p></li>
+<li><p>Getting the code</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code>
 <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">systems-code-examples/c_intro</span></code></p>
 </li>
-<li><p class="first">Generate the <cite>Makefile</cite> using <cite>cmake</cite>:</p>
+<li><p>Generate the <cite>Makefile</cite> using <cite>cmake</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd c_intro
 $ cmake .
 -- The C compiler identification is GNU 9.3.0
@@ -302,7 +310,7 @@ $ cmake .
 </pre></div>
 </div>
 </li>
-<li><p class="first">Run <cite>make</cite> to crate the executable:</p>
+<li><p>Run <cite>make</cite> to crate the executable:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make
 Scanning dependencies of target c-intro-demo
 [ 20%] Building CXX object CMakeFiles/c-intro-demo.dir/main.cc.o
@@ -314,11 +322,9 @@ Scanning dependencies of target c-intro-demo
 </pre></div>
 </div>
 </li>
-<li><p class="first">Note that for all of our examples, the output executable appears in the <cite>bin</cite> subdirectory.</p>
-</li>
-<li><p class="first">Note also that almost all of our examples use <cite>cmake</cite> and <cite>make</cite> as shown here.</p>
-</li>
-<li><p class="first">Run the <cite>layout</cite> shell script, which shows the size of the text, data, and bss in <em>bytes</em>:</p>
+<li><p>Note that for all of our examples, the output executable appears in the <cite>bin</cite> subdirectory.</p></li>
+<li><p>Note also that almost all of our examples use <cite>cmake</cite> and <cite>make</cite> as shown here.</p></li>
+<li><p>Run the <cite>layout</cite> shell script, which shows the size of the text, data, and bss in <em>bytes</em>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./layout
 
 section               size   addr
@@ -333,37 +339,37 @@ section               size   addr
 <div class="section" id="loading-programs">
 <h2>Loading Programs<a class="headerlink" href="#loading-programs" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>loader allocates memory for executable’s text, data, bss, heap, and
-stack. and loads program’s image into memory</li>
-<li>loader gets information from OS where shared libraries are already
+<li><p>loader allocates memory for executable’s text, data, bss, heap, and
+stack. and loads program’s image into memory</p></li>
+<li><p>loader gets information from OS where shared libraries are already
 allocated in memory and loads the ones that are not already loaded.
-each shared library has its own text, data, and bss</li>
-<li>loader goes through executable and adjusts the list of external
-symbols to point to the correct spots in memory (to shared libraries)</li>
-<li>try the <code class="docutils literal notranslate"><span class="pre">nm</span></code> command to see the symbols in a compiled object/executable.</li>
-<li>once program is ready, loader invokes <code class="docutils literal notranslate"><span class="pre">_start()</span></code> method</li>
-<li><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls <code class="docutils literal notranslate"><span class="pre">_init()</span></code> for each shared library</li>
-<li><code class="docutils literal notranslate"><span class="pre">_start()</span></code> initializes static constructors of objects defined as
-global variables</li>
-<li><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls main() and program begins</li>
+each shared library has its own text, data, and bss</p></li>
+<li><p>loader goes through executable and adjusts the list of external
+symbols to point to the correct spots in memory (to shared libraries)</p></li>
+<li><p>try the <code class="docutils literal notranslate"><span class="pre">nm</span></code> command to see the symbols in a compiled object/executable.</p></li>
+<li><p>once program is ready, loader invokes <code class="docutils literal notranslate"><span class="pre">_start()</span></code> method</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls <code class="docutils literal notranslate"><span class="pre">_init()</span></code> for each shared library</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> initializes static constructors of objects defined as
+global variables</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls main() and program begins</p></li>
 </ul>
 </div>
 <div class="section" id="loading-shared-libraries-so">
 <h2>Loading shared libraries (.so)<a class="headerlink" href="#loading-shared-libraries-so" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Libraries also have a data, bss, and text segment</li>
-<li>Memory references in shared libraries are position independent (GCC
+<li><p>Libraries also have a data, bss, and text segment</p></li>
+<li><p>Memory references in shared libraries are position independent (GCC
 <code class="docutils literal notranslate"><span class="pre">-fpic</span></code> or <code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> flagsA. Newer GCC makes PIC defualt. Use <code class="docutils literal notranslate"><span class="pre">-fno-pic</span></code>
-if you notice this.</li>
-<li>Linker must resolve all of these position independent memory accesses
+if you notice this.</p></li>
+<li><p>Linker must resolve all of these position independent memory accesses
 to local accesses. This is accomplished by writing the GOT for each
-linked process.</li>
-<li>The need for the memory addresses to be position independent is
+linked process.</p></li>
+<li><p>The need for the memory addresses to be position independent is
 because the offset that a shared library will be loaded will differ
-between executions of the same program and among other programs.</li>
-<li>Also, the same loaded shared library will be shared with other
+between executions of the same program and among other programs.</p></li>
+<li><p>Also, the same loaded shared library will be shared with other
 processes without reloading. So, the same library may have different
-offsets for different programs</li>
+offsets for different programs</p></li>
 </ul>
 </div>
 <div class="section" id="more-about-gcc-pic-option">
@@ -383,306 +389,86 @@ has no such limit.)</p>
 <div class="section" id="id2">
 <h2>Loading shared libraries (.so)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Static libraries do not contain position independent code</li>
-<li>Static libraries are simply a collection of unlinked <code class="docutils literal notranslate"><span class="pre">.o</span></code> (object)
-files</li>
-<li>The dynamic linker simply loads the text, data, and bss sections of
-each object file into the program’s address space</li>
+<li><p>Static libraries do not contain position independent code</p></li>
+<li><p>Static libraries are simply a collection of unlinked <code class="docutils literal notranslate"><span class="pre">.o</span></code> (object)
+files</p></li>
+<li><p>The dynamic linker simply loads the text, data, and bss sections of
+each object file into the program’s address space</p></li>
 </ul>
 </div>
 <div class="section" id="position-independent-code-example">
 <h2>Position Independent Code Example<a class="headerlink" href="#position-independent-code-example" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Get the code</p>
+<li><p>Get the code</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">systems-code-examples/pic</span></code></p>
 </li>
-<li><p class="first">For this example, you can build it using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile.pic</span></code>.</p>
-</li>
-<li><p class="first">The main purpose of this example is to show the difference between generating PIC vs. non-PIC.</p>
-</li>
+<li><p>For this example, you can build it using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile.pic</span></code>.</p></li>
+<li><p>The main purpose of this example is to show the difference between generating PIC vs. non-PIC.</p></li>
 </ul>
 </div>
 <div class="section" id="main-cc">
 <h2>main.cc<a class="headerlink" href="#main-cc" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-
-<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;abcdefg&quot;</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-
-    <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-<span class="p">}</span>
-
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="main-nopic-s-non-position-independent-code-gcc-fno-pic">
 <h2>main.nopic.s - non-position independent code (gcc -fno-pic)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fno-pic" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	.file	&quot;main.c&quot;
-	.text
-	.globl	msg
-	.section	.rodata
-.LC0:
-	.string	&quot;abcdefg&quot;
-	.data
-	.align 8
-	.type	msg, @object
-	.size	msg, 8
-msg:
-	.quad	.LC0
-	.text
-	.globl	main
-	.type	main, @function
-main:
-.LFB0:
-	.cfi_startproc
-	endbr64
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movl	%edi, -20(%rbp)
-	movq	%rsi, -32(%rbp)
-	movq	msg(%rip), %rax
-	addq	$1, %rax
-	movq	%rax, -8(%rbp)
-	movq	-8(%rbp), %rax
-	movl	$1, %edx
-	movq	%rax, %rsi
-	movl	$1, %edi
-	call	write
-	movl	$0, %eax
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="main-nopic-s-non-position-independent-code-gcc-fpic-default-option">
 <h2>main.nopic.s - non-position independent code (gcc -fpic, default option)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fpic-default-option" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40</pre></div></td><td class="code"><div class="highlight"><pre><span></span>	.file	&quot;main.c&quot;
-	.text
-	.globl	msg
-	.section	.rodata
-.LC0:
-	.string	&quot;abcdefg&quot;
-	.section	.data.rel.local,&quot;aw&quot;
-	.align 8
-	.type	msg, @object
-	.size	msg, 8
-msg:
-	.quad	.LC0
-	.text
-	.globl	main
-	.type	main, @function
-main:
-.LFB0:
-	.cfi_startproc
-	endbr64
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movl	%edi, -20(%rbp)
-	movq	%rsi, -32(%rbp)
-	movq	msg@GOTPCREL(%rip), %rax
-	movq	(%rax), %rax
-	addq	$1, %rax
-	movq	%rax, -8(%rbp)
-	movq	-8(%rbp), %rax
-	movl	$1, %edx
-	movq	%rax, %rsi
-	movl	$1, %edi
-	call	write@PLT
-	movl	$0, %eax
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="what-s-the-difference">
 <h2>What’s the difference?<a class="headerlink" href="#what-s-the-difference" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">diff</span> <span class="n">main</span><span class="o">.</span><span class="n">pic</span><span class="o">.</span><span class="n">s</span> <span class="n">main</span><span class="o">.</span><span class="n">nopic</span><span class="o">.</span><span class="n">s</span>
-<span class="mi">7</span><span class="n">c7</span>
-<span class="o">&lt;</span> 	<span class="o">.</span><span class="n">section</span>	<span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rel</span><span class="o">.</span><span class="n">local</span><span class="p">,</span><span class="s2">&quot;aw&quot;</span>
-<span class="o">---</span>
-<span class="o">&gt;</span> 	<span class="o">.</span><span class="n">data</span>
-<span class="mi">28</span><span class="p">,</span><span class="mi">29</span><span class="n">c28</span>
-<span class="o">&lt;</span> 	<span class="n">movq</span>	<span class="n">msg</span><span class="nd">@GOTPCREL</span><span class="p">(</span><span class="o">%</span><span class="n">rip</span><span class="p">),</span> <span class="o">%</span><span class="n">rax</span>
-<span class="o">&lt;</span> 	<span class="n">movq</span>	<span class="p">(</span><span class="o">%</span><span class="n">rax</span><span class="p">),</span> <span class="o">%</span><span class="n">rax</span>
-<span class="o">---</span>
-<span class="o">&gt;</span> 	<span class="n">movq</span>	<span class="n">msg</span><span class="p">(</span><span class="o">%</span><span class="n">rip</span><span class="p">),</span> <span class="o">%</span><span class="n">rax</span>
-<span class="mi">36</span><span class="n">c35</span>
-<span class="o">&lt;</span> 	<span class="n">call</span>	<span class="n">write</span><span class="nd">@PLT</span>
-<span class="o">---</span>
-<span class="o">&gt;</span> 	<span class="n">call</span>	<span class="n">write</span>
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="shared-libraries-evaluation">
 <h2>Shared Libraries - Evaluation<a class="headerlink" href="#shared-libraries-evaluation" title="Permalink to this headline">¶</a></h2>
 <p>Strengths</p>
 <ul class="simple">
-<li>Reduced memory footprint. If two programs load the same shared
+<li><p>Reduced memory footprint. If two programs load the same shared
 library, the .text segment is reused across processes thanks to the
-GOT</li>
+GOT</p></li>
 </ul>
 <p>Weaknesses</p>
 <ul class="simple">
-<li>Requires a more advanced virtual memory implementation in the
+<li><p>Requires a more advanced virtual memory implementation in the
 operating system. Sometimes not practical for simple or embedded
-systems</li>
-<li>Requires more advanced compiler code generators. Different processors
+systems</p></li>
+<li><p>Requires more advanced compiler code generators. Different processors
 have special features regarding memory offset registers or function
-table size limitations.</li>
+table size limitations.</p></li>
 </ul>
 </div>
 <div class="section" id="static-libraries-evaluation">
 <h2>Static Libraries - Evaluation<a class="headerlink" href="#static-libraries-evaluation" title="Permalink to this headline">¶</a></h2>
 <p>Strengths</p>
 <ul class="simple">
-<li>Makes sense when re-use is not desired. A good example would be
-installer executables with very large .data segments.</li>
-<li>Faster first load loading time than shared libraries.</li>
-<li>Fewer instructions generated for GOT lookups (minor issue)</li>
+<li><p>Makes sense when re-use is not desired. A good example would be
+installer executables with very large .data segments.</p></li>
+<li><p>Faster first load loading time than shared libraries.</p></li>
+<li><p>Fewer instructions generated for GOT lookups (minor issue)</p></li>
 </ul>
 <p>Weaknesses</p>
 <ul class="simple">
-<li>Much larger memory footprint. Little reuse of common code between
-applications.</li>
+<li><p>Much larger memory footprint. Little reuse of common code between
+applications.</p></li>
 </ul>
 </div>
 <div class="section" id="libraries-vs-statically-linked-programs">
 <h2>Libraries vs. Statically-Linked Programs<a class="headerlink" href="#libraries-vs-statically-linked-programs" title="Permalink to this headline">¶</a></h2>
 <p>Dynamic Linking advantages:</p>
 <ul class="simple">
-<li>Memory footprint</li>
-<li>Code reuse</li>
-<li>Improvement with new versions of shared libraries</li>
-<li>Smaller executables</li>
+<li><p>Memory footprint</p></li>
+<li><p>Code reuse</p></li>
+<li><p>Improvement with new versions of shared libraries</p></li>
+<li><p>Smaller executables</p></li>
 </ul>
 <p>Static linking advantages:</p>
 <ul class="simple">
-<li>When deploying software, dependencies are less of a concern (e.g.
+<li><p>When deploying software, dependencies are less of a concern (e.g.
 missing dependencies, incorrectly upgraded dependencies, custom
-patches and alterations to shared code)</li>
-<li>Versioning and path problems are less of a concern</li>
-<li>Code obfuscation can obfuscate across object files</li>
-<li>Compiler optimizers can optimize across object files</li>
+patches and alterations to shared code)</p></li>
+<li><p>Versioning and path problems are less of a concern</p></li>
+<li><p>Code obfuscation can obfuscate across object files</p></li>
+<li><p>Compiler optimizers can optimize across object files</p></li>
 </ul>
 </div>
 <div class="section" id="process-protection">
@@ -690,35 +476,35 @@ patches and alterations to shared code)</li>
 <p>In modern operating systems with virtual memory and privileged
 separation the following protections are afforded:</p>
 <ul class="simple">
-<li>One process cannot read the memory of another process (except when
-explicitly permitted)</li>
-<li>A process can fully manage the memory that it can access - garbage
+<li><p>One process cannot read the memory of another process (except when
+explicitly permitted)</p></li>
+<li><p>A process can fully manage the memory that it can access - garbage
 collection, explicit allocation/deallocation, method call and
-parameter passing standards, stack management, etc.</li>
-<li>A crash, exception, resource starvation, deadlock, or other fault in
-one process does not directly affect other processes</li>
-<li>While mapped to the same address space, the process cannot modify
+parameter passing standards, stack management, etc.</p></li>
+<li><p>A crash, exception, resource starvation, deadlock, or other fault in
+one process does not directly affect other processes</p></li>
+<li><p>While mapped to the same address space, the process cannot modify
 kernel memory or memory otherwise protected by the operating system
-(such as text pages).</li>
+(such as text pages).</p></li>
 </ul>
 </div>
 <div class="section" id="process-creation-with-fork">
 <h2>Process Creation with fork()<a class="headerlink" href="#process-creation-with-fork" title="Permalink to this headline">¶</a></h2>
 <p>From the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> man page:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process.
+<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process.
 The new process, referred to as the child, is an exact duplicate of the calling process,
-referred to as the parent, except for the following points:</li>
-<li>the child has its own unique process id (PID)</li>
-<li>the child’s parent PID is the same as the parent’s PID</li>
-<li>the parent’s threads are not recreated on the child</li>
+referred to as the parent, except for the following points:</p></li>
+<li><p>the child has its own unique process id (PID)</p></li>
+<li><p>the child’s parent PID is the same as the parent’s PID</p></li>
+<li><p>the parent’s threads are not recreated on the child</p></li>
 </ul>
 <p>interesting point: in Linux, <code class="docutils literal notranslate"><span class="pre">fork()</span> <span class="pre">!=</span> <span class="pre">fork()</span></code>; <code class="docutils literal notranslate"><span class="pre">fork()</span></code> calls <code class="docutils literal notranslate"><span class="pre">clone()</span></code></p>
 <p>From the man page:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns the child PID to the parent</li>
-<li><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns 0 to the child</li>
-<li><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns -1 if the child cannot be created</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns the child PID to the parent</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns 0 to the child</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns -1 if the child cannot be created</p></li>
 </ul>
 </div>
 <div class="section" id="fork-example">
@@ -729,110 +515,46 @@ $ cmake
 $ make
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
-
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">parentMessage</span> <span class="o">=</span> <span class="s">&quot;1111111&quot;</span><span class="p">;</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">childMessage</span> <span class="o">=</span>  <span class="s">&quot;22222222222222</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the parent process, chid pid = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
-        <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;parent&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">SomeValue</span><span class="p">);</span>
-        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">parentMessage</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">parentMessage</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the child process</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-        <span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">SomeValue</span><span class="p">);</span>
-        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">childMessage</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">childMessage</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;fork() failed!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-
-</pre></div>
-</td></tr></table></div>
 </div>
 <div class="section" id="process-creation-with-clone">
 <h2>Process Creation with clone()<a class="headerlink" href="#process-creation-with-clone" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in that a child process is created.</li>
-<li><code class="docutils literal notranslate"><span class="pre">clone()</span></code> allows different parts of the parent process to be shared
-with the child process</li>
-<li>flags for creating a light weight process (kernel thread):<ul>
-<li><code class="docutils literal notranslate"><span class="pre">CLONE_FS</span></code> - share FS information (chroot, chdir, umask)</li>
-<li><code class="docutils literal notranslate"><span class="pre">CLONE_FILES</span></code> - share file descriptor table</li>
-<li><code class="docutils literal notranslate"><span class="pre">CLONE_SIGHAND</span></code> - share signal handlers</li>
-<li><code class="docutils literal notranslate"><span class="pre">CLONE_VM</span></code> - share page table</li>
+<li><p>similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in that a child process is created.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> allows different parts of the parent process to be shared
+with the child process</p></li>
+<li><p>flags for creating a light weight process (kernel thread):</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_FS</span></code> - share FS information (chroot, chdir, umask)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_FILES</span></code> - share file descriptor table</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_SIGHAND</span></code> - share signal handlers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_VM</span></code> - share page table</p></li>
 </ul>
 </li>
-<li>many more flags exist - don’t forget this little known capability!</li>
-<li>glibc’s version of <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, calls <code class="docutils literal notranslate"><span class="pre">clone()</span></code> without any of these flags</li>
-<li><code class="docutils literal notranslate"><span class="pre">clone()</span></code> not present in every UNIX OS (available in Linux but not
-Minix)</li>
+<li><p>many more flags exist - don’t forget this little known capability!</p></li>
+<li><p>glibc’s version of <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, calls <code class="docutils literal notranslate"><span class="pre">clone()</span></code> without any of these flags</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> not present in every UNIX OS (available in Linux but not
+Minix)</p></li>
 </ul>
 </div>
 <div class="section" id="windows-createprocess-and-createthread">
 <h2>Windows CreateProcess() and CreateThread()<a class="headerlink" href="#windows-createprocess-and-createthread" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Different from UNIX <code class="docutils literal notranslate"><span class="pre">fork()</span></code>/<code class="docutils literal notranslate"><span class="pre">clone()</span></code> - parts of processes are not
-shared</li>
-<li>Windows has two flavors:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> - creates a new process, equivalent of calling
-<code class="docutils literal notranslate"><span class="pre">fork()</span></code> then <code class="docutils literal notranslate"><span class="pre">execve()</span></code> in UNIX</li>
-<li><code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code> - equivalent of creating <code class="docutils literal notranslate"><span class="pre">clone()</span></code> with thread flags</li>
+<li><p>Different from UNIX <code class="docutils literal notranslate"><span class="pre">fork()</span></code>/<code class="docutils literal notranslate"><span class="pre">clone()</span></code> - parts of processes are not
+shared</p></li>
+<li><p>Windows has two flavors:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> - creates a new process, equivalent of calling
+<code class="docutils literal notranslate"><span class="pre">fork()</span></code> then <code class="docutils literal notranslate"><span class="pre">execve()</span></code> in UNIX</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code> - equivalent of creating <code class="docutils literal notranslate"><span class="pre">clone()</span></code> with thread flags</p></li>
 </ul>
 </li>
-<li>Is this a disadvantage?<ul>
-<li>For most use cases and most programs, no.</li>
-<li>The vast majority of calls to <code class="docutils literal notranslate"><span class="pre">clone()</span></code> in UNIX are equivalent to
-<code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code></li>
-<li>The vast majority of calls to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in UNIX are equivalent to
-<code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code></li>
+<li><p>Is this a disadvantage?</p>
+<ul>
+<li><p>For most use cases and most programs, no.</p></li>
+<li><p>The vast majority of calls to <code class="docutils literal notranslate"><span class="pre">clone()</span></code> in UNIX are equivalent to
+<code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code></p></li>
+<li><p>The vast majority of calls to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in UNIX are equivalent to
+<code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -841,93 +563,45 @@ shared</li>
 <h2>Emulating fork() on Windows<a class="headerlink" href="#emulating-fork-on-windows" title="Permalink to this headline">¶</a></h2>
 <p>A well known system, Cygwin, implements <code class="docutils literal notranslate"><span class="pre">fork()</span></code> on Windows as follows:</p>
 <ol class="arabic simple">
-<li>cygwin.dll calls <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> to create a suspended child process</li>
-<li>parent process calls <code class="docutils literal notranslate"><span class="pre">setjmp()</span></code> to save registers</li>
-<li>parent process copies its BSS and DATA sections to the child’s
-address space.</li>
-<li>parent wakes child up and waits on a named mutex (mutual exclusion mechanism).</li>
-<li>child wakes up, realizes it was a forked process, then longjumps to
-the saved jump buffer. child unlock’s</li>
-<li>parent’s named mutex and waits on a second mutex</li>
-<li>parent wakes up, copies its stack and heap to the child process.
-release’s child’s named mutex</li>
-<li>Child wakes up and copies any memory mapped regions the parent
-signals to the child through shared memory</li>
-<li><code class="docutils literal notranslate"><span class="pre">fork()</span></code> system call in Cygwin does not use copy on write, but “copy on
+<li><p>cygwin.dll calls <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> to create a suspended child process</p></li>
+<li><p>parent process calls <code class="docutils literal notranslate"><span class="pre">setjmp()</span></code> to save registers</p></li>
+<li><p>parent process copies its BSS and DATA sections to the child’s
+address space.</p></li>
+<li><p>parent wakes child up and waits on a named mutex (mutual exclusion mechanism).</p></li>
+<li><p>child wakes up, realizes it was a forked process, then longjumps to
+the saved jump buffer. child unlock’s</p></li>
+<li><p>parent’s named mutex and waits on a second mutex</p></li>
+<li><p>parent wakes up, copies its stack and heap to the child process.
+release’s child’s named mutex</p></li>
+<li><p>Child wakes up and copies any memory mapped regions the parent
+signals to the child through shared memory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> system call in Cygwin does not use copy on write, but “copy on
 fork”. this is similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> implementations in early UNIX
-operating systems</li>
+operating systems</p></li>
 </ol>
 </div>
 <div class="section" id="causes-of-process-termination">
 <h2>Causes of process termination<a class="headerlink" href="#causes-of-process-termination" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Normal exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code></li>
-<li>Error exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code> with an error code</li>
-<li>Fatal error<ul>
-<li>segfault/bus error–process tries to read/write inaccessible memory
-or write to read-only memory.</li>
-<li>stack overflow–stack pointer grows to larger than stack area</li>
-<li>protection fault–trying to run privileged instructions such as
-enabling/disabling interrupts</li>
-<li>instruction faults–divide by zero</li>
+<li><p>Normal exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code></p></li>
+<li><p>Error exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code> with an error code</p></li>
+<li><p>Fatal error</p>
+<ul>
+<li><p>segfault/bus error–process tries to read/write inaccessible memory
+or write to read-only memory.</p></li>
+<li><p>stack overflow–stack pointer grows to larger than stack area</p></li>
+<li><p>protection fault–trying to run privileged instructions such as
+enabling/disabling interrupts</p></li>
+<li><p>instruction faults–divide by zero</p></li>
 </ul>
 </li>
-<li>External termination by another process either through signals or
-system calls</li>
+<li><p>External termination by another process either through signals or
+system calls</p></li>
 </ul>
 </div>
 <div class="section" id="wait-and-waitpid-examples">
 <h2>wait() and waitpid() examples<a class="headerlink" href="#wait-and-waitpid-examples" title="Permalink to this headline">¶</a></h2>
 <p>See <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> if you want to run this program.</p>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">abort</span><span class="p">();</span>    <span class="c1">//child process exits</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
-    <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span> <span class="c1">// wait for child to exit</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;normal exit. exit code = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;abnormal termination, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">WIFSTOPPED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child stopped, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WSTOPSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-
-</pre></div>
-</td></tr></table></div>
 </div>
 </div>
 
@@ -936,37 +610,29 @@ system calls</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="files-io.html" class="btn btn-neutral float-right" title="Files and I/O" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="files-io.html" class="btn btn-neutral float-right" title="Files and I/O" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

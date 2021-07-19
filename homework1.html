@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Homework 1 &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Homework 1 &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -61,7 +63,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -142,6 +144,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -153,7 +157,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/homework1.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -172,44 +176,40 @@
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>The purpose of this assignment is to learn to work with Linux / Minix and familiarize yourself with basic data structures, string manipulation/parsing, etc. We will be writing a program that takes the output of the “ps” command and presents the list of processes as a proper tree. It will be left to your imagination to decide how to best present the tree of processes, but a simple indentation scheme should be sufficient.</p>
-<dl class="docutils">
-<dt>The first part of this assignment will be to get this program working on Linux. This means:</dt>
-<dd><ol class="first last arabic simple">
-<li>You will need access to an existing Linux machine or you will need to setup Linux in a virtual machine.</li>
-<li>Make sure you know how to edit, compile, and run C programs on this platform. This will require you learn a simple editor (e.g. nano), the C/C++ compiler (gcc/g++), and a debugger (gdb)</li>
-<li>Make sure you know how to setup version control for this and all future assignments.</li>
+<dl class="simple">
+<dt>The first part of this assignment will be to get this program working on Linux. This means:</dt><dd><ol class="arabic simple">
+<li><p>You will need access to an existing Linux machine or you will need to setup Linux in a virtual machine.</p></li>
+<li><p>Make sure you know how to edit, compile, and run C programs on this platform. This will require you learn a simple editor (e.g. nano), the C/C++ compiler (gcc/g++), and a debugger (gdb)</p></li>
+<li><p>Make sure you know how to setup version control for this and all future assignments.</p></li>
 </ol>
 </dd>
-<dt>The second part of this assignment will be to port the program from Linux to Minix. This means:</dt>
-<dd><ol class="first last arabic simple">
-<li>You will need to setup a Minix virtual machine. See the first lecture’s notes for reference.</li>
-<li>You will need to get a copy of your code running on Minix. Minix has a slightly different output format for the ps command and a slightly different process tree structure. You will have to make your program flexible enough to handle this.</li>
+<dt>The second part of this assignment will be to port the program from Linux to Minix. This means:</dt><dd><ol class="arabic simple">
+<li><p>You will need to setup a Minix virtual machine. See the first lecture’s notes for reference.</p></li>
+<li><p>You will need to get a copy of your code running on Minix. Minix has a slightly different output format for the ps command and a slightly different process tree structure. You will have to make your program flexible enough to handle this.</p></li>
 </ol>
 </dd>
 </dl>
 </div>
 <div class="section" id="details">
 <h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Your job in this assignment will be:</dt>
-<dd><ol class="first last arabic simple">
-<li>You must use C or C++ on Linux and Minix for this project.</li>
-<li>A Makefile to build your project.</li>
-<li>A README.txt file describing how to run your program.</li>
-<li>Use the popen() call to establish a pipe to the “ps” command. We’ll use this to capture a snapshot of the list of currently running processes on your system. You will need to figure out how the options of the PID and PPID in Minix. For example, on Linux ps, ps -ef shows the PID and PPID. On Minix, it’s slightly different (of course), so you’ll want to read the Minix man page for ps.</li>
-<li>A big part of the job is to learn how “ps” works (read man page!) and figure out what all of the columns represent.</li>
-<li><dl class="first docutils">
-<dt>Write a program that builds a process tree.</dt>
-<dd><ul class="first last">
-<li>Read one line of input at a time but exclude the header line. You will need to use strtok() or write your own parser to extract data from the input</li>
-<li>Extract the PID (process ID) and PPID (parent process ID) from each line</li>
-<li>Create a process info “node” and insert it into the tree, such that the new “node” is linked to the strtok()’d parent “node”.</li>
-<li>Once all of the lines of “ps” have been consumed, print the tree. To keep this simple, you may use indentation to indicate that a process is the parent of another process.</li>
+<dl class="simple">
+<dt>Your job in this assignment will be:</dt><dd><ol class="arabic simple">
+<li><p>You must use C or C++ on Linux and Minix for this project.</p></li>
+<li><p>A Makefile to build your project.</p></li>
+<li><p>A README.txt file describing how to run your program.</p></li>
+<li><p>Use the popen() call to establish a pipe to the “ps” command. We’ll use this to capture a snapshot of the list of currently running processes on your system. You will need to figure out how the options of the PID and PPID in Minix. For example, on Linux ps, ps -ef shows the PID and PPID. On Minix, it’s slightly different (of course), so you’ll want to read the Minix man page for ps.</p></li>
+<li><p>A big part of the job is to learn how “ps” works (read man page!) and figure out what all of the columns represent.</p></li>
+<li><dl class="simple">
+<dt>Write a program that builds a process tree.</dt><dd><ul class="simple">
+<li><p>Read one line of input at a time but exclude the header line. You will need to use strtok() or write your own parser to extract data from the input</p></li>
+<li><p>Extract the PID (process ID) and PPID (parent process ID) from each line</p></li>
+<li><p>Create a process info “node” and insert it into the tree, such that the new “node” is linked to the strtok()’d parent “node”.</p></li>
+<li><p>Once all of the lines of “ps” have been consumed, print the tree. To keep this simple, you may use indentation to indicate that a process is the parent of another process.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>You may submit your assignment using Google Code, BitBucket, or GitHub. It is ok to use a public repository.</li>
+<li><p>You may submit your assignment using Google Code, BitBucket, or GitHub. It is ok to use a public repository.</p></li>
 </ol>
 </dd>
 </dl>
@@ -227,21 +227,20 @@
 <h2>How You Will be Graded<a class="headerlink" href="#how-you-will-be-graded" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ol class="arabic simple">
-<li>1pt  - Does your program compile in Linux and Minix (Makefile) ?</li>
-<li>1pt  - README.txt</li>
-<li>10pt - Does your program print an accurate tree-like structure in Linux?</li>
-<li>10pt - Does your program print an accurate tree-like structure in Minix?</li>
-<li><dl class="first docutils">
-<dt>4pt  - Is your code readable?</dt>
-<dd><ul class="first last">
-<li>No extremely long functions (I shouldn’t need to scroll up or down to read your function)</li>
-<li>Use of indentation</li>
-<li>Good choices of function and variable names (no strict rules, just be readable)</li>
+<li><p>1pt  - Does your program compile in Linux and Minix (Makefile) ?</p></li>
+<li><p>1pt  - README.txt</p></li>
+<li><p>10pt - Does your program print an accurate tree-like structure in Linux?</p></li>
+<li><p>10pt - Does your program print an accurate tree-like structure in Minix?</p></li>
+<li><dl class="simple">
+<dt>4pt  - Is your code readable?</dt><dd><ul class="simple">
+<li><p>No extremely long functions (I shouldn’t need to scroll up or down to read your function)</p></li>
+<li><p>Use of indentation</p></li>
+<li><p>Good choices of function and variable names (no strict rules, just be readable)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>4pt  - Does your program have some degree of unit test coverage?</li>
+<li><p>4pt  - Does your program have some degree of unit test coverage?</p></li>
 </ol>
 </div></blockquote>
 </div>
@@ -256,28 +255,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Deadlock &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Deadlock &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +65,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -104,7 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#dining-philosophers-solution-1">Dining Philosophers - solution 1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dining-philosophers-solution-2">Dining Philosophers - solution 2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dijkstra-s-solution-bankers-algorithm">Dijkstra’s Solution / Bankers Algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#optimization-to-dijkstra-s-solution">Optimization&nbsp;to Dijkstra’s Solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optimization-to-dijkstra-s-solution">Optimization to Dijkstra’s Solution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deadlock-avoidance-implementation">Deadlock Avoidance Implementation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deadlock-prevention-implementation">Deadlock Prevention Implementation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example-of-deadlock">Example of Deadlock</a></li>
@@ -166,6 +168,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -177,7 +181,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/deadlock.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -196,18 +200,18 @@
 <div class="section" id="deadlock-definition">
 <h2>Deadlock - definition<a class="headerlink" href="#deadlock-definition" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Formal: A condition when two or more threads of execution are each waiting for resources in a cycle.</li>
-<li>Informal: When two threads get into a chicken before the egg situation in locking.</li>
-<li>When a deadlock condition occurs, unless otherwise broken, the threads of execution involved will remain halted until they are terminated externally.</li>
-<li>If deadlock is possible, it may not always happen immediately. If it is possible it can happen eventually given the right timing.</li>
+<li><p>Formal: A condition when two or more threads of execution are each waiting for resources in a cycle.</p></li>
+<li><p>Informal: When two threads get into a chicken before the egg situation in locking.</p></li>
+<li><p>When a deadlock condition occurs, unless otherwise broken, the threads of execution involved will remain halted until they are terminated externally.</p></li>
+<li><p>If deadlock is possible, it may not always happen immediately. If it is possible it can happen eventually given the right timing.</p></li>
 </ul>
 </div>
 <div class="section" id="dining-philosophers-problem">
 <h2>Dining Philosophers Problem<a class="headerlink" href="#dining-philosophers-problem" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>a philosopher can be either eating or thinking</li>
-<li>philosophers cannot communicate with each other in any way</li>
-<li>to eat, a philosopher needs both the right and left fork</li>
+<li><p>a philosopher can be either eating or thinking</p></li>
+<li><p>philosophers cannot communicate with each other in any way</p></li>
+<li><p>to eat, a philosopher needs both the right and left fork</p></li>
 </ul>
 </div>
 <div class="section" id="dining-philosophers-deadlock-scenario">
@@ -220,17 +224,17 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>t = 0: p1, p2, p3, p4, p5 each pick up right fork</li>
-<li>t = 1: p1 tries to pick up left fork, cannot proceed because p5 has it held</li>
-<li>t = 2: p2 tries to pick up left fork, cannot proceed because p1 has it held</li>
-<li>t = ……</li>
-<li>The waiting operation will continue forever. Each philosopher has one fork in their hand. Each philosopher is waiting on a fork held by another</li>
+<li><p>t = 0: p1, p2, p3, p4, p5 each pick up right fork</p></li>
+<li><p>t = 1: p1 tries to pick up left fork, cannot proceed because p5 has it held</p></li>
+<li><p>t = 2: p2 tries to pick up left fork, cannot proceed because p1 has it held</p></li>
+<li><p>t = ……</p></li>
+<li><p>The waiting operation will continue forever. Each philosopher has one fork in their hand. Each philosopher is waiting on a fork held by another</p></li>
 </ul>
 </div>
 <div class="section" id="dining-philosophers-lock-graph">
 <h2>Dining Philosophers - Lock Graph<a class="headerlink" href="#dining-philosophers-lock-graph" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In the first algorithm, locks can be obtained in any order. Given this, it is possible to draw a cycle on the graph and deadlock.</li>
+<li><p>In the first algorithm, locks can be obtained in any order. Given this, it is possible to draw a cycle on the graph and deadlock.</p></li>
 </ul>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="_images/undirected_lock_graph.png"><img alt="Undirected Lock Graph" src="_images/undirected_lock_graph.png" style="width: 450px;" /></a>
@@ -239,8 +243,8 @@
 <div class="section" id="dining-philosophers">
 <h2>Dining Philosophers<a class="headerlink" href="#dining-philosophers" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>What algorithm can we implement for eat() so that there will be no deadlock?</li>
-<li>Why did we encounter deadlock?</li>
+<li><p>What algorithm can we implement for eat() so that there will be no deadlock?</p></li>
+<li><p>Why did we encounter deadlock?</p></li>
 </ul>
 </div>
 <div class="section" id="dining-philosophers-solution-1">
@@ -259,14 +263,14 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>this solution works because it obtains both forks as an atomic operation: if the philosopher cannot obtain the second fork, they put down their held fork. either they get both forks or no forks.</li>
-<li>this prevents a cycle because of the check operation</li>
+<li><p>this solution works because it obtains both forks as an atomic operation: if the philosopher cannot obtain the second fork, they put down their held fork. either they get both forks or no forks.</p></li>
+<li><p>this prevents a cycle because of the check operation</p></li>
 </ul>
 </div>
 <div class="section" id="dining-philosophers-solution-2">
 <h2>Dining Philosophers - solution 2<a class="headerlink" href="#dining-philosophers-solution-2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>each fork is assigned a number</li>
+<li><p>each fork is assigned a number</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eat</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">pick</span> <span class="n">up</span> <span class="n">fork</span> <span class="k">with</span> <span class="n">lower</span> <span class="n">number</span>
@@ -276,9 +280,9 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li>this solution works because the resources are assigned a partial order. this effectively reduces the number of possible edges in the order of locks that can be obtained in the resource lock graph. the graph is reduced to an directional acyclic graph which by definition cannot have cycles and cannot deadlock.</li>
-<li>In solution 2, since the order of locks is agreed upon, the graph becomes directed and acyclic.</li>
-<li>Given these rules, you cannot draw a cycle on this graph and cannot deadlock</li>
+<li><p>this solution works because the resources are assigned a partial order. this effectively reduces the number of possible edges in the order of locks that can be obtained in the resource lock graph. the graph is reduced to an directional acyclic graph which by definition cannot have cycles and cannot deadlock.</p></li>
+<li><p>In solution 2, since the order of locks is agreed upon, the graph becomes directed and acyclic.</p></li>
+<li><p>Given these rules, you cannot draw a cycle on this graph and cannot deadlock</p></li>
 </ul>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="_images/directed_lock_graph.png"><img alt="Undirected Lock Graph" src="_images/directed_lock_graph.png" style="width: 450px;" /></a>
@@ -287,22 +291,20 @@
 <div class="section" id="dijkstra-s-solution-bankers-algorithm">
 <h2>Dijkstra’s Solution / Bankers Algorithm<a class="headerlink" href="#dijkstra-s-solution-bankers-algorithm" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Solution #2 to the dining philosopher’s problem is also known as Dijkstra’s solution or the banker’s algorithm</li>
-<li><dl class="first docutils">
-<dt>Up sides to this solution</dt>
-<dd><ul class="first last">
-<li>Simple to implement and verify lock ordering.</li>
-<li>Multi-lock algorithms can be implemented by comparing memory addresses. i.e. mutexes can be locked in the order they appear in memory</li>
+<li><p>Solution #2 to the dining philosopher’s problem is also known as Dijkstra’s solution or the banker’s algorithm</p></li>
+<li><dl class="simple">
+<dt>Up sides to this solution</dt><dd><ul>
+<li><p>Simple to implement and verify lock ordering.</p></li>
+<li><p>Multi-lock algorithms can be implemented by comparing memory addresses. i.e. mutexes can be locked in the order they appear in memory</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Down sides to this solution</dt>
-<dd><ul class="first last">
-<li>If you examine the undirected cyclic graph earlier, there are several permutations of acquiring locks that do not deadlock.</li>
-<li>In the directed acyclic graph, all permutations are deadlock free, but the total number of deadlock free permutations is much less than in the undirected cyclic graph</li>
-<li>Because of these issues, the total concurrency possible is less than optimal</li>
+<li><dl class="simple">
+<dt>Down sides to this solution</dt><dd><ul>
+<li><p>If you examine the undirected cyclic graph earlier, there are several permutations of acquiring locks that do not deadlock.</p></li>
+<li><p>In the directed acyclic graph, all permutations are deadlock free, but the total number of deadlock free permutations is much less than in the undirected cyclic graph</p></li>
+<li><p>Because of these issues, the total concurrency possible is less than optimal</p></li>
 </ul>
 </dd>
 </dl>
@@ -310,19 +312,19 @@
 </ul>
 </div>
 <div class="section" id="optimization-to-dijkstra-s-solution">
-<h2>Optimization&nbsp;to Dijkstra’s Solution<a class="headerlink" href="#optimization-to-dijkstra-s-solution" title="Permalink to this headline">¶</a></h2>
+<h2>Optimization to Dijkstra’s Solution<a class="headerlink" href="#optimization-to-dijkstra-s-solution" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Solution #1 represents an optimization to Dijkstra’s solution.</li>
-<li>In solution #1, the graph remains undirected and cyclic, but the heuristic is changed to only obtain both resources if they can be obtained atomically.</li>
-<li>In solution #1, all of the possible deadlock free permutations can be achieved. Because of this, more concurrency is possible.</li>
-<li>The downside to solution #1 is that it is typically more complex to implement</li>
+<li><p>Solution #1 represents an optimization to Dijkstra’s solution.</p></li>
+<li><p>In solution #1, the graph remains undirected and cyclic, but the heuristic is changed to only obtain both resources if they can be obtained atomically.</p></li>
+<li><p>In solution #1, all of the possible deadlock free permutations can be achieved. Because of this, more concurrency is possible.</p></li>
+<li><p>The downside to solution #1 is that it is typically more complex to implement</p></li>
 </ul>
 </div>
 <div class="section" id="deadlock-avoidance-implementation">
 <h2>Deadlock Avoidance Implementation<a class="headerlink" href="#deadlock-avoidance-implementation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>aka. Banker’s algorithm</li>
-<li>aka. Dijkstra’s solution</li>
+<li><p>aka. Banker’s algorithm</p></li>
+<li><p>aka. Dijkstra’s solution</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
         <span class="nb">int</span> <span class="n">LockNumber</span><span class="p">;</span>
@@ -341,8 +343,8 @@
 <div class="section" id="deadlock-prevention-implementation">
 <h2>Deadlock Prevention Implementation<a class="headerlink" href="#deadlock-prevention-implementation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>aka. optimization to Dijkstra’s solution</li>
-<li>This is just one implementation approach. Others involving lock tables or coordinators also exist</li>
+<li><p>aka. optimization to Dijkstra’s solution</p></li>
+<li><p>This is just one implementation approach. Others involving lock tables or coordinators also exist</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>typedef struct {
         int LockNumber;
@@ -371,7 +373,7 @@ void multi_lock(lock* locks, int count) {
 <div class="section" id="example-of-deadlock">
 <h2>Example of Deadlock<a class="headerlink" href="#example-of-deadlock" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Where is the Deadlock?</li>
+<li><p>Where is the Deadlock?</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">method1</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">a</span><span class="o">.</span><span class="n">lock</span><span class="p">();</span>
@@ -406,16 +408,15 @@ void multi_lock(lock* locks, int count) {
 <div class="section" id="multi-lock-solutions-in-windows">
 <h2>Multi-Lock Solutions in Windows<a class="headerlink" href="#multi-lock-solutions-in-windows" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>C++ method in Windows is WaitForMultipleObjects().</li>
-<li>The method accepts N many lock handles</li>
-<li><dl class="first docutils">
-<dt>This method accepts many types of resources and locks:</dt>
-<dd><ul class="first last">
-<li>events</li>
-<li>mutexes</li>
-<li>semaphores</li>
-<li>timers</li>
-<li>and many others…</li>
+<li><p>C++ method in Windows is WaitForMultipleObjects().</p></li>
+<li><p>The method accepts N many lock handles</p></li>
+<li><dl class="simple">
+<dt>This method accepts many types of resources and locks:</dt><dd><ul>
+<li><p>events</p></li>
+<li><p>mutexes</p></li>
+<li><p>semaphores</p></li>
+<li><p>timers</p></li>
+<li><p>and many others…</p></li>
 </ul>
 </dd>
 </dl>
@@ -425,35 +426,34 @@ void multi_lock(lock* locks, int count) {
 <div class="section" id="multi-lock-solutions-in-linux-minix">
 <h2>Multi-Lock Solutions in Linux/Minix<a class="headerlink" href="#multi-lock-solutions-in-linux-minix" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>To my knowledge, there are no multi-lock solutions provided for free in Linux or Minix</li>
-<li>The general rule of thumb is to try to avoid multi-locking if possible by design or if it is necessary to use the memory order of the locks as an ordering.</li>
-<li>If using shared memory semaphores, memory ordering WILL NOT work since virtual addresses will not be reliable. In this case, lock ordering must be enforced by some other mechanism such as storing locks in an array and locking them in the array’s order.</li>
+<li><p>To my knowledge, there are no multi-lock solutions provided for free in Linux or Minix</p></li>
+<li><p>The general rule of thumb is to try to avoid multi-locking if possible by design or if it is necessary to use the memory order of the locks as an ordering.</p></li>
+<li><p>If using shared memory semaphores, memory ordering WILL NOT work since virtual addresses will not be reliable. In this case, lock ordering must be enforced by some other mechanism such as storing locks in an array and locking them in the array’s order.</p></li>
 </ul>
 </div>
 <div class="section" id="deadlock-with-lock-ordering">
 <h2>Deadlock with Lock Ordering<a class="headerlink" href="#deadlock-with-lock-ordering" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>While having multiple locks obtained out of order can lead to deadlock, it is possible for correctly ordered locks to end up in deadlock in other ways.</li>
-<li><dl class="first docutils">
-<dt>If an executing thread locks a resource and fails to release the lock, any other thread trying to obtain the lock will be deadlock. This can occur for one or more of the following reasons:</dt>
-<dd><ul class="first last">
-<li>Programmer error: there is no call to release a lock</li>
-<li>A thread crashes without releasing a lock</li>
-<li>The condition for releasing a lock is never met (infinite loop, poorly defined rules in a monitor, etc..)</li>
+<li><p>While having multiple locks obtained out of order can lead to deadlock, it is possible for correctly ordered locks to end up in deadlock in other ways.</p></li>
+<li><dl class="simple">
+<dt>If an executing thread locks a resource and fails to release the lock, any other thread trying to obtain the lock will be deadlock. This can occur for one or more of the following reasons:</dt><dd><ul>
+<li><p>Programmer error: there is no call to release a lock</p></li>
+<li><p>A thread crashes without releasing a lock</p></li>
+<li><p>The condition for releasing a lock is never met (infinite loop, poorly defined rules in a monitor, etc..)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>These types of deadlock are practically more difficult to handle.</li>
+<li><p>These types of deadlock are practically more difficult to handle.</p></li>
 </ul>
 </div>
 <div class="section" id="starvation">
 <h2>Starvation<a class="headerlink" href="#starvation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Starvation is a close cousin to deadlock. Starvation means that practically, one thread will have exclusive lock on a resource and one or more threads will not.</li>
-<li>This is similar to a scheduling problem in terms of fairness.</li>
-<li>Example live lock problem:</li>
-<li>Thread1:</li>
+<li><p>Starvation is a close cousin to deadlock. Starvation means that practically, one thread will have exclusive lock on a resource and one or more threads will not.</p></li>
+<li><p>This is similar to a scheduling problem in terms of fairness.</p></li>
+<li><p>Example live lock problem:</p></li>
+<li><p>Thread1:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Queue _queue = new Queue();
 Mutex _mutex = new Mutex();
@@ -471,7 +471,7 @@ void add() {
 </pre></div>
 </div>
 <ul class="simple">
-<li>Thread2:</li>
+<li><p>Thread2:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>void read_values() {
         while(1) {
@@ -485,11 +485,11 @@ void add() {
 </pre></div>
 </div>
 <ul class="simple">
-<li>There are two potential starvation problems here. Can you spot them?</li>
-<li>In thread1, we make a call to printf(). This will cause thread1 to go to sleep at which time, thread2 will not be able to obtain the lock.</li>
-<li>In thread2, we make a call to scanf(), while waiting for input the lock is held and thread1 will not be able to acquire the lock</li>
-<li>How can we make this code better?</li>
-<li>Thread1:</li>
+<li><p>There are two potential starvation problems here. Can you spot them?</p></li>
+<li><p>In thread1, we make a call to printf(). This will cause thread1 to go to sleep at which time, thread2 will not be able to obtain the lock.</p></li>
+<li><p>In thread2, we make a call to scanf(), while waiting for input the lock is held and thread1 will not be able to acquire the lock</p></li>
+<li><p>How can we make this code better?</p></li>
+<li><p>Thread1:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Queue _queue = new Queue();
 Mutex _mutex = new Mutex();
@@ -509,7 +509,7 @@ void add() {
 </pre></div>
 </div>
 <ul class="simple">
-<li>Thread2:</li>
+<li><p>Thread2:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>void read_values() {
         while(1) {
@@ -523,40 +523,39 @@ void add() {
 </pre></div>
 </div>
 <ul class="simple">
-<li>In this version of the code, the locks are not held during I/O operations like printf or scanf (which call read and write).</li>
-<li>Because locks are not held during blocking operations, locks and unlocks will occur more often which will reduce the average waiting time to receive a lock.</li>
+<li><p>In this version of the code, the locks are not held during I/O operations like printf or scanf (which call read and write).</p></li>
+<li><p>Because locks are not held during blocking operations, locks and unlocks will occur more often which will reduce the average waiting time to receive a lock.</p></li>
 </ul>
 </div>
 <div class="section" id="guidlines-to-avoid-starvation">
 <h2>Guidlines to Avoid Starvation<a class="headerlink" href="#guidlines-to-avoid-starvation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Where possible, limit locks to computationally bound code</li>
-<li>Keep critical sections short. If a computation is longer running, design code to give up a lock periodically.</li>
-<li><dl class="first docutils">
-<dt>If possible, make copies in critical sections and perform computations outside of locks. An example could be:</dt>
-<dd><ol class="first last arabic">
-<li>acquire lock</li>
-<li>copy item in queue</li>
-<li>update item as “in progress”</li>
-<li>release lock</li>
-<li>perform computation</li>
-<li>acquire lock</li>
-<li>remove item from queue</li>
-<li>release lock﻿</li>
+<li><p>Where possible, limit locks to computationally bound code</p></li>
+<li><p>Keep critical sections short. If a computation is longer running, design code to give up a lock periodically.</p></li>
+<li><dl class="simple">
+<dt>If possible, make copies in critical sections and perform computations outside of locks. An example could be:</dt><dd><ol class="arabic simple">
+<li><p>acquire lock</p></li>
+<li><p>copy item in queue</p></li>
+<li><p>update item as “in progress”</p></li>
+<li><p>release lock</p></li>
+<li><p>perform computation</p></li>
+<li><p>acquire lock</p></li>
+<li><p>remove item from queue</p></li>
+<li><p>release lock﻿</p></li>
 </ol>
 </dd>
 </dl>
 </li>
-<li>Make sure the lock library you use has some fairness guarantee.</li>
+<li><p>Make sure the lock library you use has some fairness guarantee.</p></li>
 </ul>
 </div>
 <div class="section" id="livelock">
 <h2>Livelock<a class="headerlink" href="#livelock" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Livelock is similar to deadlock.</li>
-<li>Livelock is basically a race condition in avoidance of deadlock.</li>
-<li>An example of livelock would be if one process is trying to multi-lock by testing, then acquiring each lock in turn, and another process is doing the same, they could both block each other by their corrective actions.</li>
-<li>Example:</li>
+<li><p>Livelock is similar to deadlock.</p></li>
+<li><p>Livelock is basically a race condition in avoidance of deadlock.</p></li>
+<li><p>An example of livelock would be if one process is trying to multi-lock by testing, then acquiring each lock in turn, and another process is doing the same, they could both block each other by their corrective actions.</p></li>
+<li><p>Example:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">thread1</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
@@ -583,22 +582,21 @@ void add() {
 </pre></div>
 </div>
 <ul class="simple">
-<li>t0: thread1 locks a, context switch</li>
-<li>t1: thread2 locks b, tries to lock a, fails, context switch</li>
-<li>t2: thread1 tries to lock b, fails, unlocks a, context switch</li>
-<li>t3: thread 2 unlocks b, context switch</li>
+<li><p>t0: thread1 locks a, context switch</p></li>
+<li><p>t1: thread2 locks b, tries to lock a, fails, context switch</p></li>
+<li><p>t2: thread1 tries to lock b, fails, unlocks a, context switch</p></li>
+<li><p>t3: thread 2 unlocks b, context switch</p></li>
 </ul>
 </div>
 <div class="section" id="lock-fairness">
 <h2>Lock Fairness<a class="headerlink" href="#lock-fairness" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Lock fairness is best described as having each executing thread waiting for a lock having a similar average wait time for that lock.</li>
-<li>Locks that are unfair can lead to resource starvation.</li>
-<li><dl class="first docutils">
-<dt>The two most common approaches involve:</dt>
-<dd><ul class="first last">
-<li>FIFO queues - common</li>
-<li>Lock scheduler with a time table and history - not common</li>
+<li><p>Lock fairness is best described as having each executing thread waiting for a lock having a similar average wait time for that lock.</p></li>
+<li><p>Locks that are unfair can lead to resource starvation.</p></li>
+<li><dl class="simple">
+<dt>The two most common approaches involve:</dt><dd><ul>
+<li><p>FIFO queues - common</p></li>
+<li><p>Lock scheduler with a time table and history - not common</p></li>
 </ul>
 </dd>
 </dl>
@@ -608,22 +606,20 @@ void add() {
 <div class="section" id="lock-fairness-pros-cons">
 <h2>Lock Fairness. Pros / Cons<a class="headerlink" href="#lock-fairness-pros-cons" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Remember, while the word ‘fair’ sounds good, that ‘fairness’ comes at some expense.</li>
-<li>The key point to remember, is that when a thread is “chosen” to acquire a lock, there will be a non zero time between that choice and when that thread executes. That can be thought of as the “fairness cost”.</li>
-<li><dl class="first docutils">
-<dt>Pros:</dt>
-<dd><ul class="first last">
-<li>Reduces starvation</li>
-<li>Creates more predictable execution patterns</li>
+<li><p>Remember, while the word ‘fair’ sounds good, that ‘fairness’ comes at some expense.</p></li>
+<li><p>The key point to remember, is that when a thread is “chosen” to acquire a lock, there will be a non zero time between that choice and when that thread executes. That can be thought of as the “fairness cost”.</p></li>
+<li><dl class="simple">
+<dt>Pros:</dt><dd><ul>
+<li><p>Reduces starvation</p></li>
+<li><p>Creates more predictable execution patterns</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Cons:</dt>
-<dd><ul class="first last">
-<li>If a thread locks in a loop, letting a thread re-acquire a lock if its quantum isn’t complete can improve total performance. Fair locks don’t always allow for a lock to be re-acquired if the quantum isn’t finished. This can lead to shorter quantums which will hurt throughput.</li>
-<li>Lock fairness can create short quantums for short locks. This can in-turn hurt locality</li>
+<li><dl class="simple">
+<dt>Cons:</dt><dd><ul>
+<li><p>If a thread locks in a loop, letting a thread re-acquire a lock if its quantum isn’t complete can improve total performance. Fair locks don’t always allow for a lock to be re-acquired if the quantum isn’t finished. This can lead to shorter quantums which will hurt throughput.</p></li>
+<li><p>Lock fairness can create short quantums for short locks. This can in-turn hurt locality</p></li>
 </ul>
 </dd>
 </dl>
@@ -637,37 +633,29 @@ void add() {
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ipc.html" class="btn btn-neutral float-right" title="IPC Topics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="mutualexclusion.html" class="btn btn-neutral float-left" title="Mutual Exclusion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="ipc.html" class="btn btn-neutral float-right" title="IPC Topics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mutualexclusion.html" class="btn btn-neutral float-left" title="Mutual Exclusion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

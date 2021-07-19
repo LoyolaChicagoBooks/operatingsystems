@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Storage and Devices &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Storage and Devices &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -177,6 +180,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -188,7 +193,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/storage.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -207,16 +212,18 @@
 <div class="section" id="storage-devices">
 <h2>Storage Devices<a class="headerlink" href="#storage-devices" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Types of permanent devices:<ul>
-<li>Magnetic - hard disk, tape, floppy disk</li>
-<li>Optical - CD/DVD/Blu-Ray, Laser Disc, Paper, Punch Cards, Photo
-Film</li>
-<li>Solid State - CMOS, NAND based flash, battery backed dynamic
-memory</li>
+<li><p>Types of permanent devices:</p>
+<ul>
+<li><p>Magnetic - hard disk, tape, floppy disk</p></li>
+<li><p>Optical - CD/DVD/Blu-Ray, Laser Disc, Paper, Punch Cards, Photo
+Film</p></li>
+<li><p>Solid State - CMOS, NAND based flash, battery backed dynamic
+memory</p></li>
 </ul>
 </li>
-<li>Types of transient devices:<ul>
-<li>RAM, Processor Caches</li>
+<li><p>Types of transient devices:</p>
+<ul>
+<li><p>RAM, Processor Caches</p></li>
 </ul>
 </li>
 </ul>
@@ -224,57 +231,57 @@ memory</li>
 <div class="section" id="ide-ata">
 <h2>IDE/ATA<a class="headerlink" href="#ide-ata" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Created by Western Digital Corp in 1986. Reused an existing disk
-interface.</li>
-<li>Improved greatly over older interfaces due to moving the
+<li><p>Created by Western Digital Corp in 1986. Reused an existing disk
+interface.</p></li>
+<li><p>Improved greatly over older interfaces due to moving the
 responsibility of managing the disk arm to the hard disk itself. This
 allowed for a greater variation in disk and motor types regardless of
-motherboard support.</li>
-<li>Connector uses 40 pins.</li>
-<li>Data bus width is 16 bits.</li>
-<li>Transfer rates are 16, 33, 66, 100, and 133 MB/s</li>
-<li>Presents to the computer a set of 512-byte blocks.</li>
+motherboard support.</p></li>
+<li><p>Connector uses 40 pins.</p></li>
+<li><p>Data bus width is 16 bits.</p></li>
+<li><p>Transfer rates are 16, 33, 66, 100, and 133 MB/s</p></li>
+<li><p>Presents to the computer a set of 512-byte blocks.</p></li>
 </ul>
 </div>
 <div class="section" id="atapi">
 <h2>ATAPI<a class="headerlink" href="#atapi" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Improved upon ATA by adding extra commands (such as ’eject’) to
-support other devices.</li>
-<li>These improvements allowed CD, DVD, and Zip drives to conform to ATA</li>
-<li>Also helped improve performance by introducing DMA. DMA allowed for
+<li><p>Improved upon ATA by adding extra commands (such as ’eject’) to
+support other devices.</p></li>
+<li><p>These improvements allowed CD, DVD, and Zip drives to conform to ATA</p></li>
+<li><p>Also helped improve performance by introducing DMA. DMA allowed for
 data transfers to be sent directly to physical memory without
-interrupting the CPU for every bus operation</li>
+interrupting the CPU for every bus operation</p></li>
 </ul>
 </div>
 <div class="section" id="sata-serial-ata">
 <h2>SATA - Serial ATA<a class="headerlink" href="#sata-serial-ata" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Helped to reduce cost by reducing the number of pins.</li>
-<li>Allows hot-swapping or replacing of devices without powering down the
-main board.</li>
-<li>Supports the full ATAPI command interface</li>
-<li>Supports transfer rates of 1.5G/s (1.0), 3G/S (2.0), and 6G/s (3.0)</li>
-<li>The main board hosting SATA typically implement an AHCI controller
+<li><p>Helped to reduce cost by reducing the number of pins.</p></li>
+<li><p>Allows hot-swapping or replacing of devices without powering down the
+main board.</p></li>
+<li><p>Supports the full ATAPI command interface</p></li>
+<li><p>Supports transfer rates of 1.5G/s (1.0), 3G/S (2.0), and 6G/s (3.0)</p></li>
+<li><p>The main board hosting SATA typically implement an AHCI controller
 (created by Intel). It supports hotplug capabilities and native
 command queuing. Main boards that do not implement AHCI will
 typically communicate with the SATA device using the ATAPI command
-set.</li>
-<li>SATA is best supported in Linux 2.6.20 or newer, Windows Vista or 7,
+set.</p></li>
+<li><p>SATA is best supported in Linux 2.6.20 or newer, Windows Vista or 7,
 and more recent versions of OSX. Older operating systems will often
-revert to ATAPI even with an AHCI controller</li>
+revert to ATAPI even with an AHCI controller</p></li>
 </ul>
 </div>
 <div class="section" id="hard-disk-geometry-chs">
 <h2>Hard Disk Geometry - CHS<a class="headerlink" href="#hard-disk-geometry-chs" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Composed of Cylinders, Heads, and Sectors</li>
-<li>Sector - The unit of storage on a disc. Typically 512, 1024, or 2048
-bytes.</li>
-<li>Cylinder - A physical, circular disc. Aka “platter”. One or more may
-be present in a device.</li>
-<li>Heads - Refers to either the top or bottom sides of a Cylinder.</li>
-<li>The CHS address on a disk is a tuple of the {Cylinder, Head, Sector}</li>
+<li><p>Composed of Cylinders, Heads, and Sectors</p></li>
+<li><p>Sector - The unit of storage on a disc. Typically 512, 1024, or 2048
+bytes.</p></li>
+<li><p>Cylinder - A physical, circular disc. Aka “platter”. One or more may
+be present in a device.</p></li>
+<li><p>Heads - Refers to either the top or bottom sides of a Cylinder.</p></li>
+<li><p>The CHS address on a disk is a tuple of the {Cylinder, Head, Sector}</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
@@ -282,31 +289,32 @@ be present in a device.</li>
 <blockquote>
 <div><div class="figure align-center" id="id9">
 <img alt="image" src="_images/disk_diagram.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="hard-disk-geometry-lba">
 <h2>Hard Disk Geometry - LBA<a class="headerlink" href="#hard-disk-geometry-lba" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A CHS tuple can be converted to an LBA address with the following
-formula: <span class="math notranslate nohighlight">\($A = (C x Nh + H) * Ns + (S - 1)$\)</span></li>
-<li><span class="math notranslate nohighlight">\($Nh$\)</span> is the total number of heads</li>
-<li><span class="math notranslate nohighlight">\($Ns$\)</span> is the total number of sectors</li>
+<li><p>A CHS tuple can be converted to an LBA address with the following
+formula: <span class="math notranslate nohighlight">\($A = (C x Nh + H) * Ns + (S - 1)$\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\($Nh$\)</span> is the total number of heads</p></li>
+<li><p><span class="math notranslate nohighlight">\($Ns$\)</span> is the total number of sectors</p></li>
 </ul>
 </div>
 <div class="section" id="storage-and-failure">
 <h2>Storage and Failure<a class="headerlink" href="#storage-and-failure" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>An excellent paper about hard disk failure rates at Google is
-available here:</li>
-<li><a class="reference external" href="http://labs.google.com/papers/disk_failures.pdf">http://labs.google.com/papers/disk_failures.pdf</a></li>
-<li>At Google, the failure rates of disks of a given age are:<ul>
-<li>3-months - 2.5</li>
-<li>6-months - 2.0</li>
-<li>1-year - 2</li>
-<li>2-year - 8</li>
-<li>3-year - 8.5</li>
+<li><p>An excellent paper about hard disk failure rates at Google is
+available here:</p></li>
+<li><p><a class="reference external" href="http://labs.google.com/papers/disk_failures.pdf">http://labs.google.com/papers/disk_failures.pdf</a></p></li>
+<li><p>At Google, the failure rates of disks of a given age are:</p>
+<ul>
+<li><p>3-months - 2.5</p></li>
+<li><p>6-months - 2.0</p></li>
+<li><p>1-year - 2</p></li>
+<li><p>2-year - 8</p></li>
+<li><p>3-year - 8.5</p></li>
 </ul>
 </li>
 </ul>
@@ -314,16 +322,17 @@ available here:</li>
 <div class="section" id="maximizing-availability-raid">
 <h2>Maximizing Availability - RAID<a class="headerlink" href="#maximizing-availability-raid" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>To prevent the loss of availability of data, the use of RAID
+<li><p>To prevent the loss of availability of data, the use of RAID
 (Redundant Array of Inexpensive Disks) allows for redundant copies of
-data to be stored.</li>
-<li>Common RAID levels are:<ul>
-<li>RAID 0 - splits data across disks. Increases disk space and
-provides no redundancy. 2 or more disks are needed.</li>
-<li>RAID 1 - creates an exact copy of data on two or more disks.</li>
-<li>RAID 5/6 - splits data across disks. Uses one or more disks for
+data to be stored.</p></li>
+<li><p>Common RAID levels are:</p>
+<ul>
+<li><p>RAID 0 - splits data across disks. Increases disk space and
+provides no redundancy. 2 or more disks are needed.</p></li>
+<li><p>RAID 1 - creates an exact copy of data on two or more disks.</p></li>
+<li><p>RAID 5/6 - splits data across disks. Uses one or more disks for
 parity. This allows 1-K out of N disks to fail and allow the data
-of any lost disk to be recovered. 3 or more disks are needed.</li>
+of any lost disk to be recovered. 3 or more disks are needed.</p></li>
 </ul>
 </li>
 </ul>
@@ -331,18 +340,19 @@ of any lost disk to be recovered. 3 or more disks are needed.</li>
 <div class="section" id="raid">
 <h2>RAID<a class="headerlink" href="#raid" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>RAID has three common implementation approaches:<ul>
-<li>Complete hardware implementation - a disk controller or expansion
+<li><p>RAID has three common implementation approaches:</p>
+<ul>
+<li><p>Complete hardware implementation - a disk controller or expansion
 card implements RAID. Several disks are connected to this
 controller and it is presented to the operating system as a single
-storage device. Often have reliability guarantees.</li>
-<li>Partial hardware implementation - Same as the complete hardware
+storage device. Often have reliability guarantees.</p></li>
+<li><p>Partial hardware implementation - Same as the complete hardware
 implementation, except parity calculations, and buffering are
 delegated to the host CPU and memory. Don’t often have reliability
-guarantees.</li>
-<li>Software implementation - The operating system itself manages
+guarantees.</p></li>
+<li><p>Software implementation - The operating system itself manages
 several disks and presents to the file-system layer a single
-storage device.</li>
+storage device.</p></li>
 </ul>
 </li>
 </ul>
@@ -352,7 +362,7 @@ storage device.</li>
 <blockquote>
 <div><div class="figure align-center" id="id10">
 <img alt="image" src="_images/raid_0.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -361,7 +371,7 @@ storage device.</li>
 <blockquote>
 <div><div class="figure align-center" id="id11">
 <img alt="image" src="_images/raid_1.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -370,7 +380,7 @@ storage device.</li>
 <blockquote>
 <div><div class="figure align-center" id="id12">
 <img alt="image" src="_images/raid_5.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -455,61 +465,64 @@ storage device.</li>
 <div class="section" id="raid-5-parity-and-recovery">
 <h2>RAID 5 - Parity and Recovery<a class="headerlink" href="#raid-5-parity-and-recovery" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In the above example, three files are created, f0, f1, and f2</li>
-<li>Two different messages are written to each of f0 and f1. Parity data
-is written to f2.</li>
-<li>Failure scenarios:<ul>
-<li>f0 is deleted - f0 can be recovered from f1 and the parity data of
-f2</li>
-<li>f1 is deleted - f1 can be recovered from f0 and the parity data of
-f2</li>
-<li>f2 is deleted - f2 can be recovered by recalculating the parity
-between f0 and f1</li>
+<li><p>In the above example, three files are created, f0, f1, and f2</p></li>
+<li><p>Two different messages are written to each of f0 and f1. Parity data
+is written to f2.</p></li>
+<li><p>Failure scenarios:</p>
+<ul>
+<li><p>f0 is deleted - f0 can be recovered from f1 and the parity data of
+f2</p></li>
+<li><p>f1 is deleted - f1 can be recovered from f0 and the parity data of
+f2</p></li>
+<li><p>f2 is deleted - f2 can be recovered by recalculating the parity
+between f0 and f1</p></li>
 </ul>
 </li>
-<li>In each case, the loss of one storage medium causes no data loss.</li>
+<li><p>In each case, the loss of one storage medium causes no data loss.</p></li>
 </ul>
 </div>
 <div class="section" id="disk-partitioning">
 <h2>Disk Partitioning<a class="headerlink" href="#disk-partitioning" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Operating systems divide disks into partitions (or slices).</li>
-<li>Partitions are a useful concept in that they allow an operating
+<li><p>Operating systems divide disks into partitions (or slices).</p></li>
+<li><p>Partitions are a useful concept in that they allow an operating
 system to divide parts of the disk into different types of disk
 formats. Among these will be a filesystem implementation, in some
 cases a swap partition, and filesystems not managed by the operating
-system (such as in a dual boot configuration).</li>
+system (such as in a dual boot configuration).</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h2>Disk Partitioning<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>On the PC, the most common format for partitions is the MBR (master
+<li><p>On the PC, the most common format for partitions is the MBR (master
 boot record) scheme. The MBR scheme allows a disk to be divided into
 up to four partitions. The offsets and sizes of these partitions are
-located in the MBR record at the beginning of the disk.</li>
-<li>To raise the limitation on four partitions, the MBR schema allows for
+located in the MBR record at the beginning of the disk.</p></li>
+<li><p>To raise the limitation on four partitions, the MBR schema allows for
 one partition to be considered an “extended” partition which can be
-further subdivided into multiple “logical” partitions.</li>
+further subdivided into multiple “logical” partitions.</p></li>
 </ul>
 </div>
 <div class="section" id="disk-arms-heads">
 <h2>Disk Arms / Heads<a class="headerlink" href="#disk-arms-heads" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>For mechanical disks, there are two moving parts:<ul>
-<li>The head - driven by a stepper motor. Moves to the correct track
-on the platter</li>
-<li>The disk motor - spins the platters under the head.</li>
+<li><p>For mechanical disks, there are two moving parts:</p>
+<ul>
+<li><p>The head - driven by a stepper motor. Moves to the correct track
+on the platter</p></li>
+<li><p>The disk motor - spins the platters under the head.</p></li>
 </ul>
 </li>
-<li>For a sector to be read from or written to a hard disk, the platter
+<li><p>For a sector to be read from or written to a hard disk, the platter
 must be rotated to the correct position and the head must be moved to
-the right position to perform the operation.</li>
-<li>So for a given operation, there is a concept of a physical distance
-the device must ’seek’ to perform the operation.</li>
-<li>The performance of disk operations are governed by:<ul>
-<li>The speed of the disk and head motors</li>
-<li>The algorithm that orders one or more possible disk operations.</li>
+the right position to perform the operation.</p></li>
+<li><p>So for a given operation, there is a concept of a physical distance
+the device must ’seek’ to perform the operation.</p></li>
+<li><p>The performance of disk operations are governed by:</p>
+<ul>
+<li><p>The speed of the disk and head motors</p></li>
+<li><p>The algorithm that orders one or more possible disk operations.</p></li>
 </ul>
 </li>
 </ul>
@@ -519,23 +532,24 @@ the device must ’seek’ to perform the operation.</li>
 <blockquote>
 <div><div class="figure align-center" id="id13">
 <img alt="image" src="_images/disk_diagram.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="characteristics-of-a-good-disk-scheduling-algorithm">
 <h2>Characteristics of a Good Disk Scheduling Algorithm<a class="headerlink" href="#characteristics-of-a-good-disk-scheduling-algorithm" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Like a process scheduler, decisions involve avoiding starvation and
-addressing both latency and throughput.</li>
-<li>Goals of a good algorithm:<ul>
-<li>Should avoid moving the head if another request exists in the same
-track.</li>
-<li>Should minimize moving the head overall.</li>
-<li>Should minimize the average distance from the current position of
-the head and the next request at any given time.</li>
-<li>When ordering requests, an individual request should not be
-delayed for too long.</li>
+<li><p>Like a process scheduler, decisions involve avoiding starvation and
+addressing both latency and throughput.</p></li>
+<li><p>Goals of a good algorithm:</p>
+<ul>
+<li><p>Should avoid moving the head if another request exists in the same
+track.</p></li>
+<li><p>Should minimize moving the head overall.</p></li>
+<li><p>Should minimize the average distance from the current position of
+the head and the next request at any given time.</p></li>
+<li><p>When ordering requests, an individual request should not be
+delayed for too long.</p></li>
 </ul>
 </li>
 </ul>
@@ -543,33 +557,33 @@ delayed for too long.</li>
 <div class="section" id="disk-scheduling-algorithms">
 <h2>Disk Scheduling Algorithms<a class="headerlink" href="#disk-scheduling-algorithms" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>FIFO</li>
-<li>Shortest Seek First</li>
-<li>Elevator</li>
-<li>FSCAN</li>
+<li><p>FIFO</p></li>
+<li><p>Shortest Seek First</p></li>
+<li><p>Elevator</p></li>
+<li><p>FSCAN</p></li>
 </ul>
 </div>
 <div class="section" id="fifo">
 <h2>FIFO<a class="headerlink" href="#fifo" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>FIFO is the simplest disk scheduling algorithm</li>
-<li>FIFO simply serves the requests in order as they arrive.</li>
-<li>FIFO is far from optimal. It does not make any attempt to minimize
-the seeking of the head.</li>
-<li>FIFO does guarantee fairness. Requests are answered in the order that
-they are received.</li>
+<li><p>FIFO is the simplest disk scheduling algorithm</p></li>
+<li><p>FIFO simply serves the requests in order as they arrive.</p></li>
+<li><p>FIFO is far from optimal. It does not make any attempt to minimize
+the seeking of the head.</p></li>
+<li><p>FIFO does guarantee fairness. Requests are answered in the order that
+they are received.</p></li>
 </ul>
 </div>
 <div class="section" id="shortest-seek-first">
 <h2>Shortest Seek First<a class="headerlink" href="#shortest-seek-first" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Shortest Seek First scans the request queue for the request that is
-nearest the head and serves that request first.</li>
-<li>This algorithm minimizes the total seeking that the head must perform</li>
-<li>This algorithm can allow requests to starve. If new requests keep
+<li><p>Shortest Seek First scans the request queue for the request that is
+nearest the head and serves that request first.</p></li>
+<li><p>This algorithm minimizes the total seeking that the head must perform</p></li>
+<li><p>This algorithm can allow requests to starve. If new requests keep
 coming in that are near the current position of the head at a
 sufficient rate, the disk head will never move near enough to other
-requests to service them.</li>
+requests to service them.</p></li>
 </ul>
 </div>
 <div class="section" id="id7">
@@ -577,26 +591,26 @@ requests to service them.</li>
 <blockquote>
 <div><div class="figure align-center" id="id14">
 <img alt="image" src="_images/shortest_seek_first.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="elevator-algorithm">
 <h2>Elevator Algorithm<a class="headerlink" href="#elevator-algorithm" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A good way to visualize a disk scheduling algorithm is to think of
+<li><p>A good way to visualize a disk scheduling algorithm is to think of
 how to make the operation of an elevator in a building that has
-several floors optimal.</li>
-<li>To guarantee that every floor is visited and no one is kept waiting
+several floors optimal.</p></li>
+<li><p>To guarantee that every floor is visited and no one is kept waiting
 forever, the elevator algorithm’s rule is that the elevator should go
 all the way to the top floor before reversing direction to go back to
-the bottom floor.</li>
-<li>This means that the algorithm has a concept of a direction. Given a
+the bottom floor.</p></li>
+<li><p>This means that the algorithm has a concept of a direction. Given a
 list of requests, the requests that will be served are those that are
 in the current track or those that are in the direction of the head’s
-movement (in order).</li>
-<li>Once the head reaches the final track, the direction is reversed and
-the algorithm is repeated.</li>
+movement (in order).</p></li>
+<li><p>Once the head reaches the final track, the direction is reversed and
+the algorithm is repeated.</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
@@ -604,43 +618,45 @@ the algorithm is repeated.</li>
 <blockquote>
 <div><div class="figure align-center" id="id15">
 <img alt="image" src="_images/elevator.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="evaluation-of-the-elevator-algorithm">
 <h2>Evaluation of the Elevator Algorithm<a class="headerlink" href="#evaluation-of-the-elevator-algorithm" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Pros:<ul>
-<li>Prevents starvation of requests</li>
+<li><p>Pros:</p>
+<ul>
+<li><p>Prevents starvation of requests</p></li>
 </ul>
 </li>
-<li>Cons:<ul>
-<li>Sectors in the middle of the disk are serviced faster on average
-because their average distance from the head is the least.</li>
+<li><p>Cons:</p>
+<ul>
+<li><p>Sectors in the middle of the disk are serviced faster on average
+because their average distance from the head is the least.</p></li>
 </ul>
 </li>
-<li>The elevator algorithm can remove the imbalance by starting at the
+<li><p>The elevator algorithm can remove the imbalance by starting at the
 innermost track, seeking to the outermost and then returning to the
 innermost. This way the direction never changes. Unfortunately, this
 particular seek takes more time than others due to the greater
-distance.</li>
+distance.</p></li>
 </ul>
 </div>
 <div class="section" id="fscan">
 <h2>FSCAN<a class="headerlink" href="#fscan" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>FSCAN works by taking the existing set of requests and putting them
-in one queue</li>
-<li>All new requests received while completing work in the first queue
-are put into a second queue.</li>
-<li>FSCAN then services the items in the first queue by serving requests
-nearest the head to the requests furthest from the head in order</li>
-<li>Once the first queue is empty, items from the second queue are moved
-to the first queue and the algorithm repeats</li>
-<li>FSCAN guarantees that there will be no starvation because there will
+<li><p>FSCAN works by taking the existing set of requests and putting them
+in one queue</p></li>
+<li><p>All new requests received while completing work in the first queue
+are put into a second queue.</p></li>
+<li><p>FSCAN then services the items in the first queue by serving requests
+nearest the head to the requests furthest from the head in order</p></li>
+<li><p>Once the first queue is empty, items from the second queue are moved
+to the first queue and the algorithm repeats</p></li>
+<li><p>FSCAN guarantees that there will be no starvation because there will
 be at most a fixed set of N items that need to be served before any
-given item is served.</li>
+given item is served.</p></li>
 </ul>
 </div>
 </div>
@@ -650,37 +666,29 @@ given item is served.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="fs.html" class="btn btn-neutral float-right" title="Implementing Files and Folders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="userlandmm.html" class="btn btn-neutral float-left" title="Userland Memory Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="fs.html" class="btn btn-neutral float-right" title="Implementing Files and Folders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="userlandmm.html" class="btn btn-neutral float-left" title="Userland Memory Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

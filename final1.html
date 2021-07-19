@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Final Exam Prep &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Final Exam Prep &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -61,7 +63,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -142,6 +144,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -153,7 +157,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/final1.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -172,138 +176,118 @@
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Following are a set of questions that may or may not show up in a similar form on the exam</li>
-<li>Feel free to discuss these on the Piazza site</li>
-<li>The exam will be closed-book, closed-notes, closed-computer and held in class.</li>
+<li><p>Following are a set of questions that may or may not show up in a similar form on the exam</p></li>
+<li><p>Feel free to discuss these on the Piazza site</p></li>
+<li><p>The exam will be closed-book, closed-notes, closed-computer and held in class.</p></li>
 </ul>
 </div>
 <div class="section" id="how-to-do-well-on-the-exam">
 <h2>How to do well on the exam<a class="headerlink" href="#how-to-do-well-on-the-exam" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The exam will be on April 30th. Spend a small amount of time each week answering the questions below. A smaller, but sustained effort will help you absorb the material better and keep stress to a minimum.</li>
-<li>Ask questions on Piazza! Share and discuss answers!</li>
+<li><p>The exam will be on April 30th. Spend a small amount of time each week answering the questions below. A smaller, but sustained effort will help you absorb the material better and keep stress to a minimum.</p></li>
+<li><p>Ask questions on Piazza! Share and discuss answers!</p></li>
 </ul>
 </div>
 <div class="section" id="topics-covered">
 <h2>Topics Covered<a class="headerlink" href="#topics-covered" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Virtual Memory</li>
-<li>Storage and Devices</li>
-<li>Implementing Files and Folders</li>
+<li><p>Virtual Memory</p></li>
+<li><p>Storage and Devices</p></li>
+<li><p>Implementing Files and Folders</p></li>
 </ul>
 </div>
 <div class="section" id="likely-extra-credit-topics">
 <h2>Likely Extra-Credit Topics<a class="headerlink" href="#likely-extra-credit-topics" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>User-Mode memory management</li>
-<li>Midterm lecture material</li>
+<li><p>User-Mode memory management</p></li>
+<li><p>Midterm lecture material</p></li>
 </ul>
 </div>
 <div class="section" id="questions-inter-process-communication">
 <h2>Questions - Inter-process Communication<a class="headerlink" href="#questions-inter-process-communication" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>List the following forms of IPC from faster performance to slower performance: files, named pipes and memory mapped files</li>
-<li>What guarantees does a named-pipe give you?</li>
-<li>What guarantee do I lose if I send too much data at once over a named-pipe?</li>
-<li>Is it safe to use pointers in memory mapped regions? Why?</li>
-<li>Re-write these structs so that they’ll work properly with memory mapped files:</li>
+<li><p>List the following forms of IPC from faster performance to slower performance: files, named pipes and memory mapped files</p></li>
+<li><p>What guarantees does a named-pipe give you?</p></li>
+<li><p>What guarantee do I lose if I send too much data at once over a named-pipe?</p></li>
+<li><p>Is it safe to use pointers in memory mapped regions? Why?</p></li>
+<li><p>Re-write these structs so that they’ll work properly with memory mapped files:</p></li>
 </ol>
-<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">char</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="n">Brand</span><span class="p">;</span>
-    <span class="kt">char</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">TractionRating</span><span class="p">;</span>
-    <span class="kt">char</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">SpeedRating</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">Wheel</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">Wheel</span><span class="o">*</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">Wheels</span><span class="p">;</span>
-    <span class="kt">char</span><span class="o">*</span> <span class="n">Make</span><span class="p">;</span>
-    <span class="kt">char</span><span class="o">*</span> <span class="n">Model</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">Car</span><span class="p">;</span>
-
-<span class="n">Car</span><span class="o">*</span> <span class="n">car</span> <span class="o">=</span> <span class="p">(</span><span class="n">Car</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Car</span><span class="p">));</span>
-<span class="n">car</span><span class="p">.</span><span class="n">Make</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">);</span>
-<span class="n">car</span><span class="p">.</span><span class="n">Model</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">);</span>
-<span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
-<span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
-<span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
-<span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
-
-<span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">Brand</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="kt">char</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="n">Brand</span><span class="p">;</span>
+<span class="linenos"> 3</span>    <span class="kt">char</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">TractionRating</span><span class="p">;</span>
+<span class="linenos"> 4</span>    <span class="kt">char</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">SpeedRating</span><span class="p">;</span>
+<span class="linenos"> 5</span><span class="p">}</span> <span class="n">Wheel</span><span class="p">;</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<span class="linenos"> 8</span>    <span class="n">Wheel</span><span class="o">*</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="n">Wheels</span><span class="p">;</span>
+<span class="linenos"> 9</span>    <span class="kt">char</span><span class="o">*</span> <span class="n">Make</span><span class="p">;</span>
+<span class="linenos">10</span>    <span class="kt">char</span><span class="o">*</span> <span class="n">Model</span><span class="p">;</span>
+<span class="linenos">11</span><span class="p">}</span> <span class="n">Car</span><span class="p">;</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">Car</span><span class="o">*</span> <span class="n">car</span> <span class="o">=</span> <span class="p">(</span><span class="n">Car</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Car</span><span class="p">));</span>
+<span class="linenos">14</span><span class="n">car</span><span class="p">.</span><span class="n">Make</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">);</span>
+<span class="linenos">15</span><span class="n">car</span><span class="p">.</span><span class="n">Model</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="mi">50</span><span class="p">);</span>
+<span class="linenos">16</span><span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
+<span class="linenos">17</span><span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
+<span class="linenos">18</span><span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
+<span class="linenos">19</span><span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Wheel</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Wheel</span><span class="p">));</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="n">car</span><span class="p">.</span><span class="n">Wheels</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">Brand</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <ol class="arabic simple">
-<li>Why is it dangerous to call functions like malloc() or free() inside a signal handler? What methods should you limit yourself to?</li>
+<li><p>Why is it dangerous to call functions like malloc() or free() inside a signal handler? What methods should you limit yourself to?</p></li>
 </ol>
 </div>
 <div class="section" id="questions-virtual-memory">
 <h2>Questions - Virtual Memory<a class="headerlink" href="#questions-virtual-memory" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>What is Virtual Memory responsible for?</li>
-<li>How does Virtual Memory help a system to perform better?</li>
-<li>What is a physical address? What is a virtual address?</li>
-<li>What role does the MMU serve?</li>
-<li>What role does the page table serve?</li>
-<li>How does a two or three level page table save memory? What kind of data structure is it?</li>
-<li>How does a page fault occur?</li>
-<li>What are the four classifications of pages as used by a page replacement algorithm?</li>
-<li>Which of the two algorithms is subject to Belady’s Anomaly - NFU or FIFO</li>
-<li>If a page replacement algorithm is not subject to Belady’s Anomoly, what does this imply when more physical memory is added to a system?</li>
-<li>If I have the following distance string - 4, 4, 1, inf., 7, 2, 2. What is the page fault rate for a physical memory size of 2? For 5? (See 8.35 in the notes)</li>
-<li>What is a working set?</li>
-<li>What is the difference between local and global paging?</li>
-<li>Why does DMA need its pages to be locked?</li>
-<li>Explain how COW (Copy on Write) works when a program calls fork() and then writes to a data structure.</li>
-<li>List the steps in the process of a page fault (8.51, 52)</li>
+<li><p>What is Virtual Memory responsible for?</p></li>
+<li><p>How does Virtual Memory help a system to perform better?</p></li>
+<li><p>What is a physical address? What is a virtual address?</p></li>
+<li><p>What role does the MMU serve?</p></li>
+<li><p>What role does the page table serve?</p></li>
+<li><p>How does a two or three level page table save memory? What kind of data structure is it?</p></li>
+<li><p>How does a page fault occur?</p></li>
+<li><p>What are the four classifications of pages as used by a page replacement algorithm?</p></li>
+<li><p>Which of the two algorithms is subject to Belady’s Anomaly - NFU or FIFO</p></li>
+<li><p>If a page replacement algorithm is not subject to Belady’s Anomoly, what does this imply when more physical memory is added to a system?</p></li>
+<li><p>If I have the following distance string - 4, 4, 1, inf., 7, 2, 2. What is the page fault rate for a physical memory size of 2? For 5? (See 8.35 in the notes)</p></li>
+<li><p>What is a working set?</p></li>
+<li><p>What is the difference between local and global paging?</p></li>
+<li><p>Why does DMA need its pages to be locked?</p></li>
+<li><p>Explain how COW (Copy on Write) works when a program calls fork() and then writes to a data structure.</p></li>
+<li><p>List the steps in the process of a page fault (8.51, 52)</p></li>
 </ol>
 </div>
 <div class="section" id="questions-storage-and-devices">
 <h2>Questions - Storage and Devices<a class="headerlink" href="#questions-storage-and-devices" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Is a hard disk a character or a block device?</li>
-<li>What is RAID 0?</li>
-<li>What is RAID 1?</li>
-<li>What is RAID 5?</li>
-<li>Explain how to calculate the parity of two bytes into a third byte.</li>
-<li>What does parity have to do with RAID 5?</li>
-<li>What is the policy of the Shortest Seek First disk scheduling algorithm?</li>
-<li>What is the down side of Shortest Seek First?</li>
-<li>What is the policy of the Elevator Algorithm?</li>
-<li>Which part of the disk does the Elevator Algorithm favor in terms of average response time?</li>
-<li>How does FSCAN modify Shortest Seek First to get rid of its disadvantage?</li>
+<li><p>Is a hard disk a character or a block device?</p></li>
+<li><p>What is RAID 0?</p></li>
+<li><p>What is RAID 1?</p></li>
+<li><p>What is RAID 5?</p></li>
+<li><p>Explain how to calculate the parity of two bytes into a third byte.</p></li>
+<li><p>What does parity have to do with RAID 5?</p></li>
+<li><p>What is the policy of the Shortest Seek First disk scheduling algorithm?</p></li>
+<li><p>What is the down side of Shortest Seek First?</p></li>
+<li><p>What is the policy of the Elevator Algorithm?</p></li>
+<li><p>Which part of the disk does the Elevator Algorithm favor in terms of average response time?</p></li>
+<li><p>How does FSCAN modify Shortest Seek First to get rid of its disadvantage?</p></li>
 </ol>
 </div>
 <div class="section" id="questions-implementing-files-and-folders">
 <h2>Questions - Implementing Files and Folders<a class="headerlink" href="#questions-implementing-files-and-folders" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Linked lists are used to map files onto some sequence of blocks in some filesystem implementations. What are the advantages / disadvantages of this?</li>
-<li>What change does FAT make from the linked list approach?</li>
-<li>What are the advantages to FAT? What are the disadvantages?</li>
-<li>Explain what an inode is</li>
-<li>Why are several pointers (zones) to the first few data blocks stored in the first inode of the Minix inode structure? What benefit does this give?</li>
-<li>Explain what an indirect and double indirect zone are. Draw a diagram.</li>
-<li>Why are block caches needed? What do they help?</li>
-<li>What responsibilities does a VFS (Virtual Filesystem) manage?</li>
-<li>What is FUSE? How does VFS enable it?</li>
+<li><p>Linked lists are used to map files onto some sequence of blocks in some filesystem implementations. What are the advantages / disadvantages of this?</p></li>
+<li><p>What change does FAT make from the linked list approach?</p></li>
+<li><p>What are the advantages to FAT? What are the disadvantages?</p></li>
+<li><p>Explain what an inode is</p></li>
+<li><p>Why are several pointers (zones) to the first few data blocks stored in the first inode of the Minix inode structure? What benefit does this give?</p></li>
+<li><p>Explain what an indirect and double indirect zone are. Draw a diagram.</p></li>
+<li><p>Why are block caches needed? What do they help?</p></li>
+<li><p>What responsibilities does a VFS (Virtual Filesystem) manage?</p></li>
+<li><p>What is FUSE? How does VFS enable it?</p></li>
 </ol>
 </div>
 </div>
@@ -313,28 +297,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

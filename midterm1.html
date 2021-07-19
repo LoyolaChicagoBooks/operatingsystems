@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Midterm Exam Prep &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Midterm Exam Prep &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -61,7 +63,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -142,6 +144,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -153,7 +157,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/midterm1.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -172,33 +176,33 @@
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Following are a set of questions that may or may not show up in a similar form on the midterm exam</li>
-<li>Feel free to discuss these on the Piazza site</li>
-<li>The midterm exam will be closed-book, closed-notes, closed-computer and held in class.</li>
+<li><p>Following are a set of questions that may or may not show up in a similar form on the midterm exam</p></li>
+<li><p>Feel free to discuss these on the Piazza site</p></li>
+<li><p>The midterm exam will be closed-book, closed-notes, closed-computer and held in class.</p></li>
 </ul>
 </div>
 <div class="section" id="how-to-do-well-on-the-exam">
 <h2>How to do well on the exam<a class="headerlink" href="#how-to-do-well-on-the-exam" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The exam will be in March. Spend a small amount of time each week answering the questions below. A smaller, but sustained effort will help you absorb the material better and keep stress to a minimum.</li>
-<li>Ask questions on Piazza! Share and discuss answers!</li>
-<li>Become comfortable with your project #1 code!</li>
+<li><p>The exam will be in March. Spend a small amount of time each week answering the questions below. A smaller, but sustained effort will help you absorb the material better and keep stress to a minimum.</p></li>
+<li><p>Ask questions on Piazza! Share and discuss answers!</p></li>
+<li><p>Become comfortable with your project #1 code!</p></li>
 </ul>
 </div>
 <div class="section" id="questions">
 <h2>Questions<a class="headerlink" href="#questions" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>How do monolithic-kernel operating systems and micro-kernel operating systems differ?</li>
-<li>Describe the role of a modern operating system on a computer. What guarantees are given to programs?</li>
-<li>List and describe the memory sections of a process.</li>
-<li>What are the steps that the loader takes in loading and launching the program?</li>
-<li>What are the steps the loader takes when loading a shared library (.so file)?</li>
-<li>Describe what the fork() system call does. Why does the fork() call need to return two different values when used within what seems to be the same program?</li>
-<li>What are some ways that a scheduler can make a system get the most possible work done? In other words, what can a scheduler do to achieve the best throughput?</li>
-<li>What are some ways that a scheduler can make a system more responsive? In other words, what can a scheduler do to achieve the best latency?</li>
-<li>How does a scheduler know if a process is interactive or I/O intensive? How does a scheduler know if a process is CPU intensive or non-interactive?</li>
-<li>Give an example of a real-time scheduling scenario that is schedulable and one that is not. Show your math. (Make your life easy by drawing a timeline!)</li>
-<li>Assuming one thread is executing the producer() function and one thread is executing the consumer() function, circle the lines that are the critical section.</li>
+<li><p>How do monolithic-kernel operating systems and micro-kernel operating systems differ?</p></li>
+<li><p>Describe the role of a modern operating system on a computer. What guarantees are given to programs?</p></li>
+<li><p>List and describe the memory sections of a process.</p></li>
+<li><p>What are the steps that the loader takes in loading and launching the program?</p></li>
+<li><p>What are the steps the loader takes when loading a shared library (.so file)?</p></li>
+<li><p>Describe what the fork() system call does. Why does the fork() call need to return two different values when used within what seems to be the same program?</p></li>
+<li><p>What are some ways that a scheduler can make a system get the most possible work done? In other words, what can a scheduler do to achieve the best throughput?</p></li>
+<li><p>What are some ways that a scheduler can make a system more responsive? In other words, what can a scheduler do to achieve the best latency?</p></li>
+<li><p>How does a scheduler know if a process is interactive or I/O intensive? How does a scheduler know if a process is CPU intensive or non-interactive?</p></li>
+<li><p>Give an example of a real-time scheduling scenario that is schedulable and one that is not. Show your math. (Make your life easy by drawing a timeline!)</p></li>
+<li><p>Assuming one thread is executing the producer() function and one thread is executing the consumer() function, circle the lines that are the critical section.</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int queue[10];
 int queueSize = 0;
@@ -226,7 +230,7 @@ void consumer() {
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li>Use the following functions to answer the next three questions:</li>
+<li><p>Use the following functions to answer the next three questions:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">method1</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">a</span><span class="o">.</span><span class="n">Lock</span><span class="p">();</span>
@@ -269,19 +273,19 @@ void consumer() {
 <a class="reference internal image-reference" href="_images/lock_order_graph_methods.png"><img alt="Undirected Lock Graph" src="_images/lock_order_graph_methods.png" style="width: 450px;" /></a>
 </div>
 <ol class="arabic simple">
-<li>Draw the lock graph for the functions (directed graph that shows possible lock orders)</li>
-<li>Assuming method1() is called by thread #1 and method4() is called by thread #2, draw the traversal on the lock graph.</li>
-<li>Identify any possible deadlock if it exists.</li>
-<li>What capability, instruction, or function must the CPU provide for a spin lock to work that cannot be expressed in the C programming language?</li>
-<li>Write the pseudo-code for the spin_lock() function that uses the CPU capability above. You can encapsulate that CPU capability into a function that you assume already exists.</li>
-<li>Explain how muteness differ from semaphores. How would you emulate a mutex with a semaphore? How would it be initialized and how would it be used?</li>
-<li>When is it appropriate to use an event semaphore? You may answer this question by giving an example or well-known example.</li>
-<li>When is it appropriate to use a monitor rather than a mutex or a semaphore?</li>
-<li>In pseudo code, show how to use a monitor.</li>
-<li>When should the Pulse() operation on a monitor be used? Give an example.</li>
-<li>When using monitors, why is it important to check the condition in a loop? Why does an if(…) statement not suffice?</li>
-<li>The two principle approaches to avoid deadlock are (a) to reduce the possible lock combinations to a set that cannot produce a deadlock or (b) to ensure that acquiring multiple locks is an atomic operation. What are the advantages and disadvantages to each approach?</li>
-<li>Given the code below: write the (pseudo-)code for (a) to reduce the possible lock combinations to a set that cannot produce a deadlock and (b) to ensure that acquiring multiple locks is an atomic operation</li>
+<li><p>Draw the lock graph for the functions (directed graph that shows possible lock orders)</p></li>
+<li><p>Assuming method1() is called by thread #1 and method4() is called by thread #2, draw the traversal on the lock graph.</p></li>
+<li><p>Identify any possible deadlock if it exists.</p></li>
+<li><p>What capability, instruction, or function must the CPU provide for a spin lock to work that cannot be expressed in the C programming language?</p></li>
+<li><p>Write the pseudo-code for the spin_lock() function that uses the CPU capability above. You can encapsulate that CPU capability into a function that you assume already exists.</p></li>
+<li><p>Explain how muteness differ from semaphores. How would you emulate a mutex with a semaphore? How would it be initialized and how would it be used?</p></li>
+<li><p>When is it appropriate to use an event semaphore? You may answer this question by giving an example or well-known example.</p></li>
+<li><p>When is it appropriate to use a monitor rather than a mutex or a semaphore?</p></li>
+<li><p>In pseudo code, show how to use a monitor.</p></li>
+<li><p>When should the Pulse() operation on a monitor be used? Give an example.</p></li>
+<li><p>When using monitors, why is it important to check the condition in a loop? Why does an if(…) statement not suffice?</p></li>
+<li><p>The two principle approaches to avoid deadlock are (a) to reduce the possible lock combinations to a set that cannot produce a deadlock or (b) to ensure that acquiring multiple locks is an atomic operation. What are the advantages and disadvantages to each approach?</p></li>
+<li><p>Given the code below: write the (pseudo-)code for (a) to reduce the possible lock combinations to a set that cannot produce a deadlock and (b) to ensure that acquiring multiple locks is an atomic operation</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
         <span class="nb">int</span> <span class="n">LockNumber</span><span class="p">;</span>
@@ -294,7 +298,7 @@ void consumer() {
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li>Rewrite the following code to avoid starvation:</li>
+<li><p>Rewrite the following code to avoid starvation:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Queue</span> <span class="n">_queue</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Queue</span><span class="p">();</span>
 <span class="n">Mutex</span> <span class="n">_lock</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Mutex</span><span class="p">();</span>
@@ -322,7 +326,7 @@ void consumer() {
 </pre></div>
 </div>
 <ol class="arabic simple">
-<li>Do fairer locks increase or decrease resource (CPU or otherwise) utilization? Explain why or provide an example.</li>
+<li><p>Do fairer locks increase or decrease resource (CPU or otherwise) utilization? Explain why or provide an example.</p></li>
 </ol>
 </div>
 </div>
@@ -332,28 +336,25 @@ void consumer() {
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

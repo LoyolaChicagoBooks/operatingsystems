@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Storage Research at Loyola &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Storage Research at Loyola &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +65,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -167,6 +169,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -178,7 +182,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/research.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -197,50 +201,51 @@
 <div class="section" id="filesystems-research-at-loyola">
 <h2>Filesystems Research at Loyola<a class="headerlink" href="#filesystems-research-at-loyola" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Profs. Thiruvathukal, Laufer, and myself have been working on
-filesystems and filesystems frameworks for several years.</li>
-<li>Our first project was OLFS. OLFS was a FUSE filesystem similar to
+<li><p>Profs. Thiruvathukal, Laufer, and myself have been working on
+filesystems and filesystems frameworks for several years.</p></li>
+<li><p>Our first project was OLFS. OLFS was a FUSE filesystem similar to
 UnionFS, but written in Java. This was an excellent learning
-experience for us.</li>
-<li>Building on our experience with OLFS, we developed two frameworks:
+experience for us.</p></li>
+<li><p>Building on our experience with OLFS, we developed two frameworks:
 NOFS and RestFS. We believe that both of these frameworks help to
 both bring filesystems development to high level languages and
-greatly simplify the problem space.</li>
+greatly simplify the problem space.</p></li>
 </ul>
 </div>
 <div class="section" id="nofs">
 <h2>NOFS<a class="headerlink" href="#nofs" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In most OOP graphical applications, there are a few common
-components:<ul>
-<li>A domain model</li>
-<li>A view/presentation layer</li>
-<li>A controller layer that translates between the domain model and
-the presentation layer</li>
-<li>A persistence layer. This can be the filesystem or a database.</li>
+<li><p>In most OOP graphical applications, there are a few common
+components:</p>
+<ul>
+<li><p>A domain model</p></li>
+<li><p>A view/presentation layer</p></li>
+<li><p>A controller layer that translates between the domain model and
+the presentation layer</p></li>
+<li><p>A persistence layer. This can be the filesystem or a database.</p></li>
 </ul>
 </li>
-<li>The principle behind the NO part of NOFS (Naked Objects) is that a
+<li><p>The principle behind the NO part of NOFS (Naked Objects) is that a
 behaviorally complete domain model can be all that an application
-needs if the other layers can be generated in an automated fashion.</li>
-<li>For many applications the Naked Objects architecture reduces the
+needs if the other layers can be generated in an automated fashion.</p></li>
+<li><p>For many applications the Naked Objects architecture reduces the
 amount of development effort and complexity while producing a decent
-application</li>
+application</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
 <h2>NOFS<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The principle behind NOFS is that the fundamental structures or
+<li><p>The principle behind NOFS is that the fundamental structures or
 domain objects of a filesystem should be all that need to be
 implemented and the interface to any VFS layer or any persistence
 mechanism (hard disk, database, filesystem) should be provided in an
-automatic fashion.</li>
-<li>With NOFS, it is possible to build a complete filesystem with a
+automatic fashion.</p></li>
+<li><p>With NOFS, it is possible to build a complete filesystem with a
 single Java class containing no more than 50-60 lines of code and
 little or no knowledge about the filesystem contract (operations like
 truncate, read, write, seek, etc…) or the underlying storage
-architecture (hard disk, files, etc…)</li>
+architecture (hard disk, files, etc…)</p></li>
 </ul>
 </div>
 <div class="section" id="an-example-nofs-filesystem-in-3-slides">
@@ -348,25 +353,25 @@ architecture (hard disk, files, etc…)</li>
 <blockquote>
 <div><div class="figure align-center" id="id9">
 <img alt="image" src="_images/nofs_addressbook.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="id4">
 <h2>NOFS<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>With NOFS, the developer can fill in as many details as they are
-concerned about.</li>
-<li>If the developer wants to implement details about permissions, random
+<li><p>With NOFS, the developer can fill in as many details as they are
+concerned about.</p></li>
+<li><p>If the developer wants to implement details about permissions, random
 file access, persistence, caches, etc.. it is optional. Any details
 left out are filled in by the NOFS framework with reasonable
-defaults.</li>
-<li>For application oriented filesystems - filesystems that are oriented
+defaults.</p></li>
+<li><p>For application oriented filesystems - filesystems that are oriented
 more towards behavior than storage - the developer does not need to
-be concerned with any detail of the filesystem contract.</li>
-<li>For storage oriented filesystems, the developer needs to manage more
+be concerned with any detail of the filesystem contract.</p></li>
+<li><p>For storage oriented filesystems, the developer needs to manage more
 details. Things like permissions, access / modify times, user, and
-group ownership become more relevant.</li>
+group ownership become more relevant.</p></li>
 </ul>
 </div>
 <div class="section" id="nofs-architecture-relation-to-fuse-and-the-os">
@@ -374,7 +379,7 @@ group ownership become more relevant.</li>
 <blockquote>
 <div><div class="figure align-center" id="id10">
 <img alt="image" src="_images/nofs_kernel_usermode.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -383,7 +388,7 @@ group ownership become more relevant.</li>
 <blockquote>
 <div><div class="figure align-center" id="id11">
 <img alt="image" src="_images/nofs_cache_serialization.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -392,26 +397,26 @@ group ownership become more relevant.</li>
 <blockquote>
 <div><div class="figure align-center" id="id12">
 <img alt="image" src="_images/nofs_execution.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="restfs">
 <h2>RestFS<a class="headerlink" href="#restfs" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>While developing NOFS, we realized that there were two common types
-of application oriented filesystems</li>
-<li>The first type is a local or mixed local / remote behavioral
+<li><p>While developing NOFS, we realized that there were two common types
+of application oriented filesystems</p></li>
+<li><p>The first type is a local or mixed local / remote behavioral
 filesystem. Something like the addressbook example that we
-demonstrated earlier.</li>
-<li>The second type that we discovered where filesystems that connected
+demonstrated earlier.</p></li>
+<li><p>The second type that we discovered where filesystems that connected
 to web services. One example we built was a NOFS filesystem in about
 400-500 lines of code to mount a Flickr photo album as a folder of
-pictures.</li>
-<li>With the knowledge that RESTful services are very similar to
+pictures.</p></li>
+<li><p>With the knowledge that RESTful services are very similar to
 filesystems architecturally and how well NOFS was doing with
 application oriented filesystems. We asked ourselves if we could make
-accessing web services even easier.</li>
+accessing web services even easier.</p></li>
 </ul>
 </div>
 <div class="section" id="restfs-service-composition">
@@ -419,22 +424,22 @@ accessing web services even easier.</li>
 <blockquote>
 <div><div class="figure align-center" id="id13">
 <img alt="image" src="_images/composition.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="id5">
 <h2>RestFS<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>While developing application filesystems for web services with NOFS,
+<li><p>While developing application filesystems for web services with NOFS,
 we found that domain model modifications were roughly mapping one or
-two FUSE operations to a HTTP verb.</li>
-<li>So, our first attempt with RestFS has been to provide file and
+two FUSE operations to a HTTP verb.</p></li>
+<li><p>So, our first attempt with RestFS has been to provide file and
 configuration file pairs to map particular FS system calls onto
-particular web methods.</li>
-<li>This has allowed us to do things such as configure a file so that
+particular web methods.</p></li>
+<li><p>This has allowed us to do things such as configure a file so that
 when it is ’touched’ that a Google search can be performed with the
-results stored to the file.</li>
+results stored to the file.</p></li>
 </ul>
 </div>
 <div class="section" id="restfs-communications">
@@ -442,7 +447,7 @@ results stored to the file.</li>
 <blockquote>
 <div><div class="figure align-center" id="id14">
 <img alt="image" src="_images/communication_timeline.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -469,11 +474,11 @@ cat $FILE_NAME
 <div class="section" id="restfs-authentication">
 <h2>RestFS - Authentication<a class="headerlink" href="#restfs-authentication" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A common concern for many rest-ful services is authentication.</li>
-<li>A popular authentication method for many rest-ful services is OAuth.</li>
-<li>Since RestFS is built on top of NOFS, we were able to map an existing
-OAuth library into the filesystem</li>
-<li>In RestFS, there is a special OAuth folder called ’/auth’</li>
+<li><p>A common concern for many rest-ful services is authentication.</p></li>
+<li><p>A popular authentication method for many rest-ful services is OAuth.</p></li>
+<li><p>Since RestFS is built on top of NOFS, we were able to map an existing
+OAuth library into the filesystem</p></li>
+<li><p>In RestFS, there is a special OAuth folder called ’/auth’</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
@@ -481,7 +486,7 @@ OAuth library into the filesystem</li>
 <blockquote>
 <div><div class="figure align-center" id="id15">
 <img alt="image" src="_images/restfs_auth.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -490,31 +495,31 @@ OAuth library into the filesystem</li>
 <blockquote>
 <div><div class="figure align-center" id="id16">
 <img alt="image" src="_images/restfs_authentication_process.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="id8">
 <h2>RestFS<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>With RestFS we’ve been able to show how local software that works
-principally with files (cat, grep), can be used with web services</li>
-<li>We’ve also been able to demonstrate how remote web services can be
+<li><p>With RestFS we’ve been able to show how local software that works
+principally with files (cat, grep), can be used with web services</p></li>
+<li><p>We’ve also been able to demonstrate how remote web services can be
 enhanced locally with RestFS and then re-exposed as new rest-ful web
-services.</li>
+services.</p></li>
 </ul>
 </div>
 <div class="section" id="restfs-future-directions">
 <h2>RestFS - Future Directions<a class="headerlink" href="#restfs-future-directions" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>We’re currently re-architecting RestFS to be more rules based so that
-more than one FS system call can be mapped per file.</li>
-<li>We’re also investigating how folders and symbolic links can be used
-to further enhance RestFS.</li>
-<li>During the fall of 2011, with the help of Shaohui Chen, we’ve been
-able to move NOFS from Java to the .NET framework</li>
-<li>This porting effort will allow us to support both Windows and Linux,
-and give us a much better language framework to work from.</li>
+<li><p>We’re currently re-architecting RestFS to be more rules based so that
+more than one FS system call can be mapped per file.</p></li>
+<li><p>We’re also investigating how folders and symbolic links can be used
+to further enhance RestFS.</p></li>
+<li><p>During the fall of 2011, with the help of Shaohui Chen, we’ve been
+able to move NOFS from Java to the .NET framework</p></li>
+<li><p>This porting effort will allow us to support both Windows and Linux,
+and give us a much better language framework to work from.</p></li>
 </ul>
 </div>
 </div>
@@ -524,37 +529,29 @@ and give us a much better language framework to work from.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="linux_vm.html" class="btn btn-neutral float-right" title="Installing a Linux Virtual Machine with VMware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="fs.html" class="btn btn-neutral float-left" title="Implementing Files and Folders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="linux_vm.html" class="btn btn-neutral float-right" title="Installing a Linux Virtual Machine with VMware" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="fs.html" class="btn btn-neutral float-left" title="Implementing Files and Folders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

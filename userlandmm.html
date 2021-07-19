@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Userland Memory Management &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Userland Memory Management &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +65,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -190,6 +192,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -201,7 +205,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/userlandmm.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -220,26 +224,26 @@
 <div class="section" id="why-userland-memory-management">
 <h2>Why Userland Memory Management?<a class="headerlink" href="#why-userland-memory-management" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Why discuss user land memory management in an OS course?</li>
-<li>After all, user land memory management is almost always an
-implementation detail of a standard library or virtual machine.</li>
-<li>The reason that this is important is that the OS allocates to user
-programs memory as units of contiguous virtual pages.</li>
-<li>The unit of the page is not very useful for many programs. Most
+<li><p>Why discuss user land memory management in an OS course?</p></li>
+<li><p>After all, user land memory management is almost always an
+implementation detail of a standard library or virtual machine.</p></li>
+<li><p>The reason that this is important is that the OS allocates to user
+programs memory as units of contiguous virtual pages.</p></li>
+<li><p>The unit of the page is not very useful for many programs. Most
 programs work in terms of structured objects that are composed of
 primitive data types and pointers to other structured objects or
-primitive data types.</li>
+primitive data types.</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
 <h2>Why Userland Memory Management?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Because programs need a view of the machine as something other than
+<li><p>Because programs need a view of the machine as something other than
 pages, we can consider the topic of user land memory management as a
-detail of the virtual machine that the system provides.</li>
-<li>Because the details of the memory management system differ based on
+detail of the virtual machine that the system provides.</p></li>
+<li><p>Because the details of the memory management system differ based on
 language needs, it is impractical for this component to exist within
-the operating system implementation.</li>
+the operating system implementation.</p></li>
 </ul>
 </div>
 <div class="section" id="heap-management">
@@ -248,30 +252,31 @@ the operating system implementation.</li>
 <div class="section" id="the-heap">
 <h2>The Heap<a class="headerlink" href="#the-heap" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The heap is the portion of a process’ memory that is used for data
+<li><p>The heap is the portion of a process’ memory that is used for data
 that lives beyond the lifetime of any one function or method. The
 lifetime of this data is defined by when it is allocated and when the
-heap manager either explicitly deletes it or garbage collects it.</li>
-<li>Languages like C or C++ allocate chunks of memory manually through
-explicit statements like malloc, free, new, delete, etc…</li>
-<li>Languages like C# or Java allocate chunks of memory through
-statements like new and deallocate memory with garbage collectors</li>
+heap manager either explicitly deletes it or garbage collects it.</p></li>
+<li><p>Languages like C or C++ allocate chunks of memory manually through
+explicit statements like malloc, free, new, delete, etc…</p></li>
+<li><p>Languages like C# or Java allocate chunks of memory through
+statements like new and deallocate memory with garbage collectors</p></li>
 </ul>
 </div>
 <div class="section" id="the-memory-manager">
 <h2>The Memory Manager<a class="headerlink" href="#the-memory-manager" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The memory manager has the following responsibilities:<ul>
-<li>Manages list of allocated sections of memory</li>
-<li>Manages list of free regions in memory</li>
-<li>Allocation - When a program manages memory for an object, the
+<li><p>The memory manager has the following responsibilities:</p>
+<ul>
+<li><p>Manages list of allocated sections of memory</p></li>
+<li><p>Manages list of free regions in memory</p></li>
+<li><p>Allocation - When a program manages memory for an object, the
 memory manager will find a chunk of contiguous memory at least as
 large as the object. If not enough contiguous memory is available,
-it asks the operating system for more heap space</li>
-<li>Deallocation - When a program deallocates heap memory, the memory
+it asks the operating system for more heap space</p></li>
+<li><p>Deallocation - When a program deallocates heap memory, the memory
 manager returns the deallocated space to the free list. Memory is
 typically not returned to the operating system in most
-implementations.</li>
+implementations.</p></li>
 </ul>
 </li>
 </ul>
@@ -279,142 +284,143 @@ implementations.</li>
 <div class="section" id="characteristics-of-memory-allocation">
 <h2>Characteristics of Memory Allocation<a class="headerlink" href="#characteristics-of-memory-allocation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Requests from a program for chunks of the heap are typically not of
-the same size</li>
-<li>Deallocation is not predictable. In the stack, memory is allocated
-and freed in First In Last Out order. This is not true of the heap.</li>
-<li>Therefore, the memory manager must be prepared to handle requests of
-differing size in unpredictable order</li>
-<li>Most of the time, the majority of requests are for small regions of
-memory that are measured in bytes or kilo-bytes.</li>
+<li><p>Requests from a program for chunks of the heap are typically not of
+the same size</p></li>
+<li><p>Deallocation is not predictable. In the stack, memory is allocated
+and freed in First In Last Out order. This is not true of the heap.</p></li>
+<li><p>Therefore, the memory manager must be prepared to handle requests of
+differing size in unpredictable order</p></li>
+<li><p>Most of the time, the majority of requests are for small regions of
+memory that are measured in bytes or kilo-bytes.</p></li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2>Characteristics of Memory Allocation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Although not optimal, it is acceptable for an allocator to return a
-region of memory larger than the requested size.</li>
-<li>Many allocators will split the heap into buckets of a different chunk
-sizes.</li>
-<li>So, for example an allocator may service a request for 31 bytes of
-memory with a region of memory that is 32 bytes in size.s</li>
+<li><p>Although not optimal, it is acceptable for an allocator to return a
+region of memory larger than the requested size.</p></li>
+<li><p>Many allocators will split the heap into buckets of a different chunk
+sizes.</p></li>
+<li><p>So, for example an allocator may service a request for 31 bytes of
+memory with a region of memory that is 32 bytes in size.s</p></li>
 </ul>
 </div>
 <div class="section" id="characteristics-of-a-good-memory-manager">
 <h2>Characteristics of a Good Memory Manager<a class="headerlink" href="#characteristics-of-a-good-memory-manager" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Space Efficiency - The memory manager should minimize the total heap
+<li><p>Space Efficiency - The memory manager should minimize the total heap
 needed by a program. This is accomplished by minimizing heap
-fragmentation.</li>
-<li>Program Efficiency - Allocations should be arranged in memory to
-preserve locality</li>
-<li>Low Overhead - Memory allocations / deallocations are frequent
+fragmentation.</p></li>
+<li><p>Program Efficiency - Allocations should be arranged in memory to
+preserve locality</p></li>
+<li><p>Low Overhead - Memory allocations / deallocations are frequent
 operations in a program. Because of this, the overhead of the memory
 manager should be minimized. Efficiency for smaller memory
 allocations should be a priority over efficiency for larger
-allocations since smaller allocations happen more frequently.</li>
+allocations since smaller allocations happen more frequently.</p></li>
 </ul>
 </div>
 <div class="section" id="a-refresher-on-the-memory-hierarchy">
 <h2>A Refresher on the Memory Hierarchy<a class="headerlink" href="#a-refresher-on-the-memory-hierarchy" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Memory Type / Memory Size / Access Time</li>
-<li>Registers / 32 words / 1 ns</li>
-<li>L1 Cache / 16 - 64KB / 5-10 ns</li>
-<li>L2 Cache / 128KB - 4MB / 40-60 ns</li>
-<li>Physical Memory / 512MB - 8GB / 100 - 150 ns</li>
-<li>Swap File / 512MB - 8GB / 3 - 15 ms</li>
+<li><p>Memory Type / Memory Size / Access Time</p></li>
+<li><p>Registers / 32 words / 1 ns</p></li>
+<li><p>L1 Cache / 16 - 64KB / 5-10 ns</p></li>
+<li><p>L2 Cache / 128KB - 4MB / 40-60 ns</p></li>
+<li><p>Physical Memory / 512MB - 8GB / 100 - 150 ns</p></li>
+<li><p>Swap File / 512MB - 8GB / 3 - 15 ms</p></li>
 </ul>
 </div>
 <div class="section" id="program-locality">
 <h2>Program Locality<a class="headerlink" href="#program-locality" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Often, programs contain many instructions that are never executed.</li>
-<li>Programs built with reusable libraries, often only use a small
-fraction of the capability of these libraries.</li>
-<li>Programs typically spend most of their time executing innermost loops
-and recursive functions.</li>
-<li>Only a small fraction of code that could be executed is actually
+<li><p>Often, programs contain many instructions that are never executed.</p></li>
+<li><p>Programs built with reusable libraries, often only use a small
+fraction of the capability of these libraries.</p></li>
+<li><p>Programs typically spend most of their time executing innermost loops
+and recursive functions.</p></li>
+<li><p>Only a small fraction of code that could be executed is actually
 executed. This means, that within any given method, there are basic
 blocks of code dedicated to exception and error handling that is
-often not invoked.</li>
+often not invoked.</p></li>
 </ul>
 </div>
 <div class="section" id="fragmentation">
 <h2>Fragmentation<a class="headerlink" href="#fragmentation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Internal fragmentation - When a request for memory is answered with a
+<li><p>Internal fragmentation - When a request for memory is answered with a
 region of memory that is larger than the request, the remainder is
-wasted.</li>
-<li>External fragmentation - Regions of contiguous memory that are not
-large enough to service requests.</li>
-<li>External fragmentation = 1 - (largest free region / total free
-memory)</li>
-<li>Fragmentation comes about because while decisions can be made about
+wasted.</p></li>
+<li><p>External fragmentation - Regions of contiguous memory that are not
+large enough to service requests.</p></li>
+<li><p>External fragmentation = 1 - (largest free region / total free
+memory)</p></li>
+<li><p>Fragmentation comes about because while decisions can be made about
 where heap allocations are placed, the order of their eventual
-deallocations cannot be controlled or predicted.</li>
+deallocations cannot be controlled or predicted.</p></li>
 </ul>
 </div>
 <div class="section" id="reducing-fragmentation-of-the-heap">
 <h2>Reducing Fragmentation of the Heap<a class="headerlink" href="#reducing-fragmentation-of-the-heap" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The heap starts as one contiguous free space</li>
-<li>As the program allocates and deallocates memory, the free space will
-no longer be contiguous</li>
-<li>After a while, there may be regions of free space that are not large
-enough to service a memory allocation request.</li>
-<li>If the free space becomes sufficiently fragmented, then it is
+<li><p>The heap starts as one contiguous free space</p></li>
+<li><p>As the program allocates and deallocates memory, the free space will
+no longer be contiguous</p></li>
+<li><p>After a while, there may be regions of free space that are not large
+enough to service a memory allocation request.</p></li>
+<li><p>If the free space becomes sufficiently fragmented, then it is
 possible that even though there is enough total free memory, a
 request for more memory could fail because there isn’t a contiguous
-free region that is large enough.</li>
+free region that is large enough.</p></li>
 </ul>
 </div>
 <div class="section" id="best-fit-vs-next-fit">
 <h2>Best-Fit vs Next-Fit<a class="headerlink" href="#best-fit-vs-next-fit" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The best-fit allocation policy is to fit each request into the free
-memory region that is the smallest that will satisfy the request</li>
-<li>The first-fit allocation policy is to fit each request into the first
+<li><p>The best-fit allocation policy is to fit each request into the free
+memory region that is the smallest that will satisfy the request</p></li>
+<li><p>The first-fit allocation policy is to fit each request into the first
 free memory region encountered in a search that will satisfy the
-request</li>
-<li>Overall, the best-fit policy provides the best performance in most
-cases.</li>
-<li>The downside to the best-fit policy is that it results in a more
+request</p></li>
+<li><p>Overall, the best-fit policy provides the best performance in most
+cases.</p></li>
+<li><p>The downside to the best-fit policy is that it results in a more
 complex allocator and there is some cost to the search for the best
-fitting free region (although there are ways around this).</li>
+fitting free region (although there are ways around this).</p></li>
 </ul>
 </div>
 <div class="section" id="best-fit">
 <h2>Best-Fit<a class="headerlink" href="#best-fit" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>To avoid the costs associated with searching for the best-fit free
+<li><p>To avoid the costs associated with searching for the best-fit free
 space region for an allocation, best-fit allocators commonly will
-split up the heap into different buckets.</li>
-<li>Each of these buckets will be responsible for serving different sized
-requests.</li>
-<li>In the GNU Standard C Library, there are buckets of size 8-byte,
+split up the heap into different buckets.</p></li>
+<li><p>Each of these buckets will be responsible for serving different sized
+requests.</p></li>
+<li><p>In the GNU Standard C Library, there are buckets of size 8-byte,
 16-byte, 24-byte, …. 512-byte. For larger allocations, there are
 additional buckets for sizes spread out logarithmically (512, 576,
-640, ….)</li>
-<li>To service an allocation request, the allocator will use the free
+640, ….)</p></li>
+<li><p>To service an allocation request, the allocator will use the free
 list in the bucket that is the smallest that is also the same size or
 larger than the request. If that bucket is empty, then the next
 largest one is used. If all buckets are full, then the allocator asks
-the operating system for more heap space.</li>
+the operating system for more heap space.</p></li>
 </ul>
 </div>
 <div class="section" id="managing-free-space">
 <h2>Managing Free Space<a class="headerlink" href="#managing-free-space" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>There are three approaches to managing free space:<ul>
-<li>If buckets are being used, then a bitmap of which items in each
-bucket are free can be maintained. This is pretty straightforward.</li>
-<li>Boundary Tags - At the high and low end of each chunk, we keep a
+<li><p>There are three approaches to managing free space:</p>
+<ul>
+<li><p>If buckets are being used, then a bitmap of which items in each
+bucket are free can be maintained. This is pretty straightforward.</p></li>
+<li><p>Boundary Tags - At the high and low end of each chunk, we keep a
 bit telling us if the chunk is free or allocated and how big the
-chunk is</li>
-<li>Doubly Linked, Embedded Free List - The free chunks contain
+chunk is</p></li>
+<li><p>Doubly Linked, Embedded Free List - The free chunks contain
 pointers to a previous free chunk and a next free chunk. Often
-these lists are sorted to help best-fit algorithms.</li>
+these lists are sorted to help best-fit algorithms.</p></li>
 </ul>
 </li>
 </ul>
@@ -422,31 +428,32 @@ these lists are sorted to help best-fit algorithms.</li>
 <div class="section" id="bugs-and-explicit-allocators">
 <h2>Bugs and Explicit Allocators<a class="headerlink" href="#bugs-and-explicit-allocators" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>For languages like C, when programs write beyond the boundaries of
+<li><p>For languages like C, when programs write beyond the boundaries of
 allocated sections of the memory explicitly allocated, it is possible
 that these overwrites will write into structures used by the
-allocator.</li>
-<li>Because of this possibility, different allocators are more or less
+allocator.</p></li>
+<li><p>Because of this possibility, different allocators are more or less
 susceptible to different types of errors. In general, Boundary Tags,
 and Doubly Linked Embedded Free List are fairly vulnerable to these
-types of bugs. Bucket allocators with bitmaps are less susceptible.</li>
-<li>This reality can be of use during debugging. There are some
+types of bugs. Bucket allocators with bitmaps are less susceptible.</p></li>
+<li><p>This reality can be of use during debugging. There are some
 debug-only allocators that return extra large regions of memory for
 each allocation and pad the front and back of each region. At
 deallocation time, if the padded values are altered, then the
-allocator can print an error to the console.</li>
+allocator can print an error to the console.</p></li>
 </ul>
 </div>
 <div class="section" id="debugging-malloc-free">
 <h2>Debugging malloc / free<a class="headerlink" href="#debugging-malloc-free" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>An excellent way to debug common malloc / free issues is to use the
-dmalloc library.</li>
-<li>This library is available at <a class="reference external" href="http://dmalloc.com">http://dmalloc.com</a>. It can be used in
-existing applications without modification.</li>
-<li>This library can help you discover:<ul>
-<li>Where un-freed objects were originally allocated.</li>
-<li>Where any buffer overruns are if they are encountered.</li>
+<li><p>An excellent way to debug common malloc / free issues is to use the
+dmalloc library.</p></li>
+<li><p>This library is available at <a class="reference external" href="http://dmalloc.com">http://dmalloc.com</a>. It can be used in
+existing applications without modification.</p></li>
+<li><p>This library can help you discover:</p>
+<ul>
+<li><p>Where un-freed objects were originally allocated.</p></li>
+<li><p>Where any buffer overruns are if they are encountered.</p></li>
 </ul>
 </li>
 </ul>
@@ -454,14 +461,15 @@ existing applications without modification.</li>
 <div class="section" id="expanding-the-heap">
 <h2>Expanding the Heap<a class="headerlink" href="#expanding-the-heap" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>There are two ways that UNIX allocators expand the heap:<ul>
-<li>sbrk - Asks the OS to increase the data segment by N bytes.</li>
-<li>mmap/mfree - Requests from the OS to allocate a separate
+<li><p>There are two ways that UNIX allocators expand the heap:</p>
+<ul>
+<li><p>sbrk - Asks the OS to increase the data segment by N bytes.</p></li>
+<li><p>mmap/mfree - Requests from the OS to allocate a separate
 non-contiguous region of memory. Since these regions are
 non-contiguous, it is simpler to return them to the OS. mmap/mfree
 have a fairly large overhead. Often, mmap/mfree are used to
 service requests for larger allocations that don’t fit into a
-bucket (&gt; 1MB).</li>
+bucket (&gt; 1MB).</p></li>
 </ul>
 </li>
 </ul>
@@ -469,43 +477,43 @@ bucket (&gt; 1MB).</li>
 <div class="section" id="recommended-reading">
 <h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Article by Doug Lea, the author of the GNU libc malloc/realloc/free -
-<a class="reference external" href="http://g.oswego.edu/dl/html/malloc.html">http://g.oswego.edu/dl/html/malloc.html</a></li>
+<li><p>Article by Doug Lea, the author of the GNU libc malloc/realloc/free -
+<a class="reference external" href="http://g.oswego.edu/dl/html/malloc.html">http://g.oswego.edu/dl/html/malloc.html</a></p></li>
 </ul>
 </div>
 <div class="section" id="problems-with-manual-deallocation">
 <h2>Problems with manual deallocation<a class="headerlink" href="#problems-with-manual-deallocation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Manual memory deallocation can lead to memory leaks. Memory leaks are
+<li><p>Manual memory deallocation can lead to memory leaks. Memory leaks are
 defined as memory that has been allocated, but not deallocated and
-will not be referenced at any point in the future.</li>
-<li>Memory leaks do not cause a program to be incorrect or to crash as
+will not be referenced at any point in the future.</p></li>
+<li><p>Memory leaks do not cause a program to be incorrect or to crash as
 long as enough free memory is available. For short lived programs
-this is not a problem. For longer lived programs this is a problem.</li>
+this is not a problem. For longer lived programs this is a problem.</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2>Problems with manual deallocation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Manual memory deallocation can lead to problems if after the
+<li><p>Manual memory deallocation can lead to problems if after the
 deallocation, a pointer refers to the deallocated space and the
 program dereferences that pointer in the future. This can lead to
 modification of memory that was allocated to different pointers or to
 memory that has been released to the operating system. This can lead
-to crashes or incorrect program behavior.</li>
+to crashes or incorrect program behavior.</p></li>
 </ul>
 </div>
 <div class="section" id="avoiding-problems-with-manual-deallocation">
 <h2>Avoiding problems with manual deallocation<a class="headerlink" href="#avoiding-problems-with-manual-deallocation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>When designing an application, make sure each allocated object has a
+<li><p>When designing an application, make sure each allocated object has a
 defined owner. This can be an instance of a class, or a function.
-This is applicable when the owner can be determined statically.</li>
-<li>When the owner cannot be determined statically, using reference
+This is applicable when the owner can be determined statically.</p></li>
+<li><p>When the owner cannot be determined statically, using reference
 counters is advisable. Whenever a reference to an object is created,
 we increment the reference counter. Whenever a reference goes away,
 we decrease the reference counter. When the counter reaches zero, we
-deallocate the object. This runs into trouble with cyclic structures.</li>
+deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </ul>
 </div>
 <div class="section" id="a-simple-malloc-free-implementation-example-from-ibm-developer-works">
@@ -607,52 +615,53 @@ deallocate the object. This runs into trouble with cyclic structures.</li>
 <div class="section" id="id7">
 <h2>Garbage Collection<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Data that can’t be referenced is considered garbage</li>
-<li>One problem that explicit allocators have is that deallocation is the
-source of bugs</li>
-<li>Some runtimes and programming languages provide automatic garbage
-collectors.</li>
-<li>The first garbage collector implementation was for the LISP
-programming language in 1958.</li>
+<li><p>Data that can’t be referenced is considered garbage</p></li>
+<li><p>One problem that explicit allocators have is that deallocation is the
+source of bugs</p></li>
+<li><p>Some runtimes and programming languages provide automatic garbage
+collectors.</p></li>
+<li><p>The first garbage collector implementation was for the LISP
+programming language in 1958.</p></li>
 </ul>
 </div>
 <div class="section" id="requirements-for-garbage-collectors">
 <h2>Requirements for Garbage Collectors<a class="headerlink" href="#requirements-for-garbage-collectors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Most garbage collectors require that a system be type safe to support
-a collector.</li>
-<li>Most garbage collectors require that references / pointers refer to
-the beginning of an object and not somewhere in the middle</li>
-<li>In general, these guarantees cannot be made for C programs.</li>
-<li>Garbage collectors exist for C, but programmers have to limit their
-use of the full capability of C</li>
+<li><p>Most garbage collectors require that a system be type safe to support
+a collector.</p></li>
+<li><p>Most garbage collectors require that references / pointers refer to
+the beginning of an object and not somewhere in the middle</p></li>
+<li><p>In general, these guarantees cannot be made for C programs.</p></li>
+<li><p>Garbage collectors exist for C, but programmers have to limit their
+use of the full capability of C</p></li>
 </ul>
 </div>
 <div class="section" id="goals-for-a-garbage-collector">
 <h2>Goals for a Garbage Collector<a class="headerlink" href="#goals-for-a-garbage-collector" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Overall execution time for collection - Garbage collectors must
-access a lot of data. The faster they are the better</li>
-<li>Space Usage - Garbage collectors must keep fragmentation to a minimum</li>
-<li>Wait time - Many garbage collectors require that a program be
+<li><p>Overall execution time for collection - Garbage collectors must
+access a lot of data. The faster they are the better</p></li>
+<li><p>Space Usage - Garbage collectors must keep fragmentation to a minimum</p></li>
+<li><p>Wait time - Many garbage collectors require that a program be
 temporarily halted while running. So, it is desirable that the
-maximum wait time be small.</li>
-<li>Locality - Like explicit allocators, garbage collectors can help
+maximum wait time be small.</p></li>
+<li><p>Locality - Like explicit allocators, garbage collectors can help
 preserve locality by allocating memory from regions that are recently
-deallocated.</li>
+deallocated.</p></li>
 </ul>
 </div>
 <div class="section" id="disadvantages-to-garbage-collection">
 <h2>Disadvantages to Garbage Collection<a class="headerlink" href="#disadvantages-to-garbage-collection" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Garbage collectors consume processing time determining which objects
-are garbage</li>
-<li>Garbage collectors run interval is not predictable. This can cause
-trouble for:<ul>
-<li>The garbage collector may run too late, allowing too much garbage
-to pile up</li>
-<li>Garbage collectors need to halt execution to one degree or
-another. This can degrade performance.</li>
+<li><p>Garbage collectors consume processing time determining which objects
+are garbage</p></li>
+<li><p>Garbage collectors run interval is not predictable. This can cause
+trouble for:</p>
+<ul>
+<li><p>The garbage collector may run too late, allowing too much garbage
+to pile up</p></li>
+<li><p>Garbage collectors need to halt execution to one degree or
+another. This can degrade performance.</p></li>
 </ul>
 </li>
 </ul>
@@ -660,31 +669,32 @@ another. This can degrade performance.</li>
 <div class="section" id="id8">
 <h2>Disadvantages to Garbage Collection<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Garbage collectors can’t detect when low physical memory conditions
+<li><p>Garbage collectors can’t detect when low physical memory conditions
 occur. With manual deallocation, the memory usage should always be
 the minimum needed, but with garbage collectors, this can be
 variable. So, it is possible that a garbage collector can encourage
-overuse of physical memory or unnecessary paging.</li>
-<li>Garbage collectors cannot remove all possible memory leaks. Garbage
-collectors can only collect garbage.</li>
+overuse of physical memory or unnecessary paging.</p></li>
+<li><p>Garbage collectors cannot remove all possible memory leaks. Garbage
+collectors can only collect garbage.</p></li>
 </ul>
 </div>
 <div class="section" id="reachability">
 <h2>Reachability<a class="headerlink" href="#reachability" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Every program has a concept of a root set of references. The root set
+<li><p>Every program has a concept of a root set of references. The root set
 is the list of references held on the stack of every executing
-thread.</li>
-<li>Some programming language and compiler support is required to make
-sure that this list is available to the garbage collector.</li>
-<li>Operations that change reachability:<ul>
-<li>Allocations - allocating new objects create new reachable objects</li>
-<li>Method “out” parameters and return values - Values returned from
-allocations within a method remain reachable by the caller</li>
-<li>Reference copying - Copying a reference from one reference
-variable to another.</li>
-<li>Method returns - When a method returns, all of the references on
-the stack that are not a part of the return are lost.</li>
+thread.</p></li>
+<li><p>Some programming language and compiler support is required to make
+sure that this list is available to the garbage collector.</p></li>
+<li><p>Operations that change reachability:</p>
+<ul>
+<li><p>Allocations - allocating new objects create new reachable objects</p></li>
+<li><p>Method “out” parameters and return values - Values returned from
+allocations within a method remain reachable by the caller</p></li>
+<li><p>Reference copying - Copying a reference from one reference
+variable to another.</p></li>
+<li><p>Method returns - When a method returns, all of the references on
+the stack that are not a part of the return are lost.</p></li>
 </ul>
 </li>
 </ul>
@@ -692,19 +702,20 @@ the stack that are not a part of the return are lost.</li>
 <div class="section" id="reference-counting-garbage-collectors">
 <h2>Reference Counting Garbage Collectors<a class="headerlink" href="#reference-counting-garbage-collectors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Reference counting garbage collectors work by detecting when an
+<li><p>Reference counting garbage collectors work by detecting when an
 object’s reference count reaches zero and at that time deallocate the
 object. References are increased and decreased in the following
-manner:<ul>
-<li>Allocation - New objects start with a reference count of 1</li>
-<li>Parameter passing - when a parameter is passed to a method, it’s
-reference count is incremented</li>
-<li>Reference assignments - If a copy of the reference is made, the
-reference count goes up by 1</li>
-<li>Method returns - when a method returns, all references on that
-method’s stack have their counts decremented by 1</li>
-<li>Transitive - if a reference count of an object reaches 0, then it
-also decrements the reference of every object it refers to.</li>
+manner:</p>
+<ul>
+<li><p>Allocation - New objects start with a reference count of 1</p></li>
+<li><p>Parameter passing - when a parameter is passed to a method, it’s
+reference count is incremented</p></li>
+<li><p>Reference assignments - If a copy of the reference is made, the
+reference count goes up by 1</p></li>
+<li><p>Method returns - when a method returns, all references on that
+method’s stack have their counts decremented by 1</p></li>
+<li><p>Transitive - if a reference count of an object reaches 0, then it
+also decrements the reference of every object it refers to.</p></li>
 </ul>
 </li>
 </ul>
@@ -712,16 +723,18 @@ also decrements the reference of every object it refers to.</li>
 <div class="section" id="pros-cons-of-reference-counting-garbage-collectors">
 <h2>Pros-Cons of Reference Counting Garbage Collectors<a class="headerlink" href="#pros-cons-of-reference-counting-garbage-collectors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Pros<ul>
-<li>The implementation is very simple.</li>
+<li><p>Pros</p>
+<ul>
+<li><p>The implementation is very simple.</p></li>
 </ul>
 </li>
-<li>Cons<ul>
-<li>There is a lot of book keeping overhead. Every time a method is
+<li><p>Cons</p>
+<ul>
+<li><p>There is a lot of book keeping overhead. Every time a method is
 called and returned from, each parameter and stack variable has to
-be touched an additional time.</li>
-<li>Reference counting cannot collect unreachable, cyclic data
-structures.</li>
+be touched an additional time.</p></li>
+<li><p>Reference counting cannot collect unreachable, cyclic data
+structures.</p></li>
 </ul>
 </li>
 </ul>
@@ -729,123 +742,124 @@ structures.</li>
 <div class="section" id="mark-and-sweep-garbage-collection">
 <h2>Mark-and-Sweep Garbage Collection<a class="headerlink" href="#mark-and-sweep-garbage-collection" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Mark-and-Sweep collectors work by stopping the execution of a program
+<li><p>Mark-and-Sweep collectors work by stopping the execution of a program
 and use an algorithm to determine which objects are not reachable and
-return those unreachable objects to the free list.</li>
-<li>The algorithm works by maintaining four sets<ul>
-<li>The free list - a list of free memory regions</li>
-<li>The root set - a list of all references on the stacks of all
-executing threads and global variables.</li>
-<li>The referenced list - a list of objects that are referenced.</li>
-<li>The unscanned list - a list of allocated objects that have not yet
-been found to be referenced.</li>
+return those unreachable objects to the free list.</p></li>
+<li><p>The algorithm works by maintaining four sets</p>
+<ul>
+<li><p>The free list - a list of free memory regions</p></li>
+<li><p>The root set - a list of all references on the stacks of all
+executing threads and global variables.</p></li>
+<li><p>The referenced list - a list of objects that are referenced.</p></li>
+<li><p>The unscanned list - a list of allocated objects that have not yet
+been found to be referenced.</p></li>
 </ul>
 </li>
-<li>The algorithm then does a depth first search form all items in the
+<li><p>The algorithm then does a depth first search form all items in the
 root set. If an item is reached in the scan, it is removed from the
-unscanned list to the referenced list.</li>
-<li>After the scan is complete, items remaining in the unscanned list are
-moved to the free list as garbage.</li>
+unscanned list to the referenced list.</p></li>
+<li><p>After the scan is complete, items remaining in the unscanned list are
+moved to the free list as garbage.</p></li>
 </ul>
 </div>
 <div class="section" id="mark-and-compact-garbage-collection">
 <h2>Mark-and-Compact Garbage Collection<a class="headerlink" href="#mark-and-compact-garbage-collection" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Compacting garbage collectors take the additional step of moving
+<li><p>Compacting garbage collectors take the additional step of moving
 objects around in memory after collection to make free space
 contiguous and to make allocated objects closer to each other in
-memory.</li>
-<li>The most popular type of these collectors are copying collectors.</li>
-<li>Copying collectors modify the Mark-and-Sweep collector algorithm by
+memory.</p></li>
+<li><p>The most popular type of these collectors are copying collectors.</p></li>
+<li><p>Copying collectors modify the Mark-and-Sweep collector algorithm by
 performing a copy operation to a contiguous free memory region that
 is set aside at collection time instead of adding the objects to the
 referenced list. Then, after collection is complete, the previous
-memory region becomes the free memory region.</li>
-<li>For more details, see “Cheney’s Algorithm” in a paper by C.J. Cheney
-in the ACM library.</li>
+memory region becomes the free memory region.</p></li>
+<li><p>For more details, see “Cheney’s Algorithm” in a paper by C.J. Cheney
+in the ACM library.</p></li>
 </ul>
 </div>
 <div class="section" id="garbage-collection-costs">
 <h2>Garbage Collection Costs<a class="headerlink" href="#garbage-collection-costs" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Mark-and-Sweep collectors costs are related to the number of
-reachable objects</li>
-<li>Compacting (Copying) collectors costs are related to the total size
-of reachable objects.</li>
+<li><p>Mark-and-Sweep collectors costs are related to the number of
+reachable objects</p></li>
+<li><p>Compacting (Copying) collectors costs are related to the total size
+of reachable objects.</p></li>
 </ul>
 </div>
 <div class="section" id="incremental-garbage-collection">
 <h2>Incremental Garbage Collection<a class="headerlink" href="#incremental-garbage-collection" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The previously mentioned garbage collectors stop the execution of all
+<li><p>The previously mentioned garbage collectors stop the execution of all
 threads in a program to run. This can cause programs to pause for
-long periods of time.</li>
-<li>To keep programs responsive, incremental garbage collection is
-desirable.</li>
-<li>Instead of collecting all garbage, incremental garbage collectors
+long periods of time.</p></li>
+<li><p>To keep programs responsive, incremental garbage collection is
+desirable.</p></li>
+<li><p>Instead of collecting all garbage, incremental garbage collectors
 just collect objects that can be found to be unreachable without
-performing a mark and sweep algorithm.</li>
-<li>Then, in subsequent collections, the collector will be able to
+performing a mark and sweep algorithm.</p></li>
+<li><p>Then, in subsequent collections, the collector will be able to
 collect objects that became unreachable by the previous collection in
-addition to any newly unreachable objects.</li>
+addition to any newly unreachable objects.</p></li>
 </ul>
 </div>
 <div class="section" id="id9">
 <h2>Incremental Garbage Collection<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Why in general do incremental garbage collectors work well?</li>
-<li>For most programs, objects become garbage rapidly. This means that
+<li><p>Why in general do incremental garbage collectors work well?</p></li>
+<li><p>For most programs, objects become garbage rapidly. This means that
 most allocations in a program become unreferenced fairly soon after
-being allocated.</li>
-<li>Often, the number of objects that become garbage rapidly is in the
+being allocated.</p></li>
+<li><p>Often, the number of objects that become garbage rapidly is in the
 range of 80 - 95 percent. These objects are typically easily
-collected and at a high rate by an incremental garbage collector</li>
-<li>The downside is that, very often an object that survives a first
+collected and at a high rate by an incremental garbage collector</p></li>
+<li><p>The downside is that, very often an object that survives a first
 round of incremental collection, will often survive more than one
 round. In copying incremental collectors, this means that they will
-also be copied multiple times.</li>
+also be copied multiple times.</p></li>
 </ul>
 </div>
 <div class="section" id="generational-garbage-collection">
 <h2>Generational Garbage Collection<a class="headerlink" href="#generational-garbage-collection" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Generational garbage collectors are a specific way of implementing a
-copying incremental garbage collector.</li>
-<li>Generational collectors split the heap into N sections. Section 0 is
-the oldest, 1 is the next oldest, ….</li>
-<li>When section 0 becomes full, then the collector is invoked and copies
-reachable objects into section 1, making the entire section 0 free.</li>
-<li>When any 1…N section becomes full, the same algorithm takes place.</li>
-<li>Occasionally, garbage collection is run for some value of i between 1
-and N to free objects in sections 1…N.</li>
-<li>This type of collection is very fast because it favors scanning young
-objects which are objects most likely to be garbage.</li>
+<li><p>Generational garbage collectors are a specific way of implementing a
+copying incremental garbage collector.</p></li>
+<li><p>Generational collectors split the heap into N sections. Section 0 is
+the oldest, 1 is the next oldest, ….</p></li>
+<li><p>When section 0 becomes full, then the collector is invoked and copies
+reachable objects into section 1, making the entire section 0 free.</p></li>
+<li><p>When any 1…N section becomes full, the same algorithm takes place.</p></li>
+<li><p>Occasionally, garbage collection is run for some value of i between 1
+and N to free objects in sections 1…N.</p></li>
+<li><p>This type of collection is very fast because it favors scanning young
+objects which are objects most likely to be garbage.</p></li>
 </ul>
 </div>
 <div class="section" id="id10">
 <h2>Generational Garbage Collection<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Generational garbage collectors are used in many platforms -</li>
-<li>Java</li>
-<li>.NET</li>
-<li>Python</li>
+<li><p>Generational garbage collectors are used in many platforms -</p></li>
+<li><p>Java</p></li>
+<li><p>.NET</p></li>
+<li><p>Python</p></li>
 </ul>
 </div>
 <div class="section" id="buyer-beware">
 <h2>Buyer Beware<a class="headerlink" href="#buyer-beware" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Even with advanced and efficient garbage collection algorithms, it is
-still possible in theory to “leak” memory.</li>
-<li>Programs that have poorly defined object lifetimes or hang on to
+<li><p>Even with advanced and efficient garbage collection algorithms, it is
+still possible in theory to “leak” memory.</p></li>
+<li><p>Programs that have poorly defined object lifetimes or hang on to
 references for too long can accumulate objects that will never be
-referenced in the future.</li>
-<li>Programs like these will slowly run out of memory without creating
-any garbage for the collector to reclaim.</li>
-<li>It is also important to remember that with incremental / generational
+referenced in the future.</p></li>
+<li><p>Programs like these will slowly run out of memory without creating
+any garbage for the collector to reclaim.</p></li>
+<li><p>It is also important to remember that with incremental / generational
 collectors, not all garbage is collected every time. Also some of
 these collectors will never reclaim large objects (greater than 8KB)
 due to the cost. It is possible in these systems to run out of memory
-artificially.</li>
+artificially.</p></li>
 </ul>
 </div>
 </div>
@@ -855,37 +869,29 @@ artificially.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="storage.html" class="btn btn-neutral float-right" title="Storage and Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="kernelmm.html" class="btn btn-neutral float-left" title="Virtual Memory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="storage.html" class="btn btn-neutral float-right" title="Storage and Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="kernelmm.html" class="btn btn-neutral float-left" title="Virtual Memory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

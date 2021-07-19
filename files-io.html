@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Files and I/O &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Files and I/O &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +65,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -175,6 +177,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -186,7 +190,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/files-io.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -205,69 +209,74 @@
 <div class="section" id="common-attributes-of-all-unix-files">
 <h2>Common attributes of all (UNIX) files<a class="headerlink" href="#common-attributes-of-all-unix-files" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>All files:<ul>
-<li>Live in the filesystem namespace (under root, or <code class="docutils literal notranslate"><span class="pre">/</span></code>). No drive letters!</li>
-<li>Have a name</li>
-<li>Implement read, write, open, close, and select system calls.</li>
+<li><p>All files:</p>
+<ul>
+<li><p>Live in the filesystem namespace (under root, or <code class="docutils literal notranslate"><span class="pre">/</span></code>). No drive letters!</p></li>
+<li><p>Have a name</p></li>
+<li><p>Implement read, write, open, close, and select system calls.</p></li>
 </ul>
 </li>
-<li>All can be contained in either normal or <em>special</em> folders</li>
-<li>All have a concept of a:<ul>
-<li>Owning user and group</li>
+<li><p>All can be contained in either normal or <em>special</em> folders</p></li>
+<li><p>All have a concept of a:</p>
+<ul>
+<li><p>Owning user and group</p></li>
 </ul>
 </li>
-<li>Read/write/execute bits for the owning user/group, and for other
-users/groups</li>
-<li>A list of custom extended attributes</li>
-<li>Creation date/time</li>
-<li>Last accessed date/time</li>
-<li>Beyond these few things, there’s a great degree of variety in
-semantics and structure for various file types</li>
+<li><p>Read/write/execute bits for the owning user/group, and for other
+users/groups</p></li>
+<li><p>A list of custom extended attributes</p></li>
+<li><p>Creation date/time</p></li>
+<li><p>Last accessed date/time</p></li>
+<li><p>Beyond these few things, there’s a great degree of variety in
+semantics and structure for various file types</p></li>
 </ul>
 </div>
 <div class="section" id="types-of-files-in-unix">
 <h2>Types of Files in Unix<a class="headerlink" href="#types-of-files-in-unix" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Regular files</li>
-<li>Symbolic links</li>
-<li>Folders</li>
-<li>Block device files</li>
-<li>Character device files</li>
-<li>Named pipes/FIFOs</li>
-<li>UNIX domain sockets</li>
-<li>Doors (Solaris only)</li>
+<li><p>Regular files</p></li>
+<li><p>Symbolic links</p></li>
+<li><p>Folders</p></li>
+<li><p>Block device files</p></li>
+<li><p>Character device files</p></li>
+<li><p>Named pipes/FIFOs</p></li>
+<li><p>UNIX domain sockets</p></li>
+<li><p>Doors (Solaris only)</p></li>
 </ul>
 </div>
 <div class="section" id="regular-files">
 <h2>Regular Files<a class="headerlink" href="#regular-files" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Persist data from programs. Reside in filesystems.</li>
-<li>In addition to owner/permissions. Regular files have:<ul>
-<li>A committed and defined size (which differ for filesystems that
-support sparse files)</li>
-<li>Can be accessed sequentially</li>
-<li>Can be accessed in random order</li>
+<li><p>Persist data from programs. Reside in filesystems.</p></li>
+<li><p>In addition to owner/permissions. Regular files have:</p>
+<ul>
+<li><p>A committed and defined size (which differ for filesystems that
+support sparse files)</p></li>
+<li><p>Can be accessed sequentially</p></li>
+<li><p>Can be accessed in random order</p></li>
 </ul>
 </li>
-<li>Exceptions exist for device restrictions such as exit for tape drives</li>
+<li><p>Exceptions exist for device restrictions such as exit for tape drives</p></li>
 </ul>
 </div>
 <div class="section" id="folders">
 <h2>Folders<a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In early UNIX implementations, folders were files that listed other
-files and had a special bit set to make them folders.</li>
-<li>Folders were modified by reading from and writing to the file.</li>
-<li>Some of these semantics still exist</li>
-<li>Early operating systems did not support folders:<ul>
-<li>Macintosh file system (circa 1984)</li>
-<li>CP/M file system (predecessor to MS-DOS and FAT)</li>
+<li><p>In early UNIX implementations, folders were files that listed other
+files and had a special bit set to make them folders.</p></li>
+<li><p>Folders were modified by reading from and writing to the file.</p></li>
+<li><p>Some of these semantics still exist</p></li>
+<li><p>Early operating systems did not support folders:</p>
+<ul>
+<li><p>Macintosh file system (circa 1984)</p></li>
+<li><p>CP/M file system (predecessor to MS-DOS and FAT)</p></li>
 </ul>
 </li>
-<li>Folders do not have a file size</li>
-<li>The execute bit for a folder determines:<ul>
-<li>If the contents of the folder may be listed</li>
-<li>If a program may change use it as its working folder</li>
+<li><p>Folders do not have a file size</p></li>
+<li><p>The execute bit for a folder determines:</p>
+<ul>
+<li><p>If the contents of the folder may be listed</p></li>
+<li><p>If a program may change use it as its working folder</p></li>
 </ul>
 </li>
 </ul>
@@ -275,41 +284,43 @@ files and had a special bit set to make them folders.</li>
 <div class="section" id="symbolic-links">
 <h2>Symbolic Links<a class="headerlink" href="#symbolic-links" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Symbolic links are a type of file that points to another file or
-folder.</li>
-<li>The pointer can be either a relative or absolute path.</li>
-<li>Support exists in many modern operating systems (OS X, UNIX, and
-Windows)</li>
-<li>A symbolic link that refers to a file or folder that does not exist
-is called ‘broken’</li>
-<li>File system operations on a symbolic link work on the file that they
+<li><p>Symbolic links are a type of file that points to another file or
+folder.</p></li>
+<li><p>The pointer can be either a relative or absolute path.</p></li>
+<li><p>Support exists in many modern operating systems (OS X, UNIX, and
+Windows)</p></li>
+<li><p>A symbolic link that refers to a file or folder that does not exist
+is called ‘broken’</p></li>
+<li><p>File system operations on a symbolic link work on the file that they
 point to with the exception of the unlink system call (to delete the
-symbolic link)</li>
-<li>Other system calls exist to help determine if a file/folder is a
-symbolic link or a real file/folder</li>
+symbolic link)</p></li>
+<li><p>Other system calls exist to help determine if a file/folder is a
+symbolic link or a real file/folder</p></li>
 </ul>
 </div>
 <div class="section" id="block-device-files">
 <h2>Block Device Files<a class="headerlink" href="#block-device-files" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Block device files are file abstractions for devices exposed by the
-operating system.</li>
-<li>Common device block files are:<ul>
-<li>Hard disks</li>
-<li>CD/DVD/Blu-Ray drives</li>
-<li>Floppy drives</li>
-<li>USB media</li>
-<li>Mapped memory devices (RAM disks, or diagnostic devices)</li>
+<li><p>Block device files are file abstractions for devices exposed by the
+operating system.</p></li>
+<li><p>Common device block files are:</p>
+<ul>
+<li><p>Hard disks</p></li>
+<li><p>CD/DVD/Blu-Ray drives</p></li>
+<li><p>Floppy drives</p></li>
+<li><p>USB media</p></li>
+<li><p>Mapped memory devices (RAM disks, or diagnostic devices)</p></li>
 </ul>
 </li>
-<li>Block devices support:<ul>
-<li>Random access</li>
-<li>Buffered read/write (through some characteristic block size)</li>
-<li>Block device files are either automatically exposed by the
+<li><p>Block devices support:</p>
+<ul>
+<li><p>Random access</p></li>
+<li><p>Buffered read/write (through some characteristic block size)</p></li>
+<li><p>Block device files are either automatically exposed by the
 operating system through special file systems or are user created
-through special system programs and system calls. Approaches vary.</li>
-<li>Early Linux depended upon special programs</li>
-<li>Modern Linux uses special filesystems (devfs, sysfs)</li>
+through special system programs and system calls. Approaches vary.</p></li>
+<li><p>Early Linux depended upon special programs</p></li>
+<li><p>Modern Linux uses special filesystems (devfs, sysfs)</p></li>
 </ul>
 </li>
 </ul>
@@ -317,174 +328,175 @@ through special system programs and system calls. Approaches vary.</li>
 <div class="section" id="character-device-files">
 <h2>Character Device Files<a class="headerlink" href="#character-device-files" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Character device files are file abstractions for devices exposed by
-the operating system.</li>
-<li>Common character devices are:<ul>
-<li>terminals</li>
-<li>serial ports</li>
-<li>modems</li>
-<li>network cards</li>
-<li>video/sound devices</li>
-<li>tape drives</li>
+<li><p>Character device files are file abstractions for devices exposed by
+the operating system.</p></li>
+<li><p>Common character devices are:</p>
+<ul>
+<li><p>terminals</p></li>
+<li><p>serial ports</p></li>
+<li><p>modems</p></li>
+<li><p>network cards</p></li>
+<li><p>video/sound devices</p></li>
+<li><p>tape drives</p></li>
 </ul>
 </li>
-<li>Most character devices do not support random access.</li>
-<li>Those that do, typically have a high cost for seek operations</li>
+<li><p>Most character devices do not support random access.</p></li>
+<li><p>Those that do, typically have a high cost for seek operations</p></li>
 </ul>
 </div>
 <div class="section" id="named-pipes-fifos">
 <h2>Named Pipes/FIFOs<a class="headerlink" href="#named-pipes-fifos" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Named pipes are pipes that exist in the filesystem.</li>
-<li>Allow for pipe operations in sets of programs that have different
-lifetimes such as client server programs.</li>
-<li>We will dig into more detail on pipes when we discuss inter-process
-communication.</li>
+<li><p>Named pipes are pipes that exist in the filesystem.</p></li>
+<li><p>Allow for pipe operations in sets of programs that have different
+lifetimes such as client server programs.</p></li>
+<li><p>We will dig into more detail on pipes when we discuss inter-process
+communication.</p></li>
 </ul>
 </div>
 <div class="section" id="unix-domain-sockets">
 <h2>Unix Domain Sockets<a class="headerlink" href="#unix-domain-sockets" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Domain sockets are sockets that have a name in the filesystem.</li>
-<li>Similar to named pipes except they can be created in a streaming or
-datagram mode</li>
-<li>Unlike regular sockets, domain sockets do not have an underlying
-TCP/IP or UDP/IP protocol</li>
+<li><p>Domain sockets are sockets that have a name in the filesystem.</p></li>
+<li><p>Similar to named pipes except they can be created in a streaming or
+datagram mode</p></li>
+<li><p>Unlike regular sockets, domain sockets do not have an underlying
+TCP/IP or UDP/IP protocol</p></li>
 </ul>
 </div>
 <div class="section" id="filesystem-system-calls">
 <h2>Filesystem System Calls<a class="headerlink" href="#filesystem-system-calls" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A majority of the system calls in a UNIX operating system exist to
-operate upon files</li>
-<li>The acronym MS-DOS expands to MicroSoft Disk Operating System. The
+<li><p>A majority of the system calls in a UNIX operating system exist to
+operate upon files</p></li>
+<li><p>The acronym MS-DOS expands to MicroSoft Disk Operating System. The
 DOS part of this acronym seems to greatly apply to all operating
-systems.</li>
+systems.</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
 <h2>Filesystem System Calls<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="colwidths-given docutils" id="id2">
+<table class="colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="33%" />
-<col width="67%" />
+<col style="width: 33%" />
+<col style="width: 67%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Function</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">open()</span></code></td>
-<td>opens/creates files and returns a file descriptor</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">open()</span></code></p></td>
+<td><p>opens/creates files and returns a file descriptor</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">creat()</span></code></td>
-<td>creates new files</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">creat()</span></code></p></td>
+<td><p>creates new files</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">close()</span></code></td>
-<td>closes a file descriptor (reduces references to the file)</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">close()</span></code></p></td>
+<td><p>closes a file descriptor (reduces references to the file)</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">lseek()</span></code></td>
-<td>updates a file descriptor’s current file offset</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lseek()</span></code></p></td>
+<td><p>updates a file descriptor’s current file offset</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">read()</span></code></td>
-<td>reads data from a file descriptor into a buffer</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read()</span></code></p></td>
+<td><p>reads data from a file descriptor into a buffer</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">write()</span></code></td>
-<td>writes data from a buffer to a file descriptor</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write()</span></code></p></td>
+<td><p>writes data from a buffer to a file descriptor</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">dup()</span></code></td>
-<td>duplicates one file descriptor</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dup()</span></code></p></td>
+<td><p>duplicates one file descriptor</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">dup2()</span></code></td>
-<td>updates a file descriptor to point to another one</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dup2()</span></code></p></td>
+<td><p>updates a file descriptor to point to another one</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">fcntl()</span></code></td>
-<td>changes file properties (asynchronous I/O, file locks)</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fcntl()</span></code></p></td>
+<td><p>changes file properties (asynchronous I/O, file locks)</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">ioctl()</span></code></td>
-<td>a ‘catch all’ interface that interacts with device files, setting atypical properties, etc…</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ioctl()</span></code></p></td>
+<td><p>a ‘catch all’ interface that interacts with device files, setting atypical properties, etc…</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">stat()</span></code></td>
-<td>returns rwx bits, size, timestamps, and other details</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stat()</span></code></p></td>
+<td><p>returns rwx bits, size, timestamps, and other details</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">access()</span></code></td>
-<td>tests for read, write, execute, or existence of a file</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">access()</span></code></p></td>
+<td><p>tests for read, write, execute, or existence of a file</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">umask()</span></code></td>
-<td>updates file creation mask</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">umask()</span></code></p></td>
+<td><p>updates file creation mask</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">chmod()</span></code></td>
-<td>updates rwx bits</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">chmod()</span></code></p></td>
+<td><p>updates rwx bits</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="more-filesystem-system-calls">
 <h2>More Filesystem System Calls<a class="headerlink" href="#more-filesystem-system-calls" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="colwidths-given docutils" id="id3">
+<table class="colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="33%" />
-<col width="67%" />
+<col style="width: 33%" />
+<col style="width: 67%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"><code class="docutils literal notranslate"><span class="pre">chown()</span></code></th>
-<th class="head">changes file user/group ownership</th>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">chown()</span></code></p></th>
+<th class="head"><p>changes file user/group ownership</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">truncate()</span></code></td>
-<td>change the length of a file (grow or shrink)</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">truncate()</span></code></p></td>
+<td><p>change the length of a file (grow or shrink)</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">link()</span></code></td>
-<td>create a hard link</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">link()</span></code></p></td>
+<td><p>create a hard link</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">unlink()</span></code></td>
-<td>remove a name in the filesystem and possibly the file it refers to (no processes have the file open)</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unlink()</span></code></p></td>
+<td><p>remove a name in the filesystem and possibly the file it refers to (no processes have the file open)</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rmdir()</span></code></td>
-<td>deletes empty directories</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rmdir()</span></code></p></td>
+<td><p>deletes empty directories</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">remove()</span></code></td>
-<td>combines unlink/rmdir into one call</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">remove()</span></code></p></td>
+<td><p>combines unlink/rmdir into one call</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">rename()</span></code></td>
-<td>renames a file, possibly changing its parent folder</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rename()</span></code></p></td>
+<td><p>renames a file, possibly changing its parent folder</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">symlink()</span></code></td>
-<td>creates a symbolic link</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">symlink()</span></code></p></td>
+<td><p>creates a symbolic link</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">readlink()</span></code></td>
-<td>reads the value of a symbolic link</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">readlink()</span></code></p></td>
+<td><p>reads the value of a symbolic link</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">utime()</span></code></td>
-<td>updates the access and modification time</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">utime()</span></code></p></td>
+<td><p>updates the access and modification time</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">mkdir()</span></code></td>
-<td>creates a folder</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mkdir()</span></code></p></td>
+<td><p>creates a folder</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">opendir()</span></code></td>
-<td>opens a folder for reading</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">opendir()</span></code></p></td>
+<td><p>opens a folder for reading</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">readdir()</span></code></td>
-<td>reads the next entry in a folder</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">readdir()</span></code></p></td>
+<td><p>reads the next entry in a folder</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">rewinddir()</span></code></td>
-<td>resets directory entry to beginning</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rewinddir()</span></code></p></td>
+<td><p>resets directory entry to beginning</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">closedir()</span></code></td>
-<td>closes a directory descriptor</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">closedir()</span></code></p></td>
+<td><p>closes a directory descriptor</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">chdir()</span></code></td>
-<td>changes current working directory</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">chdir()</span></code></p></td>
+<td><p>changes current working directory</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">getcwd()</span></code></td>
-<td>gets current working directory</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getcwd()</span></code></p></td>
+<td><p>gets current working directory</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">sync()</span></code></td>
-<td>flushes buffer cache for filesystem to disk</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sync()</span></code></p></td>
+<td><p>flushes buffer cache for filesystem to disk</p></td>
 </tr>
 </tbody>
 </table>
@@ -496,30 +508,32 @@ systems.</li>
 </pre></div>
 </div>
 <ul class="simple">
-<li><em>pathname</em> is the path to the file</li>
-<li><em>flags</em> can be combinations of:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">O_APPEND</span></code>: open in append mode</li>
-<li><code class="docutils literal notranslate"><span class="pre">O_ASYNC</span></code>: use signal driven asynchronous I/O</li>
-<li><code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code>: create the file if it does not exist</li>
-<li><code class="docutils literal notranslate"><span class="pre">O_DIRECT</span></code>: minimize use of the buffer cache</li>
-<li><code class="docutils literal notranslate"><span class="pre">O_SYNC</span></code>: opened for synchronous I/O - block until write calls are
-committed to hardware</li>
-<li><code class="docutils literal notranslate"><span class="pre">O_TRUNC</span></code>: if file already exists, truncate it to length 0</li>
-<li>and many others…</li>
+<li><p><em>pathname</em> is the path to the file</p></li>
+<li><p><em>flags</em> can be combinations of:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_APPEND</span></code>: open in append mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_ASYNC</span></code>: use signal driven asynchronous I/O</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code>: create the file if it does not exist</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_DIRECT</span></code>: minimize use of the buffer cache</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_SYNC</span></code>: opened for synchronous I/O - block until write calls are
+committed to hardware</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_TRUNC</span></code>: if file already exists, truncate it to length 0</p></li>
+<li><p>and many others…</p></li>
 </ul>
 </li>
-<li><em>mode</em> is used for <code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code> and is typically passed as an octal:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">0XYZ</span></code>, <code class="docutils literal notranslate"><span class="pre">X</span></code> is for user, <code class="docutils literal notranslate"><span class="pre">Y</span></code> is for group, <code class="docutils literal notranslate"><span class="pre">Z</span></code> is for others</li>
-<li>each digit, being an octal digit is composed of three bits</li>
-<li>the most significant bit is read permissions</li>
-<li>the next most significant bit is write permissions</li>
-<li>the least significant bit is execute permissions</li>
-<li><code class="docutils literal notranslate"><span class="pre">0700</span></code> means user has rwx, group and other have no access</li>
-<li><code class="docutils literal notranslate"><span class="pre">0660</span></code> means user/group have rw, other has no acess</li>
+<li><p><em>mode</em> is used for <code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code> and is typically passed as an octal:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">0XYZ</span></code>, <code class="docutils literal notranslate"><span class="pre">X</span></code> is for user, <code class="docutils literal notranslate"><span class="pre">Y</span></code> is for group, <code class="docutils literal notranslate"><span class="pre">Z</span></code> is for others</p></li>
+<li><p>each digit, being an octal digit is composed of three bits</p></li>
+<li><p>the most significant bit is read permissions</p></li>
+<li><p>the next most significant bit is write permissions</p></li>
+<li><p>the least significant bit is execute permissions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0700</span></code> means user has rwx, group and other have no access</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0660</span></code> means user/group have rw, other has no acess</p></li>
 </ul>
 </li>
-<li>return value of <code class="docutils literal notranslate"><span class="pre">open()</span></code> is the file descriptor, or -1 if an error
-happens</li>
+<li><p>return value of <code class="docutils literal notranslate"><span class="pre">open()</span></code> is the file descriptor, or -1 if an error
+happens</p></li>
 </ul>
 </div>
 <div class="section" id="closing-files-with-close">
@@ -528,10 +542,10 @@ happens</li>
 </pre></div>
 </div>
 <ul class="simple">
-<li><em>fd</em> argument is a file descriptor returned by a call to: open, dup,
-pipe, etc…</li>
-<li>return value is 0 on success or -1 on failure (bad file descriptor,
-interrupted by signal)</li>
+<li><p><em>fd</em> argument is a file descriptor returned by a call to: open, dup,
+pipe, etc…</p></li>
+<li><p>return value is 0 on success or -1 on failure (bad file descriptor,
+interrupted by signal)</p></li>
 </ul>
 </div>
 <div class="section" id="writing-to-a-file">
@@ -540,14 +554,15 @@ interrupted by signal)</li>
 </pre></div>
 </div>
 <ul class="simple">
-<li>fd is an opened file descriptor</li>
-<li>but is a buffer</li>
-<li>count is the number of bytes from that buffer to write to the file at
-the current offset</li>
-<li>the return value of the method will be<ul>
-<li><cite>return == -1</cite> if an error is encountered</li>
-<li><cite>return == count</cite> in most successful cases</li>
-<li><cite>return &lt; count</cite> in some implementations (network filesystems in some cases)</li>
+<li><p>fd is an opened file descriptor</p></li>
+<li><p>but is a buffer</p></li>
+<li><p>count is the number of bytes from that buffer to write to the file at
+the current offset</p></li>
+<li><p>the return value of the method will be</p>
+<ul>
+<li><p><cite>return == -1</cite> if an error is encountered</p></li>
+<li><p><cite>return == count</cite> in most successful cases</p></li>
+<li><p><cite>return &lt; count</cite> in some implementations (network filesystems in some cases)</p></li>
 </ul>
 </li>
 </ul>
@@ -572,12 +587,13 @@ the current offset</li>
 </pre></div>
 </div>
 <ul class="simple">
-<li>takes as arguments a file descriptor, a destination buffer, and the
-number of bytes to read into that buffer</li>
-<li>the return values of the method will be:<ul>
-<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">-1</span></code> if an error occurred</li>
-<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">0</span></code> if EOF is encountered</li>
-<li><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">count</span></code> in most success cases</li>
+<li><p>takes as arguments a file descriptor, a destination buffer, and the
+number of bytes to read into that buffer</p></li>
+<li><p>the return values of the method will be:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">-1</span></code> if an error occurred</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">0</span></code> if EOF is encountered</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">==</span> <span class="pre">count</span></code> in most success cases</p></li>
 </ul>
 </li>
 </ul>
@@ -596,36 +612,37 @@ number of bytes to read into that buffer</li>
 <div class="section" id="seeking-within-a-file">
 <h2>Seeking within a File<a class="headerlink" href="#seeking-within-a-file" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Not all files support seeking.</li>
-<li>The use of seek calls is how random access I/O is performed</li>
-<li>The use of seek calls have performance implications (more later…)</li>
-<li><code class="docutils literal notranslate"><span class="pre">off_t</span> <span class="pre">lseek(int</span> <span class="pre">fd,</span> <span class="pre">off_t</span> <span class="pre">offset,</span> <span class="pre">int</span> <span class="pre">whence)</span></code><ul>
-<li>fd is a file descriptor</li>
-<li>offset is the number of bytes relative to whence</li>
-<li>whence is one of <code class="docutils literal notranslate"><span class="pre">SEEK_SET</span></code> (beginning of file), <code class="docutils literal notranslate"><span class="pre">SEEK_CUR</span></code> (current
-position of the file descriptor), or <code class="docutils literal notranslate"><span class="pre">SEEK_END</span></code> (end of the file)</li>
-<li>The <code class="docutils literal notranslate"><span class="pre">off_t</span></code> type is typically a 64-bit signed integer. It is possible
-to seek both within and outside of a file.</li>
+<li><p>Not all files support seeking.</p></li>
+<li><p>The use of seek calls is how random access I/O is performed</p></li>
+<li><p>The use of seek calls have performance implications (more later…)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">off_t</span> <span class="pre">lseek(int</span> <span class="pre">fd,</span> <span class="pre">off_t</span> <span class="pre">offset,</span> <span class="pre">int</span> <span class="pre">whence)</span></code></p>
+<ul>
+<li><p>fd is a file descriptor</p></li>
+<li><p>offset is the number of bytes relative to whence</p></li>
+<li><p>whence is one of <code class="docutils literal notranslate"><span class="pre">SEEK_SET</span></code> (beginning of file), <code class="docutils literal notranslate"><span class="pre">SEEK_CUR</span></code> (current
+position of the file descriptor), or <code class="docutils literal notranslate"><span class="pre">SEEK_END</span></code> (end of the file)</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">off_t</span></code> type is typically a 64-bit signed integer. It is possible
+to seek both within and outside of a file.</p></li>
 </ul>
 </li>
-<li>Seeking outside of a file will cause the value of 0 to be written
-from the end of the file to the seek position.</li>
-<li>Filesystems that support sparse files, will optimize this to prevent
-unnecessary write operations.</li>
+<li><p>Seeking outside of a file will cause the value of 0 to be written
+from the end of the file to the seek position.</p></li>
+<li><p>Filesystems that support sparse files, will optimize this to prevent
+unnecessary write operations.</p></li>
 </ul>
 </div>
 <div class="section" id="standard-file-descriptors">
 <h2>Standard File Descriptors<a class="headerlink" href="#standard-file-descriptors" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>stdin</dt>
-<dd>standard input. default is the input pipe from the console; default
-value is 0</dd>
-<dt>stdout</dt>
-<dd>standard output. default is the output pipe to the console; default
-value is 1</dd>
-<dt>stderr</dt>
-<dd>standard error. default is the output pipe to the console; default
-value is 2</dd>
+<dl class="simple">
+<dt>stdin</dt><dd><p>standard input. default is the input pipe from the console; default
+value is 0</p>
+</dd>
+<dt>stdout</dt><dd><p>standard output. default is the output pipe to the console; default
+value is 1</p>
+</dd>
+<dt>stderr</dt><dd><p>standard error. default is the output pipe to the console; default
+value is 2</p>
+</dd>
 </dl>
 <p>every program is initialized with these three file descriptors open by
 default. their specific targets may have been redirected by the parent
@@ -637,12 +654,13 @@ program (more later…)</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li>accepts a file descriptor and returns a copy of it with a new id</li>
-<li>the duplicated file descriptor has an independent file offset and
-reference to the file</li>
-<li>reasons to duplicate file descriptors:<ul>
-<li>for use in multi-threading, to avoid calls to lseek()</li>
-<li>one call necessary for redirecting stdin/stdout/stderr</li>
+<li><p>accepts a file descriptor and returns a copy of it with a new id</p></li>
+<li><p>the duplicated file descriptor has an independent file offset and
+reference to the file</p></li>
+<li><p>reasons to duplicate file descriptors:</p>
+<ul>
+<li><p>for use in multi-threading, to avoid calls to lseek()</p></li>
+<li><p>one call necessary for redirecting stdin/stdout/stderr</p></li>
 </ul>
 </li>
 </ul>
@@ -653,14 +671,14 @@ reference to the file</li>
 </pre></div>
 </div>
 <ul class="simple">
-<li>makes <code class="docutils literal notranslate"><span class="pre">newfd</span></code> be a copy of <code class="docutils literal notranslate"><span class="pre">oldfd</span></code></li>
-<li>if <code class="docutils literal notranslate"><span class="pre">newfd</span></code> is open, it is automatically closed</li>
-<li>This call differs from <code class="docutils literal notranslate"><span class="pre">dup()</span></code> in that both of the file descriptors in
-this case share the same file offset.</li>
-<li>So, calling <code class="docutils literal notranslate"><span class="pre">lseek()</span></code> on one will cause the offset of the other to
-change.</li>
-<li><code class="docutils literal notranslate"><span class="pre">dup()</span></code> and <code class="docutils literal notranslate"><span class="pre">dup2()</span></code> are used to redirect <strong>stdin</strong>, <strong>stdout</strong>, and <strong>stderr</strong> on the
-command line (sometimes to combine them)</li>
+<li><p>makes <code class="docutils literal notranslate"><span class="pre">newfd</span></code> be a copy of <code class="docutils literal notranslate"><span class="pre">oldfd</span></code></p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">newfd</span></code> is open, it is automatically closed</p></li>
+<li><p>This call differs from <code class="docutils literal notranslate"><span class="pre">dup()</span></code> in that both of the file descriptors in
+this case share the same file offset.</p></li>
+<li><p>So, calling <code class="docutils literal notranslate"><span class="pre">lseek()</span></code> on one will cause the offset of the other to
+change.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dup()</span></code> and <code class="docutils literal notranslate"><span class="pre">dup2()</span></code> are used to redirect <strong>stdin</strong>, <strong>stdout</strong>, and <strong>stderr</strong> on the
+command line (sometimes to combine them)</p></li>
 </ul>
 </div>
 <div class="section" id="redirecting-file-descriptors-code-example">
@@ -691,7 +709,7 @@ command line (sometimes to combine them)</li>
     <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">dir</span> <span class="o">=</span> <span class="s">&quot;/&quot;</span><span class="p">;</span>
     <span class="kt">DIR</span> <span class="o">*</span><span class="n">d</span> <span class="o">=</span> <span class="n">opendir</span><span class="p">(</span><span class="n">dir</span><span class="p">);</span>
 
-    <span class="k">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">de</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="nc">dirent</span> <span class="o">*</span><span class="n">de</span><span class="p">;</span>
     <span class="k">while</span><span class="p">((</span><span class="n">de</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">&quot;name %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">de</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
     <span class="p">}</span>
@@ -707,19 +725,20 @@ command line (sometimes to combine them)</li>
 <div class="section" id="performance">
 <h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Achieving good I/O performance is about choosing the right buffering
-strategy.</li>
-<li>Reading/Writing with small buffers will lead to lower throughput.</li>
-<li>Reading/Writing with large buffers will create a longer wait for
-read/write to return.</li>
-<li>This time could be used processing the data.</li>
-<li>balance must be achieved.</li>
-<li>Producer/Consumer models are advantageous:<ul>
-<li>One process/thread reads a file (producer)</li>
-<li>Another process/thread runs computation (consumer)</li>
-<li>This way, you’re computing and performing I/O at the same
+<li><p>Achieving good I/O performance is about choosing the right buffering
+strategy.</p></li>
+<li><p>Reading/Writing with small buffers will lead to lower throughput.</p></li>
+<li><p>Reading/Writing with large buffers will create a longer wait for
+read/write to return.</p></li>
+<li><p>This time could be used processing the data.</p></li>
+<li><p>balance must be achieved.</p></li>
+<li><p>Producer/Consumer models are advantageous:</p>
+<ul>
+<li><p>One process/thread reads a file (producer)</p></li>
+<li><p>Another process/thread runs computation (consumer)</p></li>
+<li><p>This way, you’re computing and performing I/O at the same
 timeConsider memory mapped I/O - (more later when we talk about
-IPC)</li>
+IPC)</p></li>
 </ul>
 </li>
 </ul>
@@ -737,26 +756,26 @@ IPC)</li>
 </div>
 <p>In general:</p>
 <ul class="simple">
-<li>Increasing block size improves performance.</li>
-<li>This is a single run of <code class="docutils literal notranslate"><span class="pre">dd</span></code> for each block size. Multiple runs would likely result in higher average throughput.</li>
-<li>System load at any given time can impact the observed performance numbers.</li>
+<li><p>Increasing block size improves performance.</p></li>
+<li><p>This is a single run of <code class="docutils literal notranslate"><span class="pre">dd</span></code> for each block size. Multiple runs would likely result in higher average throughput.</p></li>
+<li><p>System load at any given time can impact the observed performance numbers.</p></li>
 </ul>
 </div>
 <div class="section" id="reading-writing-performance">
 <h2>Reading/Writing Performance<a class="headerlink" href="#reading-writing-performance" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Another approach to consider is Vectored I/O a.k.a. Gather-Scatter</li>
-<li>Programs will often separate reads/writes into different calls.</li>
-<li>One example would be a program that writes a header and then the
-content in two separate calls.</li>
-<li>Additional calls involve additional context switches and decreased
-performance.</li>
-<li>Vectored I/O allows several read/write calls to be combined.</li>
-<li>Smart operating system implementations will also allow them to be
-read/written out of order.</li>
-<li>This can make for significant performance gains.</li>
-<li>We’ll see more about this when we study the elevator algorithm as we
-look deeper into storage topics.</li>
+<li><p>Another approach to consider is Vectored I/O a.k.a. Gather-Scatter</p></li>
+<li><p>Programs will often separate reads/writes into different calls.</p></li>
+<li><p>One example would be a program that writes a header and then the
+content in two separate calls.</p></li>
+<li><p>Additional calls involve additional context switches and decreased
+performance.</p></li>
+<li><p>Vectored I/O allows several read/write calls to be combined.</p></li>
+<li><p>Smart operating system implementations will also allow them to be
+read/written out of order.</p></li>
+<li><p>This can make for significant performance gains.</p></li>
+<li><p>We’ll see more about this when we study the elevator algorithm as we
+look deeper into storage topics.</p></li>
 </ul>
 </div>
 <div class="section" id="performance-example">
@@ -768,12 +787,12 @@ look deeper into storage topics.</li>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
 
         <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="p">(</span><span class="mi">-1</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;open returned (-1)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-                <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+                <span class="k">return</span> <span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">struct</span> <span class="n">iovec</span> <span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+        <span class="k">struct</span> <span class="nc">iovec</span> <span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
         <span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_base</span> <span class="o">=</span> <span class="n">file_data1</span><span class="p">;</span>
         <span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">file_data1</span><span class="p">);</span>
         <span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_base</span> <span class="o">=</span> <span class="n">file_data2</span><span class="p">;</span>
@@ -782,9 +801,9 @@ look deeper into storage topics.</li>
         <span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">file_data3</span><span class="p">);</span>
 
         <span class="kt">int</span> <span class="n">written</span> <span class="o">=</span> <span class="n">writev</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buffers</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">written</span> <span class="o">==</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">written</span> <span class="o">==</span> <span class="p">(</span><span class="mi">-1</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;writev returned (-1)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-                <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+                <span class="k">return</span> <span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="n">printf</span><span class="p">(</span><span class="s">&quot;wrote %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">written</span><span class="p">);</span>
 
@@ -801,37 +820,29 @@ look deeper into storage topics.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="scheduling.html" class="btn btn-neutral float-right" title="Process/Thread Scheduling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="processes.html" class="btn btn-neutral float-left" title="Introduction to Processes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="scheduling.html" class="btn btn-neutral float-right" title="Process/Thread Scheduling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="processes.html" class="btn btn-neutral float-left" title="Introduction to Processes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

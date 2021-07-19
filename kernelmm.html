@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Virtual Memory &mdash; Operating Systems v0.9.2 documentation</title>
+  <title>Virtual Memory &mdash; Operating Systems beta documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -27,11 +30,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -53,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Operating Systems
+            <a href="index.html" class="icon icon-home"> Operating Systems
           
 
           
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                v0.9.2
+                beta
               </div>
             
           
@@ -198,6 +201,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -209,7 +214,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/kernelmm.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -229,18 +234,19 @@
 <div class="section" id="what-is-virtual-memory">
 <h2>What is Virtual Memory?<a class="headerlink" href="#what-is-virtual-memory" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Virtual memory is responsible for many capabilities in an operating
-system. Among them are:<ul>
-<li>Allowing one or more programs that require more bytes of memory
-than are available to continue to run.</li>
-<li>To improve performance of I/O operations by supporting buffering
-operations.</li>
-<li>To reduce overall memory usage by allowing processes to share
-pages of memory</li>
-<li>To manage process memory protection and sandboxing (To provide a
-virtual sub-machine to a process).</li>
-<li>To translate virtual memory addresses to physical memory addresses
-and to maintain the domain of virtual memory addresses.</li>
+<li><p>Virtual memory is responsible for many capabilities in an operating
+system. Among them are:</p>
+<ul>
+<li><p>Allowing one or more programs that require more bytes of memory
+than are available to continue to run.</p></li>
+<li><p>To improve performance of I/O operations by supporting buffering
+operations.</p></li>
+<li><p>To reduce overall memory usage by allowing processes to share
+pages of memory</p></li>
+<li><p>To manage process memory protection and sandboxing (To provide a
+virtual sub-machine to a process).</p></li>
+<li><p>To translate virtual memory addresses to physical memory addresses
+and to maintain the domain of virtual memory addresses.</p></li>
 </ul>
 </li>
 </ul>
@@ -248,42 +254,44 @@ and to maintain the domain of virtual memory addresses.</li>
 <div class="section" id="memory-management-units">
 <h2>Memory Management Units<a class="headerlink" href="#memory-management-units" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A Memory Management Unit (MMU hereafter) is a hardware component that
-is responsible for:<ul>
-<li>Translation of virtual addresses to physical addresses</li>
-<li>Memory protection</li>
-<li>Translation Lookaside Buffer</li>
-<li>Page table entries</li>
+<li><p>A Memory Management Unit (MMU hereafter) is a hardware component that
+is responsible for:</p>
+<ul>
+<li><p>Translation of virtual addresses to physical addresses</p></li>
+<li><p>Memory protection</p></li>
+<li><p>Translation Lookaside Buffer</p></li>
+<li><p>Page table entries</p></li>
 </ul>
 </li>
-<li>In some modern CPUs, the MMU is a part of the CPU.</li>
-<li>When the processor has a cache miss and needs to access a page of
-memory, it makes the request to the MMU</li>
+<li><p>In some modern CPUs, the MMU is a part of the CPU.</p></li>
+<li><p>When the processor has a cache miss and needs to access a page of
+memory, it makes the request to the MMU</p></li>
 </ul>
 </div>
 <div class="section" id="pages-and-page-tables">
 <h2>Pages and Page Tables<a class="headerlink" href="#pages-and-page-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Every process gets a view of the machine that makes it appear that
-the process has all of the machine’s address space available to it.</li>
-<li>In reality, the process is only using a part of it. The parts (pages)
-being used have to be maintained in a list by the operating system.</li>
+<li><p>Every process gets a view of the machine that makes it appear that
+the process has all of the machine’s address space available to it.</p></li>
+<li><p>In reality, the process is only using a part of it. The parts (pages)
+being used have to be maintained in a list by the operating system.</p></li>
 </ul>
 </div>
 <div class="section" id="id1">
 <h2>Pages and Page Tables<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>So, how is memory allocated in the operating system?<ul>
-<li>If we allocated 128 byte pages and had to maintain 4GB worth of
-128 byte pages, we would need to maintain a list of:</li>
-<li>128 bytes - 7 bits to address, 25 bits for page offset, 4GB / 128B
+<li><p>So, how is memory allocated in the operating system?</p>
+<ul>
+<li><p>If we allocated 128 byte pages and had to maintain 4GB worth of
+128 byte pages, we would need to maintain a list of:</p></li>
+<li><p>128 bytes - 7 bits to address, 25 bits for page offset, 4GB / 128B
 = 33,554,432 entries * 25 bits = 100MB per process in page table
-entries.</li>
-<li>4k bytes - 12 bits to address, 20 bits for page offset, 4GB / 4K =
-1,048,576 entries * 20 bits = 2.5MB per process</li>
-<li>In 32-bit x86, the entries are 32 bits because other pieces of
+entries.</p></li>
+<li><p>4k bytes - 12 bits to address, 20 bits for page offset, 4GB / 4K =
+1,048,576 entries * 20 bits = 2.5MB per process</p></li>
+<li><p>In 32-bit x86, the entries are 32 bits because other pieces of
 information are needed other than the address. 1,048,576 * 32bits
-= 4MB per process.</li>
+= 4MB per process.</p></li>
 </ul>
 </li>
 </ul>
@@ -291,52 +299,53 @@ information are needed other than the address. 1,048,576 * 32bits
 <div class="section" id="id2">
 <h2>Pages and Page Tables<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Even at 4k pages, 2.5MB per process is pretty extreme. Imagine
+<li><p>Even at 4k pages, 2.5MB per process is pretty extreme. Imagine
 launching a process that needs 100k of memory but has 2.5MB of
-overhead! Imagine if you had to map more than 4GB of memory!</li>
-<li>What are some ways we can solve this?</li>
+overhead! Imagine if you had to map more than 4GB of memory!</p></li>
+<li><p>What are some ways we can solve this?</p></li>
 </ul>
 </div>
 <div class="section" id="whats-in-a-page-table-entry">
 <h2>What’s in a Page Table Entry?<a class="headerlink" href="#whats-in-a-page-table-entry" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>If we use 4k pages, then we need to have 20 bits to address those
+<li><p>If we use 4k pages, then we need to have 20 bits to address those
 pages in a 4GB address space (or more if we use a 64-bit address
-space)</li>
-<li>We also need to know if the page has the following attributes:<ul>
-<li>is executable</li>
-<li>is writable</li>
-<li>is modified</li>
-<li>is present</li>
+space)</p></li>
+<li><p>We also need to know if the page has the following attributes:</p>
+<ul>
+<li><p>is executable</p></li>
+<li><p>is writable</p></li>
+<li><p>is modified</p></li>
+<li><p>is present</p></li>
 </ul>
 </li>
-<li>Additionally, we might want to store information about the process
-ID, statistics, etc…</li>
-<li>In a 32-bit x86, we have 32-bits to work with. 20-bits go to the page
-address and 12 go to anything else we need.</li>
+<li><p>Additionally, we might want to store information about the process
+ID, statistics, etc…</p></li>
+<li><p>In a 32-bit x86, we have 32-bits to work with. 20-bits go to the page
+address and 12 go to anything else we need.</p></li>
 </ul>
 </div>
 <div class="section" id="page-table-entries">
 <h2>Page Table Entries<a class="headerlink" href="#page-table-entries" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>So, if we need 32-bit page table entries on the 32-bit x86, how can
-we avoid having so many and having so much overhead?</li>
-<li>The key part is how the first 20-bits of the 32-bit entry is managed.
-How can we use those 20-bits?</li>
-<li>The solution in x86 is the use of a 2 or 3 level page table.</li>
+<li><p>So, if we need 32-bit page table entries on the 32-bit x86, how can
+we avoid having so many and having so much overhead?</p></li>
+<li><p>The key part is how the first 20-bits of the 32-bit entry is managed.
+How can we use those 20-bits?</p></li>
+<li><p>The solution in x86 is the use of a 2 or 3 level page table.</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2>Page Table Entries<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In a 2 level page table, the first 10-bits is used for the first
-level and the second 20-bits is used for the second level.</li>
-<li>This doesn’t reduce the size of the entry, but reduces the number of
-entries we need to store per process.</li>
-<li>Basically, this works by having one level of the page table manage a
+<li><p>In a 2 level page table, the first 10-bits is used for the first
+level and the second 20-bits is used for the second level.</p></li>
+<li><p>This doesn’t reduce the size of the entry, but reduces the number of
+entries we need to store per process.</p></li>
+<li><p>Basically, this works by having one level of the page table manage a
 larger range. If we’re using 10-bits, then the first level page table
 is mapping 4MB pages, then the 2nd level divides it into 4k pages. We
-only create entries in the 2nd level if any exist.</li>
+only create entries in the 2nd level if any exist.</p></li>
 </ul>
 </div>
 <div class="section" id="two-level-page-table-thanks-wikipedia">
@@ -344,7 +353,7 @@ only create entries in the 2nd level if any exist.</li>
 <blockquote>
 <div><div class="figure align-center" id="id17">
 <img alt="image" src="_images/two_level_page_table.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
@@ -375,60 +384,63 @@ only create entries in the 2nd level if any exist.</li>
 <div class="section" id="page-faults">
 <h2>Page Faults<a class="headerlink" href="#page-faults" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A page fault is generated by the MMU or by the CPU when:<ul>
-<li>An instruction references a virtual address that is not resident
-in physical memory.</li>
-<li>An instruction writes to a virtual address that is not writable</li>
-<li>An instruction branches/jumps to an address that is not executable</li>
+<li><p>A page fault is generated by the MMU or by the CPU when:</p>
+<ul>
+<li><p>An instruction references a virtual address that is not resident
+in physical memory.</p></li>
+<li><p>An instruction writes to a virtual address that is not writable</p></li>
+<li><p>An instruction branches/jumps to an address that is not executable</p></li>
 </ul>
 </li>
-<li>Each operating system has a different implementation / reaction to
-each type of page fault.</li>
+<li><p>Each operating system has a different implementation / reaction to
+each type of page fault.</p></li>
 </ul>
 </div>
 <div class="section" id="page-faults-unix">
 <h2>Page Faults - UNIX<a class="headerlink" href="#page-faults-unix" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Not resident - invoke swapper, retry instruction if successful, crash
-due to out of memory if it fails.</li>
-<li>Not writable / readable - sends a signal to the process: SIGSEGV.
-Crashes by default, if handled, the process won’t crash</li>
+<li><p>Not resident - invoke swapper, retry instruction if successful, crash
+due to out of memory if it fails.</p></li>
+<li><p>Not writable / readable - sends a signal to the process: SIGSEGV.
+Crashes by default, if handled, the process won’t crash</p></li>
 </ul>
 </div>
 <div class="section" id="page-faults-windows">
 <h2>Page Faults - Windows<a class="headerlink" href="#page-faults-windows" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Not resident - invoke swapper, retry instruction if sucessful. Raise
-exception if it fails.</li>
-<li>Not writable / readable - raises exception to the process.</li>
+<li><p>Not resident - invoke swapper, retry instruction if sucessful. Raise
+exception if it fails.</p></li>
+<li><p>Not writable / readable - raises exception to the process.</p></li>
 </ul>
 </div>
 <div class="section" id="page-replacement-swapping">
 <h2>Page Replacement / Swapping<a class="headerlink" href="#page-replacement-swapping" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>To support more optimal use of physical memory, operating systems
-implement swappers.</li>
-<li>A swapper is a program that swaps pages from physical memory to and
-from persistent and slower storage.</li>
-<li>The swapper is the program that handles page in/out operations for
-the stack and heap segements.</li>
-<li>Many implementations will also demand page in text segments of
+<li><p>To support more optimal use of physical memory, operating systems
+implement swappers.</p></li>
+<li><p>A swapper is a program that swaps pages from physical memory to and
+from persistent and slower storage.</p></li>
+<li><p>The swapper is the program that handles page in/out operations for
+the stack and heap segements.</p></li>
+<li><p>Many implementations will also demand page in text segments of
 programs to allow execution to begin before a program is fully
-loaded.</li>
+loaded.</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h2>Page Replacement / Swapping<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The swapper is invoked under the following conditions:<ul>
-<li>The OS tries to translate a virtual address to a physical address,
-but the physical page is not resident</li>
-<li>The OS has exhausted or nearly exhausted physical memory and needs
-to move physical pages to slower storage.</li>
-<li>The OS has determined that a region of memory would be better used
-for another purpose:<ul>
-<li>For another program that is more active</li>
-<li>For the filesystem cache</li>
+<li><p>The swapper is invoked under the following conditions:</p>
+<ul>
+<li><p>The OS tries to translate a virtual address to a physical address,
+but the physical page is not resident</p></li>
+<li><p>The OS has exhausted or nearly exhausted physical memory and needs
+to move physical pages to slower storage.</p></li>
+<li><p>The OS has determined that a region of memory would be better used
+for another purpose:</p>
+<ul>
+<li><p>For another program that is more active</p></li>
+<li><p>For the filesystem cache</p></li>
 </ul>
 </li>
 </ul>
@@ -438,21 +450,23 @@ for another purpose:<ul>
 <div class="section" id="id5">
 <h2>Page Replacement / Swapping<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Who are the contenders for physical pages?</li>
-<li>The block / FS cache<ul>
-<li>Where recently read / written files are kept in memory by the OS</li>
-<li>Promotes better I/O scheduling decisions by allowing write-behind
-and read-ahead</li>
-<li>Improves file operation performance</li>
+<li><p>Who are the contenders for physical pages?</p></li>
+<li><p>The block / FS cache</p>
+<ul>
+<li><p>Where recently read / written files are kept in memory by the OS</p></li>
+<li><p>Promotes better I/O scheduling decisions by allowing write-behind
+and read-ahead</p></li>
+<li><p>Improves file operation performance</p></li>
 </ul>
 </li>
-<li>Shared memory regions / memory mapped files</li>
-<li>Program library and executable files</li>
-<li>Program stack and heap segments</li>
-<li>Device driver DMA (Direct Memory Access) regions<ul>
-<li>Some exist outside of virtual / physical translation</li>
-<li>These regions are typically off-limits to the swapper.</li>
-<li>Some devices implement IO-MMUs</li>
+<li><p>Shared memory regions / memory mapped files</p></li>
+<li><p>Program library and executable files</p></li>
+<li><p>Program stack and heap segments</p></li>
+<li><p>Device driver DMA (Direct Memory Access) regions</p>
+<ul>
+<li><p>Some exist outside of virtual / physical translation</p></li>
+<li><p>These regions are typically off-limits to the swapper.</p></li>
+<li><p>Some devices implement IO-MMUs</p></li>
 </ul>
 </li>
 </ul>
@@ -460,17 +474,19 @@ and read-ahead</li>
 <div class="section" id="swapper-algorithms">
 <h2>Swapper Algorithms<a class="headerlink" href="#swapper-algorithms" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Key measures to consider in a swapping algorithm:<ul>
-<li>Total page faults - during a period of time, how many page faults
-occur?</li>
-<li>Optimal page faults - given an optimal algorithm (that can predict
-the future) what were the minimum number of page faults?<ul>
-<li>b.t.w. no such algorithm exists for programs subject to the
-halting problem.</li>
+<li><p>Key measures to consider in a swapping algorithm:</p>
+<ul>
+<li><p>Total page faults - during a period of time, how many page faults
+occur?</p></li>
+<li><p>Optimal page faults - given an optimal algorithm (that can predict
+the future) what were the minimum number of page faults?</p>
+<ul>
+<li><p>b.t.w. no such algorithm exists for programs subject to the
+halting problem.</p></li>
 </ul>
 </li>
-<li>Working Set - the set of pages in a program that are most often
-and recently used.</li>
+<li><p>Working Set - the set of pages in a program that are most often
+and recently used.</p></li>
 </ul>
 </li>
 </ul>
@@ -478,99 +494,102 @@ and recently used.</li>
 <div class="section" id="swapper-algorithms-page-classification">
 <h2>Swapper Algorithms - Page Classification<a class="headerlink" href="#swapper-algorithms-page-classification" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Most computers record how each page has been accessed.</li>
-<li>Typically, most hardware records whether a page has been read or
+<li><p>Most computers record how each page has been accessed.</p></li>
+<li><p>Typically, most hardware records whether a page has been read or
 modified in two bit fields with the ability to reset these bits. This
-yields four classes of pages:<ul>
-<li>1 - Not referenced, not modified</li>
-<li>2 - Not referenced, modified</li>
-<li>3 - Referenced, not modified</li>
-<li>4 - Referenced, modified</li>
+yields four classes of pages:</p>
+<ul>
+<li><p>1 - Not referenced, not modified</p></li>
+<li><p>2 - Not referenced, modified</p></li>
+<li><p>3 - Referenced, not modified</p></li>
+<li><p>4 - Referenced, modified</p></li>
 </ul>
 </li>
-<li>Some hardware implementations will periodically clear the read bit to
+<li><p>Some hardware implementations will periodically clear the read bit to
 help determine which pages have been recently read. This is how you
-can get class 2 above.</li>
+can get class 2 above.</p></li>
 </ul>
 </div>
 <div class="section" id="swapper-algorithms-nru">
 <h2>Swapper Algorithms - NRU<a class="headerlink" href="#swapper-algorithms-nru" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>NRU - Not Recently Used</li>
-<li>The NRU algorithm basically pages out pages from the lowest numbered
-class that has pages available.</li>
-<li>This is the simplest algorithm.</li>
+<li><p>NRU - Not Recently Used</p></li>
+<li><p>The NRU algorithm basically pages out pages from the lowest numbered
+class that has pages available.</p></li>
+<li><p>This is the simplest algorithm.</p></li>
 </ul>
 </div>
 <div class="section" id="swapper-algorithms-fifo">
 <h2>Swapper Algorithms - FIFO<a class="headerlink" href="#swapper-algorithms-fifo" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>FIFO - First In First Out</li>
-<li>When a page is loaded, it is added to the end of a list</li>
-<li>When a page fault occurs and a new page needs to be loaded, the page
-in the front of the list is removed and swapped out</li>
-<li>FIFO works on the premise that the oldest page is the least likely to
-be used in the future.</li>
-<li>This algorithm is rarely used as is because this assumption is often
-faulty</li>
+<li><p>FIFO - First In First Out</p></li>
+<li><p>When a page is loaded, it is added to the end of a list</p></li>
+<li><p>When a page fault occurs and a new page needs to be loaded, the page
+in the front of the list is removed and swapped out</p></li>
+<li><p>FIFO works on the premise that the oldest page is the least likely to
+be used in the future.</p></li>
+<li><p>This algorithm is rarely used as is because this assumption is often
+faulty</p></li>
 </ul>
 </div>
 <div class="section" id="swapper-algorithms-second-chance-fifo">
 <h2>Swapper Algorithms - Second Chance FIFO<a class="headerlink" href="#swapper-algorithms-second-chance-fifo" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Second chance FIFO improves over FIFOs deficiency of paging out
-heavily used pages by taking into account the read and write bits</li>
-<li>Second chance FIFO will scan the list in order for a page with both
+<li><p>Second chance FIFO improves over FIFOs deficiency of paging out
+heavily used pages by taking into account the read and write bits</p></li>
+<li><p>Second chance FIFO will scan the list in order for a page with both
 read/write bits set to zero. If it finds a page in this class, it
 will swap that page out. If it fails to find such a page, it will
-swap out the first page in the list.</li>
+swap out the first page in the list.</p></li>
 </ul>
 </div>
 <div class="section" id="swapper-algorithms-clock">
 <h2>Swapper Algorithms - Clock<a class="headerlink" href="#swapper-algorithms-clock" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The clock algorithm improves upon second chance FIFO</li>
-<li>Second chance FIFO suffers from many modifications to its internal
-list.</li>
-<li>The clock algorithm uses a uses a circular list and stores a pointer
+<li><p>The clock algorithm improves upon second chance FIFO</p></li>
+<li><p>Second chance FIFO suffers from many modifications to its internal
+list.</p></li>
+<li><p>The clock algorithm uses a uses a circular list and stores a pointer
 to the oldest page. When a page fault occurs, the page pointed to is
 inspected. If its read bit is 0, it is evicted. If the read bit is 1,
-it is set to 0 and the pointer advances.</li>
-<li>In reality, the clock algorithm is only very slightly better than
-second chance FIFO.</li>
+it is set to 0 and the pointer advances.</p></li>
+<li><p>In reality, the clock algorithm is only very slightly better than
+second chance FIFO.</p></li>
 </ul>
 </div>
 <div class="section" id="swapper-algorithms-lru">
 <h2>Swapper Algorithms - LRU<a class="headerlink" href="#swapper-algorithms-lru" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>LRU - Least Recently Used</li>
-<li>LRU in practice is often close to optimal</li>
-<li>LRU assumes:<ul>
-<li>Pages that have been heavily used recently will be heavily used in
-the near future</li>
-<li>Pages that have not been used recently will not be used in the
-near future</li>
+<li><p>LRU - Least Recently Used</p></li>
+<li><p>LRU in practice is often close to optimal</p></li>
+<li><p>LRU assumes:</p>
+<ul>
+<li><p>Pages that have been heavily used recently will be heavily used in
+the near future</p></li>
+<li><p>Pages that have not been used recently will not be used in the
+near future</p></li>
 </ul>
 </li>
-<li>To maintain the data necessary to implement LRU, the OS would have to
+<li><p>To maintain the data necessary to implement LRU, the OS would have to
 maintain a linked list of all pages in physical memory. This list
 would have the most recently used page in the head and the least
 recently used page in the tail. This is not cheap. Every access
-requires a search of the list. Also the list can be very big.</li>
+requires a search of the list. Also the list can be very big.</p></li>
 </ul>
 </div>
 <div class="section" id="swapper-algorithms-lru-nfu">
 <h2>Swapper Algorithms - LRU/NFU<a class="headerlink" href="#swapper-algorithms-lru-nfu" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>NFU: Not Frequently Used - a software implementation of LRU</li>
-<li>Each page gets a counter in the page table.</li>
-<li>At each clock interrupt, the OS scans the page table and for each
-page with the read bit = 1, increments the counter</li>
-<li>When a page fault occurs, the page with the lowest counter is evicted</li>
-<li>Problems with NFU<ul>
-<li>NFU isn’t forgetful enough</li>
-<li>If a single page is very heavily accessed and then never again, it
-will take a long time for it to be evicted (if ever).</li>
+<li><p>NFU: Not Frequently Used - a software implementation of LRU</p></li>
+<li><p>Each page gets a counter in the page table.</p></li>
+<li><p>At each clock interrupt, the OS scans the page table and for each
+page with the read bit = 1, increments the counter</p></li>
+<li><p>When a page fault occurs, the page with the lowest counter is evicted</p></li>
+<li><p>Problems with NFU</p>
+<ul>
+<li><p>NFU isn’t forgetful enough</p></li>
+<li><p>If a single page is very heavily accessed and then never again, it
+will take a long time for it to be evicted (if ever).</p></li>
 </ul>
 </li>
 </ul>
@@ -578,14 +597,15 @@ will take a long time for it to be evicted (if ever).</li>
 <div class="section" id="swapper-algorithms-lru-nfu-aging">
 <h2>Swapper Algorithms - LRU/NFU - Aging<a class="headerlink" href="#swapper-algorithms-lru-nfu-aging" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>NFU can be improved with an approach called aging</li>
-<li>NFU+Aging is a commonly used algorithm</li>
-<li>Aging changes NFU slightly:</li>
-<li>When a clock interrupt occurs, two things happen:<ul>
-<li>For each page with a read bit set to 1, the most significant bit
-in the counter for that page is set.</li>
-<li>Each page has its counter value shifted to the right, thereby
-decreasing it.</li>
+<li><p>NFU can be improved with an approach called aging</p></li>
+<li><p>NFU+Aging is a commonly used algorithm</p></li>
+<li><p>Aging changes NFU slightly:</p></li>
+<li><p>When a clock interrupt occurs, two things happen:</p>
+<ul>
+<li><p>For each page with a read bit set to 1, the most significant bit
+in the counter for that page is set.</p></li>
+<li><p>Each page has its counter value shifted to the right, thereby
+decreasing it.</p></li>
 </ul>
 </li>
 </ul>
@@ -593,18 +613,19 @@ decreasing it.</li>
 <div class="section" id="id6">
 <h2>Swapper Algorithms - LRU/NFU - Aging<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>When a page fault occurs, the page with the lowest counter is
-evicted.</li>
-<li>This policy more closely approximates LRU by favoring recently
+<li><p>When a page fault occurs, the page with the lowest counter is
+evicted.</p></li>
+<li><p>This policy more closely approximates LRU by favoring recently
 accessed pages and penalizing pages that have not been recently
-access by decreasing their value.</li>
-<li>This algorithm falls short of LRU in two ways:<ul>
-<li>The number of bits in the counter are finite. This allows for two
+access by decreasing their value.</p></li>
+<li><p>This algorithm falls short of LRU in two ways:</p>
+<ul>
+<li><p>The number of bits in the counter are finite. This allows for two
 pages two have the value of zero, but one of them being more
-recently used.</li>
-<li>The algorithm is constrained to the grain of a clock interrupt.
+recently used.</p></li>
+<li><p>The algorithm is constrained to the grain of a clock interrupt.
 All pages accessed between two successive interrupts are
-considered to be as recently accessed as each other.</li>
+considered to be as recently accessed as each other.</p></li>
 </ul>
 </li>
 </ul>
@@ -612,15 +633,16 @@ considered to be as recently accessed as each other.</li>
 <div class="section" id="beladys-anomoly">
 <h2>Belady’s Anomoly<a class="headerlink" href="#beladys-anomoly" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A seemingly obvious assumption to make is that having more physical
-pages will reduce the total number of page faults.</li>
-<li>This assumption isn’t true for all page replacement algorithms and
-all access patterns.</li>
-<li>Example - Assume that there are 5 virtual pages numbered from 0 to 4
-and these pages are accessed with the following pattern using FIFO:<ul>
-<li>3 2 1 0 3 2 4 3 2 1 0 4</li>
-<li>In this case, having 3 physical pages will result in 9 page faults
-and having 4 physical pages will lead to 10 page faults!</li>
+<li><p>A seemingly obvious assumption to make is that having more physical
+pages will reduce the total number of page faults.</p></li>
+<li><p>This assumption isn’t true for all page replacement algorithms and
+all access patterns.</p></li>
+<li><p>Example - Assume that there are 5 virtual pages numbered from 0 to 4
+and these pages are accessed with the following pattern using FIFO:</p>
+<ul>
+<li><p>3 2 1 0 3 2 4 3 2 1 0 4</p></li>
+<li><p>In this case, having 3 physical pages will result in 9 page faults
+and having 4 physical pages will lead to 10 page faults!</p></li>
 </ul>
 </li>
 </ul>
@@ -630,61 +652,63 @@ and having 4 physical pages will lead to 10 page faults!</li>
 <blockquote>
 <div><div class="figure align-center" id="id18">
 <img alt="image" src="_images/beladys_anomoly.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="id7">
 <h2>Belady’s Anomoly<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>For two physical memory sizes it is possible to find an access order
-to get ratios worse than even 2:1</li>
-<li>A paper by Fornai and Ivany showed that you can get any ratio with
-the correct access pattern</li>
+<li><p>For two physical memory sizes it is possible to find an access order
+to get ratios worse than even 2:1</p></li>
+<li><p>A paper by Fornai and Ivany showed that you can get any ratio with
+the correct access pattern</p></li>
 </ul>
 </div>
 <div class="section" id="modeling-page-replacement">
 <h2>Modeling Page Replacement<a class="headerlink" href="#modeling-page-replacement" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>While examining a particular page replacement algorithm, the
-following are considered:<ul>
-<li>The reference string of the executing process</li>
-<li>The number of pages available in memory</li>
+<li><p>While examining a particular page replacement algorithm, the
+following are considered:</p>
+<ul>
+<li><p>The reference string of the executing process</p></li>
+<li><p>The number of pages available in memory</p></li>
 </ul>
 </li>
-<li>The reference string is a time ordered list of page accesses from one
+<li><p>The reference string is a time ordered list of page accesses from one
 or more processes. For simplicity, often only one process is
-considered.</li>
+considered.</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
 <h2>Modeling Page Replacement<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Notation for modeling a page replacement algorithm:<ul>
-<li>M - an array that keeps track of the state of memory. M has n
-elements</li>
-<li>n - the number of virtual pages.</li>
-<li>M - divided into two parts: the first m entries are in physical
-memory, the last n-m have been referenced but are paged out.</li>
+<li><p>Notation for modeling a page replacement algorithm:</p>
+<ul>
+<li><p>M - an array that keeps track of the state of memory. M has n
+elements</p></li>
+<li><p>n - the number of virtual pages.</p></li>
+<li><p>M - divided into two parts: the first m entries are in physical
+memory, the last n-m have been referenced but are paged out.</p></li>
 </ul>
 </li>
-<li>As a reference string is read, entry by entry, the algorithm checks
-to see if the page is in memory (top part of M).</li>
-<li>If not, a page fault occurs. If there is an empty slot (top part of
-M), the page is moved from the bottom into that slot.</li>
-<li>If the top part of M is full, the page replacement algorithm is
-invoked to remove a page from memory.</li>
+<li><p>As a reference string is read, entry by entry, the algorithm checks
+to see if the page is in memory (top part of M).</p></li>
+<li><p>If not, a page fault occurs. If there is an empty slot (top part of
+M), the page is moved from the bottom into that slot.</p></li>
+<li><p>If the top part of M is full, the page replacement algorithm is
+invoked to remove a page from memory.</p></li>
 </ul>
 </div>
 <div class="section" id="modeling-lru">
 <h2>Modeling LRU<a class="headerlink" href="#modeling-lru" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">This is the LRU algorithm modeled with the reference string: 0 2 1 3
+<li><p>This is the LRU algorithm modeled with the reference string: 0 2 1 3
 5 4 6 3 7 4 7 3 3 5 5 3 1 1 1 7 2 3 4 1</p>
 <blockquote>
 <div><div class="figure align-center" id="id19">
 <img alt="image" src="_images/lru_reference_string.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </li>
@@ -693,40 +717,41 @@ invoked to remove a page from memory.</li>
 <div class="section" id="id9">
 <h2>Modeling LRU<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>LRU has an interesting property when modeled this way.</li>
-<li>For LRU M(m, r) is always a subset of or equivalent to M(m+1, r).</li>
-<li>This means that at memory access ’r’, all of the pages in m will
-exist if there were an additional page of physical memory m+1</li>
-<li>This means, that LRU always does as well or improves with more
-physical pages and is not subject to Belady’s anomaly</li>
+<li><p>LRU has an interesting property when modeled this way.</p></li>
+<li><p>For LRU M(m, r) is always a subset of or equivalent to M(m+1, r).</p></li>
+<li><p>This means that at memory access ’r’, all of the pages in m will
+exist if there were an additional page of physical memory m+1</p></li>
+<li><p>This means, that LRU always does as well or improves with more
+physical pages and is not subject to Belady’s anomaly</p></li>
 </ul>
 </div>
 <div class="section" id="modeling-distance-strings">
 <h2>Modeling - Distance Strings<a class="headerlink" href="#modeling-distance-strings" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Another interesting measurement in this type of modeling is the
-distance string.</li>
-<li>The distance string refers to the distance from the top of the
-’stack’ to where the page is in the stack.</li>
-<li>Pages not yet referenced get a distance of infinity.</li>
-<li>The distance value depends upon both the reference string and the
-algorithm.</li>
-<li>The optimal algorithm will minimize the values of the distance
-string.</li>
+<li><p>Another interesting measurement in this type of modeling is the
+distance string.</p></li>
+<li><p>The distance string refers to the distance from the top of the
+’stack’ to where the page is in the stack.</p></li>
+<li><p>Pages not yet referenced get a distance of infinity.</p></li>
+<li><p>The distance value depends upon both the reference string and the
+algorithm.</p></li>
+<li><p>The optimal algorithm will minimize the values of the distance
+string.</p></li>
 </ul>
 </div>
 <div class="section" id="id10">
 <h2>Modeling - Distance Strings<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>The distance string can be used to estimate the number of page faults
-for different physical memory sizes using the following formula</li>
-<li><span class="math notranslate nohighlight">\($Fm = Sum(k = m+1, n, Ck) + Cinf$\)</span><ul>
-<li><span class="math notranslate nohighlight">\($Ck$\)</span> = the occurrences of k in the distance string</li>
-<li><span class="math notranslate nohighlight">\($Cinf$\)</span> = the occurrences of infinity in the distance
-string</li>
-<li><span class="math notranslate nohighlight">\($m$\)</span> = the number of physical pages</li>
-<li><span class="math notranslate nohighlight">\($n$\)</span> = the number of virtual pages</li>
-<li><span class="math notranslate nohighlight">\($Fm$\)</span> = the predicted page fault rate for m physical pages</li>
+<li><p>The distance string can be used to estimate the number of page faults
+for different physical memory sizes using the following formula</p></li>
+<li><p><span class="math notranslate nohighlight">\($Fm = Sum(k = m+1, n, Ck) + Cinf$\)</span></p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\($Ck$\)</span> = the occurrences of k in the distance string</p></li>
+<li><p><span class="math notranslate nohighlight">\($Cinf$\)</span> = the occurrences of infinity in the distance
+string</p></li>
+<li><p><span class="math notranslate nohighlight">\($m$\)</span> = the number of physical pages</p></li>
+<li><p><span class="math notranslate nohighlight">\($n$\)</span> = the number of virtual pages</p></li>
+<li><p><span class="math notranslate nohighlight">\($Fm$\)</span> = the predicted page fault rate for m physical pages</p></li>
 </ul>
 </li>
 </ul>
@@ -736,63 +761,64 @@ string</li>
 <blockquote>
 <div><div class="figure align-center" id="id20">
 <img alt="image" src="_images/lru_reference_string.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 <ul class="simple">
-<li><span class="math notranslate nohighlight">\($C1 = 4$\)</span>, <span class="math notranslate nohighlight">\($C2 = 2$\)</span>, <span class="math notranslate nohighlight">\($C3 = 1$\)</span>,
+<li><p><span class="math notranslate nohighlight">\($C1 = 4$\)</span>, <span class="math notranslate nohighlight">\($C2 = 2$\)</span>, <span class="math notranslate nohighlight">\($C3 = 1$\)</span>,
 <span class="math notranslate nohighlight">\($C4 = 3$\)</span>, <span class="math notranslate nohighlight">\($C5 = 2$\)</span>, <span class="math notranslate nohighlight">\($C6 = 2$\)</span>,
-<span class="math notranslate nohighlight">\($C7 = 1$\)</span>, <span class="math notranslate nohighlight">\($Cinf = 8$\)</span></li>
-<li>So, for various memory sizes:</li>
-<li><span class="math notranslate nohighlight">\($F1 = 2+1+3+2+2+1+8 = 19$\)</span></li>
-<li><span class="math notranslate nohighlight">\($F2 = 1+3+2+2+1+8 = 17$\)</span></li>
-<li><span class="math notranslate nohighlight">\($F5 = 2+1+8 = 11$\)</span></li>
-<li><span class="math notranslate nohighlight">\($F6 = 1+8 = 9$\)</span></li>
+<span class="math notranslate nohighlight">\($C7 = 1$\)</span>, <span class="math notranslate nohighlight">\($Cinf = 8$\)</span></p></li>
+<li><p>So, for various memory sizes:</p></li>
+<li><p><span class="math notranslate nohighlight">\($F1 = 2+1+3+2+2+1+8 = 19$\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\($F2 = 1+3+2+2+1+8 = 17$\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\($F5 = 2+1+8 = 11$\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\($F6 = 1+8 = 9$\)</span></p></li>
 </ul>
 </div>
 <div class="section" id="design-considerations-for-paging-systems">
 <h2>Design Considerations for Paging Systems<a class="headerlink" href="#design-considerations-for-paging-systems" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>A naive paging implementation would start up a process with none of
-its pages in memory (libraries, program, data, bss, etc…).</li>
-<li>When the process attempts to execute its first instruction it would
-immediately generate a page fault.</li>
-<li>For the first few moments of a program’s execution it would generate
+<li><p>A naive paging implementation would start up a process with none of
+its pages in memory (libraries, program, data, bss, etc…).</p></li>
+<li><p>When the process attempts to execute its first instruction it would
+immediately generate a page fault.</p></li>
+<li><p>For the first few moments of a program’s execution it would generate
 many page faults until it was mostly loaded and then run without
-generating many page faults.</li>
-<li>Generating many and unnecessary faults leads to poorly performing
-applications.</li>
+generating many page faults.</p></li>
+<li><p>Generating many and unnecessary faults leads to poorly performing
+applications.</p></li>
 </ul>
 </div>
 <div class="section" id="working-sets">
 <h2>Working Sets<a class="headerlink" href="#working-sets" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Although not universally true, many applications exhibit a locality
-of reference.</li>
-<li>This means that, if a process is working with a given page at one
+<li><p>Although not universally true, many applications exhibit a locality
+of reference.</p></li>
+<li><p>This means that, if a process is working with a given page at one
 point in time, then just before that time and in the near future it
 is likely to continue to work with that page and pages that are near
-(in terms of virtual address distance).</li>
-<li>Many programs will have one or more regions that they exhibit a
+(in terms of virtual address distance).</p></li>
+<li><p>Many programs will have one or more regions that they exhibit a
 locality of reference. Most commonly they will be one or more regions
-in the stack or heap.</li>
-<li>The set of pages that a process is currently using is called the
-working set</li>
+in the stack or heap.</p></li>
+<li><p>The set of pages that a process is currently using is called the
+working set</p></li>
 </ul>
 </div>
 <div class="section" id="taking-advantage-of-locality">
 <h2>Taking Advantage of Locality<a class="headerlink" href="#taking-advantage-of-locality" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>If we take locality into account, how can we make paging systems
-faster?</li>
-<li>Some approaches:<ul>
-<li>When loading pages from a library or program file, adjacent pages
-are loaded at the same time.</li>
-<li>Often, after servicing a page fault, and operating system can
-continue to load program pages in asynchronously.</li>
-<li>When choosing pages to evict, if there is more than one page that
+<li><p>If we take locality into account, how can we make paging systems
+faster?</p></li>
+<li><p>Some approaches:</p>
+<ul>
+<li><p>When loading pages from a library or program file, adjacent pages
+are loaded at the same time.</p></li>
+<li><p>Often, after servicing a page fault, and operating system can
+continue to load program pages in asynchronously.</p></li>
+<li><p>When choosing pages to evict, if there is more than one page that
 is desirable to evict, the OS can choose to evict the page with
-the greatest distance from any pages in the working set.</li>
+the greatest distance from any pages in the working set.</p></li>
 </ul>
 </li>
 </ul>
@@ -800,59 +826,61 @@ the greatest distance from any pages in the working set.</li>
 <div class="section" id="costs-of-paging-different-page-classes">
 <h2>Costs of Paging Different Page Classes<a class="headerlink" href="#costs-of-paging-different-page-classes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Recall, earlier we defined the following classes of pages:<ul>
-<li>1 - Not referenced, not modified</li>
-<li>2 - Not referenced, modified</li>
-<li>3 - Referenced, not modified</li>
-<li>4 - Referenced, modified</li>
+<li><p>Recall, earlier we defined the following classes of pages:</p>
+<ul>
+<li><p>1 - Not referenced, not modified</p></li>
+<li><p>2 - Not referenced, modified</p></li>
+<li><p>3 - Referenced, not modified</p></li>
+<li><p>4 - Referenced, modified</p></li>
 </ul>
 </li>
-<li>These classes differ in terms of eviction cost.</li>
+<li><p>These classes differ in terms of eviction cost.</p></li>
 </ul>
 </div>
 <div class="section" id="id12">
 <h2>Costs of Paging Different Page Classes<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Text and other read-only pages will always be in classes 1 or 3 (not
-modified)</li>
-<li>Stack and heap pages can be in any of 1-4.</li>
-<li>When a page in class 1 or 3 (not modified) is evicted, the swapper
+<li><p>Text and other read-only pages will always be in classes 1 or 3 (not
+modified)</p></li>
+<li><p>Stack and heap pages can be in any of 1-4.</p></li>
+<li><p>When a page in class 1 or 3 (not modified) is evicted, the swapper
 only needs to mark the page as not resident and then reuse the
-physical page for a new entry.</li>
-<li>When a page in class 2 or 4 is evicted, the swapper must also copy
+physical page for a new entry.</p></li>
+<li><p>When a page in class 2 or 4 is evicted, the swapper must also copy
 the contents of the page to a different storage system (typical a
-disc). This increases the cost of evicting these pages.</li>
+disc). This increases the cost of evicting these pages.</p></li>
 </ul>
 </div>
 <div class="section" id="id13">
 <h2>Costs of Paging Different Page Classes<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>How do we reduce cost?</li>
-<li>In the background, when the disc is otherwise idle, we can commit
-modified pages to the disc to reduce future cost.</li>
-<li>Often, this behavior is reserved for pages that are likely to be
-evicted rather than pages in the working set.</li>
-<li>Chose unmodified pages over modified pages for eviction.</li>
+<li><p>How do we reduce cost?</p></li>
+<li><p>In the background, when the disc is otherwise idle, we can commit
+modified pages to the disc to reduce future cost.</p></li>
+<li><p>Often, this behavior is reserved for pages that are likely to be
+evicted rather than pages in the working set.</p></li>
+<li><p>Chose unmodified pages over modified pages for eviction.</p></li>
 </ul>
 </div>
 <div class="section" id="local-vs-global-paging">
 <h2>Local vs Global Paging<a class="headerlink" href="#local-vs-global-paging" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In process scheduling, we try to be fair and give each runnable
-process an even share of the CPU(s).</li>
-<li>What are some things we can do to be ’fair’ in our page replacement
-implementations?</li>
-<li>One possibility to consider is local vs. global page replacement.<ul>
-<li>In global page replacement, if a process page faults, we consider
-all of memory for page eviction.</li>
-<li>In local page replacement, we consider only the process that
+<li><p>In process scheduling, we try to be fair and give each runnable
+process an even share of the CPU(s).</p></li>
+<li><p>What are some things we can do to be ’fair’ in our page replacement
+implementations?</p></li>
+<li><p>One possibility to consider is local vs. global page replacement.</p>
+<ul>
+<li><p>In global page replacement, if a process page faults, we consider
+all of memory for page eviction.</p></li>
+<li><p>In local page replacement, we consider only the process that
 caused the page fault’s pages for page replacement or otherwise
-favor them.</li>
-<li>A local page replacement policy can help make sure that one
+favor them.</p></li>
+<li><p>A local page replacement policy can help make sure that one
 process that causes many page faults does not interfere with other
-processes too much.</li>
-<li>The downside to a local policy is that it can hurt overall system
-performance</li>
+processes too much.</p></li>
+<li><p>The downside to a local policy is that it can hurt overall system
+performance</p></li>
 </ul>
 </li>
 </ul>
@@ -860,99 +888,100 @@ performance</li>
 <div class="section" id="page-locking">
 <h2>Page Locking<a class="headerlink" href="#page-locking" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>For some operations, we need to guarantee that a page will remain in
-physical memory</li>
-<li>The most common case is for regions of memory that are dedicated to
-buffering for devices or regions of memory that work with DMA.</li>
-<li>DMA is basically a system by which an operating system kernel can
+<li><p>For some operations, we need to guarantee that a page will remain in
+physical memory</p></li>
+<li><p>The most common case is for regions of memory that are dedicated to
+buffering for devices or regions of memory that work with DMA.</p></li>
+<li><p>DMA is basically a system by which an operating system kernel can
 tell a device to write the results of an operation directly to a
-specific region of memory without interacting directly with the CPU.</li>
-<li>During the period of time a DMA operation is occuring, the OS must
-guarantee that the region of memory is not evicted by the swapper.</li>
-<li>The best, but less ideal alternative to this is to only do DMA
+specific region of memory without interacting directly with the CPU.</p></li>
+<li><p>During the period of time a DMA operation is occuring, the OS must
+guarantee that the region of memory is not evicted by the swapper.</p></li>
+<li><p>The best, but less ideal alternative to this is to only do DMA
 operations to operating system buffers and then copy them to program
-buffers.</li>
+buffers.</p></li>
 </ul>
 </div>
 <div class="section" id="cow-copy-on-write">
 <h2>COW: Copy on Write<a class="headerlink" href="#cow-copy-on-write" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>In UNIX, we create processes by calling fork() or clone().</li>
-<li>In either of these cases, regions of memory (from the program’s
-perspective) are copied.</li>
-<li>To avoid unnecessary copying, the operating system will only copy
-page table entries.</li>
-<li>When the page table entries are copied, they are all marked as
-read-only for both the parent and child process.</li>
-<li>After the copy operation, the parent and child process will share
-each other’s physical pages.</li>
+<li><p>In UNIX, we create processes by calling fork() or clone().</p></li>
+<li><p>In either of these cases, regions of memory (from the program’s
+perspective) are copied.</p></li>
+<li><p>To avoid unnecessary copying, the operating system will only copy
+page table entries.</p></li>
+<li><p>When the page table entries are copied, they are all marked as
+read-only for both the parent and child process.</p></li>
+<li><p>After the copy operation, the parent and child process will share
+each other’s physical pages.</p></li>
 </ul>
 </div>
 <div class="section" id="id14">
 <h2>COW: Copy on Write<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>COW comes into effect when write operations happen to a shared page.</li>
-<li>The process that causes the page fault, will make a copy of the
+<li><p>COW comes into effect when write operations happen to a shared page.</p></li>
+<li><p>The process that causes the page fault, will make a copy of the
 physical page into a new physical page and updates its page table
-entry to point to that page.</li>
-<li>The new page will then be marked as writable.</li>
-<li>In this way, new processes only use memory that is different from the
-parent process.</li>
+entry to point to that page.</p></li>
+<li><p>The new page will then be marked as writable.</p></li>
+<li><p>In this way, new processes only use memory that is different from the
+parent process.</p></li>
 </ul>
 </div>
 <div class="section" id="backing-store">
 <h2>Backing Store<a class="headerlink" href="#backing-store" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>For heap, stack, and data pages the backing store in most operating
-systems is one of:<ul>
-<li>Swap file</li>
-<li>Swap partition</li>
+<li><p>For heap, stack, and data pages the backing store in most operating
+systems is one of:</p>
+<ul>
+<li><p>Swap file</p></li>
+<li><p>Swap partition</p></li>
 </ul>
 </li>
-<li>In simpler operating systems, swap partitions are preferable because
+<li><p>In simpler operating systems, swap partitions are preferable because
 the operating system can interact directly with the disc and not FS
-code.</li>
-<li>In more advanced operating systems (more recent versions of Linux or
+code.</p></li>
+<li><p>In more advanced operating systems (more recent versions of Linux or
 Windows), the FS implementation is advanced enough that the OS can
 guarantee the location of sectors of the swap file that there is no
-overhead to using a swap file.</li>
-<li>Swap files have the advantage of being able to be resized on demand.
+overhead to using a swap file.</p></li>
+<li><p>Swap files have the advantage of being able to be resized on demand.
 In Linux, additional swap files can be created and then used with the
-swapon command.</li>
-<li>Windows manages one or more swap files automatically.</li>
+swapon command.</p></li>
+<li><p>Windows manages one or more swap files automatically.</p></li>
 </ul>
 </div>
 <div class="section" id="hibernation">
 <h2>Hibernation<a class="headerlink" href="#hibernation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Hibernation is a specific implementation of a swap file.</li>
-<li>To hibernate, the operating system will page out all used physical
+<li><p>Hibernation is a specific implementation of a swap file.</p></li>
+<li><p>To hibernate, the operating system will page out all used physical
 pages to disc. Either a special hibernation file or the swap file
-will be used.</li>
-<li>Then, the operating system will either shutdown the computer or put
-the computer in a special low power state.</li>
-<li>When the computer boots back up, the operating system will notice
-that it was previously shutdown by hibernation.</li>
-<li>After the core OS components are loaded, the OS will restore the page
+will be used.</p></li>
+<li><p>Then, the operating system will either shutdown the computer or put
+the computer in a special low power state.</p></li>
+<li><p>When the computer boots back up, the operating system will notice
+that it was previously shutdown by hibernation.</p></li>
+<li><p>After the core OS components are loaded, the OS will restore the page
 table from the hibernation file and then begin paging in from the
-hibernation file.</li>
+hibernation file.</p></li>
 </ul>
 </div>
 <div class="section" id="vm-performance-hot-memory">
 <h2>VM Performance - Hot Memory<a class="headerlink" href="#vm-performance-hot-memory" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Theoretically, the best use of physical memory is to use all of the
-physical memory if possible.</li>
-<li>To improve performance and responsiveness of operations that need new
+<li><p>Theoretically, the best use of physical memory is to use all of the
+physical memory if possible.</p></li>
+<li><p>To improve performance and responsiveness of operations that need new
 memory (reading a new file, writing new data, allocating new pages to
 the heap or stack), many modern VM implementations will keep a few
-pages free at all times.</li>
-<li>Both Windows and Linux will typically keep about 12-16MB free as a
-“hot memory” area.</li>
-<li>This hot memory area has the effect of preventing page faults due to
+pages free at all times.</p></li>
+<li><p>Both Windows and Linux will typically keep about 12-16MB free as a
+“hot memory” area.</p></li>
+<li><p>This hot memory area has the effect of preventing page faults due to
 “jitters” of memory usage. So, if a process is increasing and
 decreasing its memory usage rapidly, it will not likely generate page
-faults.</li>
+faults.</p></li>
 </ul>
 </div>
 <div class="section" id="id15">
@@ -960,53 +989,53 @@ faults.</li>
 <blockquote>
 <div><div class="figure align-center" id="id21">
 <img alt="image" src="_images/hot_memory.png" />
-<p class="caption"><span class="caption-text">image</span></p>
+<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 <ul class="simple">
-<li>Here, we can see a long running Linux OS.</li>
-<li>453388K is used by the FS - Cache</li>
-<li>178580K is used by software</li>
-<li>52704K is being used as buffers</li>
-<li>18272K is swapped out</li>
-<li>7972K is being kept as “hot memory” (or is otherwise recently freed)</li>
+<li><p>Here, we can see a long running Linux OS.</p></li>
+<li><p>453388K is used by the FS - Cache</p></li>
+<li><p>178580K is used by software</p></li>
+<li><p>52704K is being used as buffers</p></li>
+<li><p>18272K is swapped out</p></li>
+<li><p>7972K is being kept as “hot memory” (or is otherwise recently freed)</p></li>
 </ul>
 </div>
 <div class="section" id="summary-page-fault-handling">
 <h2>Summary: Page Fault Handling<a class="headerlink" href="#summary-page-fault-handling" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>1- The hardware interrupts the kernel. Program counter and registers
+<li><p>1- The hardware interrupts the kernel. Program counter and registers
 are saved. Information necessary to restart the current instruction
-is also saved. The OS is then called.</li>
-<li>2- The OS discovers a page fault has occurred. The OS inspects either
+is also saved. The OS is then called.</p></li>
+<li><p>2- The OS discovers a page fault has occurred. The OS inspects either
 a special register or inspects the saved instruction from 1 to figure
-out which page is needed.</li>
-<li>3- Once the page is discovered, it determines the cause of the page
+out which page is needed.</p></li>
+<li><p>3- Once the page is discovered, it determines the cause of the page
 fault. If the address is inconsistent with access rights or memory
 accessible to the process, a signal is sent to the process or the
-process is terminated.</li>
-<li>4- If it is consistent, the OS tries to acquire a free physical page
+process is terminated.</p></li>
+<li><p>4- If it is consistent, the OS tries to acquire a free physical page
 to load the necessary page into memory. If no physical page is free,
-the page replacement algorithm is invoked.</li>
+the page replacement algorithm is invoked.</p></li>
 </ul>
 </div>
 <div class="section" id="id16">
 <h2>Summary: Page Fault Handling<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>5- If the evicted page is dirty, it is scheduled to be written to
+<li><p>5- If the evicted page is dirty, it is scheduled to be written to
 disc. In this case the faulting process is put to sleep and a context
-switch occurs.</li>
-<li>6- As soon as the evicted page is clean, the OS schedules a disc
+switch occurs.</p></li>
+<li><p>6- As soon as the evicted page is clean, the OS schedules a disc
 operation to load the page. While waiting for the load, the faulting
 process is suspended and the scheduler will pick another process to
-run.</li>
-<li>7- As soon as the page is loaded from disc, the page table entry is
+run.</p></li>
+<li><p>7- As soon as the page is loaded from disc, the page table entry is
 updated to reflect its position and updates the status of the page to
-resident</li>
-<li>8- The OS restores the registers of the program, and depending on
+resident</p></li>
+<li><p>8- The OS restores the registers of the program, and depending on
 hardware details will retry the faulting instruction, updating the
-program counter accordingly.</li>
-<li>9- The faulting process is then marked as runnable for the scheduler.</li>
+program counter accordingly.</p></li>
+<li><p>9- The faulting process is then marked as runnable for the scheduler.</p></li>
 </ul>
 </div>
 </div>
@@ -1016,37 +1045,29 @@ program counter accordingly.</li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="userlandmm.html" class="btn btn-neutral float-right" title="Userland Memory Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="ipc.html" class="btn btn-neutral float-left" title="IPC Topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="userlandmm.html" class="btn btn-neutral float-right" title="Userland Memory Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ipc.html" class="btn btn-neutral float-left" title="IPC Topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago
+        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
