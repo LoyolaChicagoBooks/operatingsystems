@@ -8,10 +8,12 @@ Build Status
 
    <p><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml"><img src="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg" alt="Build Status" /></a></p>
 
-This book automatically builds and deploys using the Travis continuous integration system. All
+This book automatically builds and deploys using GitHub Actions (a continuous integration system). All
 commits trigger a rebuild of the book and, if successful, a deployment to GitHub pages.
 
 The book deploys to https://os.cs.luc.edu.
+
+You can see the date of the most recent build in the upper left corner.
 
 Book Info
 ----------
