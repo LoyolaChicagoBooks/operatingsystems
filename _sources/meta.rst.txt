@@ -6,7 +6,7 @@ Build Status
 
 .. raw:: html
 
-   <p><a href="https://travis-ci.org/LoyolaChicagoBooks/operatingsystems"><img src="https://travis-ci.org/LoyolaChicagoBooks/operatingsystems.svg?branch=master" alt="Build Status" /></a></p>
+   <p><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg"><img src="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg" alt="Build Status" /></a></p>
 
 This book automatically builds and deploys using the Travis continuous integration system. All
 commits trigger a rebuild of the book and, if successful, a deployment to GitHub pages.
