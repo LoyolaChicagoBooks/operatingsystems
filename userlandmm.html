@@ -1,76 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Userland Memory Management &mdash; Operating Systems Updated 2021-07-20 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Userland Memory Management &mdash; Operating Systems Updated 2021-09-25 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Storage and Devices" href="storage.html" />
     <link rel="prev" title="Virtual Memory" href="kernelmm.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Operating Systems
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                Updated 2021-07-20
+                Updated 2021-09-25
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -78,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
@@ -154,75 +104,34 @@
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Userland Memory Management</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/userlandmm.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="userland-memory-management">
-<h1>Userland Memory Management<a class="headerlink" href="#userland-memory-management" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="why-userland-memory-management">
-<h2>Why Userland Memory Management?<a class="headerlink" href="#why-userland-memory-management" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="userland-memory-management">
+<h1>Userland Memory Management<a class="headerlink" href="#userland-memory-management" title="Permalink to this headline"></a></h1>
+<section id="why-userland-memory-management">
+<h2>Why Userland Memory Management?<a class="headerlink" href="#why-userland-memory-management" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Why discuss user land memory management in an OS course?</p></li>
 <li><p>After all, user land memory management is almost always an
@@ -234,9 +143,9 @@ programs work in terms of structured objects that are composed of
 primitive data types and pointers to other structured objects or
 primitive data types.</p></li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h2>Why Userland Memory Management?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>Why Userland Memory Management?<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Because programs need a view of the machine as something other than
 pages, we can consider the topic of user land memory management as a
@@ -245,12 +154,12 @@ detail of the virtual machine that the system provides.</p></li>
 language needs, it is impractical for this component to exist within
 the operating system implementation.</p></li>
 </ul>
-</div>
-<div class="section" id="heap-management">
-<h2>Heap Management<a class="headerlink" href="#heap-management" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="the-heap">
-<h2>The Heap<a class="headerlink" href="#the-heap" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="heap-management">
+<h2>Heap Management<a class="headerlink" href="#heap-management" title="Permalink to this headline"></a></h2>
+</section>
+<section id="the-heap">
+<h2>The Heap<a class="headerlink" href="#the-heap" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The heap is the portion of a process’ memory that is used for data
 that lives beyond the lifetime of any one function or method. The
@@ -261,9 +170,9 @@ explicit statements like malloc, free, new, delete, etc…</p></li>
 <li><p>Languages like C# or Java allocate chunks of memory through
 statements like new and deallocate memory with garbage collectors</p></li>
 </ul>
-</div>
-<div class="section" id="the-memory-manager">
-<h2>The Memory Manager<a class="headerlink" href="#the-memory-manager" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-memory-manager">
+<h2>The Memory Manager<a class="headerlink" href="#the-memory-manager" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The memory manager has the following responsibilities:</p>
 <ul>
@@ -280,9 +189,9 @@ implementations.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="characteristics-of-memory-allocation">
-<h2>Characteristics of Memory Allocation<a class="headerlink" href="#characteristics-of-memory-allocation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="characteristics-of-memory-allocation">
+<h2>Characteristics of Memory Allocation<a class="headerlink" href="#characteristics-of-memory-allocation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Requests from a program for chunks of the heap are typically not of
 the same size</p></li>
@@ -293,9 +202,9 @@ differing size in unpredictable order</p></li>
 <li><p>Most of the time, the majority of requests are for small regions of
 memory that are measured in bytes or kilo-bytes.</p></li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h2>Characteristics of Memory Allocation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>Characteristics of Memory Allocation<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Although not optimal, it is acceptable for an allocator to return a
 region of memory larger than the requested size.</p></li>
@@ -304,9 +213,9 @@ sizes.</p></li>
 <li><p>So, for example an allocator may service a request for 31 bytes of
 memory with a region of memory that is 32 bytes in size.s</p></li>
 </ul>
-</div>
-<div class="section" id="characteristics-of-a-good-memory-manager">
-<h2>Characteristics of a Good Memory Manager<a class="headerlink" href="#characteristics-of-a-good-memory-manager" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="characteristics-of-a-good-memory-manager">
+<h2>Characteristics of a Good Memory Manager<a class="headerlink" href="#characteristics-of-a-good-memory-manager" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Space Efficiency - The memory manager should minimize the total heap
 needed by a program. This is accomplished by minimizing heap
@@ -319,9 +228,9 @@ manager should be minimized. Efficiency for smaller memory
 allocations should be a priority over efficiency for larger
 allocations since smaller allocations happen more frequently.</p></li>
 </ul>
-</div>
-<div class="section" id="a-refresher-on-the-memory-hierarchy">
-<h2>A Refresher on the Memory Hierarchy<a class="headerlink" href="#a-refresher-on-the-memory-hierarchy" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="a-refresher-on-the-memory-hierarchy">
+<h2>A Refresher on the Memory Hierarchy<a class="headerlink" href="#a-refresher-on-the-memory-hierarchy" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Memory Type / Memory Size / Access Time</p></li>
 <li><p>Registers / 32 words / 1 ns</p></li>
@@ -330,9 +239,9 @@ allocations since smaller allocations happen more frequently.</p></li>
 <li><p>Physical Memory / 512MB - 8GB / 100 - 150 ns</p></li>
 <li><p>Swap File / 512MB - 8GB / 3 - 15 ms</p></li>
 </ul>
-</div>
-<div class="section" id="program-locality">
-<h2>Program Locality<a class="headerlink" href="#program-locality" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="program-locality">
+<h2>Program Locality<a class="headerlink" href="#program-locality" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Often, programs contain many instructions that are never executed.</p></li>
 <li><p>Programs built with reusable libraries, often only use a small
@@ -344,9 +253,9 @@ executed. This means, that within any given method, there are basic
 blocks of code dedicated to exception and error handling that is
 often not invoked.</p></li>
 </ul>
-</div>
-<div class="section" id="fragmentation">
-<h2>Fragmentation<a class="headerlink" href="#fragmentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="fragmentation">
+<h2>Fragmentation<a class="headerlink" href="#fragmentation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Internal fragmentation - When a request for memory is answered with a
 region of memory that is larger than the request, the remainder is
@@ -359,9 +268,9 @@ memory)</p></li>
 where heap allocations are placed, the order of their eventual
 deallocations cannot be controlled or predicted.</p></li>
 </ul>
-</div>
-<div class="section" id="reducing-fragmentation-of-the-heap">
-<h2>Reducing Fragmentation of the Heap<a class="headerlink" href="#reducing-fragmentation-of-the-heap" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="reducing-fragmentation-of-the-heap">
+<h2>Reducing Fragmentation of the Heap<a class="headerlink" href="#reducing-fragmentation-of-the-heap" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The heap starts as one contiguous free space</p></li>
 <li><p>As the program allocates and deallocates memory, the free space will
@@ -373,9 +282,9 @@ possible that even though there is enough total free memory, a
 request for more memory could fail because there isn’t a contiguous
 free region that is large enough.</p></li>
 </ul>
-</div>
-<div class="section" id="best-fit-vs-next-fit">
-<h2>Best-Fit vs Next-Fit<a class="headerlink" href="#best-fit-vs-next-fit" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="best-fit-vs-next-fit">
+<h2>Best-Fit vs Next-Fit<a class="headerlink" href="#best-fit-vs-next-fit" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The best-fit allocation policy is to fit each request into the free
 memory region that is the smallest that will satisfy the request</p></li>
@@ -388,9 +297,9 @@ cases.</p></li>
 complex allocator and there is some cost to the search for the best
 fitting free region (although there are ways around this).</p></li>
 </ul>
-</div>
-<div class="section" id="best-fit">
-<h2>Best-Fit<a class="headerlink" href="#best-fit" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="best-fit">
+<h2>Best-Fit<a class="headerlink" href="#best-fit" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>To avoid the costs associated with searching for the best-fit free
 space region for an allocation, best-fit allocators commonly will
@@ -407,9 +316,9 @@ larger than the request. If that bucket is empty, then the next
 largest one is used. If all buckets are full, then the allocator asks
 the operating system for more heap space.</p></li>
 </ul>
-</div>
-<div class="section" id="managing-free-space">
-<h2>Managing Free Space<a class="headerlink" href="#managing-free-space" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="managing-free-space">
+<h2>Managing Free Space<a class="headerlink" href="#managing-free-space" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>There are three approaches to managing free space:</p>
 <ul>
@@ -424,9 +333,9 @@ these lists are sorted to help best-fit algorithms.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="bugs-and-explicit-allocators">
-<h2>Bugs and Explicit Allocators<a class="headerlink" href="#bugs-and-explicit-allocators" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="bugs-and-explicit-allocators">
+<h2>Bugs and Explicit Allocators<a class="headerlink" href="#bugs-and-explicit-allocators" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>For languages like C, when programs write beyond the boundaries of
 allocated sections of the memory explicitly allocated, it is possible
@@ -442,9 +351,9 @@ each allocation and pad the front and back of each region. At
 deallocation time, if the padded values are altered, then the
 allocator can print an error to the console.</p></li>
 </ul>
-</div>
-<div class="section" id="debugging-malloc-free">
-<h2>Debugging malloc / free<a class="headerlink" href="#debugging-malloc-free" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="debugging-malloc-free">
+<h2>Debugging malloc / free<a class="headerlink" href="#debugging-malloc-free" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>An excellent way to debug common malloc / free issues is to use the
 dmalloc library.</p></li>
@@ -457,9 +366,9 @@ existing applications without modification.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="expanding-the-heap">
-<h2>Expanding the Heap<a class="headerlink" href="#expanding-the-heap" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="expanding-the-heap">
+<h2>Expanding the Heap<a class="headerlink" href="#expanding-the-heap" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>There are two ways that UNIX allocators expand the heap:</p>
 <ul>
@@ -473,16 +382,16 @@ bucket (&gt; 1MB).</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="recommended-reading">
-<h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="recommended-reading">
+<h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Article by Doug Lea, the author of the GNU libc malloc/realloc/free -
 <a class="reference external" href="http://g.oswego.edu/dl/html/malloc.html">http://g.oswego.edu/dl/html/malloc.html</a></p></li>
 </ul>
-</div>
-<div class="section" id="problems-with-manual-deallocation">
-<h2>Problems with manual deallocation<a class="headerlink" href="#problems-with-manual-deallocation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="problems-with-manual-deallocation">
+<h2>Problems with manual deallocation<a class="headerlink" href="#problems-with-manual-deallocation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Manual memory deallocation can lead to memory leaks. Memory leaks are
 defined as memory that has been allocated, but not deallocated and
@@ -491,9 +400,9 @@ will not be referenced at any point in the future.</p></li>
 long as enough free memory is available. For short lived programs
 this is not a problem. For longer lived programs this is a problem.</p></li>
 </ul>
-</div>
-<div class="section" id="id3">
-<h2>Problems with manual deallocation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>Problems with manual deallocation<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Manual memory deallocation can lead to problems if after the
 deallocation, a pointer refers to the deallocated space and the
@@ -502,9 +411,9 @@ modification of memory that was allocated to different pointers or to
 memory that has been released to the operating system. This can lead
 to crashes or incorrect program behavior.</p></li>
 </ul>
-</div>
-<div class="section" id="avoiding-problems-with-manual-deallocation">
-<h2>Avoiding problems with manual deallocation<a class="headerlink" href="#avoiding-problems-with-manual-deallocation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="avoiding-problems-with-manual-deallocation">
+<h2>Avoiding problems with manual deallocation<a class="headerlink" href="#avoiding-problems-with-manual-deallocation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>When designing an application, make sure each allocated object has a
 defined owner. This can be an instance of a class, or a function.
@@ -515,9 +424,9 @@ we increment the reference counter. Whenever a reference goes away,
 we decrease the reference counter. When the counter reaches zero, we
 deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </ul>
-</div>
-<div class="section" id="a-simple-malloc-free-implementation-example-from-ibm-developer-works">
-<h2>A simple Malloc / Free Implementation (Example from IBM Developer Works)<a class="headerlink" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="a-simple-malloc-free-implementation-example-from-ibm-developer-works">
+<h2>A simple Malloc / Free Implementation (Example from IBM Developer Works)<a class="headerlink" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works" title="Permalink to this headline"></a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;unistd.h&gt;</span>
 <span class="nb">int</span> <span class="n">has_initialized</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -537,9 +446,9 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="a-simple-malloc-free-implementation">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#a-simple-malloc-free-implementation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="a-simple-malloc-free-implementation">
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#a-simple-malloc-free-implementation" title="Permalink to this headline"></a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">myfree</span><span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="n">firstbyte</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">struct</span> <span class="n">mem_control_block</span> <span class="o">*</span><span class="n">mcb</span><span class="p">;</span>
@@ -550,9 +459,9 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id4">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id4">
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>void *mymalloc(long numbytes) {
   void *current_location;
@@ -566,9 +475,9 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
   current_location = managed_memory_start;
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id5">
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="n">current_location</span> <span class="o">!=</span> <span class="n">last_valid_address</span><span class="p">)</span>
 <span class="p">{</span>
@@ -588,9 +497,9 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id6">
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  if(!memory_location)
   {
@@ -608,12 +517,12 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 }
 </pre></div>
 </div>
-</div>
-<div class="section" id="garbage-collection">
-<h2>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="id7">
-<h2>Garbage Collection<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="garbage-collection">
+<h2>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Permalink to this headline"></a></h2>
+</section>
+<section id="id7">
+<h2>Garbage Collection<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Data that can’t be referenced is considered garbage</p></li>
 <li><p>One problem that explicit allocators have is that deallocation is the
@@ -623,9 +532,9 @@ collectors.</p></li>
 <li><p>The first garbage collector implementation was for the LISP
 programming language in 1958.</p></li>
 </ul>
-</div>
-<div class="section" id="requirements-for-garbage-collectors">
-<h2>Requirements for Garbage Collectors<a class="headerlink" href="#requirements-for-garbage-collectors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="requirements-for-garbage-collectors">
+<h2>Requirements for Garbage Collectors<a class="headerlink" href="#requirements-for-garbage-collectors" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Most garbage collectors require that a system be type safe to support
 a collector.</p></li>
@@ -635,9 +544,9 @@ the beginning of an object and not somewhere in the middle</p></li>
 <li><p>Garbage collectors exist for C, but programmers have to limit their
 use of the full capability of C</p></li>
 </ul>
-</div>
-<div class="section" id="goals-for-a-garbage-collector">
-<h2>Goals for a Garbage Collector<a class="headerlink" href="#goals-for-a-garbage-collector" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="goals-for-a-garbage-collector">
+<h2>Goals for a Garbage Collector<a class="headerlink" href="#goals-for-a-garbage-collector" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Overall execution time for collection - Garbage collectors must
 access a lot of data. The faster they are the better</p></li>
@@ -649,9 +558,9 @@ maximum wait time be small.</p></li>
 preserve locality by allocating memory from regions that are recently
 deallocated.</p></li>
 </ul>
-</div>
-<div class="section" id="disadvantages-to-garbage-collection">
-<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#disadvantages-to-garbage-collection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="disadvantages-to-garbage-collection">
+<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#disadvantages-to-garbage-collection" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Garbage collectors consume processing time determining which objects
 are garbage</p></li>
@@ -665,9 +574,9 @@ another. This can degrade performance.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id8">
-<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id8">
+<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Garbage collectors can’t detect when low physical memory conditions
 occur. With manual deallocation, the memory usage should always be
@@ -677,9 +586,9 @@ overuse of physical memory or unnecessary paging.</p></li>
 <li><p>Garbage collectors cannot remove all possible memory leaks. Garbage
 collectors can only collect garbage.</p></li>
 </ul>
-</div>
-<div class="section" id="reachability">
-<h2>Reachability<a class="headerlink" href="#reachability" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="reachability">
+<h2>Reachability<a class="headerlink" href="#reachability" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Every program has a concept of a root set of references. The root set
 is the list of references held on the stack of every executing
@@ -698,9 +607,9 @@ the stack that are not a part of the return are lost.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="reference-counting-garbage-collectors">
-<h2>Reference Counting Garbage Collectors<a class="headerlink" href="#reference-counting-garbage-collectors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="reference-counting-garbage-collectors">
+<h2>Reference Counting Garbage Collectors<a class="headerlink" href="#reference-counting-garbage-collectors" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Reference counting garbage collectors work by detecting when an
 object’s reference count reaches zero and at that time deallocate the
@@ -719,9 +628,9 @@ also decrements the reference of every object it refers to.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="pros-cons-of-reference-counting-garbage-collectors">
-<h2>Pros-Cons of Reference Counting Garbage Collectors<a class="headerlink" href="#pros-cons-of-reference-counting-garbage-collectors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pros-cons-of-reference-counting-garbage-collectors">
+<h2>Pros-Cons of Reference Counting Garbage Collectors<a class="headerlink" href="#pros-cons-of-reference-counting-garbage-collectors" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Pros</p>
 <ul>
@@ -738,9 +647,9 @@ structures.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="mark-and-sweep-garbage-collection">
-<h2>Mark-and-Sweep Garbage Collection<a class="headerlink" href="#mark-and-sweep-garbage-collection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mark-and-sweep-garbage-collection">
+<h2>Mark-and-Sweep Garbage Collection<a class="headerlink" href="#mark-and-sweep-garbage-collection" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Mark-and-Sweep collectors work by stopping the execution of a program
 and use an algorithm to determine which objects are not reachable and
@@ -761,9 +670,9 @@ unscanned list to the referenced list.</p></li>
 <li><p>After the scan is complete, items remaining in the unscanned list are
 moved to the free list as garbage.</p></li>
 </ul>
-</div>
-<div class="section" id="mark-and-compact-garbage-collection">
-<h2>Mark-and-Compact Garbage Collection<a class="headerlink" href="#mark-and-compact-garbage-collection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mark-and-compact-garbage-collection">
+<h2>Mark-and-Compact Garbage Collection<a class="headerlink" href="#mark-and-compact-garbage-collection" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Compacting garbage collectors take the additional step of moving
 objects around in memory after collection to make free space
@@ -778,18 +687,18 @@ memory region becomes the free memory region.</p></li>
 <li><p>For more details, see “Cheney’s Algorithm” in a paper by C.J. Cheney
 in the ACM library.</p></li>
 </ul>
-</div>
-<div class="section" id="garbage-collection-costs">
-<h2>Garbage Collection Costs<a class="headerlink" href="#garbage-collection-costs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="garbage-collection-costs">
+<h2>Garbage Collection Costs<a class="headerlink" href="#garbage-collection-costs" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Mark-and-Sweep collectors costs are related to the number of
 reachable objects</p></li>
 <li><p>Compacting (Copying) collectors costs are related to the total size
 of reachable objects.</p></li>
 </ul>
-</div>
-<div class="section" id="incremental-garbage-collection">
-<h2>Incremental Garbage Collection<a class="headerlink" href="#incremental-garbage-collection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="incremental-garbage-collection">
+<h2>Incremental Garbage Collection<a class="headerlink" href="#incremental-garbage-collection" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The previously mentioned garbage collectors stop the execution of all
 threads in a program to run. This can cause programs to pause for
@@ -803,9 +712,9 @@ performing a mark and sweep algorithm.</p></li>
 collect objects that became unreachable by the previous collection in
 addition to any newly unreachable objects.</p></li>
 </ul>
-</div>
-<div class="section" id="id9">
-<h2>Incremental Garbage Collection<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id9">
+<h2>Incremental Garbage Collection<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Why in general do incremental garbage collectors work well?</p></li>
 <li><p>For most programs, objects become garbage rapidly. This means that
@@ -819,9 +728,9 @@ round of incremental collection, will often survive more than one
 round. In copying incremental collectors, this means that they will
 also be copied multiple times.</p></li>
 </ul>
-</div>
-<div class="section" id="generational-garbage-collection">
-<h2>Generational Garbage Collection<a class="headerlink" href="#generational-garbage-collection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="generational-garbage-collection">
+<h2>Generational Garbage Collection<a class="headerlink" href="#generational-garbage-collection" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Generational garbage collectors are a specific way of implementing a
 copying incremental garbage collector.</p></li>
@@ -835,18 +744,18 @@ and N to free objects in sections 1…N.</p></li>
 <li><p>This type of collection is very fast because it favors scanning young
 objects which are objects most likely to be garbage.</p></li>
 </ul>
-</div>
-<div class="section" id="id10">
-<h2>Generational Garbage Collection<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id10">
+<h2>Generational Garbage Collection<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Generational garbage collectors are used in many platforms -</p></li>
 <li><p>Java</p></li>
 <li><p>.NET</p></li>
 <li><p>Python</p></li>
 </ul>
-</div>
-<div class="section" id="buyer-beware">
-<h2>Buyer Beware<a class="headerlink" href="#buyer-beware" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="buyer-beware">
+<h2>Buyer Beware<a class="headerlink" href="#buyer-beware" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Even with advanced and efficient garbage collection algorithms, it is
 still possible in theory to “leak” memory.</p></li>
@@ -861,55 +770,38 @@ these collectors will never reclaim large objects (greater than 8KB)
 due to the cost. It is possible in these systems to run out of memory
 artificially.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="storage.html" class="btn btn-neutral float-right" title="Storage and Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="kernelmm.html" class="btn btn-neutral float-left" title="Virtual Memory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="storage.html" class="btn btn-neutral float-right" title="Storage and Devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
-
-    </p>
+    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

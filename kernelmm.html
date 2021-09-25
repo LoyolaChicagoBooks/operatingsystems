@@ -1,77 +1,38 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Virtual Memory &mdash; Operating Systems Updated 2021-07-20 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Virtual Memory &mdash; Operating Systems Updated 2021-09-25 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Userland Memory Management" href="userlandmm.html" />
     <link rel="prev" title="IPC Topics" href="ipc.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Operating Systems
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                Updated 2021-07-20
+                Updated 2021-09-25
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -79,18 +40,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
@@ -163,76 +113,35 @@
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Virtual Memory</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/kernelmm.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="virtual-memory">
-<h1>Virtual Memory<a class="headerlink" href="#virtual-memory" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="virtual-memory">
+<h1>Virtual Memory<a class="headerlink" href="#virtual-memory" title="Permalink to this headline"></a></h1>
 <p>Virtual Memory lecture…</p>
-<div class="section" id="what-is-virtual-memory">
-<h2>What is Virtual Memory?<a class="headerlink" href="#what-is-virtual-memory" title="Permalink to this headline">¶</a></h2>
+<section id="what-is-virtual-memory">
+<h2>What is Virtual Memory?<a class="headerlink" href="#what-is-virtual-memory" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Virtual memory is responsible for many capabilities in an operating
 system. Among them are:</p>
@@ -250,9 +159,9 @@ and to maintain the domain of virtual memory addresses.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="memory-management-units">
-<h2>Memory Management Units<a class="headerlink" href="#memory-management-units" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="memory-management-units">
+<h2>Memory Management Units<a class="headerlink" href="#memory-management-units" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>A Memory Management Unit (MMU hereafter) is a hardware component that
 is responsible for:</p>
@@ -267,18 +176,18 @@ is responsible for:</p>
 <li><p>When the processor has a cache miss and needs to access a page of
 memory, it makes the request to the MMU</p></li>
 </ul>
-</div>
-<div class="section" id="pages-and-page-tables">
-<h2>Pages and Page Tables<a class="headerlink" href="#pages-and-page-tables" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pages-and-page-tables">
+<h2>Pages and Page Tables<a class="headerlink" href="#pages-and-page-tables" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Every process gets a view of the machine that makes it appear that
 the process has all of the machine’s address space available to it.</p></li>
 <li><p>In reality, the process is only using a part of it. The parts (pages)
 being used have to be maintained in a list by the operating system.</p></li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h2>Pages and Page Tables<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>Pages and Page Tables<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>So, how is memory allocated in the operating system?</p>
 <ul>
@@ -295,18 +204,18 @@ information are needed other than the address. 1,048,576 * 32bits
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h2>Pages and Page Tables<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>Pages and Page Tables<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Even at 4k pages, 2.5MB per process is pretty extreme. Imagine
 launching a process that needs 100k of memory but has 2.5MB of
 overhead! Imagine if you had to map more than 4GB of memory!</p></li>
 <li><p>What are some ways we can solve this?</p></li>
 </ul>
-</div>
-<div class="section" id="whats-in-a-page-table-entry">
-<h2>What’s in a Page Table Entry?<a class="headerlink" href="#whats-in-a-page-table-entry" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="whats-in-a-page-table-entry">
+<h2>What’s in a Page Table Entry?<a class="headerlink" href="#whats-in-a-page-table-entry" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>If we use 4k pages, then we need to have 20 bits to address those
 pages in a 4GB address space (or more if we use a 64-bit address
@@ -324,9 +233,9 @@ ID, statistics, etc…</p></li>
 <li><p>In a 32-bit x86, we have 32-bits to work with. 20-bits go to the page
 address and 12 go to anything else we need.</p></li>
 </ul>
-</div>
-<div class="section" id="page-table-entries">
-<h2>Page Table Entries<a class="headerlink" href="#page-table-entries" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="page-table-entries">
+<h2>Page Table Entries<a class="headerlink" href="#page-table-entries" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>So, if we need 32-bit page table entries on the 32-bit x86, how can
 we avoid having so many and having so much overhead?</p></li>
@@ -334,9 +243,9 @@ we avoid having so many and having so much overhead?</p></li>
 How can we use those 20-bits?</p></li>
 <li><p>The solution in x86 is the use of a 2 or 3 level page table.</p></li>
 </ul>
-</div>
-<div class="section" id="id3">
-<h2>Page Table Entries<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>Page Table Entries<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>In a 2 level page table, the first 10-bits is used for the first
 level and the second 20-bits is used for the second level.</p></li>
@@ -347,18 +256,20 @@ larger range. If we’re using 10-bits, then the first level page table
 is mapping 4MB pages, then the 2nd level divides it into 4k pages. We
 only create entries in the 2nd level if any exist.</p></li>
 </ul>
-</div>
-<div class="section" id="two-level-page-table-thanks-wikipedia">
-<h2>Two Level Page Table (thanks Wikipedia)<a class="headerlink" href="#two-level-page-table-thanks-wikipedia" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="two-level-page-table-thanks-wikipedia">
+<h2>Two Level Page Table (thanks Wikipedia)<a class="headerlink" href="#two-level-page-table-thanks-wikipedia" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><div class="figure align-center" id="id17">
+<div><figure class="align-center" id="id17">
 <img alt="image" src="_images/two_level_page_table.png" />
-<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
-</div>
-<div class="section" id="mmu-address-translation-algorithm">
-<h2>MMU - Address Translation Algorithm<a class="headerlink" href="#mmu-address-translation-algorithm" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mmu-address-translation-algorithm">
+<h2>MMU - Address Translation Algorithm<a class="headerlink" href="#mmu-address-translation-algorithm" title="Permalink to this headline"></a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">physical_address</span> <span class="n">translate</span><span class="p">(</span><span class="n">virtual_address</span> <span class="n">v_addr</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">physical_address</span> <span class="n">addr</span><span class="p">;</span>
@@ -380,9 +291,9 @@ only create entries in the 2nd level if any exist.</p></li>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="page-faults">
-<h2>Page Faults<a class="headerlink" href="#page-faults" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="page-faults">
+<h2>Page Faults<a class="headerlink" href="#page-faults" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>A page fault is generated by the MMU or by the CPU when:</p>
 <ul>
@@ -395,26 +306,26 @@ in physical memory.</p></li>
 <li><p>Each operating system has a different implementation / reaction to
 each type of page fault.</p></li>
 </ul>
-</div>
-<div class="section" id="page-faults-unix">
-<h2>Page Faults - UNIX<a class="headerlink" href="#page-faults-unix" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="page-faults-unix">
+<h2>Page Faults - UNIX<a class="headerlink" href="#page-faults-unix" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Not resident - invoke swapper, retry instruction if successful, crash
 due to out of memory if it fails.</p></li>
 <li><p>Not writable / readable - sends a signal to the process: SIGSEGV.
 Crashes by default, if handled, the process won’t crash</p></li>
 </ul>
-</div>
-<div class="section" id="page-faults-windows">
-<h2>Page Faults - Windows<a class="headerlink" href="#page-faults-windows" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="page-faults-windows">
+<h2>Page Faults - Windows<a class="headerlink" href="#page-faults-windows" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Not resident - invoke swapper, retry instruction if sucessful. Raise
 exception if it fails.</p></li>
 <li><p>Not writable / readable - raises exception to the process.</p></li>
 </ul>
-</div>
-<div class="section" id="page-replacement-swapping">
-<h2>Page Replacement / Swapping<a class="headerlink" href="#page-replacement-swapping" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="page-replacement-swapping">
+<h2>Page Replacement / Swapping<a class="headerlink" href="#page-replacement-swapping" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>To support more optimal use of physical memory, operating systems
 implement swappers.</p></li>
@@ -426,9 +337,9 @@ the stack and heap segements.</p></li>
 programs to allow execution to begin before a program is fully
 loaded.</p></li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h2>Page Replacement / Swapping<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id4">
+<h2>Page Replacement / Swapping<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The swapper is invoked under the following conditions:</p>
 <ul>
@@ -446,9 +357,9 @@ for another purpose:</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id5">
-<h2>Page Replacement / Swapping<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id5">
+<h2>Page Replacement / Swapping<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Who are the contenders for physical pages?</p></li>
 <li><p>The block / FS cache</p>
@@ -470,9 +381,9 @@ and read-ahead</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms">
-<h2>Swapper Algorithms<a class="headerlink" href="#swapper-algorithms" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms">
+<h2>Swapper Algorithms<a class="headerlink" href="#swapper-algorithms" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Key measures to consider in a swapping algorithm:</p>
 <ul>
@@ -490,9 +401,9 @@ and recently used.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-page-classification">
-<h2>Swapper Algorithms - Page Classification<a class="headerlink" href="#swapper-algorithms-page-classification" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-page-classification">
+<h2>Swapper Algorithms - Page Classification<a class="headerlink" href="#swapper-algorithms-page-classification" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Most computers record how each page has been accessed.</p></li>
 <li><p>Typically, most hardware records whether a page has been read or
@@ -509,18 +420,18 @@ yields four classes of pages:</p>
 help determine which pages have been recently read. This is how you
 can get class 2 above.</p></li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-nru">
-<h2>Swapper Algorithms - NRU<a class="headerlink" href="#swapper-algorithms-nru" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-nru">
+<h2>Swapper Algorithms - NRU<a class="headerlink" href="#swapper-algorithms-nru" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>NRU - Not Recently Used</p></li>
 <li><p>The NRU algorithm basically pages out pages from the lowest numbered
 class that has pages available.</p></li>
 <li><p>This is the simplest algorithm.</p></li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-fifo">
-<h2>Swapper Algorithms - FIFO<a class="headerlink" href="#swapper-algorithms-fifo" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-fifo">
+<h2>Swapper Algorithms - FIFO<a class="headerlink" href="#swapper-algorithms-fifo" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>FIFO - First In First Out</p></li>
 <li><p>When a page is loaded, it is added to the end of a list</p></li>
@@ -531,9 +442,9 @@ be used in the future.</p></li>
 <li><p>This algorithm is rarely used as is because this assumption is often
 faulty</p></li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-second-chance-fifo">
-<h2>Swapper Algorithms - Second Chance FIFO<a class="headerlink" href="#swapper-algorithms-second-chance-fifo" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-second-chance-fifo">
+<h2>Swapper Algorithms - Second Chance FIFO<a class="headerlink" href="#swapper-algorithms-second-chance-fifo" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Second chance FIFO improves over FIFOs deficiency of paging out
 heavily used pages by taking into account the read and write bits</p></li>
@@ -542,9 +453,9 @@ read/write bits set to zero. If it finds a page in this class, it
 will swap that page out. If it fails to find such a page, it will
 swap out the first page in the list.</p></li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-clock">
-<h2>Swapper Algorithms - Clock<a class="headerlink" href="#swapper-algorithms-clock" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-clock">
+<h2>Swapper Algorithms - Clock<a class="headerlink" href="#swapper-algorithms-clock" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The clock algorithm improves upon second chance FIFO</p></li>
 <li><p>Second chance FIFO suffers from many modifications to its internal
@@ -556,9 +467,9 @@ it is set to 0 and the pointer advances.</p></li>
 <li><p>In reality, the clock algorithm is only very slightly better than
 second chance FIFO.</p></li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-lru">
-<h2>Swapper Algorithms - LRU<a class="headerlink" href="#swapper-algorithms-lru" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-lru">
+<h2>Swapper Algorithms - LRU<a class="headerlink" href="#swapper-algorithms-lru" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>LRU - Least Recently Used</p></li>
 <li><p>LRU in practice is often close to optimal</p></li>
@@ -576,9 +487,9 @@ would have the most recently used page in the head and the least
 recently used page in the tail. This is not cheap. Every access
 requires a search of the list. Also the list can be very big.</p></li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-lru-nfu">
-<h2>Swapper Algorithms - LRU/NFU<a class="headerlink" href="#swapper-algorithms-lru-nfu" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-lru-nfu">
+<h2>Swapper Algorithms - LRU/NFU<a class="headerlink" href="#swapper-algorithms-lru-nfu" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>NFU: Not Frequently Used - a software implementation of LRU</p></li>
 <li><p>Each page gets a counter in the page table.</p></li>
@@ -593,9 +504,9 @@ will take a long time for it to be evicted (if ever).</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="swapper-algorithms-lru-nfu-aging">
-<h2>Swapper Algorithms - LRU/NFU - Aging<a class="headerlink" href="#swapper-algorithms-lru-nfu-aging" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="swapper-algorithms-lru-nfu-aging">
+<h2>Swapper Algorithms - LRU/NFU - Aging<a class="headerlink" href="#swapper-algorithms-lru-nfu-aging" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>NFU can be improved with an approach called aging</p></li>
 <li><p>NFU+Aging is a commonly used algorithm</p></li>
@@ -609,9 +520,9 @@ decreasing it.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h2>Swapper Algorithms - LRU/NFU - Aging<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id6">
+<h2>Swapper Algorithms - LRU/NFU - Aging<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>When a page fault occurs, the page with the lowest counter is
 evicted.</p></li>
@@ -629,9 +540,9 @@ considered to be as recently accessed as each other.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="beladys-anomoly">
-<h2>Belady’s Anomoly<a class="headerlink" href="#beladys-anomoly" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="beladys-anomoly">
+<h2>Belady’s Anomoly<a class="headerlink" href="#beladys-anomoly" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>A seemingly obvious assumption to make is that having more physical
 pages will reduce the total number of page faults.</p></li>
@@ -646,27 +557,29 @@ and having 4 physical pages will lead to 10 page faults!</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="beladys-anomoly-thanks-wikipedia">
-<h2>Belady’s Anomoly (thanks Wikipedia)<a class="headerlink" href="#beladys-anomoly-thanks-wikipedia" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="beladys-anomoly-thanks-wikipedia">
+<h2>Belady’s Anomoly (thanks Wikipedia)<a class="headerlink" href="#beladys-anomoly-thanks-wikipedia" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><div class="figure align-center" id="id18">
+<div><figure class="align-center" id="id18">
 <img alt="image" src="_images/beladys_anomoly.png" />
-<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
-</div>
-<div class="section" id="id7">
-<h2>Belady’s Anomoly<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id7">
+<h2>Belady’s Anomoly<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>For two physical memory sizes it is possible to find an access order
 to get ratios worse than even 2:1</p></li>
 <li><p>A paper by Fornai and Ivany showed that you can get any ratio with
 the correct access pattern</p></li>
 </ul>
-</div>
-<div class="section" id="modeling-page-replacement">
-<h2>Modeling Page Replacement<a class="headerlink" href="#modeling-page-replacement" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="modeling-page-replacement">
+<h2>Modeling Page Replacement<a class="headerlink" href="#modeling-page-replacement" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>While examining a particular page replacement algorithm, the
 following are considered:</p>
@@ -679,9 +592,9 @@ following are considered:</p>
 or more processes. For simplicity, often only one process is
 considered.</p></li>
 </ul>
-</div>
-<div class="section" id="id8">
-<h2>Modeling Page Replacement<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id8">
+<h2>Modeling Page Replacement<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Notation for modeling a page replacement algorithm:</p>
 <ul>
@@ -699,23 +612,25 @@ M), the page is moved from the bottom into that slot.</p></li>
 <li><p>If the top part of M is full, the page replacement algorithm is
 invoked to remove a page from memory.</p></li>
 </ul>
-</div>
-<div class="section" id="modeling-lru">
-<h2>Modeling LRU<a class="headerlink" href="#modeling-lru" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="modeling-lru">
+<h2>Modeling LRU<a class="headerlink" href="#modeling-lru" title="Permalink to this headline"></a></h2>
 <ul>
 <li><p>This is the LRU algorithm modeled with the reference string: 0 2 1 3
 5 4 6 3 7 4 7 3 3 5 5 3 1 1 1 7 2 3 4 1</p>
 <blockquote>
-<div><div class="figure align-center" id="id19">
+<div><figure class="align-center" id="id19">
 <img alt="image" src="_images/lru_reference_string.png" />
-<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
 </li>
 </ul>
-</div>
-<div class="section" id="id9">
-<h2>Modeling LRU<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id9">
+<h2>Modeling LRU<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>LRU has an interesting property when modeled this way.</p></li>
 <li><p>For LRU M(m, r) is always a subset of or equivalent to M(m+1, r).</p></li>
@@ -724,9 +639,9 @@ exist if there were an additional page of physical memory m+1</p></li>
 <li><p>This means, that LRU always does as well or improves with more
 physical pages and is not subject to Belady’s anomaly</p></li>
 </ul>
-</div>
-<div class="section" id="modeling-distance-strings">
-<h2>Modeling - Distance Strings<a class="headerlink" href="#modeling-distance-strings" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="modeling-distance-strings">
+<h2>Modeling - Distance Strings<a class="headerlink" href="#modeling-distance-strings" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Another interesting measurement in this type of modeling is the
 distance string.</p></li>
@@ -738,9 +653,9 @@ algorithm.</p></li>
 <li><p>The optimal algorithm will minimize the values of the distance
 string.</p></li>
 </ul>
-</div>
-<div class="section" id="id10">
-<h2>Modeling - Distance Strings<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id10">
+<h2>Modeling - Distance Strings<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The distance string can be used to estimate the number of page faults
 for different physical memory sizes using the following formula</p></li>
@@ -755,14 +670,16 @@ string</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id11">
-<h2>Modeling - Distance Strings<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id11">
+<h2>Modeling - Distance Strings<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><div class="figure align-center" id="id20">
+<div><figure class="align-center" id="id20">
 <img alt="image" src="_images/lru_reference_string.png" />
-<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\($C1 = 4$\)</span>, <span class="math notranslate nohighlight">\($C2 = 2$\)</span>, <span class="math notranslate nohighlight">\($C3 = 1$\)</span>,
@@ -774,9 +691,9 @@ string</p></li>
 <li><p><span class="math notranslate nohighlight">\($F5 = 2+1+8 = 11$\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\($F6 = 1+8 = 9$\)</span></p></li>
 </ul>
-</div>
-<div class="section" id="design-considerations-for-paging-systems">
-<h2>Design Considerations for Paging Systems<a class="headerlink" href="#design-considerations-for-paging-systems" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="design-considerations-for-paging-systems">
+<h2>Design Considerations for Paging Systems<a class="headerlink" href="#design-considerations-for-paging-systems" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>A naive paging implementation would start up a process with none of
 its pages in memory (libraries, program, data, bss, etc…).</p></li>
@@ -788,9 +705,9 @@ generating many page faults.</p></li>
 <li><p>Generating many and unnecessary faults leads to poorly performing
 applications.</p></li>
 </ul>
-</div>
-<div class="section" id="working-sets">
-<h2>Working Sets<a class="headerlink" href="#working-sets" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="working-sets">
+<h2>Working Sets<a class="headerlink" href="#working-sets" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Although not universally true, many applications exhibit a locality
 of reference.</p></li>
@@ -804,9 +721,9 @@ in the stack or heap.</p></li>
 <li><p>The set of pages that a process is currently using is called the
 working set</p></li>
 </ul>
-</div>
-<div class="section" id="taking-advantage-of-locality">
-<h2>Taking Advantage of Locality<a class="headerlink" href="#taking-advantage-of-locality" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="taking-advantage-of-locality">
+<h2>Taking Advantage of Locality<a class="headerlink" href="#taking-advantage-of-locality" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>If we take locality into account, how can we make paging systems
 faster?</p></li>
@@ -822,9 +739,9 @@ the greatest distance from any pages in the working set.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="costs-of-paging-different-page-classes">
-<h2>Costs of Paging Different Page Classes<a class="headerlink" href="#costs-of-paging-different-page-classes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="costs-of-paging-different-page-classes">
+<h2>Costs of Paging Different Page Classes<a class="headerlink" href="#costs-of-paging-different-page-classes" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Recall, earlier we defined the following classes of pages:</p>
 <ul>
@@ -836,9 +753,9 @@ the greatest distance from any pages in the working set.</p></li>
 </li>
 <li><p>These classes differ in terms of eviction cost.</p></li>
 </ul>
-</div>
-<div class="section" id="id12">
-<h2>Costs of Paging Different Page Classes<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id12">
+<h2>Costs of Paging Different Page Classes<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Text and other read-only pages will always be in classes 1 or 3 (not
 modified)</p></li>
@@ -850,9 +767,9 @@ physical page for a new entry.</p></li>
 the contents of the page to a different storage system (typical a
 disc). This increases the cost of evicting these pages.</p></li>
 </ul>
-</div>
-<div class="section" id="id13">
-<h2>Costs of Paging Different Page Classes<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id13">
+<h2>Costs of Paging Different Page Classes<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>How do we reduce cost?</p></li>
 <li><p>In the background, when the disc is otherwise idle, we can commit
@@ -861,9 +778,9 @@ modified pages to the disc to reduce future cost.</p></li>
 evicted rather than pages in the working set.</p></li>
 <li><p>Chose unmodified pages over modified pages for eviction.</p></li>
 </ul>
-</div>
-<div class="section" id="local-vs-global-paging">
-<h2>Local vs Global Paging<a class="headerlink" href="#local-vs-global-paging" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="local-vs-global-paging">
+<h2>Local vs Global Paging<a class="headerlink" href="#local-vs-global-paging" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>In process scheduling, we try to be fair and give each runnable
 process an even share of the CPU(s).</p></li>
@@ -884,9 +801,9 @@ performance</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="page-locking">
-<h2>Page Locking<a class="headerlink" href="#page-locking" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="page-locking">
+<h2>Page Locking<a class="headerlink" href="#page-locking" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>For some operations, we need to guarantee that a page will remain in
 physical memory</p></li>
@@ -901,9 +818,9 @@ guarantee that the region of memory is not evicted by the swapper.</p></li>
 operations to operating system buffers and then copy them to program
 buffers.</p></li>
 </ul>
-</div>
-<div class="section" id="cow-copy-on-write">
-<h2>COW: Copy on Write<a class="headerlink" href="#cow-copy-on-write" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cow-copy-on-write">
+<h2>COW: Copy on Write<a class="headerlink" href="#cow-copy-on-write" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>In UNIX, we create processes by calling fork() or clone().</p></li>
 <li><p>In either of these cases, regions of memory (from the program’s
@@ -915,9 +832,9 @@ read-only for both the parent and child process.</p></li>
 <li><p>After the copy operation, the parent and child process will share
 each other’s physical pages.</p></li>
 </ul>
-</div>
-<div class="section" id="id14">
-<h2>COW: Copy on Write<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id14">
+<h2>COW: Copy on Write<a class="headerlink" href="#id14" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>COW comes into effect when write operations happen to a shared page.</p></li>
 <li><p>The process that causes the page fault, will make a copy of the
@@ -927,9 +844,9 @@ entry to point to that page.</p></li>
 <li><p>In this way, new processes only use memory that is different from the
 parent process.</p></li>
 </ul>
-</div>
-<div class="section" id="backing-store">
-<h2>Backing Store<a class="headerlink" href="#backing-store" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="backing-store">
+<h2>Backing Store<a class="headerlink" href="#backing-store" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>For heap, stack, and data pages the backing store in most operating
 systems is one of:</p>
@@ -950,9 +867,9 @@ In Linux, additional swap files can be created and then used with the
 swapon command.</p></li>
 <li><p>Windows manages one or more swap files automatically.</p></li>
 </ul>
-</div>
-<div class="section" id="hibernation">
-<h2>Hibernation<a class="headerlink" href="#hibernation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="hibernation">
+<h2>Hibernation<a class="headerlink" href="#hibernation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Hibernation is a specific implementation of a swap file.</p></li>
 <li><p>To hibernate, the operating system will page out all used physical
@@ -966,9 +883,9 @@ that it was previously shutdown by hibernation.</p></li>
 table from the hibernation file and then begin paging in from the
 hibernation file.</p></li>
 </ul>
-</div>
-<div class="section" id="vm-performance-hot-memory">
-<h2>VM Performance - Hot Memory<a class="headerlink" href="#vm-performance-hot-memory" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vm-performance-hot-memory">
+<h2>VM Performance - Hot Memory<a class="headerlink" href="#vm-performance-hot-memory" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Theoretically, the best use of physical memory is to use all of the
 physical memory if possible.</p></li>
@@ -983,14 +900,16 @@ pages free at all times.</p></li>
 decreasing its memory usage rapidly, it will not likely generate page
 faults.</p></li>
 </ul>
-</div>
-<div class="section" id="id15">
-<h2>Modeling - Distance Strings<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id15">
+<h2>Modeling - Distance Strings<a class="headerlink" href="#id15" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><div class="figure align-center" id="id21">
+<div><figure class="align-center" id="id21">
 <img alt="image" src="_images/hot_memory.png" />
-<p class="caption"><span class="caption-text">image</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
 <ul class="simple">
 <li><p>Here, we can see a long running Linux OS.</p></li>
@@ -1000,9 +919,9 @@ faults.</p></li>
 <li><p>18272K is swapped out</p></li>
 <li><p>7972K is being kept as “hot memory” (or is otherwise recently freed)</p></li>
 </ul>
-</div>
-<div class="section" id="summary-page-fault-handling">
-<h2>Summary: Page Fault Handling<a class="headerlink" href="#summary-page-fault-handling" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="summary-page-fault-handling">
+<h2>Summary: Page Fault Handling<a class="headerlink" href="#summary-page-fault-handling" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>1- The hardware interrupts the kernel. Program counter and registers
 are saved. Information necessary to restart the current instruction
@@ -1018,9 +937,9 @@ process is terminated.</p></li>
 to load the necessary page into memory. If no physical page is free,
 the page replacement algorithm is invoked.</p></li>
 </ul>
-</div>
-<div class="section" id="id16">
-<h2>Summary: Page Fault Handling<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id16">
+<h2>Summary: Page Fault Handling<a class="headerlink" href="#id16" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>5- If the evicted page is dirty, it is scheduled to be written to
 disc. In this case the faulting process is put to sleep and a context
@@ -1037,55 +956,38 @@ hardware details will retry the faulting instruction, updating the
 program counter accordingly.</p></li>
 <li><p>9- The faulting process is then marked as runnable for the scheduler.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="userlandmm.html" class="btn btn-neutral float-right" title="Userland Memory Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="ipc.html" class="btn btn-neutral float-left" title="IPC Topics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="userlandmm.html" class="btn btn-neutral float-right" title="Userland Memory Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
-
-    </p>
+    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,76 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Introduction to Processes &mdash; Operating Systems Updated 2021-07-20 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Introduction to Processes &mdash; Operating Systems Updated 2021-09-25 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Files and I/O" href="files-io.html" />
     <link rel="prev" title="Introduction" href="introduction.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Operating Systems
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                Updated 2021-07-20
+                Updated 2021-09-25
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -78,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
@@ -135,73 +85,32 @@
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Introduction to Processes</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/processes.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="introduction-to-processes">
-<h1>Introduction to Processes<a class="headerlink" href="#introduction-to-processes" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="introduction-to-processes">
+<h1>Introduction to Processes<a class="headerlink" href="#introduction-to-processes" title="Permalink to this headline"></a></h1>
 <ul class="simple">
 <li><p>An executing program or job</p></li>
 <li><p>Components</p>
@@ -227,8 +136,8 @@
 </ul>
 </li>
 </ul>
-<div class="section" id="process-memory-layout">
-<h2>Process Memory Layout<a class="headerlink" href="#process-memory-layout" title="Permalink to this headline">¶</a></h2>
+<section id="process-memory-layout">
+<h2>Process Memory Layout<a class="headerlink" href="#process-memory-layout" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Text - machine instructions of a program.</p></li>
 <li><p>Data - initialized static data and constants</p></li>
@@ -249,27 +158,31 @@ first thread’s stack and heap are the responsibility of the loader</p></li>
 <li><p>management of stack and heap are through the process’s runtime
 library and program instructions</p></li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h2>Process Memory Layout<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>Process Memory Layout<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><div class="figure align-center" id="id3">
+<div><figure class="align-center" id="id3">
 <img alt="Memory Layout" src="_images/memory_layout.png" />
-<p class="caption"><span class="caption-text">Memory Layout</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Memory Layout</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
-</div>
-<div class="section" id="multithreaded-memory-layout">
-<h2>Multithreaded Memory Layout<a class="headerlink" href="#multithreaded-memory-layout" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="multithreaded-memory-layout">
+<h2>Multithreaded Memory Layout<a class="headerlink" href="#multithreaded-memory-layout" title="Permalink to this headline"></a></h2>
 <blockquote>
-<div><div class="figure align-center" id="id4">
+<div><figure class="align-center" id="id4">
 <img alt="Memory Layout for Multithreaded Programs" src="_images/memory_layout_multithreaded.png" />
-<p class="caption"><span class="caption-text">Memory Layout for Multithreaded Programs</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">Memory Layout for Multithreaded Programs</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </div></blockquote>
-</div>
-<div class="section" id="preliminaries">
-<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Code for examples in maintained at <a class="reference external" href="https://github.com/gkthiruvathukal/systems-code-examples">https://github.com/gkthiruvathukal/systems-code-examples</a></p></li>
 <li><p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code> to clone to a folder <code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code>.</p></li>
@@ -277,9 +190,9 @@ library and program instructions</p></li>
 <li><p>To run examples, make sure you have <cite>gcc</cite>, <cite>cmake</cite>, and <cite>make</cite> on your computer.</p></li>
 <li><p>We only have tested on Ubuntu Linux, MacOS, and Windows Subsystem for Linux 2 (with Ubuntu 20.04 LTS). Most others should work.</p></li>
 </ul>
-</div>
-<div class="section" id="examine-process-layout-example">
-<h2>Examine Process Layout Example<a class="headerlink" href="#examine-process-layout-example" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="examine-process-layout-example">
+<h2>Examine Process Layout Example<a class="headerlink" href="#examine-process-layout-example" title="Permalink to this headline"></a></h2>
 <ul>
 <li><p>Most of our examples are written in C with some C++.</p></li>
 <li><p>Getting the code</p>
@@ -335,9 +248,9 @@ section               size   addr
 </div>
 </li>
 </ul>
-</div>
-<div class="section" id="loading-programs">
-<h2>Loading Programs<a class="headerlink" href="#loading-programs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="loading-programs">
+<h2>Loading Programs<a class="headerlink" href="#loading-programs" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>loader allocates memory for executable’s text, data, bss, heap, and
 stack. and loads program’s image into memory</p></li>
@@ -353,9 +266,9 @@ symbols to point to the correct spots in memory (to shared libraries)</p></li>
 global variables</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls main() and program begins</p></li>
 </ul>
-</div>
-<div class="section" id="loading-shared-libraries-so">
-<h2>Loading shared libraries (.so)<a class="headerlink" href="#loading-shared-libraries-so" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="loading-shared-libraries-so">
+<h2>Loading shared libraries (.so)<a class="headerlink" href="#loading-shared-libraries-so" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Libraries also have a data, bss, and text segment</p></li>
 <li><p>Memory references in shared libraries are position independent (GCC
@@ -371,9 +284,9 @@ between executions of the same program and among other programs.</p></li>
 processes without reloading. So, the same library may have different
 offsets for different programs</p></li>
 </ul>
-</div>
-<div class="section" id="more-about-gcc-pic-option">
-<h2>more about GCC pic option<a class="headerlink" href="#more-about-gcc-pic-option" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="more-about-gcc-pic-option">
+<h2>more about GCC pic option<a class="headerlink" href="#more-about-gcc-pic-option" title="Permalink to this headline"></a></h2>
 <p>Based on the <em>man page</em> for <code class="docutils literal notranslate"><span class="pre">gcc</span></code></p>
 <p>Generate position-independent code (PIC) suitable for use in a shared
 library, if supported for the target machine. Such code accesses all
@@ -385,9 +298,9 @@ size, you get an error message from the linker indicating that -fpic
 does not work; in that case, recompile with -fPIC instead. (These
 maximums are 8k on the SPARC and 32k on the m68k and RS/6000. The 386
 has no such limit.)</p>
-</div>
-<div class="section" id="id2">
-<h2>Loading shared libraries (.so)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>Loading shared libraries (.so)<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Static libraries do not contain position independent code</p></li>
 <li><p>Static libraries are simply a collection of unlinked <code class="docutils literal notranslate"><span class="pre">.o</span></code> (object)
@@ -395,9 +308,9 @@ files</p></li>
 <li><p>The dynamic linker simply loads the text, data, and bss sections of
 each object file into the program’s address space</p></li>
 </ul>
-</div>
-<div class="section" id="position-independent-code-example">
-<h2>Position Independent Code Example<a class="headerlink" href="#position-independent-code-example" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="position-independent-code-example">
+<h2>Position Independent Code Example<a class="headerlink" href="#position-independent-code-example" title="Permalink to this headline"></a></h2>
 <ul>
 <li><p>Get the code</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code></p>
@@ -406,28 +319,28 @@ each object file into the program’s address space</p></li>
 <li><p>For this example, you can build it using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile.pic</span></code>.</p></li>
 <li><p>The main purpose of this example is to show the difference between generating PIC vs. non-PIC.</p></li>
 </ul>
-</div>
-<div class="section" id="main-cc">
-<h2>main.cc<a class="headerlink" href="#main-cc" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+</section>
+<section id="main-cc">
+<h2>main.cc<a class="headerlink" href="#main-cc" title="Permalink to this headline"></a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
 <span class="linenos"> 2</span>
-<span class="linenos"> 3</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;abcdefg&quot;</span><span class="p">;</span>
+<span class="linenos"> 3</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;abcdefg&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 4</span>
-<span class="linenos"> 5</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+<span class="linenos"> 5</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 8</span>
-<span class="linenos"> 9</span>    <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">10</span>
-<span class="linenos">11</span>    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">12</span>
-<span class="linenos">13</span><span class="p">}</span>
+<span class="linenos">13</span><span class="p">}</span><span class="w"></span>
 <span class="linenos">14</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="main-nopic-s-non-position-independent-code-gcc-fno-pic">
-<h2>main.nopic.s - non-position independent code (gcc -fno-pic)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fno-pic" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="main-nopic-s-non-position-independent-code-gcc-fno-pic">
+<h2>main.nopic.s - non-position independent code (gcc -fno-pic)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fno-pic" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>	.file	&quot;main.c&quot;
 <span class="linenos"> 2</span>	.text
 <span class="linenos"> 3</span>	.globl	msg
@@ -469,9 +382,9 @@ each object file into the program’s address space</p></li>
 <span class="linenos">39</span>	ret
 </pre></div>
 </div>
-</div>
-<div class="section" id="main-nopic-s-non-position-independent-code-gcc-fpic-default-option">
-<h2>main.nopic.s - non-position independent code (gcc -fpic, default option)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fpic-default-option" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="main-nopic-s-non-position-independent-code-gcc-fpic-default-option">
+<h2>main.nopic.s - non-position independent code (gcc -fpic, default option)<a class="headerlink" href="#main-nopic-s-non-position-independent-code-gcc-fpic-default-option" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>	.file	&quot;main.c&quot;
 <span class="linenos"> 2</span>	.text
 <span class="linenos"> 3</span>	.globl	msg
@@ -514,9 +427,9 @@ each object file into the program’s address space</p></li>
 <span class="linenos">40</span>	ret
 </pre></div>
 </div>
-</div>
-<div class="section" id="what-s-the-difference">
-<h2>What’s the difference?<a class="headerlink" href="#what-s-the-difference" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="what-s-the-difference">
+<h2>What’s the difference?<a class="headerlink" href="#what-s-the-difference" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">diff</span> <span class="n">main</span><span class="o">.</span><span class="n">pic</span><span class="o">.</span><span class="n">s</span> <span class="n">main</span><span class="o">.</span><span class="n">nopic</span><span class="o">.</span><span class="n">s</span>
 <span class="linenos"> 2</span><span class="mi">7</span><span class="n">c7</span>
 <span class="linenos"> 3</span><span class="o">&lt;</span> 	<span class="o">.</span><span class="n">section</span>	<span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rel</span><span class="o">.</span><span class="n">local</span><span class="p">,</span><span class="s2">&quot;aw&quot;</span>
@@ -533,9 +446,9 @@ each object file into the program’s address space</p></li>
 <span class="linenos">14</span><span class="o">&gt;</span> 	<span class="n">call</span>	<span class="n">write</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="shared-libraries-evaluation">
-<h2>Shared Libraries - Evaluation<a class="headerlink" href="#shared-libraries-evaluation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="shared-libraries-evaluation">
+<h2>Shared Libraries - Evaluation<a class="headerlink" href="#shared-libraries-evaluation" title="Permalink to this headline"></a></h2>
 <p>Strengths</p>
 <ul class="simple">
 <li><p>Reduced memory footprint. If two programs load the same shared
@@ -551,9 +464,9 @@ systems</p></li>
 have special features regarding memory offset registers or function
 table size limitations.</p></li>
 </ul>
-</div>
-<div class="section" id="static-libraries-evaluation">
-<h2>Static Libraries - Evaluation<a class="headerlink" href="#static-libraries-evaluation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="static-libraries-evaluation">
+<h2>Static Libraries - Evaluation<a class="headerlink" href="#static-libraries-evaluation" title="Permalink to this headline"></a></h2>
 <p>Strengths</p>
 <ul class="simple">
 <li><p>Makes sense when re-use is not desired. A good example would be
@@ -566,9 +479,9 @@ installer executables with very large .data segments.</p></li>
 <li><p>Much larger memory footprint. Little reuse of common code between
 applications.</p></li>
 </ul>
-</div>
-<div class="section" id="libraries-vs-statically-linked-programs">
-<h2>Libraries vs. Statically-Linked Programs<a class="headerlink" href="#libraries-vs-statically-linked-programs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="libraries-vs-statically-linked-programs">
+<h2>Libraries vs. Statically-Linked Programs<a class="headerlink" href="#libraries-vs-statically-linked-programs" title="Permalink to this headline"></a></h2>
 <p>Dynamic Linking advantages:</p>
 <ul class="simple">
 <li><p>Memory footprint</p></li>
@@ -585,9 +498,9 @@ patches and alterations to shared code)</p></li>
 <li><p>Code obfuscation can obfuscate across object files</p></li>
 <li><p>Compiler optimizers can optimize across object files</p></li>
 </ul>
-</div>
-<div class="section" id="process-protection">
-<h2>Process Protection<a class="headerlink" href="#process-protection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="process-protection">
+<h2>Process Protection<a class="headerlink" href="#process-protection" title="Permalink to this headline"></a></h2>
 <p>In modern operating systems with virtual memory and privileged
 separation the following protections are afforded:</p>
 <ul class="simple">
@@ -602,9 +515,9 @@ one process does not directly affect other processes</p></li>
 kernel memory or memory otherwise protected by the operating system
 (such as text pages).</p></li>
 </ul>
-</div>
-<div class="section" id="process-creation-with-fork">
-<h2>Process Creation with fork()<a class="headerlink" href="#process-creation-with-fork" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="process-creation-with-fork">
+<h2>Process Creation with fork()<a class="headerlink" href="#process-creation-with-fork" title="Permalink to this headline"></a></h2>
 <p>From the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> man page:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process.
@@ -621,53 +534,53 @@ referred to as the parent, except for the following points:</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns 0 to the child</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns -1 if the child cannot be created</p></li>
 </ul>
-</div>
-<div class="section" id="fork-example">
-<h2>fork() example<a class="headerlink" href="#fork-example" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="fork-example">
+<h2>fork() example<a class="headerlink" href="#fork-example" title="Permalink to this headline"></a></h2>
 <p>See <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork</span></code> if you want to run this program.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd systems-code-examples/fork
 $ cmake
 $ make
 </pre></div>
 </div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 2</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 3</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 4</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
 <span class="linenos"> 5</span>
-<span class="linenos"> 6</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-<span class="linenos"> 7</span>    <span class="kt">int</span> <span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
-<span class="linenos"> 8</span>    <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-<span class="linenos"> 9</span>    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file&quot;</span><span class="p">,</span> <span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
+<span class="linenos"> 6</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">SomeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">10</span>
-<span class="linenos">11</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">parentMessage</span> <span class="o">=</span> <span class="s">&quot;1111111&quot;</span><span class="p">;</span>
-<span class="linenos">12</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">childMessage</span> <span class="o">=</span>  <span class="s">&quot;22222222222222</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">parentMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1111111&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">12</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">childMessage</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s">&quot;22222222222222</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">13</span>
-<span class="linenos">14</span>    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-<span class="linenos">15</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the parent process, chid pid = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">);</span>
-<span class="linenos">16</span>        <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="linenos">17</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;parent&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">SomeValue</span><span class="p">);</span>
-<span class="linenos">18</span>        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">parentMessage</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">parentMessage</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
-<span class="linenos">19</span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-<span class="linenos">20</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the child process</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="linenos">21</span>        <span class="n">SomeValue</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
-<span class="linenos">22</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">SomeValue</span><span class="p">);</span>
-<span class="linenos">23</span>        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">childMessage</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">childMessage</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
-<span class="linenos">24</span>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<span class="linenos">25</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;fork() failed!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="linenos">26</span>    <span class="p">}</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">15</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the parent process, chid pid = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">16</span><span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">17</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;parent&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">SomeValue</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">18</span><span class="w">        </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">parentMessage</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">parentMessage</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">19</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">20</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello from the child process</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">21</span><span class="w">        </span><span class="n">SomeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">22</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child&#39;s SomeValue = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">SomeValue</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">23</span><span class="w">        </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">childMessage</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">childMessage</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">24</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">25</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;fork() failed!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">26</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">27</span>
-<span class="linenos">28</span>    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="linenos">28</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">29</span>
-<span class="linenos">30</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="linenos">31</span><span class="p">}</span>
+<span class="linenos">30</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">31</span><span class="p">}</span><span class="w"></span>
 <span class="linenos">32</span>
 <span class="linenos">33</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="process-creation-with-clone">
-<h2>Process Creation with clone()<a class="headerlink" href="#process-creation-with-clone" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="process-creation-with-clone">
+<h2>Process Creation with clone()<a class="headerlink" href="#process-creation-with-clone" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in that a child process is created.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> allows different parts of the parent process to be shared
@@ -685,9 +598,9 @@ with the child process</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> not present in every UNIX OS (available in Linux but not
 Minix)</p></li>
 </ul>
-</div>
-<div class="section" id="windows-createprocess-and-createthread">
-<h2>Windows CreateProcess() and CreateThread()<a class="headerlink" href="#windows-createprocess-and-createthread" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="windows-createprocess-and-createthread">
+<h2>Windows CreateProcess() and CreateThread()<a class="headerlink" href="#windows-createprocess-and-createthread" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Different from UNIX <code class="docutils literal notranslate"><span class="pre">fork()</span></code>/<code class="docutils literal notranslate"><span class="pre">clone()</span></code> - parts of processes are not
 shared</p></li>
@@ -708,9 +621,9 @@ shared</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="emulating-fork-on-windows">
-<h2>Emulating fork() on Windows<a class="headerlink" href="#emulating-fork-on-windows" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="emulating-fork-on-windows">
+<h2>Emulating fork() on Windows<a class="headerlink" href="#emulating-fork-on-windows" title="Permalink to this headline"></a></h2>
 <p>A well known system, Cygwin, implements <code class="docutils literal notranslate"><span class="pre">fork()</span></code> on Windows as follows:</p>
 <ol class="arabic simple">
 <li><p>cygwin.dll calls <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> to create a suspended child process</p></li>
@@ -729,9 +642,9 @@ signals to the child through shared memory</p></li>
 fork”. this is similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> implementations in early UNIX
 operating systems</p></li>
 </ol>
-</div>
-<div class="section" id="causes-of-process-termination">
-<h2>Causes of process termination<a class="headerlink" href="#causes-of-process-termination" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="causes-of-process-termination">
+<h2>Causes of process termination<a class="headerlink" href="#causes-of-process-termination" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Normal exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code></p></li>
 <li><p>Error exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code> with an error code</p></li>
@@ -748,85 +661,68 @@ enabling/disabling interrupts</p></li>
 <li><p>External termination by another process either through signals or
 system calls</p></li>
 </ul>
-</div>
-<div class="section" id="wait-and-waitpid-examples">
-<h2>wait() and waitpid() examples<a class="headerlink" href="#wait-and-waitpid-examples" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="wait-and-waitpid-examples">
+<h2>wait() and waitpid() examples<a class="headerlink" href="#wait-and-waitpid-examples" title="Permalink to this headline"></a></h2>
 <p>See <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> if you want to run this program.</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 2</span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 3</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 4</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 5</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
 <span class="linenos"> 6</span>
 <span class="linenos"> 7</span>
-<span class="linenos"> 8</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-<span class="linenos"> 9</span>    <span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-<span class="linenos">10</span>    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-<span class="linenos">11</span>        <span class="n">abort</span><span class="p">();</span>    <span class="c1">//child process exits</span>
-<span class="linenos">12</span>    <span class="p">}</span>
-<span class="linenos">13</span>    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
-<span class="linenos">14</span>    <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span> <span class="c1">// wait for child to exit</span>
-<span class="linenos">15</span>    <span class="k">if</span><span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-<span class="linenos">16</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;normal exit. exit code = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
-<span class="linenos">17</span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-<span class="linenos">18</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;abnormal termination, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
-<span class="linenos">19</span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">WIFSTOPPED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-<span class="linenos">20</span>        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;child stopped, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">WSTOPSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span>
-<span class="linenos">21</span>    <span class="p">}</span>
-<span class="linenos">22</span><span class="p">}</span>
+<span class="linenos"> 8</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span><span class="w"></span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">11</span><span class="w">        </span><span class="n">abort</span><span class="p">();</span><span class="w">    </span><span class="c1">//child process exits</span>
+<span class="linenos">12</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span><span class="w"> </span><span class="c1">// wait for child to exit</span>
+<span class="linenos">15</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">16</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;normal exit. exit code = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">17</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">WIFSIGNALED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">18</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;abnormal termination, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">WTERMSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">19</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">WIFSTOPPED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">20</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child stopped, signal number = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">WSTOPSIG</span><span class="p">(</span><span class="n">status</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">21</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">22</span><span class="p">}</span><span class="w"></span>
 <span class="linenos">23</span>
 <span class="linenos">24</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="files-io.html" class="btn btn-neutral float-right" title="Files and I/O" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="files-io.html" class="btn btn-neutral float-right" title="Files and I/O" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
-
-    </p>
+    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

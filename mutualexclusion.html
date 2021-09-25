@@ -1,76 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Mutual Exclusion &mdash; Operating Systems Updated 2021-07-20 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Mutual Exclusion &mdash; Operating Systems Updated 2021-09-25 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Deadlock" href="deadlock.html" />
     <link rel="prev" title="Process/Thread Scheduling" href="scheduling.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Operating Systems
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                Updated 2021-07-20
+                Updated 2021-09-25
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -78,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
@@ -147,75 +97,34 @@
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Mutual Exclusion</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/mutualexclusion.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="mutual-exclusion">
-<h1>Mutual Exclusion<a class="headerlink" href="#mutual-exclusion" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="critical-sections">
-<h2>Critical Sections<a class="headerlink" href="#critical-sections" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="mutual-exclusion">
+<h1>Mutual Exclusion<a class="headerlink" href="#mutual-exclusion" title="Permalink to this headline"></a></h1>
+<section id="critical-sections">
+<h2>Critical Sections<a class="headerlink" href="#critical-sections" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">void</span> <span class="n">increment</span><span class="p">(</span><span class="nb">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -238,9 +147,9 @@
 <li><p>Which orders can the instructions be executed in?</p></li>
 <li><p>What is the expected value of count?</p></li>
 </ul>
-</div>
-<div class="section" id="identifying-the-critical-section">
-<h2>Identifying the Critical Section<a class="headerlink" href="#identifying-the-critical-section" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="identifying-the-critical-section">
+<h2>Identifying the Critical Section<a class="headerlink" href="#identifying-the-critical-section" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>This is the critical section of the increment method</p></li>
 </ul>
@@ -253,9 +162,9 @@
 <li><p>The critical section is the section of code that only one thread may enter at one time for the program’s result to be definitely correct.</p></li>
 <li><p>In some critical sections, it is possible for more than one thread to execute at the same time, but correctness is not guaranteed.</p></li>
 </ul>
-</div>
-<div class="section" id="execution-orders-and-atomicity">
-<h2>Execution Orders and Atomicity<a class="headerlink" href="#execution-orders-and-atomicity" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="execution-orders-and-atomicity">
+<h2>Execution Orders and Atomicity<a class="headerlink" href="#execution-orders-and-atomicity" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Code for the critical section</p></li>
 </ul>
@@ -286,9 +195,9 @@
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h2>Execution Orders and Atomicity<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>Execution Orders and Atomicity<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>What are some possible execution orders for our pseudo-assembly?</p></li>
 <li><p>With two threads on two different CPUs</p></li>
@@ -319,18 +228,18 @@
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="characteristics-of-a-good-locking-solution">
-<h2>Characteristics of a Good Locking Solution<a class="headerlink" href="#characteristics-of-a-good-locking-solution" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="characteristics-of-a-good-locking-solution">
+<h2>Characteristics of a Good Locking Solution<a class="headerlink" href="#characteristics-of-a-good-locking-solution" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>No two processes may be simultaneously inside their critical section</p></li>
 <li><p>No assumptions may be made about speeds or the number of CPUs</p></li>
 <li><p>No processes running outside of its critical section may block other processes</p></li>
 <li><p>No process should have to wait forever to enter its critical section.</p></li>
 </ul>
-</div>
-<div class="section" id="achieving-atomicity-serializability">
-<h2>Achieving Atomicity / Serializability<a class="headerlink" href="#achieving-atomicity-serializability" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="achieving-atomicity-serializability">
+<h2>Achieving Atomicity / Serializability<a class="headerlink" href="#achieving-atomicity-serializability" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>There are two possible models to consider when writing programs: pessimistic locking and optimistic locking</p></li>
 <li><dl class="simple">
@@ -349,9 +258,9 @@
 </li>
 <li><p>For most frameworks and languages, pessimistic locking is the more used / accepted solution. With higher core counts and RAM sizes, optimistic locks are becoming more popular.</p></li>
 </ul>
-</div>
-<div class="section" id="types-of-pessimistic-locks">
-<h2>Types of Pessimistic Locks<a class="headerlink" href="#types-of-pessimistic-locks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="types-of-pessimistic-locks">
+<h2>Types of Pessimistic Locks<a class="headerlink" href="#types-of-pessimistic-locks" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Disabling Interrupts</p></li>
 <li><p>Strict Alternation</p></li>
@@ -360,15 +269,15 @@
 <li><p>Condition variables / monitors</p></li>
 <li><p>Reader / writer locks</p></li>
 </ul>
-</div>
-<div class="section" id="types-of-optimistic-locks">
-<h2>Types of Optimistic Locks<a class="headerlink" href="#types-of-optimistic-locks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="types-of-optimistic-locks">
+<h2>Types of Optimistic Locks<a class="headerlink" href="#types-of-optimistic-locks" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Most non-database implementations make use of some kind of software transactional memory library</p></li>
 </ul>
-</div>
-<div class="section" id="when-to-consider-optimistic-locking">
-<h2>When to Consider Optimistic Locking<a class="headerlink" href="#when-to-consider-optimistic-locking" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="when-to-consider-optimistic-locking">
+<h2>When to Consider Optimistic Locking<a class="headerlink" href="#when-to-consider-optimistic-locking" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>If your data structure is sparse.</dt><dd><ul>
@@ -388,9 +297,9 @@
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="disabling-interrupts">
-<h2>Disabling Interrupts<a class="headerlink" href="#disabling-interrupts" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="disabling-interrupts">
+<h2>Disabling Interrupts<a class="headerlink" href="#disabling-interrupts" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>This is the simplest solution to making critical sections atomic.</p></li>
 <li><p>Disabling interrupts prevents the scheduler from being invoked and therefore any code executed between disabling and enabling interrupts will be atomic.</p></li>
@@ -406,9 +315,9 @@
 </li>
 <li><p>Disabling interrupts is useful in operating system kernels to achieve mutual exclusion</p></li>
 </ul>
-</div>
-<div class="section" id="strict-alternation">
-<h2>Strict Alternation<a class="headerlink" href="#strict-alternation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="strict-alternation">
+<h2>Strict Alternation<a class="headerlink" href="#strict-alternation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>One or more processes take turns entering a critical section. This is controlled either by an external scheduler or by the use of a ‘turn’ variable.</p></li>
 <li><p>In general this is a very bad solution: basically, one process can effectively lock the other by being slow in its non critical section of code.</p></li>
@@ -429,9 +338,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="spin-locks">
-<h2>Spin Locks<a class="headerlink" href="#spin-locks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="spin-locks">
+<h2>Spin Locks<a class="headerlink" href="#spin-locks" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Spin locks allow at most one owner of the lock. If a spin lock is agreed upon for a critical section of code, then locking a spin lock before entering and unlocking after exiting will make the critical section atomic.</p></li>
 </ul>
@@ -451,9 +360,9 @@
 <li><p>This critical section is now atomic.</p></li>
 <li><p>What are the possible orders of execution now?</p></li>
 </ul>
-</div>
-<div class="section" id="spin-locks-implementation">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#spin-locks-implementation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="spin-locks-implementation">
+<h2>Spin Locks - Implementation<a class="headerlink" href="#spin-locks-implementation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Spin locks have two states: locked and not-locked.</p></li>
 <li><p>The following is a pseudo algorithm for spin_lock and spin_unlock</p></li>
@@ -475,9 +384,9 @@
 <li><p>what is the critical section in spin_lock()?</p></li>
 <li><p>will the pseudo implementation work? why? or why not?</p></li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>Spin Locks - Implementation<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The pseudo implementation will not work. Its critical section is the entire method.</p></li>
 <li><p>For example, if two threads are in spin_lock, when lock goes to 0, both threads may break out of the while loop and both set lock to 1. Then both threads would acquire the lock.</p></li>
@@ -489,9 +398,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id3">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>Spin Locks - Implementation<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>So, how do we implement test_and_set?</dt><dd><ul>
@@ -518,9 +427,9 @@
 <ul class="simple">
 <li><p>with the xchg instruction, our test and set operation is atomic</p></li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id4">
+<h2>Spin Locks - Implementation<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">unsigned</span> <span class="n">long</span> <span class="n">test_and_set</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span> <span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">unsigned</span> <span class="n">long</span> <span class="n">newval</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="n">asm</span> <span class="n">volatile</span><span class="p">(</span><span class="s2">&quot;lock: cmpxchgl %2, %0&quot;</span>
@@ -539,9 +448,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pthreads-mutex">
-<h2>Pthreads - Mutex<a class="headerlink" href="#pthreads-mutex" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pthreads-mutex">
+<h2>Pthreads - Mutex<a class="headerlink" href="#pthreads-mutex" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The pthreads library in Linux and Minix offer an efficient implementation of mutexes.</p></li>
 <li><p>Rather than wasting CPU time by ‘spinning’, the thread is put to sleep if it cannot obtain the lock immediately.</p></li>
@@ -559,9 +468,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="mutexes-in-windows">
-<h2>Mutexes in Windows<a class="headerlink" href="#mutexes-in-windows" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="mutexes-in-windows">
+<h2>Mutexes in Windows<a class="headerlink" href="#mutexes-in-windows" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Windows also provides an efficient implementation for mutexes.</p></li>
 <li><p>WaitForSingleObject locks mutexes (along with other lock primitives)</p></li>
@@ -580,18 +489,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="semaphores-some-history">
-<h2>Semaphores - some history<a class="headerlink" href="#semaphores-some-history" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="semaphores-some-history">
+<h2>Semaphores - some history<a class="headerlink" href="#semaphores-some-history" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The concept of a semaphore pre-dates the computing era.</p></li>
 <li><p>The concept of semaphores was first introduced in the railroad industry. You can still see these used on the Chicago CTA or Metra</p></li>
 <li><p>The most recent CTA derailment on the Green Line involved a semaphore</p></li>
 <li><p>Many software locking techniques owe their inspiration from rail roads and industrial automation</p></li>
 </ul>
-</div>
-<div class="section" id="semaphores">
-<h2>Semaphores<a class="headerlink" href="#semaphores" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="semaphores">
+<h2>Semaphores<a class="headerlink" href="#semaphores" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Semaphores support N-many threads entering a critical section at one time.</p></li>
 <li><dl class="simple">
@@ -620,9 +529,9 @@
 </dl>
 </li>
 </ul>
-</div>
-<div class="section" id="semaphores-implementation">
-<h2>Semaphores - Implementation<a class="headerlink" href="#semaphores-implementation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="semaphores-implementation">
+<h2>Semaphores - Implementation<a class="headerlink" href="#semaphores-implementation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Semaphores can be implemented on top of spin locksthat protect a count variable</p></li>
 </ul>
@@ -646,9 +555,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="binary-semaphores">
-<h2>Binary semaphores<a class="headerlink" href="#binary-semaphores" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="binary-semaphores">
+<h2>Binary semaphores<a class="headerlink" href="#binary-semaphores" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Emulate mutexes</p></li>
 <li><p>Initial state is 1.</p></li>
@@ -666,9 +575,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="event-semaphores">
-<h2>Event semaphores<a class="headerlink" href="#event-semaphores" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="event-semaphores">
+<h2>Event semaphores<a class="headerlink" href="#event-semaphores" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Used for signaling events.</p></li>
 <li><p>Initial value is 0</p></li>
@@ -703,9 +612,9 @@
 <li><p>consumer signals producer</p></li>
 <li><p>producer wakes back up and prints result</p></li>
 </ul>
-</div>
-<div class="section" id="id5">
-<h2>Semaphores - Implementation<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id5">
+<h2>Semaphores - Implementation<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>a good use case for semaphores is a producer / consumer problem:</p></li>
 </ul>
@@ -731,9 +640,9 @@
 <li><p>how does the producer know that the queue isn’t full (5 items)?</p></li>
 <li><p>how do we guarantee access to the queue is atomic - that queue and dequeue operations don’t interfere with each other?</p></li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h2>Semaphores - Implementation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id6">
+<h2>Semaphores - Implementation<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Bounded buffer example</dt><dd><ul>
@@ -773,9 +682,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="semaphores-reader-writer-locks">
-<h2>Semaphores - reader / writer locks<a class="headerlink" href="#semaphores-reader-writer-locks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="semaphores-reader-writer-locks">
+<h2>Semaphores - reader / writer locks<a class="headerlink" href="#semaphores-reader-writer-locks" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>In some cases, it is desirable to allow N-readers and M-writers on a shared resource.</p></li>
 <li><p>The most typical case is N-readers and 1-writer. In this case, as many threads can read a value or 1 thread may write to the value at any time</p></li>
@@ -841,9 +750,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id7">
-<h2>Semaphores - reader/writer locks<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id7">
+<h2>Semaphores - reader/writer locks<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>As you can see from the previous slide, the implementation of a reader/writer lock can be complex.</p></li>
 <li><p>Implementation details will vary depending on the conditions of the lock.</p></li>
@@ -857,9 +766,9 @@
 </li>
 <li><p>reader / writer locks can have some obscure and complex starvation / deadlock scenarios (more later)</p></li>
 </ul>
-</div>
-<div class="section" id="semaphores-pthreads">
-<h2>Semaphores - pthreads<a class="headerlink" href="#semaphores-pthreads" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="semaphores-pthreads">
+<h2>Semaphores - pthreads<a class="headerlink" href="#semaphores-pthreads" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">sem_init(sem_t</span> <span class="pre">*sem,</span> <span class="pre">int</span> <span class="pre">pshared,</span> <span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">value)</span></code></p></li>
 <li><p>sem is the semaphore</p></li>
@@ -890,9 +799,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="windows-semaphores">
-<h2>Windows - Semaphores<a class="headerlink" href="#windows-semaphores" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="windows-semaphores">
+<h2>Windows - Semaphores<a class="headerlink" href="#windows-semaphores" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Windows also provides an efficient semaphore implementation.</p></li>
 <li><p>Windows shares semaphores through names. The 4th paramenter in CreateSemaphore accepts a name. If you want to use an exising named semaphore, you call OpenSemaphore.</p></li>
@@ -910,9 +819,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="monitors-condition-variables">
-<h2>Monitors / Condition Variables<a class="headerlink" href="#monitors-condition-variables" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="monitors-condition-variables">
+<h2>Monitors / Condition Variables<a class="headerlink" href="#monitors-condition-variables" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Monitors are a higher level locking abstraction</p></li>
 <li><dl class="simple">
@@ -927,9 +836,9 @@
 </li>
 <li><p>Monitors permit much more complex locking conditions with simpler code than is possible with spin locks and semaphores in many cases</p></li>
 </ul>
-</div>
-<div class="section" id="monitors">
-<h2>Monitors<a class="headerlink" href="#monitors" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="monitors">
+<h2>Monitors<a class="headerlink" href="#monitors" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Monitor locks typically follow the following pattern:</dt><dd><ol class="arabic simple">
@@ -952,9 +861,9 @@
 <li><p>The danger with complex conditions is that you need to make sure that all threads in their while loops will at some point break out of the while loop. Otherwise your -program will freeze up.</p></li>
 <li><p>The performance for monitors is typically very good. spin locks and semaphores will outperform monitors in some cases</p></li>
 </ul>
-</div>
-<div class="section" id="monitor-bounded-buffer">
-<h2>Monitor - bounded buffer<a class="headerlink" href="#monitor-bounded-buffer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="monitor-bounded-buffer">
+<h2>Monitor - bounded buffer<a class="headerlink" href="#monitor-bounded-buffer" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Semaphore implementation:</p></li>
 </ul>
@@ -986,9 +895,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
-<h2>Monitor - bounded buffer<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id8">
+<h2>Monitor - bounded buffer<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">consumer</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">monitor</span><span class="o">-&gt;</span><span class="n">Enter</span><span class="p">();</span>
@@ -1022,9 +931,9 @@
 <ul class="simple">
 <li><p>In this example, we call pulse() before every exit. We do this because the size of the queue is changed in the critical section and may allow the other thread to operate.</p></li>
 </ul>
-</div>
-<div class="section" id="semaphore-reader-writer-lock">
-<h2>Semaphore - reader/writer lock<a class="headerlink" href="#semaphore-reader-writer-lock" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="semaphore-reader-writer-lock">
+<h2>Semaphore - reader/writer lock<a class="headerlink" href="#semaphore-reader-writer-lock" title="Permalink to this headline"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">StartWrite</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">lock</span><span class="o">-&gt;</span><span class="n">down</span><span class="p">();</span>
         <span class="k">if</span><span class="p">(</span><span class="n">activeWrite</span><span class="o">+</span><span class="n">activeRead</span><span class="o">+</span><span class="n">writeWait</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -1084,9 +993,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="monitors-reader-writer-locks">
-<h2>Monitors - Reader / Writer locks<a class="headerlink" href="#monitors-reader-writer-locks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="monitors-reader-writer-locks">
+<h2>Monitors - Reader / Writer locks<a class="headerlink" href="#monitors-reader-writer-locks" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Monitor implementation is much simpler!</p></li>
 </ul>
@@ -1132,9 +1041,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pthreads-condition-variables">
-<h2>Pthreads - Condition Variables<a class="headerlink" href="#pthreads-condition-variables" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pthreads-condition-variables">
+<h2>Pthreads - Condition Variables<a class="headerlink" href="#pthreads-condition-variables" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>pthreads uses condition variables to implement monitor like functions.</p></li>
 <li><p>to use them, you will need a mutex and a condition variable:</p></li>
@@ -1155,9 +1064,9 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="windows-condition-variables">
-<h2>Windows - Condition Variables<a class="headerlink" href="#windows-condition-variables" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="windows-condition-variables">
+<h2>Windows - Condition Variables<a class="headerlink" href="#windows-condition-variables" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Available in Windows Vista, 7, and Server 2008</p></li>
 <li><p>Condition variables use CRITICAL_SECTION like pthread’s condition variables use a mutex. In this case the object is a spin lock and not a mutex.</p></li>
@@ -1179,55 +1088,38 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="deadlock.html" class="btn btn-neutral float-right" title="Deadlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="scheduling.html" class="btn btn-neutral float-left" title="Process/Thread Scheduling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="deadlock.html" class="btn btn-neutral float-right" title="Deadlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
-
-    </p>
+    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
