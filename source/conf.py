@@ -321,7 +321,7 @@ epub_copyright = u'2013-2020, ' + authors
 
 rst_epilog = """
 
-.. |systems-code-examples-repo| replace:: `systems-code-examples on GitHub <https://github.com/gkthiruvathukal/systems-code-examples>`__
+.. |systems-code-examples-repo| replace:: `systems-code-examples on GitHub <https://github.com/SoftwareSystemsLaboratory/systems-code-examples>`__
 
 .. |systems-code-examples-url| replace:: https://github.com/gkthiruvathukal/systems-code-examples
 
