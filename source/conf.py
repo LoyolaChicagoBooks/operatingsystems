@@ -97,11 +97,11 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 html_theme = 'sphinx_rtd_theme'
 
-html_context = {
-            'css_files': [
-                    '_static/theme_overrides.css',  # override wide tables in RTD theme
-            ],
-}
+#html_context = {
+#            'css_files': [
+#                    '_static/theme_overrides.css',  # override wide tables in RTD theme
+#            ],
+#}
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
