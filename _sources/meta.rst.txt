@@ -39,7 +39,7 @@ promising we have found so far is Go, we don't think it is going to disrupt C/C+
 future. Nevertheless, early testing has shown some good performance!
 
 C/C++ Examples
-   https://github.com/gkthiruvathukal/systems-code-examples.git
+   https://github.com/SoftwareSystemsLaboratory/systems-code-examples.git
 
 Java Examples
    https://github.com/LoyolaChicagoCode/hpjpc-source-java.git
