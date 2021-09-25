@@ -27,7 +27,7 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #922247" >
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
@@ -50,61 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Memory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#what-is-virtual-memory">What is Virtual Memory?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#memory-management-units">Memory Management Units</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pages-and-page-tables">Pages and Page Tables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Pages and Page Tables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Pages and Page Tables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#whats-in-a-page-table-entry">What’s in a Page Table Entry?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#page-table-entries">Page Table Entries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Page Table Entries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#two-level-page-table-thanks-wikipedia">Two Level Page Table (thanks Wikipedia)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mmu-address-translation-algorithm">MMU - Address Translation Algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#page-faults">Page Faults</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#page-faults-unix">Page Faults - UNIX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#page-faults-windows">Page Faults - Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#page-replacement-swapping">Page Replacement / Swapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">Page Replacement / Swapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">Page Replacement / Swapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms">Swapper Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-page-classification">Swapper Algorithms - Page Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-nru">Swapper Algorithms - NRU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-fifo">Swapper Algorithms - FIFO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-second-chance-fifo">Swapper Algorithms - Second Chance FIFO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-clock">Swapper Algorithms - Clock</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-lru">Swapper Algorithms - LRU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-lru-nfu">Swapper Algorithms - LRU/NFU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#swapper-algorithms-lru-nfu-aging">Swapper Algorithms - LRU/NFU - Aging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">Swapper Algorithms - LRU/NFU - Aging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#beladys-anomoly">Belady’s Anomoly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#beladys-anomoly-thanks-wikipedia">Belady’s Anomoly (thanks Wikipedia)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">Belady’s Anomoly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#modeling-page-replacement">Modeling Page Replacement</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">Modeling Page Replacement</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#modeling-lru">Modeling LRU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">Modeling LRU</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#modeling-distance-strings">Modeling - Distance Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">Modeling - Distance Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">Modeling - Distance Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#design-considerations-for-paging-systems">Design Considerations for Paging Systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#working-sets">Working Sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#taking-advantage-of-locality">Taking Advantage of Locality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#costs-of-paging-different-page-classes">Costs of Paging Different Page Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">Costs of Paging Different Page Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id13">Costs of Paging Different Page Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#local-vs-global-paging">Local vs Global Paging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#page-locking">Page Locking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cow-copy-on-write">COW: Copy on Write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">COW: Copy on Write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#backing-store">Backing Store</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hibernation">Hibernation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vm-performance-hot-memory">VM Performance - Hot Memory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id15">Modeling - Distance Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#summary-page-fault-handling">Summary: Page Fault Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id16">Summary: Page Fault Handling</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
@@ -117,13 +63,13 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>

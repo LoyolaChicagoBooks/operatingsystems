@@ -26,7 +26,7 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #922247" >
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
@@ -50,53 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Userland Memory Management</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#why-userland-memory-management">Why Userland Memory Management?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Why Userland Memory Management?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#heap-management">Heap Management</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-heap">The Heap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-memory-manager">The Memory Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#characteristics-of-memory-allocation">Characteristics of Memory Allocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Characteristics of Memory Allocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#characteristics-of-a-good-memory-manager">Characteristics of a Good Memory Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-refresher-on-the-memory-hierarchy">A Refresher on the Memory Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#program-locality">Program Locality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#fragmentation">Fragmentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reducing-fragmentation-of-the-heap">Reducing Fragmentation of the Heap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#best-fit-vs-next-fit">Best-Fit vs Next-Fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#best-fit">Best-Fit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#managing-free-space">Managing Free Space</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bugs-and-explicit-allocators">Bugs and Explicit Allocators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#debugging-malloc-free">Debugging malloc / free</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#expanding-the-heap">Expanding the Heap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#recommended-reading">Recommended Reading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#problems-with-manual-deallocation">Problems with manual deallocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Problems with manual deallocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#avoiding-problems-with-manual-deallocation">Avoiding problems with manual deallocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works">A simple Malloc / Free Implementation (Example from IBM Developer Works)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-simple-malloc-free-implementation">A simple Malloc / Free Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">A simple Malloc / Free Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">A simple Malloc / Free Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">A simple Malloc / Free Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#garbage-collection">Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#requirements-for-garbage-collectors">Requirements for Garbage Collectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#goals-for-a-garbage-collector">Goals for a Garbage Collector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#disadvantages-to-garbage-collection">Disadvantages to Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">Disadvantages to Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reachability">Reachability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reference-counting-garbage-collectors">Reference Counting Garbage Collectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pros-cons-of-reference-counting-garbage-collectors">Pros-Cons of Reference Counting Garbage Collectors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mark-and-sweep-garbage-collection">Mark-and-Sweep Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mark-and-compact-garbage-collection">Mark-and-Compact Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#garbage-collection-costs">Garbage Collection Costs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#incremental-garbage-collection">Incremental Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">Incremental Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#generational-garbage-collection">Generational Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">Generational Garbage Collection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#buyer-beware">Buyer Beware</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
@@ -108,13 +62,13 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>

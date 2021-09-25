@@ -26,7 +26,7 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #922247" >
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
@@ -45,41 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Process/Thread Scheduling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#kernel-mode-vs-user-mode">Kernel Mode vs. User Mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#interrupts">Interrupts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hardware-interrupts-pc-architecture">Hardware Interrupts - PC Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hardware-interrupts-sources">Hardware Interrupts - Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#software-interrupts">Software Interrupts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#goals-of-a-process-scheduler">Goals of a Process Scheduler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#types-of-scheduling-strategies">Types of Scheduling Strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#os-support">OS Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#types-of-processes-to-schedule">Types of Processes to Schedule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#preemptive-scheduling-key-terms">Preemptive Scheduling Key Terms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#process-states">Process states</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#choosing-a-quantum">Choosing a Quantum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#context-switches">Context Switches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#context-switching-how-it-works">Context switching - How it works</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#degrees-of-preemption">Degrees of Preemption</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#round-robin-process-scheduling">Round - Robin Process Scheduling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scheduling-with-multiple-queues">Scheduling with Multiple Queues</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#real-time-schedulers">Real-time Schedulers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-real-world-rts-problem">Example Real World RTS Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#solution-to-example-real-world-rts-problem">Solution to Example Real World RTS Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#types-of-real-time-scheduler-implementations">Types of Real-Time Scheduler Implementations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#additional-concerns-in-advanced-scheduler-implementations">Additional Concerns in Advanced Scheduler Implementations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#process-priority-and-scheduling-in-linux">Process Priority and Scheduling in Linux</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#linux-real-time-scheduler">Linux Real Time Scheduler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#linux-preemptive-scheduler">Linux Preemptive Scheduler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#nice-values">Nice Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#process-scheduling-in-windows">Process Scheduling in Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user-mode-schedulers">User-Mode Schedulers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user-mode-threads-why">User-Mode Threads: Why?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#user-mode-threads-why-not">User-Mode Threads: Why Not?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gnu-pth-user-mode-pthreads">GNU - Pth - User Mode Pthreads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pthreads-kernel-threads">PThreads - Kernel Threads</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Process/Thread Scheduling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
@@ -96,13 +62,13 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>

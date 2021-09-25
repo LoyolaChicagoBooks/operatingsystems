@@ -26,7 +26,7 @@
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+        <div class="wy-side-nav-search"  style="background: #922247" >
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
@@ -48,62 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">IPC Topics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ipc-performance-hierarchy">IPC Performance Hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pipes">Pipes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Pipes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pipes-linux">Pipes - Linux</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pipes-context-switches">Pipes - Context Switches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#named-pipes-fifos">Named Pipes / FIFOs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-usage-of-a-regular-pipe-in-linux">Example usage of a regular pipe in Linux</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#named-pipes-common-usages">Named Pipes - Common Usages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#named-pipes-atomic-reads-writes">Named Pipes - Atomic Reads / Writes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#signals">Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#list-of-important-signals">List of Important Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#handling-signals-example">Handling Signals - Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sending-signals-example">Sending Signals - Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#signals-interrupted-system-calls">Signals - Interrupted System Calls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#signals-reentrant-functions">Signals - Reentrant Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Signals - Reentrant Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#signals-sending-in-code">Signals - Sending In Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-implementing-sleep-with-alarm">Example - implementing sleep() with alarm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example-better-sleep-implementation">Example - “better” sleep implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#demonstrating-the-sleepfor-problem">Demonstrating the sleepFor problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#history-of-sleep-and-why-signals-are-scary">History of sleep and why signals are scary.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-uses-for-alarm">Other uses for alarm(…)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#memory-mapped-files">Memory Mapped Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Memory Mapped Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">Memory Mapped Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#memory-mapped-files-virtual-addresses">Memory Mapped Files - Virtual Addresses</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#absolute-memory-addressing">Absolute Memory Addressing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#relative-memory-addressing">Relative Memory Addressing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#linux-minix-use-of-mmap">Linux / Minix - Use of mmap()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mmap-simple-example">mmap - simple example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">mmap - simple example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#memory-mapped-files-atomicity">Memory Mapped Files - Atomicity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#memory-mapped-files-bounded-buffer">Memory Mapped Files - Bounded Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">Memory Mapped Files - Bounded Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">Memory Mapped Files - Bounded Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">Memory Mapped Files - Bounded Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">Memory Mapped Files - Bounded Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">Memory Mapped Files - Bounded Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#memory-mapped-files-fast-i-o">Memory Mapped Files - Fast I/O</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">Memory Mapped Files - Fast I/O</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#files-ipc">Files - IPC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#files-exposing-current-state">Files - Exposing Current State</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#spool-folders">Spool Folders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#spool-folders-cron">Spool Folders - Cron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#spool-folders-cups">Spool Folders - CUPS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lock-files">Lock Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#doors">Doors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#server-code">Server Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#client-code">Client Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#domain-sockets">Domain Sockets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#domain-sockets-example">Domain Sockets - Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id13">Domain Sockets - Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">Domain Sockets - Example</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IPC Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
@@ -117,13 +62,13 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Operating Systems</a>
       </nav>
 
       <div class="wy-nav-content">
-        <div class="rst-content">
+        <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
