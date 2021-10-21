@@ -246,7 +246,7 @@ main.nopic.s - non-position independent code (gcc -fno-pic)
    :end-before: cfi_endproc
 
 
-main.nopic.s - non-position independent code (gcc -fpic, default option)
+main.nopic.s - position independent code (gcc -fpic, default option)
 ---------------------------------------------------------------------------
 
 .. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/main.pic.s
