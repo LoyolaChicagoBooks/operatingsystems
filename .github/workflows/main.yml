@@ -45,6 +45,7 @@ jobs:
 
       - name: Get Version Info
         run: |
+          git tag
           ./get-current-version.sh
 
       - name: Generate HTML
