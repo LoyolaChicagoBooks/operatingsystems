@@ -45,6 +45,12 @@ jobs:
           make html
           echo os.cs.luc.edu > build/html/CNAME
 
+      - name: Generate PDF via LaTeX
+      - uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            make latexpdf
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
