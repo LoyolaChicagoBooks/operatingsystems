@@ -45,10 +45,17 @@ jobs:
           make html
           echo os.cs.luc.edu > build/html/CNAME
 
-
       - name: Generate LaTeX
         run: |
           make latex
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: |
+            build/latex
+          root_file: |
+            OperatingSystems.tex
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
