@@ -50,12 +50,11 @@ jobs:
           make latex
 
       - name: Compile LaTeX
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/texlive-action/full@v1
         with:
-          working_directory: |
-            build/latex
-          root_file: |
-            OperatingSystems.tex
+          run: |
+            apk add make
+            make -C build/latex
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
