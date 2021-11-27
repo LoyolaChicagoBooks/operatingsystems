@@ -43,6 +43,10 @@ jobs:
         run: |
           ./get-code-examples.sh
 
+      - name: Get Version Info
+        run: |
+          ./get-current-version.sh
+
       - name: Generate HTML
         run: |
           make html
