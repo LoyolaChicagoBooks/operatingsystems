@@ -11,7 +11,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys, os, os.path
 from datetime import date
 
 
@@ -52,7 +52,15 @@ copyright = u'2013-2020, ' + authors
 #
 # The short X.Y version.
 #version = 'v0.1'
-version = date.today().strftime("%Y-%m-%d")
+version_info = []
+if os.path.exists('../get-current-version.sh'):
+    with os.popen('../get-current-version.sh') as osp:
+        git_version = osp.read().strip()
+    version_info.append(git_version)
+version_info.append(date.today().strftime("%d %b %Y"))
+
+version = " - ".join(version_info)
+
 # The full version, including alpha/beta/rc tags.
 release = version
 
