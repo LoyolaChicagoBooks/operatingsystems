@@ -41,12 +41,7 @@ jobs:
 
       - name: Get Code Examples
         run: |
-          ./get-code-examples.sh
-
-      - name: Get Version Info
-        run: |
-          git tag
-          ./get-current-version.sh
+          ./bin/get-code-examples.sh
 
       - name: Generate HTML
         run: |
