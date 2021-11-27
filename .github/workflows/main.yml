@@ -36,9 +36,6 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements.txt
 
-      - name: Install TeXLive Essentials for Sphinx
-        run: apt install help2man texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texinfo
-
       - name: Get Code Examples
         run: |
           ./get-code-examples.sh
@@ -48,9 +45,10 @@ jobs:
           make html
           echo os.cs.luc.edu > build/html/CNAME
 
-      - name: Generate PDF
+
+      - name: Generate LaTeX
         run: |
-          make latexpdf
+          make latex
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
