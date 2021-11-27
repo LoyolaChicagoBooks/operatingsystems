@@ -49,6 +49,7 @@ jobs:
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
+            apk add make
             make latexpdf
 
       - name: Deploy
