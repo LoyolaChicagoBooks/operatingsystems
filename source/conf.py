@@ -52,7 +52,7 @@ copyright = u'2013-2020, ' + authors
 #
 # The short X.Y version.
 #version = 'v0.1'
-version = date.today().strftime("Updated %Y-%m-%d")
+version = date.today().strftime("%Y-%m-%d")
 # The full version, including alpha/beta/rc tags.
 release = version
 
