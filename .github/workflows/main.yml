@@ -46,7 +46,7 @@ jobs:
           echo os.cs.luc.edu > build/html/CNAME
 
       - name: Generate PDF via LaTeX
-      - uses: xu-cheng/texlive-action/full@v1
+        uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
             make latexpdf
