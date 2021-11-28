@@ -39,33 +39,33 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements.txt
 
-      - name: Get Code Examples
+      - name: Get Code Examples for Sphinx literalincludes
         run: |
           ./bin/get-code-examples.sh
 
-      - name: Generate HTML
+      - name: Generate HTML using Sphinx
         run: |
           make html
           echo os.cs.luc.edu > build/html/CNAME
 
-      - name: Generate LaTeX
+      - name: Generate LaTeX using Sphinx
         run: |
           make latex
 
-      - name: Compile LaTeX
+      - name: make latexpdf via TeXLive
         uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
             apk add make
             make -C build/latex
 
-      - name: Deploy
+      - name: Publish HTML to GitHub Pages 
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/html
 
-      - name: Release
+      - name: Publish PDF to GitHub Releases
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
