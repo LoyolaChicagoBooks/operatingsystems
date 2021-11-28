@@ -1,5 +1,4 @@
-# Action was shamelessly copied from here: https://stackoverflow.com/a/64311970
-name: github pages
+name: GitHub Pages and Release PDF
 
 on:
   push:
