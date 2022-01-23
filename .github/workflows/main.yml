@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -37,10 +40,6 @@ jobs:
 
       - name: Install dependencies
         run: python3 -m pip install -r ./requirements.txt
-
-      - name: Get Code Examples for Sphinx literalincludes
-        run: |
-          ./bin/get-code-examples.sh
 
       - name: Generate HTML using Sphinx
         run: |
