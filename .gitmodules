@@ -1,6 +1,3 @@
-[submodule "examples/googletest-mva"]
-	path = examples/googletest-mva
-	url = https://github.com/gkthiruvathukal/googletest-mva.git
 [submodule "examples/hpjpc"]
 	path = examples/hpjpc
 	url = https://github.com/LoyolaChicagoCode/hpjpc-source-java.git
