@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Process/Thread Scheduling &mdash; Operating Systems 28 Nov 2021 documentation</title>
+  <title>Process/Thread Scheduling &mdash; Operating Systems 23 Jan 2022 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
-                28 Nov 2021
+                23 Jan 2022
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -904,9 +904,9 @@ kernel cannot return immediately (blocking call)</p></li>
 <span class="linenos">38</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
 <span class="linenos">39</span><span class="p">{</span><span class="w"></span>
 <span class="linenos">40</span><span class="w">    </span><span class="n">pth_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">41</span><span class="w">    </span><span class="k">struct</span> <span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">sar</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">42</span><span class="w">    </span><span class="k">struct</span> <span class="nc">protoent</span><span class="w"> </span><span class="o">*</span><span class="n">pe</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">43</span><span class="w">    </span><span class="k">struct</span> <span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">peer_addr</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">41</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">sar</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">42</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">protoent</span><span class="w"> </span><span class="o">*</span><span class="n">pe</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">43</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">peer_addr</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">44</span><span class="w">    </span><span class="kt">socklen_t</span><span class="w"> </span><span class="n">peer_len</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">45</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">46</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">port</span><span class="p">;</span><span class="w"></span>
@@ -926,12 +926,12 @@ kernel cannot return immediately (blocking call)</p></li>
 <span class="linenos">60</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_INET</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">61</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INADDR_ANY</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">62</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">htons</span><span class="p">(</span><span class="n">port</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">63</span><span class="w">    </span><span class="n">bind</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sar</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr_in</span><span class="p">));</span><span class="w"></span>
+<span class="linenos">63</span><span class="w">    </span><span class="n">bind</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sar</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="p">));</span><span class="w"></span>
 <span class="linenos">64</span><span class="w">    </span><span class="n">listen</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">65</span>
 <span class="linenos">66</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_NAME</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;handler&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">67</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">68</span><span class="w">        </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pth_accept</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">peer_addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peer_len</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">68</span><span class="w">        </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pth_accept</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">peer_addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peer_len</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">69</span><span class="w">        </span><span class="n">pth_spawn</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sw</span><span class="p">);</span><span class="w"></span>
 <span class="linenos">70</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="linenos">71</span>
@@ -959,12 +959,12 @@ kernel cannot return immediately (blocking call)</p></li>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span><span class="cp">#define NUM_THREADS     5</span>
 <span class="linenos">11</span>
-<span class="linenos">12</span><span class="k">struct</span> <span class="nc">thread_data</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">12</span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos">13</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">14</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">square</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">15</span><span class="p">};</span><span class="w"></span>
 <span class="linenos">16</span>
-<span class="linenos">17</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">thread_data</span><span class="w"> </span><span class="n">thread_data_t</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">17</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="n">thread_data_t</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">18</span>
 <span class="linenos">19</span>
 <span class="linenos">20</span>

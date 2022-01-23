@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Final Exam Prep &mdash; Operating Systems 28 Nov 2021 documentation</title>
+  <title>Final Exam Prep &mdash; Operating Systems 23 Jan 2022 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
-                28 Nov 2021
+                23 Jan 2022
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -121,13 +121,13 @@
 <li><p>Is it safe to use pointers in memory mapped regions? Why?</p></li>
 <li><p>Re-write these structs so that they’ll work properly with memory mapped files:</p></li>
 </ol>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos"> 2</span><span class="w">    </span><span class="kt">char</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="w"> </span><span class="n">Brand</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 3</span><span class="w">    </span><span class="kt">char</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">TractionRating</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 4</span><span class="w">    </span><span class="kt">char</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">SpeedRating</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 5</span><span class="p">}</span><span class="w"> </span><span class="n">Wheel</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="p">{</span><span class="w"></span>
+<span class="linenos"> 7</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="linenos"> 8</span><span class="w">    </span><span class="n">Wheel</span><span class="o">*</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="n">Wheels</span><span class="p">;</span><span class="w"></span>
 <span class="linenos"> 9</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">Make</span><span class="p">;</span><span class="w"></span>
 <span class="linenos">10</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">Model</span><span class="p">;</span><span class="w"></span>

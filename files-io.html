@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Files and I/O &mdash; Operating Systems 28 Nov 2021 documentation</title>
+  <title>Files and I/O &mdash; Operating Systems 23 Jan 2022 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> Operating Systems
           </a>
               <div class="version">
-                28 Nov 2021
+                23 Jan 2022
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -587,7 +587,7 @@ command line (sometimes to combine them)</p></li>
 <span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="kt">DIR</span><span class="w"> </span><span class="o">*</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opendir</span><span class="p">(</span><span class="n">dir</span><span class="p">);</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">struct</span> <span class="nc">dirent</span><span class="w"> </span><span class="o">*</span><span class="n">de</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">dirent</span><span class="w"> </span><span class="o">*</span><span class="n">de</span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="k">while</span><span class="p">((</span><span class="n">de</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readdir</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;name %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">de</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
@@ -670,7 +670,7 @@ look deeper into storage topics.</p></li>
 <span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">struct</span> <span class="nc">iovec</span><span class="w"> </span><span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">iovec</span><span class="w"> </span><span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
 <span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data1</span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data1</span><span class="p">);</span><span class="w"></span>
 <span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data2</span><span class="p">;</span><span class="w"></span>
