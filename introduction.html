@@ -1,46 +1,79 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; Operating Systems 23 Jan 2022 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction to Processes" href="processes.html" />
-    <link rel="prev" title="About the Book" href="meta.html" /> 
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>Introduction | Operating Systems: updated 18 May 2023</title>
+<meta content="Introduction | Operating Systems: updated 18 May 2023" property="og:title"/>
+<meta content="Introduction | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="processes.html" rel="next" title="Introduction to Processes"/>
+<link href="meta.html" rel="prev" title="About the Book"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #922247" >
-            <a href="index.html" class="icon icon-home"> Operating Systems
-          </a>
-              <div class="version">
-                23 Jan 2022
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none">
+<form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+      K
+    </kbd>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<nav class="flex items-center space-x-1">
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
@@ -57,38 +90,34 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Operating Systems</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Introduction</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+</nav>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Introduction</span>
+</nav>
+<div id="content" role="main">
+<section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
 <section id="crash-course-on-the-unix-shell">
-<h2>Crash Course on the UNIX Shell<a class="headerlink" href="#crash-course-on-the-unix-shell" title="Permalink to this headline"></a></h2>
+<h2>Crash Course on the UNIX Shell<a class="headerlink" href="#crash-course-on-the-unix-shell" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#crash-course-on-the-unix-shell'">¶</a></h2>
 </section>
 <section id="bin-bash">
-<h2>/bin/bash<a class="headerlink" href="#bin-bash" title="Permalink to this headline"></a></h2>
+<h2>/bin/bash<a class="headerlink" href="#bin-bash" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#bin-bash'">¶</a></h2>
 <p>print the contents of a file to standard out:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat file
 </pre></div>
@@ -116,10 +145,10 @@ $ touch {file1,file2,file3}
 <p>Be careful. Many operations can be <em>destructive</em> if you are not careful.</p>
 </section>
 <section id="more-useful-commands">
-<h2>more useful commands<a class="headerlink" href="#more-useful-commands" title="Permalink to this headline"></a></h2>
+<h2>more useful commands<a class="headerlink" href="#more-useful-commands" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#more-useful-commands'">¶</a></h2>
 <p>print text to the console:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo &quot;hello world&quot;
-$ echo -e &quot;hello\t\t world\n&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo "hello world"
+$ echo -e "hello\t\t world\n"
 </pre></div>
 </div>
 <p>read the contents of a file, one screen at a time:</p>
@@ -127,13 +156,13 @@ $ echo -e &quot;hello\t\t world\n&quot;
 </pre></div>
 </div>
 <p>search a file for some text:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep &quot;hello world&quot; file1.txt
-$ grep -e &quot;hello.* d&quot; file1.txt
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep "hello world" file1.txt
+$ grep -e "hello.* d" file1.txt
 </pre></div>
 </div>
 </section>
 <section id="files-and-folders">
-<h2>Files and Folders<a class="headerlink" href="#files-and-folders" title="Permalink to this headline"></a></h2>
+<h2>Files and Folders<a class="headerlink" href="#files-and-folders" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#files-and-folders'">¶</a></h2>
 <p>creating files:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">file1</span>
 </pre></div>
@@ -161,7 +190,7 @@ $ rm file2
 </div>
 </section>
 <section id="unix-file-permissions">
-<h2>UNIX file permissions<a class="headerlink" href="#unix-file-permissions" title="Permalink to this headline"></a></h2>
+<h2>UNIX file permissions<a class="headerlink" href="#unix-file-permissions" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#unix-file-permissions'">¶</a></h2>
 <ul class="simple">
 <li><p>UNIX files have a concept of access permissions and ownership</p></li>
 <li><p>ownership is to a user and a user’s group</p></li>
@@ -173,7 +202,7 @@ but not listed.</p></li>
 </ul>
 </section>
 <section id="id1">
-<h2>UNIX file permissions<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>UNIX file permissions<a class="headerlink" href="#id1" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
 <p>changing the user / group ownership of a file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chown username:users file1
 </pre></div>
@@ -196,9 +225,9 @@ but not listed.</p></li>
 </div>
 </section>
 <section id="combining-commands">
-<h2>Combining commands<a class="headerlink" href="#combining-commands" title="Permalink to this headline"></a></h2>
+<h2>Combining commands<a class="headerlink" href="#combining-commands" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#combining-commands'">¶</a></h2>
 <p>searching two files for a pattern, then writing the results to a report:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat {file1, file2} | grep -e &quot;Hello.*&quot; » report.txt
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat {file1, file2} | grep -e "Hello.*" » report.txt
 </pre></div>
 </div>
 <p>counting the number of lines in two files and printing result to console:</p>
@@ -206,17 +235,17 @@ but not listed.</p></li>
 </pre></div>
 </div>
 <p>executing the second command only if the first succeeds:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat file1 | grep -e &quot;Hello.*&quot; &amp;&amp; echo &quot;found a match!&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat file1 | grep -e "Hello.*" &amp;&amp; echo "found a match!"
 </pre></div>
 </div>
 <p>taking the output of one command as an argument for another:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep &quot;Hello&quot; `ls *.txt`
-$ echo &quot;result: &quot; `cat file1 | wc -l`
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep "Hello" `ls *.txt`
+$ echo "result: " `cat file1 | wc -l`
 </pre></div>
 </div>
 </section>
 <section id="backround-processes-and-jobs">
-<h2>Backround Processes and Jobs<a class="headerlink" href="#backround-processes-and-jobs" title="Permalink to this headline"></a></h2>
+<h2>Backround Processes and Jobs<a class="headerlink" href="#backround-processes-and-jobs" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#backround-processes-and-jobs'">¶</a></h2>
 <ul class="simple">
 <li><p>if you’re running a long running process and want to send suspended
 it to the background, just press <cite>Ctrl+z</cite></p></li>
@@ -239,7 +268,7 @@ tail -f logfile.log
 </div>
 </section>
 <section id="background-processes">
-<h2>Background Processes<a class="headerlink" href="#background-processes" title="Permalink to this headline"></a></h2>
+<h2>Background Processes<a class="headerlink" href="#background-processes" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#background-processes'">¶</a></h2>
 <ul class="simple">
 <li><p>Background processes will allow you to make the most of the machine
 you have available to you.</p></li>
@@ -251,10 +280,10 @@ become garbled.</p></li>
 </ul>
 </section>
 <section id="crash-course-on-unix-editors">
-<h2>Crash Course on UNIX Editors<a class="headerlink" href="#crash-course-on-unix-editors" title="Permalink to this headline"></a></h2>
+<h2>Crash Course on UNIX Editors<a class="headerlink" href="#crash-course-on-unix-editors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#crash-course-on-unix-editors'">¶</a></h2>
 </section>
 <section id="choosing-an-editor">
-<h2>Choosing an Editor<a class="headerlink" href="#choosing-an-editor" title="Permalink to this headline"></a></h2>
+<h2>Choosing an Editor<a class="headerlink" href="#choosing-an-editor" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#choosing-an-editor'">¶</a></h2>
 <ul class="simple">
 <li><p>In Minix, your choices are limited. More ideal choices like
 MonoDevelop, gedit, Eclipse, or Intellij-Idea are not present.</p></li>
@@ -267,14 +296,14 @@ each his/her own.</p></li>
 </ul>
 </section>
 <section id="crash-course-in-c-programming">
-<h2>Crash Course in C Programming<a class="headerlink" href="#crash-course-in-c-programming" title="Permalink to this headline"></a></h2>
+<h2>Crash Course in C Programming<a class="headerlink" href="#crash-course-in-c-programming" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#crash-course-in-c-programming'">¶</a></h2>
 </section>
 <section id="c-hello-world">
-<h2>C - Hello World<a class="headerlink" href="#c-hello-world" title="Permalink to this headline"></a></h2>
+<h2>C - Hello World<a class="headerlink" href="#c-hello-world" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-hello-world'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include «stdio.h»</span>
 
 <span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;Hello world</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">"Hello world</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
    <span class="n">getchar</span><span class="p">();</span>
    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -282,12 +311,12 @@ each his/her own.</p></li>
 </div>
 </section>
 <section id="c-header-files">
-<h2>C - header files<a class="headerlink" href="#c-header-files" title="Permalink to this headline"></a></h2>
-<table class="colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">List of Important Header Files</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<h2>C - header files<a class="headerlink" href="#c-header-files" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-header-files'">¶</a></h2>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">List of Important Header Files</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 81%" />
+<col style="width: 19%"/>
+<col style="width: 81%"/>
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Filename</p></th>
@@ -341,7 +370,7 @@ each his/her own.</p></li>
 </table>
 </section>
 <section id="c-operator-precedence-highest-to-lowest">
-<h2>C - operator precedence (highest to lowest)<a class="headerlink" href="#c-operator-precedence-highest-to-lowest" title="Permalink to this headline"></a></h2>
+<h2>C - operator precedence (highest to lowest)<a class="headerlink" href="#c-operator-precedence-highest-to-lowest" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-operator-precedence-highest-to-lowest'">¶</a></h2>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>, <code class="docutils literal notranslate"><span class="pre">.</span></code>, <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">++</span></code> (postfix) , <code class="docutils literal notranslate"><span class="pre">--</span></code> (postfix)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">++</span></code> (prefix), <code class="docutils literal notranslate"><span class="pre">--</span></code> (prefix), <code class="docutils literal notranslate"><span class="pre">+</span></code> (unary), <code class="docutils literal notranslate"><span class="pre">-</span></code> (unary), <code class="docutils literal notranslate"><span class="pre">!</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, (type), <code class="docutils literal notranslate"><span class="pre">*</span></code> (dereference), <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (address-of), sizeof</p></li>
@@ -361,7 +390,7 @@ each his/her own.</p></li>
 </ol>
 </section>
 <section id="c-type-declaration">
-<h2>C - type declaration<a class="headerlink" href="#c-type-declaration" title="Permalink to this headline"></a></h2>
+<h2>C - type declaration<a class="headerlink" href="#c-type-declaration" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-type-declaration'">¶</a></h2>
 <p>simple types:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">uint</span><span class="p">;</span>
 <span class="n">typedef</span> <span class="n">unsigned</span> <span class="n">long</span> <span class="n">file_size</span><span class="p">;</span>
@@ -381,7 +410,7 @@ each his/her own.</p></li>
 </div>
 </section>
 <section id="c-type-casting">
-<h2>C - type casting<a class="headerlink" href="#c-type-casting" title="Permalink to this headline"></a></h2>
+<h2>C - type casting<a class="headerlink" href="#c-type-casting" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-type-casting'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">x</span> <span class="o">=</span> <span class="mf">2.2</span><span class="p">;</span>
 <span class="nb">int</span> <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">x</span><span class="p">;</span>         <span class="o">//</span> <span class="n">y</span> <span class="n">now</span> <span class="n">has</span> <span class="n">the</span> <span class="n">value</span> <span class="mf">2.</span> <span class="n">loss</span> <span class="n">of</span> <span class="n">precision</span>
 <span class="nb">int</span> <span class="n">z</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="mf">4.2</span><span class="p">;</span>      <span class="o">//</span> <span class="mf">2.5</span> <span class="ow">and</span> <span class="mf">4.2</span> <span class="n">are</span> <span class="n">floats</span><span class="p">,</span> <span class="n">they</span> <span class="n">multiply</span> <span class="k">as</span> <span class="nb">float</span>
@@ -396,21 +425,21 @@ each his/her own.</p></li>
 </div>
 </section>
 <section id="c-chacater-strings-arrays">
-<h2>C - chacater strings (arrays)<a class="headerlink" href="#c-chacater-strings-arrays" title="Permalink to this headline"></a></h2>
+<h2>C - chacater strings (arrays)<a class="headerlink" href="#c-chacater-strings-arrays" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-chacater-strings-arrays'">¶</a></h2>
 <ul class="simple">
 <li><p>Strings in C are implemented as <em>arrays</em> of type char.</p></li>
 <li><p>Strings are all null terminated.</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">World&quot;</span></code> would be the following array:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">"Hello</span> <span class="pre">World"</span></code> would be the following array:</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">'H',</span> <span class="pre">'e',</span> <span class="pre">'l',</span> <span class="pre">'l',</span> <span class="pre">'o',</span> <span class="pre">'</span> <span class="pre">',</span> <span class="pre">'W',</span> <span class="pre">'o',</span> <span class="pre">'r',</span> <span class="pre">'l',</span> <span class="pre">'d',</span> <span class="pre">0</span> <span class="pre">}</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">strlen(&quot;Hello</span> <span class="pre">World&quot;)</span></code> returns 11, and uses 12 bytes of memory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strlen("Hello</span> <span class="pre">World")</span></code> returns 11, and uses 12 bytes of memory</p></li>
 <li><p>When allocating space for a string, always allocate one extra byte to store the null terminator.</p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="c-memory-management">
-<h2>C - memory management<a class="headerlink" href="#c-memory-management" title="Permalink to this headline"></a></h2>
+<h2>C - memory management<a class="headerlink" href="#c-memory-management" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-memory-management'">¶</a></h2>
 <ul class="simple">
 <li><p>Most C implementations do not have garbage collectors. All memory
 management is done explicitly</p></li>
@@ -422,10 +451,10 @@ the heap.</p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include «stdio.h»</span>
 
 <span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-   <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">;</span>
+   <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s2">"Hello world"</span><span class="p">;</span>
    <span class="n">char</span> <span class="o">*</span><span class="n">msg2</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="o">*</span> <span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
    <span class="n">strncpy</span><span class="p">(</span><span class="n">msg2</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
-   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">msg2</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">msg2</span><span class="p">);</span>
    <span class="n">free</span><span class="p">(</span><span class="n">msg2</span><span class="p">);</span>
    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
@@ -433,7 +462,7 @@ the heap.</p></li>
 </div>
 </section>
 <section id="c-pointers">
-<h2>C - pointers<a class="headerlink" href="#c-pointers" title="Permalink to this headline"></a></h2>
+<h2>C - pointers<a class="headerlink" href="#c-pointers" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-pointers'">¶</a></h2>
 <ul class="simple">
 <li><p>Two important keywords in C are ‘*’ and ‘&amp;’</p></li>
 <li><ul>
@@ -459,7 +488,7 @@ the heap.</p></li>
 </div>
 </section>
 <section id="id2">
-<h2>C - pointers<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>C - pointers<a class="headerlink" href="#id2" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
    <span class="nb">int</span> <span class="n">a</span><span class="p">;</span>
    <span class="nb">int</span> <span class="n">b</span><span class="p">;</span>
@@ -467,14 +496,14 @@ the heap.</p></li>
 
 <span class="n">foobar</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">foobar</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">sizeof</span><span class="p">(</span><span class="n">foobar</span><span class="p">));</span>
 
-<span class="n">x</span><span class="o">-&gt;</span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>             <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">&#39;-&gt;&#39;</span> <span class="n">because</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">address</span>
+<span class="n">x</span><span class="o">-&gt;</span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>             <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">'-&gt;'</span> <span class="n">because</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">address</span>
 <span class="n">x</span><span class="o">-&gt;</span><span class="n">b</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 
 <span class="n">foobar</span> <span class="n">y</span><span class="p">;</span>
-<span class="n">y</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>              <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">&#39;.&#39;</span> <span class="n">because</span> <span class="n">y</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">value</span> <span class="nb">type</span>
+<span class="n">y</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>              <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">'.'</span> <span class="n">because</span> <span class="n">y</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">value</span> <span class="nb">type</span>
 <span class="n">y</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
 
-<span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>          <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">&#39;.&#39;</span> <span class="n">because</span> <span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">dereferenced</span> <span class="n">pointer</span>
+<span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>          <span class="o">//</span> <span class="n">here</span> <span class="n">we</span> <span class="n">use</span> <span class="s1">'.'</span> <span class="n">because</span> <span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">dereferenced</span> <span class="n">pointer</span>
                        <span class="o">//</span> <span class="ow">and</span> <span class="n">therefore</span> <span class="n">a</span> <span class="n">value</span> <span class="nb">type</span>
 
 <span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
@@ -482,7 +511,7 @@ the heap.</p></li>
 </div>
 </section>
 <section id="id3">
-<h2>C - pointers<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2>C - pointers<a class="headerlink" href="#id3" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">x</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>   <span class="o">//</span> <span class="n">auto</span><span class="o">-</span><span class="n">initialized</span> <span class="n">array</span> <span class="n">of</span> <span class="mi">5</span> <span class="n">elements</span>
 <span class="nb">int</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>           <span class="o">//</span> <span class="n">address</span> <span class="n">of</span> <span class="n">first</span> <span class="n">element</span>
 <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>                    <span class="o">//</span> <span class="n">address</span> <span class="n">of</span> <span class="n">second</span> <span class="n">element</span>
@@ -490,13 +519,13 @@ the heap.</p></li>
 <span class="o">*</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>            <span class="o">//</span> <span class="n">value</span> <span class="n">of</span> <span class="mi">3</span><span class="n">rd</span> <span class="n">element</span> <span class="ow">is</span> <span class="n">now</span> <span class="mi">20</span>
 
 <span class="k">for</span> <span class="p">(</span><span class="nb">int</span><span class="o">*</span> <span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="o">*</span><span class="n">b</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="c-functions">
-<h2>C - functions<a class="headerlink" href="#c-functions" title="Permalink to this headline"></a></h2>
+<h2>C - functions<a class="headerlink" href="#c-functions" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-functions'">¶</a></h2>
 <ul class="simple">
 <li><p>in C, functions have a name, return type, and parameter list</p></li>
 <li><p>since C is a single pass compiler, the definition of a function must
@@ -509,7 +538,7 @@ appear before the reference to the function:</p></li>
 <span class="p">}</span>
 
 <span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;2+2=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">"2+2=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -518,7 +547,7 @@ first use:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">);</span>
 
 <span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;2+2=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">"2+2=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
 <span class="p">}</span>
 
 <span class="nb">int</span> <span class="n">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
@@ -529,7 +558,7 @@ first use:</p>
 </div>
 </section>
 <section id="c-functions-headers">
-<h2>C - functions / headers<a class="headerlink" href="#c-functions-headers" title="Permalink to this headline"></a></h2>
+<h2>C - functions / headers<a class="headerlink" href="#c-functions-headers" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-functions-headers'">¶</a></h2>
 <ul class="simple">
 <li><p>A good place to put function declarations is in a .h or .hh file</p></li>
 <li><p>Since C is a single pass compiler, you have to take some care to make sure that a header is not read twice. macros help with this:</p></li>
@@ -546,7 +575,7 @@ first use:</p>
 </div>
 </section>
 <section id="c-macros">
-<h2>C - macros<a class="headerlink" href="#c-macros" title="Permalink to this headline"></a></h2>
+<h2>C - macros<a class="headerlink" href="#c-macros" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#c-macros'">¶</a></h2>
 <ul class="simple">
 <li><p>C has a macro preprocessor. C processes the source file and expands
 all macros and then compiles the expanded source</p></li>
@@ -585,7 +614,7 @@ all macros and then compiles the expanded source</p></li>
 </div>
 </section>
 <section id="crash-course-on-gcc">
-<h2>Crash course on GCC<a class="headerlink" href="#crash-course-on-gcc" title="Permalink to this headline"></a></h2>
+<h2>Crash course on GCC<a class="headerlink" href="#crash-course-on-gcc" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#crash-course-on-gcc'">¶</a></h2>
 <ul class="simple">
 <li><p>GCC is the GNU Compiler Collection</p></li>
 <li><p>Several languages exist: C, C++, ADA, Fortran, Java, Objective-C, and Go</p></li>
@@ -593,7 +622,7 @@ all macros and then compiles the expanded source</p></li>
 </ul>
 </section>
 <section id="where-to-find-it">
-<h2>Where to find it?<a class="headerlink" href="#where-to-find-it" title="Permalink to this headline"></a></h2>
+<h2>Where to find it?<a class="headerlink" href="#where-to-find-it" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#where-to-find-it'">¶</a></h2>
 <p>You’ll want to make sure both of these commands are available:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ which gcc
 /usr/bin/gcc
@@ -611,21 +640,21 @@ $ which make
 <p>These topics are covered in COMP 141 (Tools course).</p>
 </section>
 <section id="installing-on-ubuntu">
-<h2>Installing on Ubuntu<a class="headerlink" href="#installing-on-ubuntu" title="Permalink to this headline"></a></h2>
+<h2>Installing on Ubuntu<a class="headerlink" href="#installing-on-ubuntu" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#installing-on-ubuntu'">¶</a></h2>
 <dl class="simple">
 <dt>::</dt><dd><p>apt install build-essential</p>
 </dd>
 </dl>
 </section>
 <section id="os-x">
-<h2>OS X<a class="headerlink" href="#os-x" title="Permalink to this headline"></a></h2>
+<h2>OS X<a class="headerlink" href="#os-x" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#os-x'">¶</a></h2>
 <ul class="simple">
 <li><p>Has a mostly working <cite>gcc</cite> setup via Xcode</p></li>
 <li><p>Use Homebrew to install <cite>gcc</cite>, <cite>make</cite>, and more current versions of open source software.</p></li>
 </ul>
 </section>
 <section id="compiling-c-with-gcc">
-<h2>Compiling C with GCC<a class="headerlink" href="#compiling-c-with-gcc" title="Permalink to this headline"></a></h2>
+<h2>Compiling C with GCC<a class="headerlink" href="#compiling-c-with-gcc" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#compiling-c-with-gcc'">¶</a></h2>
 <ul class="simple">
 <li><p>Compilation with GCC has two phases:
 - source to object file translation (compilation)
@@ -646,7 +675,7 @@ $ gcc -c helper.c -o helper.o
 </div>
 </section>
 <section id="accessing-assembly-code-with-gcc">
-<h2>Accessing assembly code with GCC<a class="headerlink" href="#accessing-assembly-code-with-gcc" title="Permalink to this headline"></a></h2>
+<h2>Accessing assembly code with GCC<a class="headerlink" href="#accessing-assembly-code-with-gcc" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#accessing-assembly-code-with-gcc'">¶</a></h2>
 <ul class="simple">
 <li><p>Modern compilers have several phases. GCC has a:</p>
 <ol class="arabic simple">
@@ -669,7 +698,7 @@ $ gcc -c helper.c -o helper.o
 </ul>
 </section>
 <section id="useful-options-in-gcc-designed-to-help-you">
-<h2>Useful options in GCC (designed to <em>help</em> you)<a class="headerlink" href="#useful-options-in-gcc-designed-to-help-you" title="Permalink to this headline"></a></h2>
+<h2>Useful options in GCC (designed to <em>help</em> you)<a class="headerlink" href="#useful-options-in-gcc-designed-to-help-you" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#useful-options-in-gcc-designed-to-help-you'">¶</a></h2>
 <ul class="simple">
 <li><p>-Wall : makes GCC print all language warnings</p></li>
 <li><p>-O2: for the linker, turns on the optimizer</p></li>
@@ -679,7 +708,7 @@ $ gcc -c helper.c -o helper.o
 </ul>
 </section>
 <section id="crash-course-on-gnu-makefiles">
-<h2>Crash Course on GNU Makefiles<a class="headerlink" href="#crash-course-on-gnu-makefiles" title="Permalink to this headline"></a></h2>
+<h2>Crash Course on GNU Makefiles<a class="headerlink" href="#crash-course-on-gnu-makefiles" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#crash-course-on-gnu-makefiles'">¶</a></h2>
 <ul>
 <li><p>A makefile is a list of rules. Each rule contains:
 - a target
@@ -700,7 +729,7 @@ MonoDevelop, and Eclipse and is required for developing <em>in the large</em>.</
 </ul>
 </section>
 <section id="simple-makefile-example">
-<h2>Simple makefile example<a class="headerlink" href="#simple-makefile-example" title="Permalink to this headline"></a></h2>
+<h2>Simple makefile example<a class="headerlink" href="#simple-makefile-example" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#simple-makefile-example'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CC=/usr/pkg/bin/g++
 CFLAGS= -g -Wall -I.
 LINKFLAGS= -g -Wall
@@ -728,7 +757,7 @@ clean:
 </div>
 </section>
 <section id="running-makefiles">
-<h2>Running makefiles<a class="headerlink" href="#running-makefiles" title="Permalink to this headline"></a></h2>
+<h2>Running makefiles<a class="headerlink" href="#running-makefiles" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#running-makefiles'">¶</a></h2>
 <ul class="simple">
 <li><p>Makefiles are run with the <code class="docutils literal notranslate"><span class="pre">make</span></code> command.</p></li>
 <li><p>The make command will parse the Makefile and build what is not built
@@ -740,7 +769,7 @@ taking dependencies into account</p></li>
 </ul>
 </section>
 <section id="history-of-operating-systems">
-<h2>History of Operating Systems<a class="headerlink" href="#history-of-operating-systems" title="Permalink to this headline"></a></h2>
+<h2>History of Operating Systems<a class="headerlink" href="#history-of-operating-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#history-of-operating-systems'">¶</a></h2>
 <p>What is an Operating System?</p>
 <ul class="simple">
 <li><p>An image of the machine to a program
@@ -759,7 +788,7 @@ library</p></li>
 </ul>
 </section>
 <section id="first-generation-operating-systems">
-<h2>First Generation Operating Systems<a class="headerlink" href="#first-generation-operating-systems" title="Permalink to this headline"></a></h2>
+<h2>First Generation Operating Systems<a class="headerlink" href="#first-generation-operating-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#first-generation-operating-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>Single program machines</p></li>
 <li><p>Vacuum tubes, plug boards, punch cards</p></li>
@@ -772,7 +801,7 @@ library</p></li>
 </ul>
 </section>
 <section id="second-generation-systems">
-<h2>Second Generation Systems<a class="headerlink" href="#second-generation-systems" title="Permalink to this headline"></a></h2>
+<h2>Second Generation Systems<a class="headerlink" href="#second-generation-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#second-generation-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>1950s - 1960s</p></li>
 <li><p>Introduction of transistors</p></li>
@@ -785,7 +814,7 @@ library</p></li>
 </ul>
 </section>
 <section id="third-generation-systems">
-<h2>Third Generation Systems<a class="headerlink" href="#third-generation-systems" title="Permalink to this headline"></a></h2>
+<h2>Third Generation Systems<a class="headerlink" href="#third-generation-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#third-generation-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>1960s - 1980s</p></li>
 <li><p>Integrated circuits</p></li>
@@ -798,7 +827,7 @@ be paused and allow another job to run
 </ul>
 </section>
 <section id="fourth-generation-systems">
-<h2>Fourth Generation Systems<a class="headerlink" href="#fourth-generation-systems" title="Permalink to this headline"></a></h2>
+<h2>Fourth Generation Systems<a class="headerlink" href="#fourth-generation-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fourth-generation-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>1980s - present</p></li>
 <li><p>LSI / VLSI - integrated circuits</p></li>
@@ -811,7 +840,7 @@ be paused and allow another job to run
 </ul>
 </section>
 <section id="history-of-windows-nt-xp-vista-7">
-<h2>History of Windows NT/XP/Vista/7<a class="headerlink" href="#history-of-windows-nt-xp-vista-7" title="Permalink to this headline"></a></h2>
+<h2>History of Windows NT/XP/Vista/7<a class="headerlink" href="#history-of-windows-nt-xp-vista-7" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#history-of-windows-nt-xp-vista-7'">¶</a></h2>
 <ul class="simple">
 <li><p>Windows NT 3/4
 - NT 3.1 was first created as a direct competitor to OS/2
@@ -879,7 +908,7 @@ was kept available</p></li>
 </ul>
 </section>
 <section id="history-of-linux">
-<h2>History of Linux<a class="headerlink" href="#history-of-linux" title="Permalink to this headline"></a></h2>
+<h2>History of Linux<a class="headerlink" href="#history-of-linux" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#history-of-linux'">¶</a></h2>
 <ul class="simple">
 <li><p>89 - 93 – 0.x:
 - Inspired by Dr. Tanenbaum’s Minix operating system.
@@ -921,7 +950,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="types-of-computer-systems">
-<h2>Types of computer systems<a class="headerlink" href="#types-of-computer-systems" title="Permalink to this headline"></a></h2>
+<h2>Types of computer systems<a class="headerlink" href="#types-of-computer-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-computer-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>batch processing</p></li>
 <li><p>personal / parallel computers</p></li>
@@ -934,7 +963,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="batch-processing-systems">
-<h2>batch processing systems<a class="headerlink" href="#batch-processing-systems" title="Permalink to this headline"></a></h2>
+<h2>batch processing systems<a class="headerlink" href="#batch-processing-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#batch-processing-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>very typical of early systems</p></li>
 <li><p>offline processing</p></li>
@@ -947,7 +976,7 @@ improvement based on NTFS progress
 <p>Batch systems remain important, especially in CPU-bound environments where predictable performance is a requirement.</p>
 </section>
 <section id="time-sharing-systems">
-<h2>time sharing systems<a class="headerlink" href="#time-sharing-systems" title="Permalink to this headline"></a></h2>
+<h2>time sharing systems<a class="headerlink" href="#time-sharing-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#time-sharing-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>multiple users share the computer simultaneously</p></li>
 <li><p>operating system gives a small portion of CPU time to each user</p></li>
@@ -956,7 +985,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="personal-parallel-computers">
-<h2>personal / parallel computers<a class="headerlink" href="#personal-parallel-computers" title="Permalink to this headline"></a></h2>
+<h2>personal / parallel computers<a class="headerlink" href="#personal-parallel-computers" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#personal-parallel-computers'">¶</a></h2>
 <ul class="simple">
 <li><p>used to be the case that personal and parallel computers were in a different category</p></li>
 <li><p>machine has many CPUs. ranges from as few as two to as many as 64</p></li>
@@ -968,7 +997,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="clusters-clouds-grids">
-<h2>clusters / clouds / grids<a class="headerlink" href="#clusters-clouds-grids" title="Permalink to this headline"></a></h2>
+<h2>clusters / clouds / grids<a class="headerlink" href="#clusters-clouds-grids" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#clusters-clouds-grids'">¶</a></h2>
 <ul class="simple">
 <li><p>alternative to parallel systems</p></li>
 <li><p>clusters
@@ -985,13 +1014,13 @@ improvement based on NTFS progress
 <li><p>grids - typically universities, volunteer computing</p>
 <ul>
 <li><p>not all at one location, perhaps across the internet</p></li>
-<li><p>donation of idle CPU time - SETI, <a class="reference external" href="mailto:Folding&#37;&#52;&#48;Home">Folding<span>&#64;</span>Home</a>, etc…</p></li>
+<li><p>donation of idle CPU time - SETI, <a class="reference external" href="mailto:Folding%40Home">Folding<span>@</span>Home</a>, etc…</p></li>
 </ul>
 </li>
 </ul>
 </section>
 <section id="types-of-operating-systems">
-<h2>Types of operating systems<a class="headerlink" href="#types-of-operating-systems" title="Permalink to this headline"></a></h2>
+<h2>Types of operating systems<a class="headerlink" href="#types-of-operating-systems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-operating-systems'">¶</a></h2>
 <ul class="simple">
 <li><p>Single program / OS</p></li>
 <li><p>Real - time</p></li>
@@ -1001,7 +1030,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="single-program-simple-os">
-<h2>Single program / simple OS<a class="headerlink" href="#single-program-simple-os" title="Permalink to this headline"></a></h2>
+<h2>Single program / simple OS<a class="headerlink" href="#single-program-simple-os" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#single-program-simple-os'">¶</a></h2>
 <ul class="simple">
 <li><p>Usually exist for single purpose computers such as older cellular phones, industrial machinery, automobiles, ATMs, older cash registers, etc…</p></li>
 <li><p>Composed of either</p>
@@ -1016,7 +1045,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="real-time-os">
-<h2>Real-time OS<a class="headerlink" href="#real-time-os" title="Permalink to this headline"></a></h2>
+<h2>Real-time OS<a class="headerlink" href="#real-time-os" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#real-time-os'">¶</a></h2>
 <ul class="simple">
 <li><p>Used where application’s most important concern is completing a task on a deadline and at regular intervals rather than performance
 - Sensor measurement / scanners, especially medical
@@ -1031,7 +1060,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="microkernel-os">
-<h2>Microkernel OS<a class="headerlink" href="#microkernel-os" title="Permalink to this headline"></a></h2>
+<h2>Microkernel OS<a class="headerlink" href="#microkernel-os" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#microkernel-os'">¶</a></h2>
 <ul class="simple">
 <li><p>Basic operating system services including swapper, driver management, process scheduling, and system call handlers are separated into N kernel processes that pass messages to each other through the microkernel</p></li>
 <li><p>Microkernel is very small</p></li>
@@ -1044,7 +1073,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="monolithic-kernel-os">
-<h2>Monolithic Kernel OS<a class="headerlink" href="#monolithic-kernel-os" title="Permalink to this headline"></a></h2>
+<h2>Monolithic Kernel OS<a class="headerlink" href="#monolithic-kernel-os" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#monolithic-kernel-os'">¶</a></h2>
 <ul class="simple">
 <li><p>Single kernel process that manages swapper, drivers, system calls, etc…</p></li>
 <li><p>Examples:
@@ -1056,7 +1085,7 @@ improvement based on NTFS progress
 </ul>
 </section>
 <section id="distributed-os">
-<h2>Distributed OS<a class="headerlink" href="#distributed-os" title="Permalink to this headline"></a></h2>
+<h2>Distributed OS<a class="headerlink" href="#distributed-os" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#distributed-os'">¶</a></h2>
 <ul class="simple">
 <li><p>Presents to an application a single system image of more than one
 computer on a network</p></li>
@@ -1070,36 +1099,74 @@ libraries outside of the operating system</p></li>
 </ul>
 </section>
 </section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="meta.html" class="btn btn-neutral float-left" title="About the Book" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="processes.html" class="btn btn-neutral float-right" title="Introduction to Processes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#crash-course-on-the-unix-shell'" class="reference internal" href="#crash-course-on-the-unix-shell">Crash Course on the UNIX Shell</a></li>
+<li><a :data-current="activeSection === '#bin-bash'" class="reference internal" href="#bin-bash">/bin/bash</a></li>
+<li><a :data-current="activeSection === '#more-useful-commands'" class="reference internal" href="#more-useful-commands">more useful commands</a></li>
+<li><a :data-current="activeSection === '#files-and-folders'" class="reference internal" href="#files-and-folders">Files and Folders</a></li>
+<li><a :data-current="activeSection === '#unix-file-permissions'" class="reference internal" href="#unix-file-permissions">UNIX file permissions</a></li>
+<li><a :data-current="activeSection === '#id1'" class="reference internal" href="#id1">UNIX file permissions</a></li>
+<li><a :data-current="activeSection === '#combining-commands'" class="reference internal" href="#combining-commands">Combining commands</a></li>
+<li><a :data-current="activeSection === '#backround-processes-and-jobs'" class="reference internal" href="#backround-processes-and-jobs">Backround Processes and Jobs</a></li>
+<li><a :data-current="activeSection === '#background-processes'" class="reference internal" href="#background-processes">Background Processes</a></li>
+<li><a :data-current="activeSection === '#crash-course-on-unix-editors'" class="reference internal" href="#crash-course-on-unix-editors">Crash Course on UNIX Editors</a></li>
+<li><a :data-current="activeSection === '#choosing-an-editor'" class="reference internal" href="#choosing-an-editor">Choosing an Editor</a></li>
+<li><a :data-current="activeSection === '#crash-course-in-c-programming'" class="reference internal" href="#crash-course-in-c-programming">Crash Course in C Programming</a></li>
+<li><a :data-current="activeSection === '#c-hello-world'" class="reference internal" href="#c-hello-world">C - Hello World</a></li>
+<li><a :data-current="activeSection === '#c-header-files'" class="reference internal" href="#c-header-files">C - header files</a></li>
+<li><a :data-current="activeSection === '#c-operator-precedence-highest-to-lowest'" class="reference internal" href="#c-operator-precedence-highest-to-lowest">C - operator precedence (highest to lowest)</a></li>
+<li><a :data-current="activeSection === '#c-type-declaration'" class="reference internal" href="#c-type-declaration">C - type declaration</a></li>
+<li><a :data-current="activeSection === '#c-type-casting'" class="reference internal" href="#c-type-casting">C - type casting</a></li>
+<li><a :data-current="activeSection === '#c-chacater-strings-arrays'" class="reference internal" href="#c-chacater-strings-arrays">C - chacater strings (arrays)</a></li>
+<li><a :data-current="activeSection === '#c-memory-management'" class="reference internal" href="#c-memory-management">C - memory management</a></li>
+<li><a :data-current="activeSection === '#c-pointers'" class="reference internal" href="#c-pointers">C - pointers</a></li>
+<li><a :data-current="activeSection === '#id2'" class="reference internal" href="#id2">C - pointers</a></li>
+<li><a :data-current="activeSection === '#id3'" class="reference internal" href="#id3">C - pointers</a></li>
+<li><a :data-current="activeSection === '#c-functions'" class="reference internal" href="#c-functions">C - functions</a></li>
+<li><a :data-current="activeSection === '#c-functions-headers'" class="reference internal" href="#c-functions-headers">C - functions / headers</a></li>
+<li><a :data-current="activeSection === '#c-macros'" class="reference internal" href="#c-macros">C - macros</a></li>
+<li><a :data-current="activeSection === '#crash-course-on-gcc'" class="reference internal" href="#crash-course-on-gcc">Crash course on GCC</a></li>
+<li><a :data-current="activeSection === '#where-to-find-it'" class="reference internal" href="#where-to-find-it">Where to find it?</a></li>
+<li><a :data-current="activeSection === '#installing-on-ubuntu'" class="reference internal" href="#installing-on-ubuntu">Installing on Ubuntu</a></li>
+<li><a :data-current="activeSection === '#os-x'" class="reference internal" href="#os-x">OS X</a></li>
+<li><a :data-current="activeSection === '#compiling-c-with-gcc'" class="reference internal" href="#compiling-c-with-gcc">Compiling C with GCC</a></li>
+<li><a :data-current="activeSection === '#accessing-assembly-code-with-gcc'" class="reference internal" href="#accessing-assembly-code-with-gcc">Accessing assembly code with GCC</a></li>
+<li><a :data-current="activeSection === '#useful-options-in-gcc-designed-to-help-you'" class="reference internal" href="#useful-options-in-gcc-designed-to-help-you">Useful options in GCC (designed to <em>help</em> you)</a></li>
+<li><a :data-current="activeSection === '#crash-course-on-gnu-makefiles'" class="reference internal" href="#crash-course-on-gnu-makefiles">Crash Course on GNU Makefiles</a></li>
+<li><a :data-current="activeSection === '#simple-makefile-example'" class="reference internal" href="#simple-makefile-example">Simple makefile example</a></li>
+<li><a :data-current="activeSection === '#running-makefiles'" class="reference internal" href="#running-makefiles">Running makefiles</a></li>
+<li><a :data-current="activeSection === '#history-of-operating-systems'" class="reference internal" href="#history-of-operating-systems">History of Operating Systems</a></li>
+<li><a :data-current="activeSection === '#first-generation-operating-systems'" class="reference internal" href="#first-generation-operating-systems">First Generation Operating Systems</a></li>
+<li><a :data-current="activeSection === '#second-generation-systems'" class="reference internal" href="#second-generation-systems">Second Generation Systems</a></li>
+<li><a :data-current="activeSection === '#third-generation-systems'" class="reference internal" href="#third-generation-systems">Third Generation Systems</a></li>
+<li><a :data-current="activeSection === '#fourth-generation-systems'" class="reference internal" href="#fourth-generation-systems">Fourth Generation Systems</a></li>
+<li><a :data-current="activeSection === '#history-of-windows-nt-xp-vista-7'" class="reference internal" href="#history-of-windows-nt-xp-vista-7">History of Windows NT/XP/Vista/7</a></li>
+<li><a :data-current="activeSection === '#history-of-linux'" class="reference internal" href="#history-of-linux">History of Linux</a></li>
+<li><a :data-current="activeSection === '#types-of-computer-systems'" class="reference internal" href="#types-of-computer-systems">Types of computer systems</a></li>
+<li><a :data-current="activeSection === '#batch-processing-systems'" class="reference internal" href="#batch-processing-systems">batch processing systems</a></li>
+<li><a :data-current="activeSection === '#time-sharing-systems'" class="reference internal" href="#time-sharing-systems">time sharing systems</a></li>
+<li><a :data-current="activeSection === '#personal-parallel-computers'" class="reference internal" href="#personal-parallel-computers">personal / parallel computers</a></li>
+<li><a :data-current="activeSection === '#clusters-clouds-grids'" class="reference internal" href="#clusters-clouds-grids">clusters / clouds / grids</a></li>
+<li><a :data-current="activeSection === '#types-of-operating-systems'" class="reference internal" href="#types-of-operating-systems">Types of operating systems</a></li>
+<li><a :data-current="activeSection === '#single-program-simple-os'" class="reference internal" href="#single-program-simple-os">Single program / simple OS</a></li>
+<li><a :data-current="activeSection === '#real-time-os'" class="reference internal" href="#real-time-os">Real-time OS</a></li>
+<li><a :data-current="activeSection === '#microkernel-os'" class="reference internal" href="#microkernel-os">Microkernel OS</a></li>
+<li><a :data-current="activeSection === '#monolithic-kernel-os'" class="reference internal" href="#monolithic-kernel-os">Monolithic Kernel OS</a></li>
+<li><a :data-current="activeSection === '#distributed-os'" class="reference internal" href="#distributed-os">Distributed OS</a></li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+</div>
+</div>
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
+</div>
 </body>
 </html>

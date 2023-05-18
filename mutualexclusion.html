@@ -1,46 +1,79 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mutual Exclusion &mdash; Operating Systems 23 Jan 2022 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Deadlock" href="deadlock.html" />
-    <link rel="prev" title="Process/Thread Scheduling" href="scheduling.html" /> 
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>Mutual Exclusion | Operating Systems: updated 18 May 2023</title>
+<meta content="Mutual Exclusion | Operating Systems: updated 18 May 2023" property="og:title"/>
+<meta content="Mutual Exclusion | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="deadlock.html" rel="next" title="Deadlock"/>
+<link href="scheduling.html" rel="prev" title="Process/Thread Scheduling"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #922247" >
-            <a href="index.html" class="icon icon-home"> Operating Systems
-          </a>
-              <div class="version">
-                23 Jan 2022
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none">
+<form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+      K
+    </kbd>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<nav class="flex items-center space-x-1">
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
@@ -57,35 +90,31 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Operating Systems</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Mutual Exclusion</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/mutualexclusion.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+</nav>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="mutual-exclusion">
-<h1>Mutual Exclusion<a class="headerlink" href="#mutual-exclusion" title="Permalink to this headline"></a></h1>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Mutual Exclusion</span>
+</nav>
+<div id="content" role="main">
+<section id="mutual-exclusion">
+<h1>Mutual Exclusion<a class="headerlink" href="#mutual-exclusion" title="Permalink to this heading">¶</a></h1>
 <section id="critical-sections">
-<h2>Critical Sections<a class="headerlink" href="#critical-sections" title="Permalink to this headline"></a></h2>
+<h2>Critical Sections<a class="headerlink" href="#critical-sections" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#critical-sections'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">void</span> <span class="n">increment</span><span class="p">(</span><span class="nb">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -110,7 +139,7 @@
 </ul>
 </section>
 <section id="identifying-the-critical-section">
-<h2>Identifying the Critical Section<a class="headerlink" href="#identifying-the-critical-section" title="Permalink to this headline"></a></h2>
+<h2>Identifying the Critical Section<a class="headerlink" href="#identifying-the-critical-section" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#identifying-the-critical-section'">¶</a></h2>
 <ul class="simple">
 <li><p>This is the critical section of the increment method</p></li>
 </ul>
@@ -125,7 +154,7 @@
 </ul>
 </section>
 <section id="execution-orders-and-atomicity">
-<h2>Execution Orders and Atomicity<a class="headerlink" href="#execution-orders-and-atomicity" title="Permalink to this headline"></a></h2>
+<h2>Execution Orders and Atomicity<a class="headerlink" href="#execution-orders-and-atomicity" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#execution-orders-and-atomicity'">¶</a></h2>
 <ul class="simple">
 <li><p>Code for the critical section</p></li>
 </ul>
@@ -158,7 +187,7 @@
 </ul>
 </section>
 <section id="id1">
-<h2>Execution Orders and Atomicity<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>Execution Orders and Atomicity<a class="headerlink" href="#id1" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
 <ul class="simple">
 <li><p>What are some possible execution orders for our pseudo-assembly?</p></li>
 <li><p>With two threads on two different CPUs</p></li>
@@ -191,7 +220,7 @@
 </ul>
 </section>
 <section id="characteristics-of-a-good-locking-solution">
-<h2>Characteristics of a Good Locking Solution<a class="headerlink" href="#characteristics-of-a-good-locking-solution" title="Permalink to this headline"></a></h2>
+<h2>Characteristics of a Good Locking Solution<a class="headerlink" href="#characteristics-of-a-good-locking-solution" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#characteristics-of-a-good-locking-solution'">¶</a></h2>
 <ul class="simple">
 <li><p>No two processes may be simultaneously inside their critical section</p></li>
 <li><p>No assumptions may be made about speeds or the number of CPUs</p></li>
@@ -200,7 +229,7 @@
 </ul>
 </section>
 <section id="achieving-atomicity-serializability">
-<h2>Achieving Atomicity / Serializability<a class="headerlink" href="#achieving-atomicity-serializability" title="Permalink to this headline"></a></h2>
+<h2>Achieving Atomicity / Serializability<a class="headerlink" href="#achieving-atomicity-serializability" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#achieving-atomicity-serializability'">¶</a></h2>
 <ul class="simple">
 <li><p>There are two possible models to consider when writing programs: pessimistic locking and optimistic locking</p></li>
 <li><dl class="simple">
@@ -221,7 +250,7 @@
 </ul>
 </section>
 <section id="types-of-pessimistic-locks">
-<h2>Types of Pessimistic Locks<a class="headerlink" href="#types-of-pessimistic-locks" title="Permalink to this headline"></a></h2>
+<h2>Types of Pessimistic Locks<a class="headerlink" href="#types-of-pessimistic-locks" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-pessimistic-locks'">¶</a></h2>
 <ul class="simple">
 <li><p>Disabling Interrupts</p></li>
 <li><p>Strict Alternation</p></li>
@@ -232,13 +261,13 @@
 </ul>
 </section>
 <section id="types-of-optimistic-locks">
-<h2>Types of Optimistic Locks<a class="headerlink" href="#types-of-optimistic-locks" title="Permalink to this headline"></a></h2>
+<h2>Types of Optimistic Locks<a class="headerlink" href="#types-of-optimistic-locks" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-optimistic-locks'">¶</a></h2>
 <ul class="simple">
 <li><p>Most non-database implementations make use of some kind of software transactional memory library</p></li>
 </ul>
 </section>
 <section id="when-to-consider-optimistic-locking">
-<h2>When to Consider Optimistic Locking<a class="headerlink" href="#when-to-consider-optimistic-locking" title="Permalink to this headline"></a></h2>
+<h2>When to Consider Optimistic Locking<a class="headerlink" href="#when-to-consider-optimistic-locking" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#when-to-consider-optimistic-locking'">¶</a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>If your data structure is sparse.</dt><dd><ul>
@@ -260,7 +289,7 @@
 </ul>
 </section>
 <section id="disabling-interrupts">
-<h2>Disabling Interrupts<a class="headerlink" href="#disabling-interrupts" title="Permalink to this headline"></a></h2>
+<h2>Disabling Interrupts<a class="headerlink" href="#disabling-interrupts" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#disabling-interrupts'">¶</a></h2>
 <ul class="simple">
 <li><p>This is the simplest solution to making critical sections atomic.</p></li>
 <li><p>Disabling interrupts prevents the scheduler from being invoked and therefore any code executed between disabling and enabling interrupts will be atomic.</p></li>
@@ -278,7 +307,7 @@
 </ul>
 </section>
 <section id="strict-alternation">
-<h2>Strict Alternation<a class="headerlink" href="#strict-alternation" title="Permalink to this headline"></a></h2>
+<h2>Strict Alternation<a class="headerlink" href="#strict-alternation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#strict-alternation'">¶</a></h2>
 <ul class="simple">
 <li><p>One or more processes take turns entering a critical section. This is controlled either by an external scheduler or by the use of a ‘turn’ variable.</p></li>
 <li><p>In general this is a very bad solution: basically, one process can effectively lock the other by being slow in its non critical section of code.</p></li>
@@ -301,7 +330,7 @@
 </div>
 </section>
 <section id="spin-locks">
-<h2>Spin Locks<a class="headerlink" href="#spin-locks" title="Permalink to this headline"></a></h2>
+<h2>Spin Locks<a class="headerlink" href="#spin-locks" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#spin-locks'">¶</a></h2>
 <ul class="simple">
 <li><p>Spin locks allow at most one owner of the lock. If a spin lock is agreed upon for a critical section of code, then locking a spin lock before entering and unlocking after exiting will make the critical section atomic.</p></li>
 </ul>
@@ -323,7 +352,7 @@
 </ul>
 </section>
 <section id="spin-locks-implementation">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#spin-locks-implementation" title="Permalink to this headline"></a></h2>
+<h2>Spin Locks - Implementation<a class="headerlink" href="#spin-locks-implementation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#spin-locks-implementation'">¶</a></h2>
 <ul class="simple">
 <li><p>Spin locks have two states: locked and not-locked.</p></li>
 <li><p>The following is a pseudo algorithm for spin_lock and spin_unlock</p></li>
@@ -347,7 +376,7 @@
 </ul>
 </section>
 <section id="id2">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>Spin Locks - Implementation<a class="headerlink" href="#id2" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
 <ul class="simple">
 <li><p>The pseudo implementation will not work. Its critical section is the entire method.</p></li>
 <li><p>For example, if two threads are in spin_lock, when lock goes to 0, both threads may break out of the while loop and both set lock to 1. Then both threads would acquire the lock.</p></li>
@@ -361,7 +390,7 @@
 </div>
 </section>
 <section id="id3">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2>Spin Locks - Implementation<a class="headerlink" href="#id3" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>So, how do we implement test_and_set?</dt><dd><ul>
@@ -390,13 +419,13 @@
 </ul>
 </section>
 <section id="id4">
-<h2>Spin Locks - Implementation<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2>Spin Locks - Implementation<a class="headerlink" href="#id4" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">unsigned</span> <span class="n">long</span> <span class="n">test_and_set</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">long</span><span class="o">*</span> <span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">unsigned</span> <span class="n">long</span> <span class="n">newval</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">asm</span> <span class="n">volatile</span><span class="p">(</span><span class="s2">&quot;lock: cmpxchgl %2, %0&quot;</span>
-                <span class="p">:</span> <span class="s2">&quot;+m&quot;</span> <span class="p">(</span><span class="o">*</span><span class="n">lock</span><span class="p">),</span> <span class="s2">&quot;+a&quot;</span> <span class="p">(</span><span class="n">newval</span><span class="p">)</span>
-                <span class="p">:</span> <span class="s2">&quot;r&quot;</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="p">:</span> <span class="s2">&quot;cc&quot;</span><span class="p">);</span>
+        <span class="n">asm</span> <span class="n">volatile</span><span class="p">(</span><span class="s2">"lock: cmpxchgl %2, %0"</span>
+                <span class="p">:</span> <span class="s2">"+m"</span> <span class="p">(</span><span class="o">*</span><span class="n">lock</span><span class="p">),</span> <span class="s2">"+a"</span> <span class="p">(</span><span class="n">newval</span><span class="p">)</span>
+                <span class="p">:</span> <span class="s2">"r"</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="p">:</span> <span class="s2">"cc"</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">newval</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -411,7 +440,7 @@
 </div>
 </section>
 <section id="pthreads-mutex">
-<h2>Pthreads - Mutex<a class="headerlink" href="#pthreads-mutex" title="Permalink to this headline"></a></h2>
+<h2>Pthreads - Mutex<a class="headerlink" href="#pthreads-mutex" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pthreads-mutex'">¶</a></h2>
 <ul class="simple">
 <li><p>The pthreads library in Linux and Minix offer an efficient implementation of mutexes.</p></li>
 <li><p>Rather than wasting CPU time by ‘spinning’, the thread is put to sleep if it cannot obtain the lock immediately.</p></li>
@@ -431,7 +460,7 @@
 </div>
 </section>
 <section id="mutexes-in-windows">
-<h2>Mutexes in Windows<a class="headerlink" href="#mutexes-in-windows" title="Permalink to this headline"></a></h2>
+<h2>Mutexes in Windows<a class="headerlink" href="#mutexes-in-windows" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#mutexes-in-windows'">¶</a></h2>
 <ul class="simple">
 <li><p>Windows also provides an efficient implementation for mutexes.</p></li>
 <li><p>WaitForSingleObject locks mutexes (along with other lock primitives)</p></li>
@@ -452,7 +481,7 @@
 </div>
 </section>
 <section id="semaphores-some-history">
-<h2>Semaphores - some history<a class="headerlink" href="#semaphores-some-history" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - some history<a class="headerlink" href="#semaphores-some-history" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#semaphores-some-history'">¶</a></h2>
 <ul class="simple">
 <li><p>The concept of a semaphore pre-dates the computing era.</p></li>
 <li><p>The concept of semaphores was first introduced in the railroad industry. You can still see these used on the Chicago CTA or Metra</p></li>
@@ -461,7 +490,7 @@
 </ul>
 </section>
 <section id="semaphores">
-<h2>Semaphores<a class="headerlink" href="#semaphores" title="Permalink to this headline"></a></h2>
+<h2>Semaphores<a class="headerlink" href="#semaphores" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#semaphores'">¶</a></h2>
 <ul class="simple">
 <li><p>Semaphores support N-many threads entering a critical section at one time.</p></li>
 <li><dl class="simple">
@@ -492,7 +521,7 @@
 </ul>
 </section>
 <section id="semaphores-implementation">
-<h2>Semaphores - Implementation<a class="headerlink" href="#semaphores-implementation" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - Implementation<a class="headerlink" href="#semaphores-implementation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#semaphores-implementation'">¶</a></h2>
 <ul class="simple">
 <li><p>Semaphores can be implemented on top of spin locksthat protect a count variable</p></li>
 </ul>
@@ -518,7 +547,7 @@
 </div>
 </section>
 <section id="binary-semaphores">
-<h2>Binary semaphores<a class="headerlink" href="#binary-semaphores" title="Permalink to this headline"></a></h2>
+<h2>Binary semaphores<a class="headerlink" href="#binary-semaphores" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#binary-semaphores'">¶</a></h2>
 <ul class="simple">
 <li><p>Emulate mutexes</p></li>
 <li><p>Initial state is 1.</p></li>
@@ -538,7 +567,7 @@
 </div>
 </section>
 <section id="event-semaphores">
-<h2>Event semaphores<a class="headerlink" href="#event-semaphores" title="Permalink to this headline"></a></h2>
+<h2>Event semaphores<a class="headerlink" href="#event-semaphores" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#event-semaphores'">¶</a></h2>
 <ul class="simple">
 <li><p>Used for signaling events.</p></li>
 <li><p>Initial value is 0</p></li>
@@ -554,7 +583,7 @@
         <span class="n">b</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
         <span class="n">event</span><span class="o">-&gt;</span><span class="n">up</span><span class="p">();</span>
         <span class="n">done</span><span class="o">-&gt;</span><span class="n">down</span><span class="p">();</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;total: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">total</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s2">"total: </span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">total</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="n">void</span> <span class="n">consumer</span><span class="p">()</span> <span class="p">{</span>
@@ -575,7 +604,7 @@
 </ul>
 </section>
 <section id="id5">
-<h2>Semaphores - Implementation<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - Implementation<a class="headerlink" href="#id5" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
 <ul class="simple">
 <li><p>a good use case for semaphores is a producer / consumer problem:</p></li>
 </ul>
@@ -603,7 +632,7 @@
 </ul>
 </section>
 <section id="id6">
-<h2>Semaphores - Implementation<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - Implementation<a class="headerlink" href="#id6" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Bounded buffer example</dt><dd><ul>
@@ -645,7 +674,7 @@
 </div>
 </section>
 <section id="semaphores-reader-writer-locks">
-<h2>Semaphores - reader / writer locks<a class="headerlink" href="#semaphores-reader-writer-locks" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - reader / writer locks<a class="headerlink" href="#semaphores-reader-writer-locks" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#semaphores-reader-writer-locks'">¶</a></h2>
 <ul class="simple">
 <li><p>In some cases, it is desirable to allow N-readers and M-writers on a shared resource.</p></li>
 <li><p>The most typical case is N-readers and 1-writer. In this case, as many threads can read a value or 1 thread may write to the value at any time</p></li>
@@ -713,7 +742,7 @@
 </div>
 </section>
 <section id="id7">
-<h2>Semaphores - reader/writer locks<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - reader/writer locks<a class="headerlink" href="#id7" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
 <ul class="simple">
 <li><p>As you can see from the previous slide, the implementation of a reader/writer lock can be complex.</p></li>
 <li><p>Implementation details will vary depending on the conditions of the lock.</p></li>
@@ -729,7 +758,7 @@
 </ul>
 </section>
 <section id="semaphores-pthreads">
-<h2>Semaphores - pthreads<a class="headerlink" href="#semaphores-pthreads" title="Permalink to this headline"></a></h2>
+<h2>Semaphores - pthreads<a class="headerlink" href="#semaphores-pthreads" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#semaphores-pthreads'">¶</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">sem_init(sem_t</span> <span class="pre">*sem,</span> <span class="pre">int</span> <span class="pre">pshared,</span> <span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">value)</span></code></p></li>
 <li><p>sem is the semaphore</p></li>
@@ -762,7 +791,7 @@
 </div>
 </section>
 <section id="windows-semaphores">
-<h2>Windows - Semaphores<a class="headerlink" href="#windows-semaphores" title="Permalink to this headline"></a></h2>
+<h2>Windows - Semaphores<a class="headerlink" href="#windows-semaphores" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#windows-semaphores'">¶</a></h2>
 <ul class="simple">
 <li><p>Windows also provides an efficient semaphore implementation.</p></li>
 <li><p>Windows shares semaphores through names. The 4th paramenter in CreateSemaphore accepts a name. If you want to use an exising named semaphore, you call OpenSemaphore.</p></li>
@@ -782,7 +811,7 @@
 </div>
 </section>
 <section id="monitors-condition-variables">
-<h2>Monitors / Condition Variables<a class="headerlink" href="#monitors-condition-variables" title="Permalink to this headline"></a></h2>
+<h2>Monitors / Condition Variables<a class="headerlink" href="#monitors-condition-variables" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#monitors-condition-variables'">¶</a></h2>
 <ul class="simple">
 <li><p>Monitors are a higher level locking abstraction</p></li>
 <li><dl class="simple">
@@ -799,7 +828,7 @@
 </ul>
 </section>
 <section id="monitors">
-<h2>Monitors<a class="headerlink" href="#monitors" title="Permalink to this headline"></a></h2>
+<h2>Monitors<a class="headerlink" href="#monitors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#monitors'">¶</a></h2>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Monitor locks typically follow the following pattern:</dt><dd><ol class="arabic simple">
@@ -824,7 +853,7 @@
 </ul>
 </section>
 <section id="monitor-bounded-buffer">
-<h2>Monitor - bounded buffer<a class="headerlink" href="#monitor-bounded-buffer" title="Permalink to this headline"></a></h2>
+<h2>Monitor - bounded buffer<a class="headerlink" href="#monitor-bounded-buffer" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#monitor-bounded-buffer'">¶</a></h2>
 <ul class="simple">
 <li><p>Semaphore implementation:</p></li>
 </ul>
@@ -858,7 +887,7 @@
 </div>
 </section>
 <section id="id8">
-<h2>Monitor - bounded buffer<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
+<h2>Monitor - bounded buffer<a class="headerlink" href="#id8" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">consumer</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">monitor</span><span class="o">-&gt;</span><span class="n">Enter</span><span class="p">();</span>
@@ -894,7 +923,7 @@
 </ul>
 </section>
 <section id="semaphore-reader-writer-lock">
-<h2>Semaphore - reader/writer lock<a class="headerlink" href="#semaphore-reader-writer-lock" title="Permalink to this headline"></a></h2>
+<h2>Semaphore - reader/writer lock<a class="headerlink" href="#semaphore-reader-writer-lock" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#semaphore-reader-writer-lock'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">StartWrite</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">lock</span><span class="o">-&gt;</span><span class="n">down</span><span class="p">();</span>
         <span class="k">if</span><span class="p">(</span><span class="n">activeWrite</span><span class="o">+</span><span class="n">activeRead</span><span class="o">+</span><span class="n">writeWait</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -956,7 +985,7 @@
 </div>
 </section>
 <section id="monitors-reader-writer-locks">
-<h2>Monitors - Reader / Writer locks<a class="headerlink" href="#monitors-reader-writer-locks" title="Permalink to this headline"></a></h2>
+<h2>Monitors - Reader / Writer locks<a class="headerlink" href="#monitors-reader-writer-locks" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#monitors-reader-writer-locks'">¶</a></h2>
 <ul class="simple">
 <li><p>Monitor implementation is much simpler!</p></li>
 </ul>
@@ -1004,7 +1033,7 @@
 </div>
 </section>
 <section id="pthreads-condition-variables">
-<h2>Pthreads - Condition Variables<a class="headerlink" href="#pthreads-condition-variables" title="Permalink to this headline"></a></h2>
+<h2>Pthreads - Condition Variables<a class="headerlink" href="#pthreads-condition-variables" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pthreads-condition-variables'">¶</a></h2>
 <ul class="simple">
 <li><p>pthreads uses condition variables to implement monitor like functions.</p></li>
 <li><p>to use them, you will need a mutex and a condition variable:</p></li>
@@ -1027,7 +1056,7 @@
 </div>
 </section>
 <section id="windows-condition-variables">
-<h2>Windows - Condition Variables<a class="headerlink" href="#windows-condition-variables" title="Permalink to this headline"></a></h2>
+<h2>Windows - Condition Variables<a class="headerlink" href="#windows-condition-variables" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#windows-condition-variables'">¶</a></h2>
 <ul class="simple">
 <li><p>Available in Windows Vista, 7, and Server 2008</p></li>
 <li><p>Condition variables use CRITICAL_SECTION like pthread’s condition variables use a mutex. In this case the object is a spin lock and not a mutex.</p></li>
@@ -1051,36 +1080,58 @@
 </div>
 </section>
 </section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="scheduling.html" class="btn btn-neutral float-left" title="Process/Thread Scheduling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="deadlock.html" class="btn btn-neutral float-right" title="Deadlock" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#critical-sections'" class="reference internal" href="#critical-sections">Critical Sections</a></li>
+<li><a :data-current="activeSection === '#identifying-the-critical-section'" class="reference internal" href="#identifying-the-critical-section">Identifying the Critical Section</a></li>
+<li><a :data-current="activeSection === '#execution-orders-and-atomicity'" class="reference internal" href="#execution-orders-and-atomicity">Execution Orders and Atomicity</a></li>
+<li><a :data-current="activeSection === '#id1'" class="reference internal" href="#id1">Execution Orders and Atomicity</a></li>
+<li><a :data-current="activeSection === '#characteristics-of-a-good-locking-solution'" class="reference internal" href="#characteristics-of-a-good-locking-solution">Characteristics of a Good Locking Solution</a></li>
+<li><a :data-current="activeSection === '#achieving-atomicity-serializability'" class="reference internal" href="#achieving-atomicity-serializability">Achieving Atomicity / Serializability</a></li>
+<li><a :data-current="activeSection === '#types-of-pessimistic-locks'" class="reference internal" href="#types-of-pessimistic-locks">Types of Pessimistic Locks</a></li>
+<li><a :data-current="activeSection === '#types-of-optimistic-locks'" class="reference internal" href="#types-of-optimistic-locks">Types of Optimistic Locks</a></li>
+<li><a :data-current="activeSection === '#when-to-consider-optimistic-locking'" class="reference internal" href="#when-to-consider-optimistic-locking">When to Consider Optimistic Locking</a></li>
+<li><a :data-current="activeSection === '#disabling-interrupts'" class="reference internal" href="#disabling-interrupts">Disabling Interrupts</a></li>
+<li><a :data-current="activeSection === '#strict-alternation'" class="reference internal" href="#strict-alternation">Strict Alternation</a></li>
+<li><a :data-current="activeSection === '#spin-locks'" class="reference internal" href="#spin-locks">Spin Locks</a></li>
+<li><a :data-current="activeSection === '#spin-locks-implementation'" class="reference internal" href="#spin-locks-implementation">Spin Locks - Implementation</a></li>
+<li><a :data-current="activeSection === '#id2'" class="reference internal" href="#id2">Spin Locks - Implementation</a></li>
+<li><a :data-current="activeSection === '#id3'" class="reference internal" href="#id3">Spin Locks - Implementation</a></li>
+<li><a :data-current="activeSection === '#id4'" class="reference internal" href="#id4">Spin Locks - Implementation</a></li>
+<li><a :data-current="activeSection === '#pthreads-mutex'" class="reference internal" href="#pthreads-mutex">Pthreads - Mutex</a></li>
+<li><a :data-current="activeSection === '#mutexes-in-windows'" class="reference internal" href="#mutexes-in-windows">Mutexes in Windows</a></li>
+<li><a :data-current="activeSection === '#semaphores-some-history'" class="reference internal" href="#semaphores-some-history">Semaphores - some history</a></li>
+<li><a :data-current="activeSection === '#semaphores'" class="reference internal" href="#semaphores">Semaphores</a></li>
+<li><a :data-current="activeSection === '#semaphores-implementation'" class="reference internal" href="#semaphores-implementation">Semaphores - Implementation</a></li>
+<li><a :data-current="activeSection === '#binary-semaphores'" class="reference internal" href="#binary-semaphores">Binary semaphores</a></li>
+<li><a :data-current="activeSection === '#event-semaphores'" class="reference internal" href="#event-semaphores">Event semaphores</a></li>
+<li><a :data-current="activeSection === '#id5'" class="reference internal" href="#id5">Semaphores - Implementation</a></li>
+<li><a :data-current="activeSection === '#id6'" class="reference internal" href="#id6">Semaphores - Implementation</a></li>
+<li><a :data-current="activeSection === '#semaphores-reader-writer-locks'" class="reference internal" href="#semaphores-reader-writer-locks">Semaphores - reader / writer locks</a></li>
+<li><a :data-current="activeSection === '#id7'" class="reference internal" href="#id7">Semaphores - reader/writer locks</a></li>
+<li><a :data-current="activeSection === '#semaphores-pthreads'" class="reference internal" href="#semaphores-pthreads">Semaphores - pthreads</a></li>
+<li><a :data-current="activeSection === '#windows-semaphores'" class="reference internal" href="#windows-semaphores">Windows - Semaphores</a></li>
+<li><a :data-current="activeSection === '#monitors-condition-variables'" class="reference internal" href="#monitors-condition-variables">Monitors / Condition Variables</a></li>
+<li><a :data-current="activeSection === '#monitors'" class="reference internal" href="#monitors">Monitors</a></li>
+<li><a :data-current="activeSection === '#monitor-bounded-buffer'" class="reference internal" href="#monitor-bounded-buffer">Monitor - bounded buffer</a></li>
+<li><a :data-current="activeSection === '#id8'" class="reference internal" href="#id8">Monitor - bounded buffer</a></li>
+<li><a :data-current="activeSection === '#semaphore-reader-writer-lock'" class="reference internal" href="#semaphore-reader-writer-lock">Semaphore - reader/writer lock</a></li>
+<li><a :data-current="activeSection === '#monitors-reader-writer-locks'" class="reference internal" href="#monitors-reader-writer-locks">Monitors - Reader / Writer locks</a></li>
+<li><a :data-current="activeSection === '#pthreads-condition-variables'" class="reference internal" href="#pthreads-condition-variables">Pthreads - Condition Variables</a></li>
+<li><a :data-current="activeSection === '#windows-condition-variables'" class="reference internal" href="#windows-condition-variables">Windows - Condition Variables</a></li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+</div>
+</div>
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
+</div>
 </body>
 </html>

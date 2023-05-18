@@ -1,46 +1,79 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Files and I/O &mdash; Operating Systems 23 Jan 2022 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Process/Thread Scheduling" href="scheduling.html" />
-    <link rel="prev" title="Introduction to Processes" href="processes.html" /> 
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>Files and I/O | Operating Systems: updated 18 May 2023</title>
+<meta content="Files and I/O | Operating Systems: updated 18 May 2023" property="og:title"/>
+<meta content="Files and I/O | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="scheduling.html" rel="next" title="Process/Thread Scheduling"/>
+<link href="processes.html" rel="prev" title="Introduction to Processes"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #922247" >
-            <a href="index.html" class="icon icon-home"> Operating Systems
-          </a>
-              <div class="version">
-                23 Jan 2022
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none">
+<form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+      K
+    </kbd>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<nav class="flex items-center space-x-1">
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
@@ -57,35 +90,31 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Operating Systems</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Files and I/O</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/files-io.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+</nav>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="files-and-i-o">
-<h1>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this headline"></a></h1>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Files and I/O</span>
+</nav>
+<div id="content" role="main">
+<section id="files-and-i-o">
+<h1>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this heading">¶</a></h1>
 <section id="common-attributes-of-all-unix-files">
-<h2>Common attributes of all (UNIX) files<a class="headerlink" href="#common-attributes-of-all-unix-files" title="Permalink to this headline"></a></h2>
+<h2>Common attributes of all (UNIX) files<a class="headerlink" href="#common-attributes-of-all-unix-files" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#common-attributes-of-all-unix-files'">¶</a></h2>
 <ul class="simple">
 <li><p>All files:</p>
 <ul>
@@ -110,7 +139,7 @@ semantics and structure for various file types</p></li>
 </ul>
 </section>
 <section id="types-of-files-in-unix">
-<h2>Types of Files in Unix<a class="headerlink" href="#types-of-files-in-unix" title="Permalink to this headline"></a></h2>
+<h2>Types of Files in Unix<a class="headerlink" href="#types-of-files-in-unix" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-files-in-unix'">¶</a></h2>
 <ul class="simple">
 <li><p>Regular files</p></li>
 <li><p>Symbolic links</p></li>
@@ -123,7 +152,7 @@ semantics and structure for various file types</p></li>
 </ul>
 </section>
 <section id="regular-files">
-<h2>Regular Files<a class="headerlink" href="#regular-files" title="Permalink to this headline"></a></h2>
+<h2>Regular Files<a class="headerlink" href="#regular-files" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#regular-files'">¶</a></h2>
 <ul class="simple">
 <li><p>Persist data from programs. Reside in filesystems.</p></li>
 <li><p>In addition to owner/permissions. Regular files have:</p>
@@ -138,7 +167,7 @@ support sparse files)</p></li>
 </ul>
 </section>
 <section id="folders">
-<h2>Folders<a class="headerlink" href="#folders" title="Permalink to this headline"></a></h2>
+<h2>Folders<a class="headerlink" href="#folders" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#folders'">¶</a></h2>
 <ul class="simple">
 <li><p>In early UNIX implementations, folders were files that listed other
 files and had a special bit set to make them folders.</p></li>
@@ -160,7 +189,7 @@ files and had a special bit set to make them folders.</p></li>
 </ul>
 </section>
 <section id="symbolic-links">
-<h2>Symbolic Links<a class="headerlink" href="#symbolic-links" title="Permalink to this headline"></a></h2>
+<h2>Symbolic Links<a class="headerlink" href="#symbolic-links" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#symbolic-links'">¶</a></h2>
 <ul class="simple">
 <li><p>Symbolic links are a type of file that points to another file or
 folder.</p></li>
@@ -177,7 +206,7 @@ symbolic link or a real file/folder</p></li>
 </ul>
 </section>
 <section id="block-device-files">
-<h2>Block Device Files<a class="headerlink" href="#block-device-files" title="Permalink to this headline"></a></h2>
+<h2>Block Device Files<a class="headerlink" href="#block-device-files" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#block-device-files'">¶</a></h2>
 <ul class="simple">
 <li><p>Block device files are file abstractions for devices exposed by the
 operating system.</p></li>
@@ -204,7 +233,7 @@ through special system programs and system calls. Approaches vary.</p></li>
 </ul>
 </section>
 <section id="character-device-files">
-<h2>Character Device Files<a class="headerlink" href="#character-device-files" title="Permalink to this headline"></a></h2>
+<h2>Character Device Files<a class="headerlink" href="#character-device-files" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#character-device-files'">¶</a></h2>
 <ul class="simple">
 <li><p>Character device files are file abstractions for devices exposed by
 the operating system.</p></li>
@@ -223,7 +252,7 @@ the operating system.</p></li>
 </ul>
 </section>
 <section id="named-pipes-fifos">
-<h2>Named Pipes/FIFOs<a class="headerlink" href="#named-pipes-fifos" title="Permalink to this headline"></a></h2>
+<h2>Named Pipes/FIFOs<a class="headerlink" href="#named-pipes-fifos" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#named-pipes-fifos'">¶</a></h2>
 <ul class="simple">
 <li><p>Named pipes are pipes that exist in the filesystem.</p></li>
 <li><p>Allow for pipe operations in sets of programs that have different
@@ -233,7 +262,7 @@ communication.</p></li>
 </ul>
 </section>
 <section id="unix-domain-sockets">
-<h2>Unix Domain Sockets<a class="headerlink" href="#unix-domain-sockets" title="Permalink to this headline"></a></h2>
+<h2>Unix Domain Sockets<a class="headerlink" href="#unix-domain-sockets" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#unix-domain-sockets'">¶</a></h2>
 <ul class="simple">
 <li><p>Domain sockets are sockets that have a name in the filesystem.</p></li>
 <li><p>Similar to named pipes except they can be created in a streaming or
@@ -243,7 +272,7 @@ TCP/IP or UDP/IP protocol</p></li>
 </ul>
 </section>
 <section id="filesystem-system-calls">
-<h2>Filesystem System Calls<a class="headerlink" href="#filesystem-system-calls" title="Permalink to this headline"></a></h2>
+<h2>Filesystem System Calls<a class="headerlink" href="#filesystem-system-calls" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#filesystem-system-calls'">¶</a></h2>
 <ul class="simple">
 <li><p>A majority of the system calls in a UNIX operating system exist to
 operate upon files</p></li>
@@ -253,12 +282,12 @@ systems.</p></li>
 </ul>
 </section>
 <section id="id1">
-<h2>Filesystem System Calls<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
-<table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<h2>Filesystem System Calls<a class="headerlink" href="#id1" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 67%" />
+<col style="width: 33%"/>
+<col style="width: 67%"/>
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Function</p></th>
@@ -312,12 +341,12 @@ systems.</p></li>
 </table>
 </section>
 <section id="more-filesystem-system-calls">
-<h2>More Filesystem System Calls<a class="headerlink" href="#more-filesystem-system-calls" title="Permalink to this headline"></a></h2>
-<table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<h2>More Filesystem System Calls<a class="headerlink" href="#more-filesystem-system-calls" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#more-filesystem-system-calls'">¶</a></h2>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 67%" />
+<col style="width: 33%"/>
+<col style="width: 67%"/>
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">chown()</span></code></p></th>
@@ -380,9 +409,9 @@ systems.</p></li>
 </table>
 </section>
 <section id="opening-files-with-open">
-<h2>Opening Files with open()<a class="headerlink" href="#opening-files-with-open" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="kt">mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">)</span><span class="w"></span>
-<span class="kt">int</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">)</span><span class="w"></span>
+<h2>Opening Files with open()<a class="headerlink" href="#opening-files-with-open" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#opening-files-with-open'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="kt">mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">)</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -415,8 +444,8 @@ happens</p></li>
 </ul>
 </section>
 <section id="closing-files-with-close">
-<h2>Closing files with close()<a class="headerlink" href="#closing-files-with-close" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">close</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">)</span><span class="w"></span>
+<h2>Closing files with close()<a class="headerlink" href="#closing-files-with-close" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#closing-files-with-close'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">close</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -427,8 +456,8 @@ interrupted by signal)</p></li>
 </ul>
 </section>
 <section id="writing-to-a-file">
-<h2>Writing to a File<a class="headerlink" href="#writing-to-a-file" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
+<h2>Writing to a File<a class="headerlink" href="#writing-to-a-file" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#writing-to-a-file'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -446,22 +475,22 @@ the current offset</p></li>
 </ul>
 </section>
 <section id="typical-write-algorithm">
-<h2>Typical Write Algorithm<a class="headerlink" href="#typical-write-algorithm" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;foobar&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_TRUNC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span><span class="w"></span>
-<span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="k">while</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="kt">size_t</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">);</span><span class="w"></span>
-<span class="w">   </span><span class="n">offset</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">written</span><span class="p">;</span><span class="w"></span>
-<span class="w">   </span><span class="n">length</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">written</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span><span class="w"></span>
+<h2>Typical Write Algorithm<a class="headerlink" href="#typical-write-algorithm" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#typical-write-algorithm'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"foobar"</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"file"</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_TRUNC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kt">size_t</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">);</span>
+<span class="w">   </span><span class="n">offset</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">written</span><span class="p">;</span>
+<span class="w">   </span><span class="n">length</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="n">written</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="reading-from-a-file">
-<h2>Reading from a File<a class="headerlink" href="#reading-from-a-file" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span><span class="w"></span>
+<h2>Reading from a File<a class="headerlink" href="#reading-from-a-file" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reading-from-a-file'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -477,18 +506,18 @@ number of bytes to read into that buffer</p></li>
 </ul>
 </section>
 <section id="typical-read-algorithm">
-<h2>Typical Read Algorithm<a class="headerlink" href="#typical-read-algorithm" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span><span class="w"></span>
-<span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="w"></span>
-<span class="k">while</span><span class="p">((</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">length</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span><span class="w"></span>
+<h2>Typical Read Algorithm<a class="headerlink" href="#typical-read-algorithm" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#typical-read-algorithm'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"file"</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="kt">char</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="k">while</span><span class="p">((</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">length</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="seeking-within-a-file">
-<h2>Seeking within a File<a class="headerlink" href="#seeking-within-a-file" title="Permalink to this headline"></a></h2>
+<h2>Seeking within a File<a class="headerlink" href="#seeking-within-a-file" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#seeking-within-a-file'">¶</a></h2>
 <ul class="simple">
 <li><p>Not all files support seeking.</p></li>
 <li><p>The use of seek calls is how random access I/O is performed</p></li>
@@ -510,7 +539,7 @@ unnecessary write operations.</p></li>
 </ul>
 </section>
 <section id="standard-file-descriptors">
-<h2>Standard File Descriptors<a class="headerlink" href="#standard-file-descriptors" title="Permalink to this headline"></a></h2>
+<h2>Standard File Descriptors<a class="headerlink" href="#standard-file-descriptors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#standard-file-descriptors'">¶</a></h2>
 <dl class="simple">
 <dt>stdin</dt><dd><p>standard input. default is the input pipe from the console; default
 value is 0</p>
@@ -527,8 +556,8 @@ default. their specific targets may have been redirected by the parent
 program (more later…)</p>
 </section>
 <section id="duplicating-file-descriptors">
-<h2>Duplicating File Descriptors<a class="headerlink" href="#duplicating-file-descriptors" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">dup</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">duplicate</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">descriptor</span><span class="w"></span>
+<h2>Duplicating File Descriptors<a class="headerlink" href="#duplicating-file-descriptors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#duplicating-file-descriptors'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">dup</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">duplicate</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">descriptor</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -544,8 +573,8 @@ reference to the file</p></li>
 </ul>
 </section>
 <section id="redirecting-file-descriptors">
-<h2>Redirecting File Descriptors<a class="headerlink" href="#redirecting-file-descriptors" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">dup2</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">oldfd</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">newfd</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">redirect</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">descriptor</span><span class="w"></span>
+<h2>Redirecting File Descriptors<a class="headerlink" href="#redirecting-file-descriptors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#redirecting-file-descriptors'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">dup2</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">oldfd</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">newfd</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">redirect</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">descriptor</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -560,48 +589,48 @@ command line (sometimes to combine them)</p></li>
 </ul>
 </section>
 <section id="redirecting-file-descriptors-code-example">
-<h2>Redirecting File Descriptors code example<a class="headerlink" href="#redirecting-file-descriptors-code-example" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="n">pipe</span><span class="p">(</span><span class="n">pipes</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span><span class="w"></span>
+<h2>Redirecting File Descriptors code example<a class="headerlink" href="#redirecting-file-descriptors-code-example" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#redirecting-file-descriptors-code-example'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="n">pipe</span><span class="p">(</span><span class="n">pipes</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">            </span><span class="c1">//parent process</span>
 <span class="w">        </span><span class="n">dup2</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">   </span><span class="c1">//redirect stdin</span>
 <span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">output</span><span class="p">);</span><span class="w">    </span><span class="c1">//close unused half of pipe</span>
-<span class="w">        </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;child sent value = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">scanf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"child sent value = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">//child process</span>
 <span class="w">        </span><span class="n">dup2</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">//redirect STDOUT</span>
 <span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">input</span><span class="p">);</span><span class="w">        </span><span class="c1">//close unused half of pipe</span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5000</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="mi">5000</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="reading-folders">
-<h2>Reading Folders<a class="headerlink" href="#reading-folders" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">DIR</span><span class="w"> </span><span class="o">*</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opendir</span><span class="p">(</span><span class="n">dir</span><span class="p">);</span><span class="w"></span>
+<h2>Reading Folders<a class="headerlink" href="#reading-folders" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reading-folders'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/"</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">DIR</span><span class="w"> </span><span class="o">*</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opendir</span><span class="p">(</span><span class="n">dir</span><span class="p">);</span>
 
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">dirent</span><span class="w"> </span><span class="o">*</span><span class="n">de</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">while</span><span class="p">((</span><span class="n">de</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readdir</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;name %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">de</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">closedir</span><span class="p">(</span><span class="n">d</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">dirent</span><span class="w"> </span><span class="o">*</span><span class="n">de</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="p">((</span><span class="n">de</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readdir</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"name %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">de</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">closedir</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="looking-ahead-i-o-performance">
-<h2>Looking Ahead: I/O Performance<a class="headerlink" href="#looking-ahead-i-o-performance" title="Permalink to this headline"></a></h2>
+<h2>Looking Ahead: I/O Performance<a class="headerlink" href="#looking-ahead-i-o-performance" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#looking-ahead-i-o-performance'">¶</a></h2>
 </section>
 <section id="performance">
-<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this headline"></a></h2>
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#performance'">¶</a></h2>
 <ul class="simple">
 <li><p>Achieving good I/O performance is about choosing the right buffering
 strategy.</p></li>
@@ -622,7 +651,7 @@ IPC)</p></li>
 </ul>
 </section>
 <section id="simple-i-o-performance-experiment">
-<h2>Simple I/O Performance Experiment<a class="headerlink" href="#simple-i-o-performance-experiment" title="Permalink to this headline"></a></h2>
+<h2>Simple I/O Performance Experiment<a class="headerlink" href="#simple-i-o-performance-experiment" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#simple-i-o-performance-experiment'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span> <span class="n">count</span><span class="o">=</span><span class="mi">1000000</span> <span class="o">-</span> <span class="mi">671</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span>
 <span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">10</span> <span class="n">count</span><span class="o">=</span><span class="mi">100000</span> <span class="o">-</span> <span class="mf">5.9</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
 <span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">100</span> <span class="n">count</span><span class="o">=</span><span class="mi">10000</span> <span class="o">-</span> <span class="mf">38.9</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
@@ -640,7 +669,7 @@ IPC)</p></li>
 </ul>
 </section>
 <section id="reading-writing-performance">
-<h2>Reading/Writing Performance<a class="headerlink" href="#reading-writing-performance" title="Permalink to this headline"></a></h2>
+<h2>Reading/Writing Performance<a class="headerlink" href="#reading-writing-performance" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reading-writing-performance'">¶</a></h2>
 <ul class="simple">
 <li><p>Another approach to consider is Vectored I/O a.k.a. Gather-Scatter</p></li>
 <li><p>Programs will often separate reads/writes into different calls.</p></li>
@@ -657,71 +686,85 @@ look deeper into storage topics.</p></li>
 </ul>
 </section>
 <section id="performance-example">
-<h2>Performance Example<a class="headerlink" href="#performance-example" title="Permalink to this headline"></a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_data1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1234567890&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_data2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;abcdefghijk&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_data3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lmnopqrstuvwxyz&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;temp.dat&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<h2>Performance Example<a class="headerlink" href="#performance-example" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#performance-example'">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_data1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"1234567890"</span><span class="p">;</span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_data2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"abcdefghijk"</span><span class="p">;</span>
+<span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_data3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"lmnopqrstuvwxyz"</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">file_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"temp.dat"</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;open returned (-1)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">"open returned (-1)</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
 
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">iovec</span><span class="w"> </span><span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
-<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data1</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data2</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data2</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data3</span><span class="p">;</span><span class="w"></span>
-<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data3</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">iovec</span><span class="w"> </span><span class="n">buffers</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data2</span><span class="p">;</span>
+<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data2</span><span class="p">);</span>
+<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file_data3</span><span class="p">;</span>
+<span class="w">        </span><span class="n">buffers</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">iov_len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">file_data3</span><span class="p">);</span>
 
-<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">writev</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buffers</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">written</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;writev returned (-1)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;wrote %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">written</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">writev</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buffers</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">written</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">"writev returned (-1)</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"wrote %d bytes</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">written</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
 </section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="processes.html" class="btn btn-neutral float-left" title="Introduction to Processes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="scheduling.html" class="btn btn-neutral float-right" title="Process/Thread Scheduling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#common-attributes-of-all-unix-files'" class="reference internal" href="#common-attributes-of-all-unix-files">Common attributes of all (UNIX) files</a></li>
+<li><a :data-current="activeSection === '#types-of-files-in-unix'" class="reference internal" href="#types-of-files-in-unix">Types of Files in Unix</a></li>
+<li><a :data-current="activeSection === '#regular-files'" class="reference internal" href="#regular-files">Regular Files</a></li>
+<li><a :data-current="activeSection === '#folders'" class="reference internal" href="#folders">Folders</a></li>
+<li><a :data-current="activeSection === '#symbolic-links'" class="reference internal" href="#symbolic-links">Symbolic Links</a></li>
+<li><a :data-current="activeSection === '#block-device-files'" class="reference internal" href="#block-device-files">Block Device Files</a></li>
+<li><a :data-current="activeSection === '#character-device-files'" class="reference internal" href="#character-device-files">Character Device Files</a></li>
+<li><a :data-current="activeSection === '#named-pipes-fifos'" class="reference internal" href="#named-pipes-fifos">Named Pipes/FIFOs</a></li>
+<li><a :data-current="activeSection === '#unix-domain-sockets'" class="reference internal" href="#unix-domain-sockets">Unix Domain Sockets</a></li>
+<li><a :data-current="activeSection === '#filesystem-system-calls'" class="reference internal" href="#filesystem-system-calls">Filesystem System Calls</a></li>
+<li><a :data-current="activeSection === '#id1'" class="reference internal" href="#id1">Filesystem System Calls</a></li>
+<li><a :data-current="activeSection === '#more-filesystem-system-calls'" class="reference internal" href="#more-filesystem-system-calls">More Filesystem System Calls</a></li>
+<li><a :data-current="activeSection === '#opening-files-with-open'" class="reference internal" href="#opening-files-with-open">Opening Files with open()</a></li>
+<li><a :data-current="activeSection === '#closing-files-with-close'" class="reference internal" href="#closing-files-with-close">Closing files with close()</a></li>
+<li><a :data-current="activeSection === '#writing-to-a-file'" class="reference internal" href="#writing-to-a-file">Writing to a File</a></li>
+<li><a :data-current="activeSection === '#typical-write-algorithm'" class="reference internal" href="#typical-write-algorithm">Typical Write Algorithm</a></li>
+<li><a :data-current="activeSection === '#reading-from-a-file'" class="reference internal" href="#reading-from-a-file">Reading from a File</a></li>
+<li><a :data-current="activeSection === '#typical-read-algorithm'" class="reference internal" href="#typical-read-algorithm">Typical Read Algorithm</a></li>
+<li><a :data-current="activeSection === '#seeking-within-a-file'" class="reference internal" href="#seeking-within-a-file">Seeking within a File</a></li>
+<li><a :data-current="activeSection === '#standard-file-descriptors'" class="reference internal" href="#standard-file-descriptors">Standard File Descriptors</a></li>
+<li><a :data-current="activeSection === '#duplicating-file-descriptors'" class="reference internal" href="#duplicating-file-descriptors">Duplicating File Descriptors</a></li>
+<li><a :data-current="activeSection === '#redirecting-file-descriptors'" class="reference internal" href="#redirecting-file-descriptors">Redirecting File Descriptors</a></li>
+<li><a :data-current="activeSection === '#redirecting-file-descriptors-code-example'" class="reference internal" href="#redirecting-file-descriptors-code-example">Redirecting File Descriptors code example</a></li>
+<li><a :data-current="activeSection === '#reading-folders'" class="reference internal" href="#reading-folders">Reading Folders</a></li>
+<li><a :data-current="activeSection === '#looking-ahead-i-o-performance'" class="reference internal" href="#looking-ahead-i-o-performance">Looking Ahead: I/O Performance</a></li>
+<li><a :data-current="activeSection === '#performance'" class="reference internal" href="#performance">Performance</a></li>
+<li><a :data-current="activeSection === '#simple-i-o-performance-experiment'" class="reference internal" href="#simple-i-o-performance-experiment">Simple I/O Performance Experiment</a></li>
+<li><a :data-current="activeSection === '#reading-writing-performance'" class="reference internal" href="#reading-writing-performance">Reading/Writing Performance</a></li>
+<li><a :data-current="activeSection === '#performance-example'" class="reference internal" href="#performance-example">Performance Example</a></li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+</div>
+</div>
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
+</div>
 </body>
 </html>

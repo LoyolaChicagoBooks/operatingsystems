@@ -1,46 +1,79 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Process/Thread Scheduling &mdash; Operating Systems 23 Jan 2022 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Mutual Exclusion" href="mutualexclusion.html" />
-    <link rel="prev" title="Files and I/O" href="files-io.html" /> 
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>Process/Thread Scheduling | Operating Systems: updated 18 May 2023</title>
+<meta content="Process/Thread Scheduling | Operating Systems: updated 18 May 2023" property="og:title"/>
+<meta content="Process/Thread Scheduling | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="mutualexclusion.html" rel="next" title="Mutual Exclusion"/>
+<link href="files-io.html" rel="prev" title="Files and I/O"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #922247" >
-            <a href="index.html" class="icon icon-home"> Operating Systems
-          </a>
-              <div class="version">
-                23 Jan 2022
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none">
+<form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+      K
+    </kbd>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<nav class="flex items-center space-x-1">
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
@@ -57,35 +90,31 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Operating Systems</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Process/Thread Scheduling</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/scheduling.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+</nav>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="process-thread-scheduling">
-<h1>Process/Thread Scheduling<a class="headerlink" href="#process-thread-scheduling" title="Permalink to this headline"></a></h1>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Process/Thread Scheduling</span>
+</nav>
+<div id="content" role="main">
+<section id="process-thread-scheduling">
+<h1>Process/Thread Scheduling<a class="headerlink" href="#process-thread-scheduling" title="Permalink to this heading">¶</a></h1>
 <section id="kernel-mode-vs-user-mode">
-<h2>Kernel Mode vs. User Mode<a class="headerlink" href="#kernel-mode-vs-user-mode" title="Permalink to this headline"></a></h2>
+<h2>Kernel Mode vs. User Mode<a class="headerlink" href="#kernel-mode-vs-user-mode" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#kernel-mode-vs-user-mode'">¶</a></h2>
 <p>Kernel Mode</p>
 <ul>
 <li><p>Can use the full instruction set of the CPU. Including:</p>
@@ -105,7 +134,7 @@
 </ul>
 </section>
 <section id="interrupts">
-<h2>Interrupts<a class="headerlink" href="#interrupts" title="Permalink to this headline"></a></h2>
+<h2>Interrupts<a class="headerlink" href="#interrupts" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#interrupts'">¶</a></h2>
 <ul>
 <li><p>An interrupt is an event that requires immediate attention from the CPU.</p></li>
 <li><p>Procedure for handling interrupts</p>
@@ -122,13 +151,13 @@
 </ul>
 </section>
 <section id="hardware-interrupts-pc-architecture">
-<h2>Hardware Interrupts - PC Architecture<a class="headerlink" href="#hardware-interrupts-pc-architecture" title="Permalink to this headline"></a></h2>
+<h2>Hardware Interrupts - PC Architecture<a class="headerlink" href="#hardware-interrupts-pc-architecture" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#hardware-interrupts-pc-architecture'">¶</a></h2>
 <figure class="align-center">
-<a class="reference internal image-reference" href="_images/pc_architecture.png"><img alt="PC Architecture" src="_images/pc_architecture.png" style="height: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/pc_architecture.png"><img alt="PC Architecture" src="_images/pc_architecture.png" style="height: 500px;"/></a>
 </figure>
 </section>
 <section id="hardware-interrupts-sources">
-<h2>Hardware Interrupts - Sources<a class="headerlink" href="#hardware-interrupts-sources" title="Permalink to this headline"></a></h2>
+<h2>Hardware Interrupts - Sources<a class="headerlink" href="#hardware-interrupts-sources" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#hardware-interrupts-sources'">¶</a></h2>
 <ul>
 <li><p>Southbridge (aka slow stuff) interrupts</p>
 <blockquote>
@@ -151,7 +180,7 @@
 </ul>
 </section>
 <section id="software-interrupts">
-<h2>Software Interrupts<a class="headerlink" href="#software-interrupts" title="Permalink to this headline"></a></h2>
+<h2>Software Interrupts<a class="headerlink" href="#software-interrupts" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#software-interrupts'">¶</a></h2>
 <ul class="simple">
 <li><p>In operating systems that have separation between kernel and user space, software interrupts are used to implement system calls.</p></li>
 <li><p>Hello world in x86 assembly:</p></li>
@@ -165,7 +194,7 @@ _start:
         mov    eax, 4        ; 4 = system call number (sys_write)
         int    0x80          ; software interrupt to call the kernel
 section .data
-        msg    db   &#39;Hello World!&#39;,0xa
+        msg    db   'Hello World!',0xa
         len    equ  $ - msg
 </pre></div>
 </div>
@@ -175,7 +204,7 @@ section .data
 </ul>
 </section>
 <section id="goals-of-a-process-scheduler">
-<h2>Goals of a Process Scheduler<a class="headerlink" href="#goals-of-a-process-scheduler" title="Permalink to this headline"></a></h2>
+<h2>Goals of a Process Scheduler<a class="headerlink" href="#goals-of-a-process-scheduler" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#goals-of-a-process-scheduler'">¶</a></h2>
 <ul>
 <li><p>The attributes of a process scheduling policy are a combination of the following:</p>
 <blockquote>
@@ -192,7 +221,7 @@ section .data
 </ul>
 </section>
 <section id="types-of-scheduling-strategies">
-<h2>Types of Scheduling Strategies<a class="headerlink" href="#types-of-scheduling-strategies" title="Permalink to this headline"></a></h2>
+<h2>Types of Scheduling Strategies<a class="headerlink" href="#types-of-scheduling-strategies" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-scheduling-strategies'">¶</a></h2>
 <ul>
 <li><p>Preemptive</p></li>
 <li><p>round-robin</p></li>
@@ -218,7 +247,7 @@ section .data
 </ul>
 </section>
 <section id="os-support">
-<h2>OS Support<a class="headerlink" href="#os-support" title="Permalink to this headline"></a></h2>
+<h2>OS Support<a class="headerlink" href="#os-support" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#os-support'">¶</a></h2>
 <ul>
 <li><p>Non-Multitasking</p>
 <blockquote>
@@ -253,7 +282,7 @@ section .data
 </ul>
 </section>
 <section id="types-of-processes-to-schedule">
-<h2>Types of Processes to Schedule<a class="headerlink" href="#types-of-processes-to-schedule" title="Permalink to this headline"></a></h2>
+<h2>Types of Processes to Schedule<a class="headerlink" href="#types-of-processes-to-schedule" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-processes-to-schedule'">¶</a></h2>
 <ul>
 <li><p>Interactive processes</p>
 <blockquote>
@@ -274,7 +303,7 @@ section .data
 </ul>
 </section>
 <section id="preemptive-scheduling-key-terms">
-<h2>Preemptive Scheduling Key Terms<a class="headerlink" href="#preemptive-scheduling-key-terms" title="Permalink to this headline"></a></h2>
+<h2>Preemptive Scheduling Key Terms<a class="headerlink" href="#preemptive-scheduling-key-terms" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#preemptive-scheduling-key-terms'">¶</a></h2>
 <ul class="simple">
 <li><p><strong>Time Quantum</strong> - the allotted time slice a program is run before a scheduling decision. Typically less than or equal to a clock tick.</p></li>
 <li><p><strong>Clock</strong> - one of two triggers for the scheduling algorithm. On most CPUs, the clock ticks at a rate of 50-100Hz. Each clock tick issues a hardware interrupt which permits the operating system to run the scheduler</p></li>
@@ -282,7 +311,7 @@ section .data
 </ul>
 </section>
 <section id="process-states">
-<h2>Process states<a class="headerlink" href="#process-states" title="Permalink to this headline"></a></h2>
+<h2>Process states<a class="headerlink" href="#process-states" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-states'">¶</a></h2>
 <ul class="simple">
 <li><p>running - currently executing on one or more CPUs</p></li>
 <li><p>ready - ready to be executed, but not running</p></li>
@@ -291,7 +320,7 @@ section .data
 </ul>
 </section>
 <section id="choosing-a-quantum">
-<h2>Choosing a Quantum<a class="headerlink" href="#choosing-a-quantum" title="Permalink to this headline"></a></h2>
+<h2>Choosing a Quantum<a class="headerlink" href="#choosing-a-quantum" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#choosing-a-quantum'">¶</a></h2>
 <ul>
 <li><p>Variables to consider</p>
 <blockquote>
@@ -308,14 +337,14 @@ section .data
 </ul>
 </section>
 <section id="context-switches">
-<h2>Context Switches<a class="headerlink" href="#context-switches" title="Permalink to this headline"></a></h2>
+<h2>Context Switches<a class="headerlink" href="#context-switches" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#context-switches'">¶</a></h2>
 <ul class="simple">
 <li><p>A context switch is the process by which a program saves it state to switch to the operating system</p></li>
 <li><p>Context switches are caused by software and hardware interrupts</p></li>
 </ul>
 </section>
 <section id="context-switching-how-it-works">
-<h2>Context switching - How it works<a class="headerlink" href="#context-switching-how-it-works" title="Permalink to this headline"></a></h2>
+<h2>Context switching - How it works<a class="headerlink" href="#context-switching-how-it-works" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#context-switching-how-it-works'">¶</a></h2>
 <ol class="arabic">
 <li><p>Save CPU registers of currently running process into the process table.</p></li>
 <li><p>Change the process state to</p>
@@ -344,7 +373,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ol>
 </section>
 <section id="degrees-of-preemption">
-<h2>Degrees of Preemption<a class="headerlink" href="#degrees-of-preemption" title="Permalink to this headline"></a></h2>
+<h2>Degrees of Preemption<a class="headerlink" href="#degrees-of-preemption" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#degrees-of-preemption'">¶</a></h2>
 <ul>
 <li><p>Different operating systems have different degrees of preemption.</p></li>
 <li><p>In simpler operating systems, user-mode tasks can be preempted, but kernel-mode tasks cannot.</p></li>
@@ -366,7 +395,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="round-robin-process-scheduling">
-<h2>Round - Robin Process Scheduling<a class="headerlink" href="#round-robin-process-scheduling" title="Permalink to this headline"></a></h2>
+<h2>Round - Robin Process Scheduling<a class="headerlink" href="#round-robin-process-scheduling" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#round-robin-process-scheduling'">¶</a></h2>
 <ul>
 <li><p>Round robin scheduling is the simplest scheduling policy, but not the most efficient</p></li>
 <li><p>The operating system maintains two lists:</p>
@@ -381,7 +410,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="scheduling-with-multiple-queues">
-<h2>Scheduling with Multiple Queues<a class="headerlink" href="#scheduling-with-multiple-queues" title="Permalink to this headline"></a></h2>
+<h2>Scheduling with Multiple Queues<a class="headerlink" href="#scheduling-with-multiple-queues" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#scheduling-with-multiple-queues'">¶</a></h2>
 <ul class="simple">
 <li><p>Runnable threads are separated into queues based upon:</p></li>
 <li><p>Quantum length</p></li>
@@ -445,7 +474,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="real-time-schedulers">
-<h2>Real-time Schedulers<a class="headerlink" href="#real-time-schedulers" title="Permalink to this headline"></a></h2>
+<h2>Real-time Schedulers<a class="headerlink" href="#real-time-schedulers" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#real-time-schedulers'">¶</a></h2>
 <ul>
 <li><p>This is most typically used in real-time operating systems where the most important aspect of a process is not its priority but its deadline to complete a unit of work.</p></li>
 <li><p>Attributes of real-time processes:</p>
@@ -492,11 +521,11 @@ kernel cannot return immediately (blocking call)</p></li>
 </li>
 </ul>
 <figure class="align-center">
-<a class="reference internal image-reference" href="_images/rts_1.png"><img alt="RTS Scheduler Example 1" src="_images/rts_1.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="_images/rts_1.png"><img alt="RTS Scheduler Example 1" src="_images/rts_1.png" style="width: 600px;"/></a>
 </figure>
 </section>
 <section id="example-real-world-rts-problem">
-<h2>Example Real World RTS Problem<a class="headerlink" href="#example-real-world-rts-problem" title="Permalink to this headline"></a></h2>
+<h2>Example Real World RTS Problem<a class="headerlink" href="#example-real-world-rts-problem" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-real-world-rts-problem'">¶</a></h2>
 <ul>
 <li><p>Example problem: Anti-Lock braking system.</p></li>
 <li><p>Problem description:</p>
@@ -529,7 +558,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="solution-to-example-real-world-rts-problem">
-<h2>Solution to Example Real World RTS Problem<a class="headerlink" href="#solution-to-example-real-world-rts-problem" title="Permalink to this headline"></a></h2>
+<h2>Solution to Example Real World RTS Problem<a class="headerlink" href="#solution-to-example-real-world-rts-problem" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#solution-to-example-real-world-rts-problem'">¶</a></h2>
 <ul class="simple">
 <li><p>Sensor[A-D]: Period = 15ms, Requirement = 1ms</p></li>
 <li><p>Sensor[V]: Period = 15ms, Requirement = 1ms</p></li>
@@ -538,7 +567,7 @@ kernel cannot return immediately (blocking call)</p></li>
 <li><p>Is this schedulable? 1/15 + 1/15 + 1/15 + 1/15 + 1/15 + 6/35 = 50.47%. Yes!</p></li>
 </ul>
 <figure class="align-center">
-<a class="reference internal image-reference" href="_images/rts_2.png"><img alt="RTS Example 2" src="_images/rts_2.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="_images/rts_2.png"><img alt="RTS Example 2" src="_images/rts_2.png" style="width: 800px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>It appears that we also have</p></li>
@@ -548,7 +577,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="types-of-real-time-scheduler-implementations">
-<h2>Types of Real-Time Scheduler Implementations<a class="headerlink" href="#types-of-real-time-scheduler-implementations" title="Permalink to this headline"></a></h2>
+<h2>Types of Real-Time Scheduler Implementations<a class="headerlink" href="#types-of-real-time-scheduler-implementations" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-real-time-scheduler-implementations'">¶</a></h2>
 <ul>
 <li><p>Earliest deadline first</p>
 <blockquote>
@@ -570,7 +599,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="additional-concerns-in-advanced-scheduler-implementations">
-<h2>Additional Concerns in Advanced Scheduler Implementations<a class="headerlink" href="#additional-concerns-in-advanced-scheduler-implementations" title="Permalink to this headline"></a></h2>
+<h2>Additional Concerns in Advanced Scheduler Implementations<a class="headerlink" href="#additional-concerns-in-advanced-scheduler-implementations" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#additional-concerns-in-advanced-scheduler-implementations'">¶</a></h2>
 <ul>
 <li><p>In more advanced operating systems, additional issues are considered in schedulers in addition to priority</p>
 <blockquote>
@@ -604,7 +633,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="process-priority-and-scheduling-in-linux">
-<h2>Process Priority and Scheduling in Linux<a class="headerlink" href="#process-priority-and-scheduling-in-linux" title="Permalink to this headline"></a></h2>
+<h2>Process Priority and Scheduling in Linux<a class="headerlink" href="#process-priority-and-scheduling-in-linux" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-priority-and-scheduling-in-linux'">¶</a></h2>
 <ul>
 <li><p>The Linux scheduler has several available policies:</p>
 <blockquote>
@@ -642,7 +671,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="linux-real-time-scheduler">
-<h2>Linux Real Time Scheduler<a class="headerlink" href="#linux-real-time-scheduler" title="Permalink to this headline"></a></h2>
+<h2>Linux Real Time Scheduler<a class="headerlink" href="#linux-real-time-scheduler" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#linux-real-time-scheduler'">¶</a></h2>
 <ul>
 <li><p>In Linux, real-time processes always have priority over non-real time processes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code></p>
@@ -682,7 +711,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="linux-preemptive-scheduler">
-<h2>Linux Preemptive Scheduler<a class="headerlink" href="#linux-preemptive-scheduler" title="Permalink to this headline"></a></h2>
+<h2>Linux Preemptive Scheduler<a class="headerlink" href="#linux-preemptive-scheduler" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#linux-preemptive-scheduler'">¶</a></h2>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code>:</p>
 <blockquote>
@@ -712,7 +741,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="nice-values">
-<h2>Nice Values<a class="headerlink" href="#nice-values" title="Permalink to this headline"></a></h2>
+<h2>Nice Values<a class="headerlink" href="#nice-values" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nice-values'">¶</a></h2>
 <ul>
 <li><p>Common in all Unix schedulers is the use of <em>nice</em> values.</p></li>
 <li><p>The nice value is the priority level of a process.</p>
@@ -731,7 +760,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="process-scheduling-in-windows">
-<h2>Process Scheduling in Windows<a class="headerlink" href="#process-scheduling-in-windows" title="Permalink to this headline"></a></h2>
+<h2>Process Scheduling in Windows<a class="headerlink" href="#process-scheduling-in-windows" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-scheduling-in-windows'">¶</a></h2>
 <ul>
 <li><p>Windows has 6 process classes with 7 priorities within each class</p></li>
 <li><p>Classes:</p>
@@ -776,7 +805,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="user-mode-schedulers">
-<h2>User-Mode Schedulers<a class="headerlink" href="#user-mode-schedulers" title="Permalink to this headline"></a></h2>
+<h2>User-Mode Schedulers<a class="headerlink" href="#user-mode-schedulers" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#user-mode-schedulers'">¶</a></h2>
 <ul>
 <li><p>User-mode schedulers fall into two categories:</p>
 <blockquote>
@@ -817,7 +846,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="user-mode-threads-why">
-<h2>User-Mode Threads: Why?<a class="headerlink" href="#user-mode-threads-why" title="Permalink to this headline"></a></h2>
+<h2>User-Mode Threads: Why?<a class="headerlink" href="#user-mode-threads-why" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#user-mode-threads-why'">¶</a></h2>
 <ul>
 <li><p>Useful on systems with no support for kernel threads:</p></li>
 <li><p>Minix, Windows 3.x, Mac OS 5-9</p></li>
@@ -835,7 +864,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="user-mode-threads-why-not">
-<h2>User-Mode Threads: Why Not?<a class="headerlink" href="#user-mode-threads-why-not" title="Permalink to this headline"></a></h2>
+<h2>User-Mode Threads: Why Not?<a class="headerlink" href="#user-mode-threads-why-not" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#user-mode-threads-why-not'">¶</a></h2>
 <ul>
 <li><p>User mode threads have a lower degree of parallelism than do kernel mode threads. If you have 10 user threads on one kernel thread, you still are only executing on one CPU</p></li>
 <li><p>User mode threads don’t benefit from operating system scheduler advantages:</p>
@@ -855,7 +884,7 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 </section>
 <section id="gnu-pth-user-mode-pthreads">
-<h2>GNU - Pth - User Mode Pthreads<a class="headerlink" href="#gnu-pth-user-mode-pthreads" title="Permalink to this headline"></a></h2>
+<h2>GNU - Pth - User Mode Pthreads<a class="headerlink" href="#gnu-pth-user-mode-pthreads" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#gnu-pth-user-mode-pthreads'">¶</a></h2>
 <ul class="simple">
 <li><p>GNU Pth maps pretty closely to normal posix threading libraries.</p></li>
 <li><p>The use of GNU Pth is probably best illustrated with an example.</p></li>
@@ -864,84 +893,84 @@ kernel cannot return immediately (blocking call)</p></li>
 <li><p>This is accomplished with pth_* calls such as pth_write, pth_accept.</p></li>
 <li><p>These calls are asynchronous wrappers to normal system calls.</p></li>
 </ul>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pth.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netdb.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pth.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;netdb.h&gt;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
 <span class="linenos"> 7</span>
-<span class="linenos"> 8</span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">_arg</span><span class="p">)</span><span class="w"></span>
-<span class="linenos"> 9</span><span class="p">{</span><span class="w"></span>
-<span class="linenos">10</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">((</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">_arg</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">11</span><span class="w">    </span><span class="kt">time_t</span><span class="w"> </span><span class="n">now</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">12</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ct</span><span class="p">;</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">handler</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">_arg</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="p">{</span>
+<span class="linenos">10</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">((</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">_arg</span><span class="p">);</span>
+<span class="linenos">11</span><span class="w">    </span><span class="kt">time_t</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<span class="linenos">12</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ct</span><span class="p">;</span>
 <span class="linenos">13</span>
-<span class="linenos">14</span><span class="w">    </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">15</span><span class="w">    </span><span class="n">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">16</span><span class="w">    </span><span class="n">pth_write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">ct</span><span class="p">));</span><span class="w"></span>
-<span class="linenos">17</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">18</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">19</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">pth_write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">ct</span><span class="p">));</span>
+<span class="linenos">17</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+<span class="linenos">18</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="linenos">19</span><span class="p">}</span>
 <span class="linenos">20</span>
-<span class="linenos">21</span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">ticker</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">_arg</span><span class="p">)</span><span class="w"></span>
-<span class="linenos">22</span><span class="p">{</span><span class="w"></span>
-<span class="linenos">23</span><span class="w">    </span><span class="kt">time_t</span><span class="w"> </span><span class="n">now</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">24</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ct</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">25</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">load</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">21</span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">ticker</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">_arg</span><span class="p">)</span>
+<span class="linenos">22</span><span class="p">{</span>
+<span class="linenos">23</span><span class="w">    </span><span class="kt">time_t</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">ct</span><span class="p">;</span>
+<span class="linenos">25</span><span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">load</span><span class="p">;</span>
 <span class="linenos">26</span>
-<span class="linenos">27</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">28</span><span class="w">        </span><span class="n">pth_sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">29</span><span class="w">        </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">30</span><span class="w">        </span><span class="n">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">31</span><span class="w">        </span><span class="n">ct</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">32</span><span class="w">        </span><span class="n">pth_ctrl</span><span class="p">(</span><span class="n">PTH_CTRL_GETAVLOAD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">load</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">33</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ticker: time: %s, average load: %.2f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">load</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">34</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="linenos">35</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">36</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">27</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">28</span><span class="w">        </span><span class="n">pth_sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="linenos">29</span><span class="w">        </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">30</span><span class="w">        </span><span class="n">ct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span>
+<span class="linenos">31</span><span class="w">        </span><span class="n">ct</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">'\0'</span><span class="p">;</span>
+<span class="linenos">32</span><span class="w">        </span><span class="n">pth_ctrl</span><span class="p">(</span><span class="n">PTH_CTRL_GETAVLOAD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">load</span><span class="p">);</span>
+<span class="linenos">33</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"ticker: time: %s, average load: %.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">,</span><span class="w"> </span><span class="n">load</span><span class="p">);</span>
+<span class="linenos">34</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">35</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="linenos">36</span><span class="p">}</span>
 <span class="linenos">37</span>
-<span class="linenos">38</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="linenos">39</span><span class="p">{</span><span class="w"></span>
-<span class="linenos">40</span><span class="w">    </span><span class="n">pth_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">41</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">sar</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">42</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">protoent</span><span class="w"> </span><span class="o">*</span><span class="n">pe</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">43</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">peer_addr</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">44</span><span class="w">    </span><span class="kt">socklen_t</span><span class="w"> </span><span class="n">peer_len</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">45</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">46</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">port</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">38</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos">39</span><span class="p">{</span>
+<span class="linenos">40</span><span class="w">    </span><span class="n">pth_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span>
+<span class="linenos">41</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">sar</span><span class="p">;</span>
+<span class="linenos">42</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">protoent</span><span class="w"> </span><span class="o">*</span><span class="n">pe</span><span class="p">;</span>
+<span class="linenos">43</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="w"> </span><span class="n">peer_addr</span><span class="p">;</span>
+<span class="linenos">44</span><span class="w">    </span><span class="kt">socklen_t</span><span class="w"> </span><span class="n">peer_len</span><span class="p">;</span>
+<span class="linenos">45</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="n">sw</span><span class="p">;</span>
+<span class="linenos">46</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">port</span><span class="p">;</span>
 <span class="linenos">47</span>
-<span class="linenos">48</span><span class="w">    </span><span class="n">pth_init</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">49</span><span class="w">    </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span><span class="w"></span>
-<span class="linenos">50</span><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGPIPE</span><span class="p">,</span><span class="w"> </span><span class="n">SIG_IGN</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">48</span><span class="w">    </span><span class="n">pth_init</span><span class="p">();</span>
+<span class="linenos">49</span><span class="w">    </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="linenos">50</span><span class="w">    </span><span class="n">signal</span><span class="p">(</span><span class="n">SIGPIPE</span><span class="p">,</span><span class="w"> </span><span class="n">SIG_IGN</span><span class="p">);</span>
 <span class="linenos">51</span>
-<span class="linenos">52</span><span class="w">    </span><span class="n">attr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pth_attr_new</span><span class="p">();</span><span class="w"></span>
-<span class="linenos">53</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_NAME</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ticker&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">54</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_STACK_SIZE</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">55</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_JOINABLE</span><span class="p">,</span><span class="w"> </span><span class="n">FALSE</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">56</span><span class="w">    </span><span class="n">pth_spawn</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">ticker</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">52</span><span class="w">    </span><span class="n">attr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pth_attr_new</span><span class="p">();</span>
+<span class="linenos">53</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_NAME</span><span class="p">,</span><span class="w"> </span><span class="s">"ticker"</span><span class="p">);</span>
+<span class="linenos">54</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_STACK_SIZE</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span>
+<span class="linenos">55</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_JOINABLE</span><span class="p">,</span><span class="w"> </span><span class="n">FALSE</span><span class="p">);</span>
+<span class="linenos">56</span><span class="w">    </span><span class="n">pth_spawn</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">ticker</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 <span class="linenos">57</span>
-<span class="linenos">58</span><span class="w">    </span><span class="n">pe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getprotobyname</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">59</span><span class="w">    </span><span class="n">sa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="w"> </span><span class="n">pe</span><span class="o">-&gt;</span><span class="n">p_proto</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">60</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_INET</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">61</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INADDR_ANY</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">62</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">htons</span><span class="p">(</span><span class="n">port</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">63</span><span class="w">    </span><span class="n">bind</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sar</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="p">));</span><span class="w"></span>
-<span class="linenos">64</span><span class="w">    </span><span class="n">listen</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"></span>
+<span class="linenos">58</span><span class="w">    </span><span class="n">pe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getprotobyname</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">);</span>
+<span class="linenos">59</span><span class="w">    </span><span class="n">sa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="w"> </span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="w"> </span><span class="n">pe</span><span class="o">-&gt;</span><span class="n">p_proto</span><span class="p">);</span>
+<span class="linenos">60</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AF_INET</span><span class="p">;</span>
+<span class="linenos">61</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INADDR_ANY</span><span class="p">;</span>
+<span class="linenos">62</span><span class="w">    </span><span class="n">sar</span><span class="p">.</span><span class="n">sin_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">htons</span><span class="p">(</span><span class="n">port</span><span class="p">);</span>
+<span class="linenos">63</span><span class="w">    </span><span class="n">bind</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sar</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr_in</span><span class="p">));</span>
+<span class="linenos">64</span><span class="w">    </span><span class="n">listen</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
 <span class="linenos">65</span>
-<span class="linenos">66</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_NAME</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;handler&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">67</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">68</span><span class="w">        </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pth_accept</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">peer_addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peer_len</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">69</span><span class="w">        </span><span class="n">pth_spawn</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sw</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">70</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">66</span><span class="w">    </span><span class="n">pth_attr_set</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTH_ATTR_NAME</span><span class="p">,</span><span class="w"> </span><span class="s">"handler"</span><span class="p">);</span>
+<span class="linenos">67</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">68</span><span class="w">        </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pth_accept</span><span class="p">(</span><span class="n">sa</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sockaddr</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">peer_addr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">peer_len</span><span class="p">);</span>
+<span class="linenos">69</span><span class="w">        </span><span class="n">pth_spawn</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">sw</span><span class="p">);</span>
+<span class="linenos">70</span><span class="w">    </span><span class="p">}</span>
 <span class="linenos">71</span>
-<span class="linenos">72</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">73</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">72</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">73</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 <section id="pthreads-kernel-threads">
-<h2>PThreads - Kernel Threads<a class="headerlink" href="#pthreads-kernel-threads" title="Permalink to this headline"></a></h2>
+<h2>PThreads - Kernel Threads<a class="headerlink" href="#pthreads-kernel-threads" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pthreads-kernel-threads'">¶</a></h2>
 <ul class="simple">
 <li><p>Most POSIX compliant systems implement a pthreads library.</p></li>
 <li><p>In Minix, the PThreads library makes use of a layer on top of pth.</p></li>
@@ -950,88 +979,105 @@ kernel cannot return immediately (blocking call)</p></li>
 </ul>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/* adapted from LLNL pthreads tutorial</span>
 <span class="linenos"> 2</span><span class="cm"> * https://computing.llnl.gov/tutorials/pthreads</span>
-<span class="linenos"> 3</span><span class="cm"> */</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="cm"> */</span>
 <span class="linenos"> 4</span>
-<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="linenos"> 8</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 8</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span><span class="cp">#define NUM_THREADS     5</span>
 <span class="linenos">11</span>
-<span class="linenos">12</span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">13</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">14</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">square</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">15</span><span class="p">};</span><span class="w"></span>
+<span class="linenos">12</span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">square</span><span class="p">;</span>
+<span class="linenos">15</span><span class="p">};</span>
 <span class="linenos">16</span>
-<span class="linenos">17</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="n">thread_data_t</span><span class="p">;</span><span class="w"></span>
+<span class="linenos">17</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="n">thread_data_t</span><span class="p">;</span>
 <span class="linenos">18</span>
 <span class="linenos">19</span>
 <span class="linenos">20</span>
-<span class="linenos">21</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">PrintHello</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">td_ptr</span><span class="p">)</span><span class="w"></span>
-<span class="linenos">22</span><span class="p">{</span><span class="w"></span>
-<span class="linenos">23</span><span class="w">    </span><span class="n">thread_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">td</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">thread_data_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">td_ptr</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">24</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World! It&#39;s me, thread #%ld!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">25</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;sqr(%ld) = %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">square</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">26</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">27</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">21</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">PrintHello</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">td_ptr</span><span class="p">)</span>
+<span class="linenos">22</span><span class="p">{</span>
+<span class="linenos">23</span><span class="w">    </span><span class="n">thread_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">td</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">thread_data_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">td_ptr</span><span class="p">;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello World! It's me, thread #%ld!</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
+<span class="linenos">25</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"sqr(%ld) = %ld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">square</span><span class="p">);</span>
+<span class="linenos">26</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">27</span><span class="p">}</span>
 <span class="linenos">28</span>
-<span class="linenos">29</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="linenos">30</span><span class="p">{</span><span class="w"></span>
-<span class="linenos">31</span><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">threads</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span><span class="w"></span>
-<span class="linenos">32</span><span class="w">    </span><span class="n">thread_data_t</span><span class="w"> </span><span class="n">thread_data</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span><span class="w"></span>
-<span class="linenos">33</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">34</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">35</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;</span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">36</span><span class="w">        </span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">37</span><span class="w">        </span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
-<span class="linenos">38</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;In main: creating thread %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">39</span><span class="w">        </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="n">t</span><span class="p">],</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">PrintHello</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">]);</span><span class="w"></span>
-<span class="linenos">40</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="linenos">41</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ERROR; return code from pthread_create() is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">42</span><span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">43</span><span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="linenos">44</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">29</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos">30</span><span class="p">{</span>
+<span class="linenos">31</span><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">threads</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span>
+<span class="linenos">32</span><span class="w">    </span><span class="n">thread_data_t</span><span class="w"> </span><span class="n">thread_data</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span>
+<span class="linenos">33</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos">35</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;</span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">36</span><span class="w">        </span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos">37</span><span class="w">        </span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos">38</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"In main: creating thread %ld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
+<span class="linenos">39</span><span class="w">        </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="n">t</span><span class="p">],</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">PrintHello</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">]);</span>
+<span class="linenos">40</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">41</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"ERROR; return code from pthread_create() is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">);</span>
+<span class="linenos">42</span><span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="linenos">43</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">44</span><span class="w">    </span><span class="p">}</span>
 <span class="linenos">45</span>
-<span class="linenos">46</span><span class="w">    </span><span class="cm">/* Last thing that main() should do */</span><span class="w"></span>
-<span class="linenos">47</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Exiting main thread</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">48</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
-<span class="linenos">49</span><span class="p">}</span><span class="w"></span>
+<span class="linenos">46</span><span class="w">    </span><span class="cm">/* Last thing that main() should do */</span>
+<span class="linenos">47</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Exiting main thread</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">48</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">49</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>This example is adapted from <a class="reference external" href="https://computing.llnl.gov/tutorials/pthreads">LLNL POSIX Threads Programming tutorial</a>. You can find these in our <code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code> repository in the <code class="docutils literal notranslate"><span class="pre">llnl_pthreads_examples</span></code> folder, which have been updated to compile cleanly and have proper build files.</p>
 </section>
 </section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="files-io.html" class="btn btn-neutral float-left" title="Files and I/O" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mutualexclusion.html" class="btn btn-neutral float-right" title="Mutual Exclusion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#kernel-mode-vs-user-mode'" class="reference internal" href="#kernel-mode-vs-user-mode">Kernel Mode vs. User Mode</a></li>
+<li><a :data-current="activeSection === '#interrupts'" class="reference internal" href="#interrupts">Interrupts</a></li>
+<li><a :data-current="activeSection === '#hardware-interrupts-pc-architecture'" class="reference internal" href="#hardware-interrupts-pc-architecture">Hardware Interrupts - PC Architecture</a></li>
+<li><a :data-current="activeSection === '#hardware-interrupts-sources'" class="reference internal" href="#hardware-interrupts-sources">Hardware Interrupts - Sources</a></li>
+<li><a :data-current="activeSection === '#software-interrupts'" class="reference internal" href="#software-interrupts">Software Interrupts</a></li>
+<li><a :data-current="activeSection === '#goals-of-a-process-scheduler'" class="reference internal" href="#goals-of-a-process-scheduler">Goals of a Process Scheduler</a></li>
+<li><a :data-current="activeSection === '#types-of-scheduling-strategies'" class="reference internal" href="#types-of-scheduling-strategies">Types of Scheduling Strategies</a></li>
+<li><a :data-current="activeSection === '#os-support'" class="reference internal" href="#os-support">OS Support</a></li>
+<li><a :data-current="activeSection === '#types-of-processes-to-schedule'" class="reference internal" href="#types-of-processes-to-schedule">Types of Processes to Schedule</a></li>
+<li><a :data-current="activeSection === '#preemptive-scheduling-key-terms'" class="reference internal" href="#preemptive-scheduling-key-terms">Preemptive Scheduling Key Terms</a></li>
+<li><a :data-current="activeSection === '#process-states'" class="reference internal" href="#process-states">Process states</a></li>
+<li><a :data-current="activeSection === '#choosing-a-quantum'" class="reference internal" href="#choosing-a-quantum">Choosing a Quantum</a></li>
+<li><a :data-current="activeSection === '#context-switches'" class="reference internal" href="#context-switches">Context Switches</a></li>
+<li><a :data-current="activeSection === '#context-switching-how-it-works'" class="reference internal" href="#context-switching-how-it-works">Context switching - How it works</a></li>
+<li><a :data-current="activeSection === '#degrees-of-preemption'" class="reference internal" href="#degrees-of-preemption">Degrees of Preemption</a></li>
+<li><a :data-current="activeSection === '#round-robin-process-scheduling'" class="reference internal" href="#round-robin-process-scheduling">Round - Robin Process Scheduling</a></li>
+<li><a :data-current="activeSection === '#scheduling-with-multiple-queues'" class="reference internal" href="#scheduling-with-multiple-queues">Scheduling with Multiple Queues</a></li>
+<li><a :data-current="activeSection === '#real-time-schedulers'" class="reference internal" href="#real-time-schedulers">Real-time Schedulers</a></li>
+<li><a :data-current="activeSection === '#example-real-world-rts-problem'" class="reference internal" href="#example-real-world-rts-problem">Example Real World RTS Problem</a></li>
+<li><a :data-current="activeSection === '#solution-to-example-real-world-rts-problem'" class="reference internal" href="#solution-to-example-real-world-rts-problem">Solution to Example Real World RTS Problem</a></li>
+<li><a :data-current="activeSection === '#types-of-real-time-scheduler-implementations'" class="reference internal" href="#types-of-real-time-scheduler-implementations">Types of Real-Time Scheduler Implementations</a></li>
+<li><a :data-current="activeSection === '#additional-concerns-in-advanced-scheduler-implementations'" class="reference internal" href="#additional-concerns-in-advanced-scheduler-implementations">Additional Concerns in Advanced Scheduler Implementations</a></li>
+<li><a :data-current="activeSection === '#process-priority-and-scheduling-in-linux'" class="reference internal" href="#process-priority-and-scheduling-in-linux">Process Priority and Scheduling in Linux</a></li>
+<li><a :data-current="activeSection === '#linux-real-time-scheduler'" class="reference internal" href="#linux-real-time-scheduler">Linux Real Time Scheduler</a></li>
+<li><a :data-current="activeSection === '#linux-preemptive-scheduler'" class="reference internal" href="#linux-preemptive-scheduler">Linux Preemptive Scheduler</a></li>
+<li><a :data-current="activeSection === '#nice-values'" class="reference internal" href="#nice-values">Nice Values</a></li>
+<li><a :data-current="activeSection === '#process-scheduling-in-windows'" class="reference internal" href="#process-scheduling-in-windows">Process Scheduling in Windows</a></li>
+<li><a :data-current="activeSection === '#user-mode-schedulers'" class="reference internal" href="#user-mode-schedulers">User-Mode Schedulers</a></li>
+<li><a :data-current="activeSection === '#user-mode-threads-why'" class="reference internal" href="#user-mode-threads-why">User-Mode Threads: Why?</a></li>
+<li><a :data-current="activeSection === '#user-mode-threads-why-not'" class="reference internal" href="#user-mode-threads-why-not">User-Mode Threads: Why Not?</a></li>
+<li><a :data-current="activeSection === '#gnu-pth-user-mode-pthreads'" class="reference internal" href="#gnu-pth-user-mode-pthreads">GNU - Pth - User Mode Pthreads</a></li>
+<li><a :data-current="activeSection === '#pthreads-kernel-threads'" class="reference internal" href="#pthreads-kernel-threads">PThreads - Kernel Threads</a></li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+</div>
+</div>
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
+</div>
 </body>
 </html>

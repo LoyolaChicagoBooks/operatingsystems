@@ -1,45 +1,78 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installing a Windows Virtual Machine with VMware &mdash; Operating Systems 23 Jan 2022 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Installing a Linux Virtual Machine with VMware" href="linux_vm.html" /> 
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>Installing a Windows Virtual Machine with VMware | Operating Systems: updated 18 May 2023</title>
+<meta content="Installing a Windows Virtual Machine with VMware | Operating Systems: updated 18 May 2023" property="og:title"/>
+<meta content="Installing a Windows Virtual Machine with VMware | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<link href="_static/pygments.css" rel="stylesheet"/>
+<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="linux_vm.html" rel="prev" title="Installing a Linux Virtual Machine with VMware"/>
+<script>
+    <!-- Prevent Flash of wrong theme -->
+      const userPreference = localStorage.getItem('darkMode');
+      let mode;
+      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'dark';
+        document.documentElement.classList.add('dark');
+      } else {
+        mode = 'light';
+      }
+      if (!userPreference) {localStorage.setItem('darkMode', mode)}
+    </script>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+<script src="_static/doctools.js"></script>
+<script src="_static/sphinx_highlight.js"></script>
+<script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: #922247" >
-            <a href="index.html" class="icon icon-home"> Operating Systems
-          </a>
-              <div class="version">
-                23 Jan 2022
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none">
+<form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+      K
+    </kbd>
+</form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+<nav class="flex items-center space-x-1">
+<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
@@ -56,241 +89,238 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #922247" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Operating Systems</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installing a Windows Virtual Machine with VMware</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/windows_vm.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+</nav>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="installing-a-windows-virtual-machine-with-vmware">
-<h1>Installing a Windows Virtual Machine with VMware<a class="headerlink" href="#installing-a-windows-virtual-machine-with-vmware" title="Permalink to this headline"></a></h1>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
+<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Installing a Windows Virtual Machine with VMware</span>
+</nav>
+<div id="content" role="main">
+<section id="installing-a-windows-virtual-machine-with-vmware">
+<h1>Installing a Windows Virtual Machine with VMware<a class="headerlink" href="#installing-a-windows-virtual-machine-with-vmware" title="Permalink to this heading">¶</a></h1>
 <section id="vmware-fusion-vs-player-vs-workstation">
-<h2>VMware Fusion vs Player vs Workstation<a class="headerlink" href="#vmware-fusion-vs-player-vs-workstation" title="Permalink to this headline"></a></h2>
+<h2>VMware Fusion vs Player vs Workstation<a class="headerlink" href="#vmware-fusion-vs-player-vs-workstation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#vmware-fusion-vs-player-vs-workstation'">¶</a></h2>
 <p>The instructions given here are with VMware Fusion on OSX. The steps are nearly identical for the other two VMware products.</p>
 </section>
 <section id="create-a-new-vm">
-<h2>Create a new VM<a class="headerlink" href="#create-a-new-vm" title="Permalink to this headline"></a></h2>
+<h2>Create a new VM<a class="headerlink" href="#create-a-new-vm" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#create-a-new-vm'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/1_create_vm1.jpg"><img alt="_images/1_create_vm1.jpg" src="_images/1_create_vm1.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/1_create_vm1.jpg"><img alt="_images/1_create_vm1.jpg" src="_images/1_create_vm1.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="choose-the-install-disk">
-<h2>Choose the install disk<a class="headerlink" href="#choose-the-install-disk" title="Permalink to this headline"></a></h2>
+<h2>Choose the install disk<a class="headerlink" href="#choose-the-install-disk" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#choose-the-install-disk'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/2_choose_disk.jpg"><img alt="_images/2_choose_disk.jpg" src="_images/2_choose_disk.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/2_choose_disk.jpg"><img alt="_images/2_choose_disk.jpg" src="_images/2_choose_disk.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="fill-out-easy-install-settings">
-<h2>Fill out Easy-Install settings<a class="headerlink" href="#fill-out-easy-install-settings" title="Permalink to this headline"></a></h2>
+<h2>Fill out Easy-Install settings<a class="headerlink" href="#fill-out-easy-install-settings" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fill-out-easy-install-settings'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/3_easy_install.jpg"><img alt="_images/3_easy_install.jpg" src="_images/3_easy_install.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/3_easy_install.jpg"><img alt="_images/3_easy_install.jpg" src="_images/3_easy_install.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="customize-vm-settings">
-<h2>Customize VM settings<a class="headerlink" href="#customize-vm-settings" title="Permalink to this headline"></a></h2>
+<h2>Customize VM settings<a class="headerlink" href="#customize-vm-settings" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#customize-vm-settings'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/5_processors_and_memory.jpg"><img alt="_images/5_processors_and_memory.jpg" src="_images/5_processors_and_memory.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/5_processors_and_memory.jpg"><img alt="_images/5_processors_and_memory.jpg" src="_images/5_processors_and_memory.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/6_processors_and_memory1.jpg"><img alt="_images/6_processors_and_memory1.jpg" src="_images/6_processors_and_memory1.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/6_processors_and_memory1.jpg"><img alt="_images/6_processors_and_memory1.jpg" src="_images/6_processors_and_memory1.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>This is Mac specific. VMware doesn’t handle retina displays well. I recommend shutting it off here:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/7_display_retina.jpg"><img alt="_images/7_display_retina.jpg" src="_images/7_display_retina.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/7_display_retina.jpg"><img alt="_images/7_display_retina.jpg" src="_images/7_display_retina.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="start-the-vm">
-<h2>Start the VM<a class="headerlink" href="#start-the-vm" title="Permalink to this headline"></a></h2>
+<h2>Start the VM<a class="headerlink" href="#start-the-vm" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#start-the-vm'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/8_start_vm1.jpg"><img alt="_images/8_start_vm1.jpg" src="_images/8_start_vm1.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/8_start_vm1.jpg"><img alt="_images/8_start_vm1.jpg" src="_images/8_start_vm1.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="wait-for-easy-install-to-complete">
-<h2>Wait for Easy-Install to complete<a class="headerlink" href="#wait-for-easy-install-to-complete" title="Permalink to this headline"></a></h2>
+<h2>Wait for Easy-Install to complete<a class="headerlink" href="#wait-for-easy-install-to-complete" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#wait-for-easy-install-to-complete'">¶</a></h2>
 <ul class="simple">
 <li><p>The VM will reboot several times. The install took about 20 minutes on my Macbook Pro.</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/9_easy_install1.jpg"><img alt="_images/9_easy_install1.jpg" src="_images/9_easy_install1.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/9_easy_install1.jpg"><img alt="_images/9_easy_install1.jpg" src="_images/9_easy_install1.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="easy-install-is-finished">
-<h2>Easy-Install is finished<a class="headerlink" href="#easy-install-is-finished" title="Permalink to this headline"></a></h2>
+<h2>Easy-Install is finished<a class="headerlink" href="#easy-install-is-finished" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#easy-install-is-finished'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/10_install_complete.jpg"><img alt="_images/10_install_complete.jpg" src="_images/10_install_complete.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/10_install_complete.jpg"><img alt="_images/10_install_complete.jpg" src="_images/10_install_complete.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="install-visual-studio-attaching-the-disk-file">
-<h2>Install Visual Studio - attaching the disk file<a class="headerlink" href="#install-visual-studio-attaching-the-disk-file" title="Permalink to this headline"></a></h2>
+<h2>Install Visual Studio - attaching the disk file<a class="headerlink" href="#install-visual-studio-attaching-the-disk-file" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#install-visual-studio-attaching-the-disk-file'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/11_attach_vs_disk.jpg"><img alt="_images/11_attach_vs_disk.jpg" src="_images/11_attach_vs_disk.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/11_attach_vs_disk.jpg"><img alt="_images/11_attach_vs_disk.jpg" src="_images/11_attach_vs_disk.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>For some reason (at least in vmware fusion), the CD/DVD drive gets disabled. To turn it back on, do this:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/12_turn_cd_back_on.jpg"><img alt="_images/12_turn_cd_back_on.jpg" src="_images/12_turn_cd_back_on.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/12_turn_cd_back_on.jpg"><img alt="_images/12_turn_cd_back_on.jpg" src="_images/12_turn_cd_back_on.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/13_turn_cd_back_on.jpg"><img alt="_images/13_turn_cd_back_on.jpg" src="_images/13_turn_cd_back_on.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/13_turn_cd_back_on.jpg"><img alt="_images/13_turn_cd_back_on.jpg" src="_images/13_turn_cd_back_on.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="install-visual-studio-start-the-installer">
-<h2>Install Visual Studio - start the installer<a class="headerlink" href="#install-visual-studio-start-the-installer" title="Permalink to this headline"></a></h2>
+<h2>Install Visual Studio - start the installer<a class="headerlink" href="#install-visual-studio-start-the-installer" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#install-visual-studio-start-the-installer'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/14_start_vs_installer.jpg"><img alt="_images/14_start_vs_installer.jpg" src="_images/14_start_vs_installer.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/14_start_vs_installer.jpg"><img alt="_images/14_start_vs_installer.jpg" src="_images/14_start_vs_installer.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>I recommend not including the optional features. They won’t be needed for this course:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/15_optional_vs_features.jpg"><img alt="_images/15_optional_vs_features.jpg" src="_images/15_optional_vs_features.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/15_optional_vs_features.jpg"><img alt="_images/15_optional_vs_features.jpg" src="_images/15_optional_vs_features.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>This install will take 20-30 minutes to complete:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/16_vs_2013_installation.jpg"><img alt="_images/16_vs_2013_installation.jpg" src="_images/16_vs_2013_installation.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/16_vs_2013_installation.jpg"><img alt="_images/16_vs_2013_installation.jpg" src="_images/16_vs_2013_installation.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/17_vs_install_complete.jpg"><img alt="_images/17_vs_install_complete.jpg" src="_images/17_vs_install_complete.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/17_vs_install_complete.jpg"><img alt="_images/17_vs_install_complete.jpg" src="_images/17_vs_install_complete.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="launch-and-sign-into-visual-studio">
-<h2>Launch and sign into Visual Studio<a class="headerlink" href="#launch-and-sign-into-visual-studio" title="Permalink to this headline"></a></h2>
+<h2>Launch and sign into Visual Studio<a class="headerlink" href="#launch-and-sign-into-visual-studio" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#launch-and-sign-into-visual-studio'">¶</a></h2>
 <ul class="simple">
 <li><p>This step may or may not be applicable for you. With my MSDN license, I have to sign in to Visual Studio with my Microsoft account</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/18_vs_sign_in.jpg"><img alt="_images/18_vs_sign_in.jpg" src="_images/18_vs_sign_in.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/18_vs_sign_in.jpg"><img alt="_images/18_vs_sign_in.jpg" src="_images/18_vs_sign_in.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="install-vmware-player">
-<h2>Install VMware Player<a class="headerlink" href="#install-vmware-player" title="Permalink to this headline"></a></h2>
+<h2>Install VMware Player<a class="headerlink" href="#install-vmware-player" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#install-vmware-player'">¶</a></h2>
 <ul class="simple">
 <li><p>The default selections are appropriate for this class.</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/19_vmware_player_install.jpg"><img alt="_images/19_vmware_player_install.jpg" src="_images/19_vmware_player_install.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/19_vmware_player_install.jpg"><img alt="_images/19_vmware_player_install.jpg" src="_images/19_vmware_player_install.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/20_vmware_player_install_complete.jpg"><img alt="_images/20_vmware_player_install_complete.jpg" src="_images/20_vmware_player_install_complete.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/20_vmware_player_install_complete.jpg"><img alt="_images/20_vmware_player_install_complete.jpg" src="_images/20_vmware_player_install_complete.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="install-mercurial">
-<h2>Install Mercurial<a class="headerlink" href="#install-mercurial" title="Permalink to this headline"></a></h2>
+<h2>Install Mercurial<a class="headerlink" href="#install-mercurial" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#install-mercurial'">¶</a></h2>
 <ul class="simple">
 <li><p>When you download the Mercurial installer, this is the one you want:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/21_download_mercurial_installer.jpg"><img alt="_images/21_download_mercurial_installer.jpg" src="_images/21_download_mercurial_installer.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/21_download_mercurial_installer.jpg"><img alt="_images/21_download_mercurial_installer.jpg" src="_images/21_download_mercurial_installer.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/22_install_mercurial.jpg"><img alt="_images/22_install_mercurial.jpg" src="_images/22_install_mercurial.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/22_install_mercurial.jpg"><img alt="_images/22_install_mercurial.jpg" src="_images/22_install_mercurial.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/23_install_mercurial_complete.jpg"><img alt="_images/23_install_mercurial_complete.jpg" src="_images/23_install_mercurial_complete.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/23_install_mercurial_complete.jpg"><img alt="_images/23_install_mercurial_complete.jpg" src="_images/23_install_mercurial_complete.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="configuring-and-installing-software-and-security-updates">
-<h2>Configuring and installing software and security updates<a class="headerlink" href="#configuring-and-installing-software-and-security-updates" title="Permalink to this headline"></a></h2>
+<h2>Configuring and installing software and security updates<a class="headerlink" href="#configuring-and-installing-software-and-security-updates" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#configuring-and-installing-software-and-security-updates'">¶</a></h2>
 <ul class="simple">
 <li><p>Launch an Explorer window and navigate to the Control Panel</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/24_goto_control_panel.jpg"><img alt="_images/24_goto_control_panel.jpg" src="_images/24_goto_control_panel.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/24_goto_control_panel.jpg"><img alt="_images/24_goto_control_panel.jpg" src="_images/24_goto_control_panel.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>Change the Control Panel to show large icons:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/25_configure_control_panel.jpg"><img alt="_images/25_configure_control_panel.jpg" src="_images/25_configure_control_panel.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/25_configure_control_panel.jpg"><img alt="_images/25_configure_control_panel.jpg" src="_images/25_configure_control_panel.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>Go to Windows Update</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/26_start_windows_update.jpg"><img alt="_images/26_start_windows_update.jpg" src="_images/26_start_windows_update.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/26_start_windows_update.jpg"><img alt="_images/26_start_windows_update.jpg" src="_images/26_start_windows_update.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>Click the highlighted area to configure updates:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/27_configure_updates.jpg"><img alt="_images/27_configure_updates.jpg" src="_images/27_configure_updates.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/27_configure_updates.jpg"><img alt="_images/27_configure_updates.jpg" src="_images/27_configure_updates.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/28_configure_updates.jpg"><img alt="_images/28_configure_updates.jpg" src="_images/28_configure_updates.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/28_configure_updates.jpg"><img alt="_images/28_configure_updates.jpg" src="_images/28_configure_updates.jpg" style="width: 650px;"/></a>
 </figure>
 <ul class="simple">
 <li><p>Start the update installation process:</p></li>
 </ul>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/29_start_updates.jpg"><img alt="_images/29_start_updates.jpg" src="_images/29_start_updates.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/29_start_updates.jpg"><img alt="_images/29_start_updates.jpg" src="_images/29_start_updates.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/30_install_updates.jpg"><img alt="_images/30_install_updates.jpg" src="_images/30_install_updates.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/30_install_updates.jpg"><img alt="_images/30_install_updates.jpg" src="_images/30_install_updates.jpg" style="width: 650px;"/></a>
 </figure>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/31_install_updates.jpg"><img alt="_images/31_install_updates.jpg" src="_images/31_install_updates.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/31_install_updates.jpg"><img alt="_images/31_install_updates.jpg" src="_images/31_install_updates.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 <section id="reboot-the-vm">
-<h2>Reboot the VM<a class="headerlink" href="#reboot-the-vm" title="Permalink to this headline"></a></h2>
+<h2>Reboot the VM<a class="headerlink" href="#reboot-the-vm" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reboot-the-vm'">¶</a></h2>
 <figure class="align-default">
-<a class="reference internal image-reference" href="_images/32_restart_vm.jpg"><img alt="_images/32_restart_vm.jpg" src="_images/32_restart_vm.jpg" style="width: 650px;" /></a>
+<a class="reference internal image-reference" href="_images/32_restart_vm.jpg"><img alt="_images/32_restart_vm.jpg" src="_images/32_restart_vm.jpg" style="width: 650px;"/></a>
 </figure>
 </section>
 </section>
-
-
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="linux_vm.html" class="btn btn-neutral float-left" title="Installing a Linux Virtual Machine with VMware" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#vmware-fusion-vs-player-vs-workstation'" class="reference internal" href="#vmware-fusion-vs-player-vs-workstation">VMware Fusion vs Player vs Workstation</a></li>
+<li><a :data-current="activeSection === '#create-a-new-vm'" class="reference internal" href="#create-a-new-vm">Create a new VM</a></li>
+<li><a :data-current="activeSection === '#choose-the-install-disk'" class="reference internal" href="#choose-the-install-disk">Choose the install disk</a></li>
+<li><a :data-current="activeSection === '#fill-out-easy-install-settings'" class="reference internal" href="#fill-out-easy-install-settings">Fill out Easy-Install settings</a></li>
+<li><a :data-current="activeSection === '#customize-vm-settings'" class="reference internal" href="#customize-vm-settings">Customize VM settings</a></li>
+<li><a :data-current="activeSection === '#start-the-vm'" class="reference internal" href="#start-the-vm">Start the VM</a></li>
+<li><a :data-current="activeSection === '#wait-for-easy-install-to-complete'" class="reference internal" href="#wait-for-easy-install-to-complete">Wait for Easy-Install to complete</a></li>
+<li><a :data-current="activeSection === '#easy-install-is-finished'" class="reference internal" href="#easy-install-is-finished">Easy-Install is finished</a></li>
+<li><a :data-current="activeSection === '#install-visual-studio-attaching-the-disk-file'" class="reference internal" href="#install-visual-studio-attaching-the-disk-file">Install Visual Studio - attaching the disk file</a></li>
+<li><a :data-current="activeSection === '#install-visual-studio-start-the-installer'" class="reference internal" href="#install-visual-studio-start-the-installer">Install Visual Studio - start the installer</a></li>
+<li><a :data-current="activeSection === '#launch-and-sign-into-visual-studio'" class="reference internal" href="#launch-and-sign-into-visual-studio">Launch and sign into Visual Studio</a></li>
+<li><a :data-current="activeSection === '#install-vmware-player'" class="reference internal" href="#install-vmware-player">Install VMware Player</a></li>
+<li><a :data-current="activeSection === '#install-mercurial'" class="reference internal" href="#install-mercurial">Install Mercurial</a></li>
+<li><a :data-current="activeSection === '#configuring-and-installing-software-and-security-updates'" class="reference internal" href="#configuring-and-installing-software-and-security-updates">Configuring and installing software and security updates</a></li>
+<li><a :data-current="activeSection === '#reboot-the-vm'" class="reference internal" href="#reboot-the-vm">Reboot the VM</a></li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+</div>
+</div>
 </footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
+</div>
 </body>
 </html>
