@@ -1,3 +1,3 @@
 sphinx
 sphinx-rtd-theme
-travis-sphinx
+sphinxawesome-theme==5.0.0b1
