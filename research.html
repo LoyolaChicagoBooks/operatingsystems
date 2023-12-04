@@ -6,12 +6,12 @@
 <meta charset="utf-8"/>
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
-<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Storage Research at Loyola | Operating Systems: updated 18 May 2023</title>
-<meta content="Storage Research at Loyola | Operating Systems: updated 18 May 2023" property="og:title"/>
-<meta content="Storage Research at Loyola | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Storage Research at Loyola | Operating Systems: updated 04 Dec 2023</title>
+<meta content="Storage Research at Loyola | Operating Systems: updated 04 Dec 2023" property="og:title"/>
+<meta content="Storage Research at Loyola | Operating Systems: updated 04 Dec 2023" name="twitter:title"/>
 <link href="_static/pygments.css" rel="stylesheet"/>
-<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
 <link href="linux_vm.html" rel="next" title="Installing a Linux Virtual Machine with VMware"/>
@@ -28,9 +28,9 @@
       }
       if (!userPreference) {localStorage.setItem('darkMode', mode)}
     </script>
-<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-<script src="_static/doctools.js"></script>
-<script src="_static/sphinx_highlight.js"></script>
+<script src="_static/documentation_options.js?v=a0bb73f4"></script>
+<script src="_static/doctools.js?v=888ff710"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
 <body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
@@ -38,7 +38,7 @@
       Skip to content
     </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
 <div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 04 Dec 2023</span>
 </a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
 <svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
 <path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
@@ -69,7 +69,7 @@
 </div>
 </header>
 <div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 04 Dec 2023</span>
 </a>
 <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
@@ -103,7 +103,7 @@
 <div class="w-full min-w-0 mx-auto">
 <nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
 <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
-<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<span class="hidden md:inline">Operating Systems: updated 04 Dec 2023</span>
 <svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
@@ -112,9 +112,9 @@
 </nav>
 <div id="content" role="main">
 <section id="storage-research-at-loyola">
-<h1>Storage Research at Loyola<a class="headerlink" href="#storage-research-at-loyola" title="Permalink to this heading">¶</a></h1>
+<h1>Storage Research at Loyola<a class="headerlink" href="#storage-research-at-loyola" title="Link to this heading">¶</a></h1>
 <section id="filesystems-research-at-loyola">
-<h2>Filesystems Research at Loyola<a class="headerlink" href="#filesystems-research-at-loyola" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#filesystems-research-at-loyola'">¶</a></h2>
+<h2>Filesystems Research at Loyola<a class="headerlink" href="#filesystems-research-at-loyola" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#filesystems-research-at-loyola'">¶</a></h2>
 <ul class="simple">
 <li><p>Profs. Thiruvathukal, Laufer, and myself have been working on
 filesystems and filesystems frameworks for several years.</p></li>
@@ -128,7 +128,7 @@ greatly simplify the problem space.</p></li>
 </ul>
 </section>
 <section id="nofs">
-<h2>NOFS<a class="headerlink" href="#nofs" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs'">¶</a></h2>
+<h2>NOFS<a class="headerlink" href="#nofs" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs'">¶</a></h2>
 <ul class="simple">
 <li><p>In most OOP graphical applications, there are a few common
 components:</p>
@@ -149,7 +149,7 @@ application</p></li>
 </ul>
 </section>
 <section id="id1">
-<h2>NOFS<a class="headerlink" href="#id1" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
+<h2>NOFS<a class="headerlink" href="#id1" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
 <ul class="simple">
 <li><p>The principle behind NOFS is that the fundamental structures or
 domain objects of a filesystem should be all that need to be
@@ -164,7 +164,7 @@ architecture (hard disk, files, etc…)</p></li>
 </ul>
 </section>
 <section id="an-example-nofs-filesystem-in-3-slides">
-<h2>An Example NOFS Filesystem in 3 Slides<a class="headerlink" href="#an-example-nofs-filesystem-in-3-slides" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#an-example-nofs-filesystem-in-3-slides'">¶</a></h2>
+<h2>An Example NOFS Filesystem in 3 Slides<a class="headerlink" href="#an-example-nofs-filesystem-in-3-slides" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#an-example-nofs-filesystem-in-3-slides'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@RootFolderObject</span>
 <span class="nd">@DomainObject</span>
 <span class="nd">@FolderObject</span><span class="p">(</span><span class="n">CanAdd</span><span class="o">=</span><span class="n">false</span><span class="p">,</span> <span class="n">CanRemove</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
@@ -198,7 +198,7 @@ architecture (hard disk, files, etc…)</p></li>
 </div>
 </section>
 <section id="id2">
-<h2>An Example NOFS Filesystem in 3 Slides<a class="headerlink" href="#id2" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
+<h2>An Example NOFS Filesystem in 3 Slides<a class="headerlink" href="#id2" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="nd">@Executable</span>
   <span class="n">public</span> <span class="n">void</span> <span class="n">AddAContact</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="n">String</span> <span class="n">phone</span><span class="p">)</span> <span class="n">throws</span> <span class="ne">Exception</span> <span class="p">{</span>
     <span class="n">IDomainObjectContainer</span><span class="o">&lt;</span><span class="n">Contact</span><span class="o">&gt;</span> <span class="n">contactContainer</span> <span class="o">=</span>
@@ -231,7 +231,7 @@ architecture (hard disk, files, etc…)</p></li>
 </div>
 </section>
 <section id="id3">
-<h2>An Example NOFS Filesystem in 3 Slides<a class="headerlink" href="#id3" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
+<h2>An Example NOFS Filesystem in 3 Slides<a class="headerlink" href="#id3" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@DomainObject</span>
 <span class="n">public</span> <span class="k">class</span> <span class="nc">Contact</span> <span class="p">{</span>
   <span class="n">private</span> <span class="n">String</span> <span class="n">_name</span><span class="p">;</span>
@@ -264,18 +264,18 @@ architecture (hard disk, files, etc…)</p></li>
 </div>
 </section>
 <section id="nofs-running-the-sample">
-<h2>NOFS - Running the Sample<a class="headerlink" href="#nofs-running-the-sample" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-running-the-sample'">¶</a></h2>
+<h2>NOFS - Running the Sample<a class="headerlink" href="#nofs-running-the-sample" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-running-the-sample'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id9">
 <img alt="image" src="_images/nofs_addressbook.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id9" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id4">
-<h2>NOFS<a class="headerlink" href="#id4" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
+<h2>NOFS<a class="headerlink" href="#id4" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
 <ul class="simple">
 <li><p>With NOFS, the developer can fill in as many details as they are
 concerned about.</p></li>
@@ -292,40 +292,40 @@ group ownership become more relevant.</p></li>
 </ul>
 </section>
 <section id="nofs-architecture-relation-to-fuse-and-the-os">
-<h2>NOFS - Architecture - Relation to FUSE and the OS<a class="headerlink" href="#nofs-architecture-relation-to-fuse-and-the-os" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-architecture-relation-to-fuse-and-the-os'">¶</a></h2>
+<h2>NOFS - Architecture - Relation to FUSE and the OS<a class="headerlink" href="#nofs-architecture-relation-to-fuse-and-the-os" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-architecture-relation-to-fuse-and-the-os'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id10">
 <img alt="image" src="_images/nofs_kernel_usermode.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id10" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="nofs-architecture-translation-of-domain-model-to-files">
-<h2>NOFS - Architecture - Translation of Domain Model to Files<a class="headerlink" href="#nofs-architecture-translation-of-domain-model-to-files" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-architecture-translation-of-domain-model-to-files'">¶</a></h2>
+<h2>NOFS - Architecture - Translation of Domain Model to Files<a class="headerlink" href="#nofs-architecture-translation-of-domain-model-to-files" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-architecture-translation-of-domain-model-to-files'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id11">
 <img alt="image" src="_images/nofs_cache_serialization.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id11" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="nofs-architecture-method-execution">
-<h2>NOFS - Architecture - Method Execution<a class="headerlink" href="#nofs-architecture-method-execution" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-architecture-method-execution'">¶</a></h2>
+<h2>NOFS - Architecture - Method Execution<a class="headerlink" href="#nofs-architecture-method-execution" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#nofs-architecture-method-execution'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id12">
 <img alt="image" src="_images/nofs_execution.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id12" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="restfs">
-<h2>RestFS<a class="headerlink" href="#restfs" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs'">¶</a></h2>
+<h2>RestFS<a class="headerlink" href="#restfs" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs'">¶</a></h2>
 <ul class="simple">
 <li><p>While developing NOFS, we realized that there were two common types
 of application oriented filesystems</p></li>
@@ -343,18 +343,18 @@ accessing web services even easier.</p></li>
 </ul>
 </section>
 <section id="restfs-service-composition">
-<h2>RestFS - Service Composition<a class="headerlink" href="#restfs-service-composition" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-service-composition'">¶</a></h2>
+<h2>RestFS - Service Composition<a class="headerlink" href="#restfs-service-composition" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-service-composition'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id13">
 <img alt="image" src="_images/composition.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id13" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id5">
-<h2>RestFS<a class="headerlink" href="#id5" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
+<h2>RestFS<a class="headerlink" href="#id5" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
 <ul class="simple">
 <li><p>While developing application filesystems for web services with NOFS,
 we found that domain model modifications were roughly mapping one or
@@ -368,18 +368,18 @@ results stored to the file.</p></li>
 </ul>
 </section>
 <section id="restfs-communications">
-<h2>RestFS - Communications<a class="headerlink" href="#restfs-communications" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-communications'">¶</a></h2>
+<h2>RestFS - Communications<a class="headerlink" href="#restfs-communications" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-communications'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id14">
 <img alt="image" src="_images/communication_timeline.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id14" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="restfs-google-search">
-<h2>RestFS - Google Search<a class="headerlink" href="#restfs-google-search" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-google-search'">¶</a></h2>
+<h2>RestFS - Google Search<a class="headerlink" href="#restfs-google-search" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-google-search'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
 URL_ARGS=`echo $@ | sed 's/ /%20/g'`
 FILE_NAME=`echo $@ | sed 's/ /_/g'`
@@ -399,7 +399,7 @@ cat $FILE_NAME
 </div>
 </section>
 <section id="restfs-authentication">
-<h2>RestFS - Authentication<a class="headerlink" href="#restfs-authentication" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-authentication'">¶</a></h2>
+<h2>RestFS - Authentication<a class="headerlink" href="#restfs-authentication" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-authentication'">¶</a></h2>
 <ul class="simple">
 <li><p>A common concern for many rest-ful services is authentication.</p></li>
 <li><p>A popular authentication method for many rest-ful services is OAuth.</p></li>
@@ -409,29 +409,29 @@ OAuth library into the filesystem</p></li>
 </ul>
 </section>
 <section id="id6">
-<h2>RestFS - Authentication<a class="headerlink" href="#id6" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
+<h2>RestFS - Authentication<a class="headerlink" href="#id6" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id15">
 <img alt="image" src="_images/restfs_auth.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id15" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id7">
-<h2>RestFS - Authentication<a class="headerlink" href="#id7" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
+<h2>RestFS - Authentication<a class="headerlink" href="#id7" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id16">
 <img alt="image" src="_images/restfs_authentication_process.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id16" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id8">
-<h2>RestFS<a class="headerlink" href="#id8" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
+<h2>RestFS<a class="headerlink" href="#id8" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
 <ul class="simple">
 <li><p>With RestFS we’ve been able to show how local software that works
 principally with files (cat, grep), can be used with web services</p></li>
@@ -441,7 +441,7 @@ services.</p></li>
 </ul>
 </section>
 <section id="restfs-future-directions">
-<h2>RestFS - Future Directions<a class="headerlink" href="#restfs-future-directions" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-future-directions'">¶</a></h2>
+<h2>RestFS - Future Directions<a class="headerlink" href="#restfs-future-directions" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#restfs-future-directions'">¶</a></h2>
 <ul class="simple">
 <li><p>We’re currently re-architecting RestFS to be more rules based so that
 more than one FS system call can be mapped per file.</p></li>
@@ -486,7 +486,7 @@ and give us a much better language framework to work from.</p></li>
 </div><footer class="py-6 border-t border-border md:py-0">
 <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
 <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
 </div>
 </div>
 </footer>

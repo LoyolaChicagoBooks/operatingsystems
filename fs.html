@@ -6,12 +6,12 @@
 <meta charset="utf-8"/>
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
-<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Implementing Files and Folders | Operating Systems: updated 18 May 2023</title>
-<meta content="Implementing Files and Folders | Operating Systems: updated 18 May 2023" property="og:title"/>
-<meta content="Implementing Files and Folders | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Implementing Files and Folders | Operating Systems: updated 04 Dec 2023</title>
+<meta content="Implementing Files and Folders | Operating Systems: updated 04 Dec 2023" property="og:title"/>
+<meta content="Implementing Files and Folders | Operating Systems: updated 04 Dec 2023" name="twitter:title"/>
 <link href="_static/pygments.css" rel="stylesheet"/>
-<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
 <link href="research.html" rel="next" title="Storage Research at Loyola"/>
@@ -28,9 +28,9 @@
       }
       if (!userPreference) {localStorage.setItem('darkMode', mode)}
     </script>
-<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-<script src="_static/doctools.js"></script>
-<script src="_static/sphinx_highlight.js"></script>
+<script src="_static/documentation_options.js?v=a0bb73f4"></script>
+<script src="_static/doctools.js?v=888ff710"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
 <body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
@@ -38,7 +38,7 @@
       Skip to content
     </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
 <div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 04 Dec 2023</span>
 </a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
 <svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
 <path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
@@ -69,7 +69,7 @@
 </div>
 </header>
 <div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 04 Dec 2023</span>
 </a>
 <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
@@ -103,7 +103,7 @@
 <div class="w-full min-w-0 mx-auto">
 <nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
 <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
-<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<span class="hidden md:inline">Operating Systems: updated 04 Dec 2023</span>
 <svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
@@ -112,9 +112,9 @@
 </nav>
 <div id="content" role="main">
 <section id="implementing-files-and-folders">
-<h1>Implementing Files and Folders<a class="headerlink" href="#implementing-files-and-folders" title="Permalink to this heading">¶</a></h1>
+<h1>Implementing Files and Folders<a class="headerlink" href="#implementing-files-and-folders" title="Link to this heading">¶</a></h1>
 <section id="id1">
-<h2>Implementing Files and Folders<a class="headerlink" href="#id1" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
+<h2>Implementing Files and Folders<a class="headerlink" href="#id1" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
 <ul class="simple">
 <li><p>How files and folders are implemented in a storage medium can greatly
 depend upon the physical characteristics and capabilities of that
@@ -132,18 +132,18 @@ possibilities.</p></li>
 </ul>
 </section>
 <section id="linked-lists">
-<h2>Linked-Lists<a class="headerlink" href="#linked-lists" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#linked-lists'">¶</a></h2>
+<h2>Linked-Lists<a class="headerlink" href="#linked-lists" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#linked-lists'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id22">
 <img alt="image" src="_images/linked_list_files.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id22" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id2">
-<h2>Linked-Lists<a class="headerlink" href="#id2" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
+<h2>Linked-Lists<a class="headerlink" href="#id2" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
 <ul class="simple">
 <li><p>Pros:</p>
 <ul>
@@ -166,18 +166,18 @@ are powers of two.</p></li>
 </ul>
 </section>
 <section id="file-allocation-tables-fat">
-<h2>File Allocation Tables (FAT)<a class="headerlink" href="#file-allocation-tables-fat" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#file-allocation-tables-fat'">¶</a></h2>
+<h2>File Allocation Tables (FAT)<a class="headerlink" href="#file-allocation-tables-fat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#file-allocation-tables-fat'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id23">
 <img alt="image" src="_images/linked_list_files_table.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id23" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id3">
-<h2>File Allocation Tables (FAT)<a class="headerlink" href="#id3" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
+<h2>File Allocation Tables (FAT)<a class="headerlink" href="#id3" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
 <ul class="simple">
 <li><p>FAT based filesystems improve over linked list filesystems by moving
 the linked list into a centralized table called the FAT.</p></li>
@@ -201,7 +201,7 @@ of memory.</p></li>
 </ul>
 </section>
 <section id="inodes">
-<h2>inodes<a class="headerlink" href="#inodes" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#inodes'">¶</a></h2>
+<h2>inodes<a class="headerlink" href="#inodes" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#inodes'">¶</a></h2>
 <ul class="simple">
 <li><p>inodes are the fundamental structures of a UNIX filesystem</p></li>
 <li><p>inodes have the following attributes:</p>
@@ -218,18 +218,18 @@ contents</p></li>
 </ul>
 </section>
 <section id="minix-inode">
-<h2>Minix - inode<a class="headerlink" href="#minix-inode" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#minix-inode'">¶</a></h2>
+<h2>Minix - inode<a class="headerlink" href="#minix-inode" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#minix-inode'">¶</a></h2>
 <blockquote>
 <div><figure class="align-center" id="id24">
 <img alt="image" src="_images/minix_inode.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id24" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="id4">
-<h2>Minix - inode<a class="headerlink" href="#id4" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
+<h2>Minix - inode<a class="headerlink" href="#id4" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
 <ul class="simple">
 <li><p>The first 7 “zones” point to the first 7 blocks of the file.</p></li>
 <li><p>The “indirect zone” points to another block that contains a list of
@@ -244,7 +244,7 @@ up to 64MB. The double indirect zones can address more than 4GB.</p></li>
 </ul>
 </section>
 <section id="id5">
-<h2>inodes<a class="headerlink" href="#id5" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
+<h2>inodes<a class="headerlink" href="#id5" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
 <ul class="simple">
 <li><p>The strategy of using indirect, double indirect, and even triple
 indirect blocks is a very successful implementation strategy</p></li>
@@ -252,7 +252,7 @@ indirect blocks is a very successful implementation strategy</p></li>
 </ul>
 </section>
 <section id="block-caches">
-<h2>Block Caches<a class="headerlink" href="#block-caches" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#block-caches'">¶</a></h2>
+<h2>Block Caches<a class="headerlink" href="#block-caches" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#block-caches'">¶</a></h2>
 <ul class="simple">
 <li><p>To improve the performance of a filesystem, and to make disk
 scheduling algorithms more realizable, most operating systems
@@ -268,7 +268,7 @@ the write had been committed to disk.</p></li>
 </ul>
 </section>
 <section id="id6">
-<h2>Block Caches<a class="headerlink" href="#id6" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
+<h2>Block Caches<a class="headerlink" href="#id6" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
 <ul>
 <li><p>In Minix, the block cache is implemented with an LRU policy. The
 cache maintains a linked list of buffers from most recently to least
@@ -277,7 +277,7 @@ recently used</p>
 <div><figure class="align-center" id="id25">
 <img alt="image" src="_images/minix_block_cache.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id25" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
@@ -285,7 +285,7 @@ recently used</p>
 </ul>
 </section>
 <section id="id7">
-<h2>Block Caches<a class="headerlink" href="#id7" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
+<h2>Block Caches<a class="headerlink" href="#id7" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
 <ul class="simple">
 <li><p>Important parameters of any block cache are:</p>
 <ul>
@@ -304,7 +304,7 @@ persisted to disk.</p></li>
 </ul>
 </section>
 <section id="folders-and-path-traversal">
-<h2>Folders and Path Traversal<a class="headerlink" href="#folders-and-path-traversal" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#folders-and-path-traversal'">¶</a></h2>
+<h2>Folders and Path Traversal<a class="headerlink" href="#folders-and-path-traversal" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#folders-and-path-traversal'">¶</a></h2>
 <ul class="simple">
 <li><p>In all but the most simple filesystems, there is a concept of a
 folder and a path.</p></li>
@@ -318,7 +318,7 @@ invalid.</p></li>
 </ul>
 </section>
 <section id="path-traversal">
-<h2>Path Traversal<a class="headerlink" href="#path-traversal" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#path-traversal'">¶</a></h2>
+<h2>Path Traversal<a class="headerlink" href="#path-traversal" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#path-traversal'">¶</a></h2>
 <ul>
 <li><p>An example of path traversal. When traversing paths, the path may
 cross into different filesystems.</p>
@@ -326,7 +326,7 @@ cross into different filesystems.</p>
 <div><figure class="align-center" id="id26">
 <img alt="image" src="_images/path_traversal.png"/>
 <figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">image</span><a class="headerlink" href="#id26" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
@@ -334,7 +334,7 @@ cross into different filesystems.</p>
 </ul>
 </section>
 <section id="virtual-filesystems-vfs">
-<h2>Virtual Filesystems / VFS<a class="headerlink" href="#virtual-filesystems-vfs" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#virtual-filesystems-vfs'">¶</a></h2>
+<h2>Virtual Filesystems / VFS<a class="headerlink" href="#virtual-filesystems-vfs" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#virtual-filesystems-vfs'">¶</a></h2>
 <ul class="simple">
 <li><p>Aside from files and folders there are other things like named pipes,
 domain sockets, symbolic and hard links that need to be handled by
@@ -347,7 +347,7 @@ implementation.</p></li>
 </ul>
 </section>
 <section id="id8">
-<h2>Virtual Filesystems / VFS<a class="headerlink" href="#id8" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
+<h2>Virtual Filesystems / VFS<a class="headerlink" href="#id8" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
 <ul class="simple">
 <li><p>The VFS can help adapt both foreign filesystems (such as VFAT) by
 producing a contract that these implementations can adapt to.</p></li>
@@ -365,7 +365,7 @@ behavior:</p>
 </ul>
 </section>
 <section id="virtual-filesystems-and-stacking">
-<h2>Virtual Filesystems and Stacking<a class="headerlink" href="#virtual-filesystems-and-stacking" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#virtual-filesystems-and-stacking'">¶</a></h2>
+<h2>Virtual Filesystems and Stacking<a class="headerlink" href="#virtual-filesystems-and-stacking" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#virtual-filesystems-and-stacking'">¶</a></h2>
 <ul class="simple">
 <li><p>In some VFS implementations it is possible to stack filesystems on
 top of each other.</p></li>
@@ -378,7 +378,7 @@ to be transparently overlaid.</p></li>
 </ul>
 </section>
 <section id="virtual-filesystems-and-user-mode">
-<h2>Virtual Filesystems and User-Mode<a class="headerlink" href="#virtual-filesystems-and-user-mode" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#virtual-filesystems-and-user-mode'">¶</a></h2>
+<h2>Virtual Filesystems and User-Mode<a class="headerlink" href="#virtual-filesystems-and-user-mode" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#virtual-filesystems-and-user-mode'">¶</a></h2>
 <ul class="simple">
 <li><p>Because VFS provides a contract for a filesystem to implement, it is
 simpler for unique filesystems to be implemented. Good examples
@@ -391,7 +391,7 @@ to and from user mode programs.</p></li>
 </ul>
 </section>
 <section id="user-mode-filesystems">
-<h2>User-Mode Filesystems<a class="headerlink" href="#user-mode-filesystems" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#user-mode-filesystems'">¶</a></h2>
+<h2>User-Mode Filesystems<a class="headerlink" href="#user-mode-filesystems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#user-mode-filesystems'">¶</a></h2>
 <ul class="simple">
 <li><p>The advent of user-mode filesystems in popular operating systems
 (they existed in less popular operating systems for a while) has led
@@ -403,7 +403,7 @@ they help make the task of systems development much easier.</p></li>
 </ul>
 </section>
 <section id="id9">
-<h2>User-Mode Filesystems<a class="headerlink" href="#id9" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id9'">¶</a></h2>
+<h2>User-Mode Filesystems<a class="headerlink" href="#id9" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id9'">¶</a></h2>
 <ul class="simple">
 <li><p>Development in a monolithic kernel can be very challenging. Crashes
 can bring the entire system down, stopping and restarting components
@@ -419,7 +419,7 @@ framework has moved to user-mode.</p></li>
 </ul>
 </section>
 <section id="example-pass-through-fuse-filesystem">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#example-pass-through-fuse-filesystem" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-pass-through-fuse-filesystem'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#example-pass-through-fuse-filesystem" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-pass-through-fuse-filesystem'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">AbsPath</span><span class="p">(</span>
     <span class="n">char</span> <span class="n">dest</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">],</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">strcpy</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">_root</span><span class="p">);</span>
@@ -440,7 +440,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id10">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id10" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id10'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id10" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id10'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Readlink</span><span class="p">(</span>
 <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">link</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">){</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"readlink(path=</span><span class="si">%s</span><span class="s2">, link=</span><span class="si">%s</span><span class="s2">, size=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
@@ -461,7 +461,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id11">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id11" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id11'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id11" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id11'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Mkdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">mode_t</span> <span class="n">mode</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"**mkdir(path=</span><span class="si">%s</span><span class="s2">, mode=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">mode</span><span class="p">);</span>
   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -484,7 +484,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id12">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id12" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id12'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id12" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id12'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Symlink</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">link</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"symlink(path=</span><span class="si">%s</span><span class="s2">, link=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">link</span><span class="p">);</span>
   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -501,7 +501,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id13">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id13" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id13'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id13" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id13'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Link</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">newpath</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"link(path=</span><span class="si">%s</span><span class="s2">, newPath=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">newpath</span><span class="p">);</span>
   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -520,7 +520,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id14">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id14" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id14'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id14" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id14'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Chown</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">uid_t</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid_t</span> <span class="n">gid</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"chown(path=</span><span class="si">%s</span><span class="s2">, uid=</span><span class="si">%d</span><span class="s2">, gid=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
             <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">uid</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">gid</span><span class="p">);</span>
@@ -544,7 +544,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id15">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id15" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id15'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id15" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id15'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
         <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -564,7 +564,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id16">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id16" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id16'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id16" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id16'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Statfs</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">statvfs</span> <span class="o">*</span><span class="n">statInfo</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"statfs(path=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -584,7 +584,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id17">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id17" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id17'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id17" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id17'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Fsync</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="nb">int</span> <span class="n">datasync</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fi</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s2">"fsync(path=</span><span class="si">%s</span><span class="s2">, datasync=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">datasync</span><span class="p">);</span>
   <span class="k">if</span><span class="p">(</span><span class="n">datasync</span><span class="p">)</span> <span class="p">{</span>
@@ -606,7 +606,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id18">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id18" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id18'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id18" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id18'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Getxattr</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
     <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">value</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -628,7 +628,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id19">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id19" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id19'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id19" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id19'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int ExampleFS::Opendir(const char *path,
     struct fuse_file_info *fileInfo) {
   printf("opendir(path=%s)\n", path);
@@ -642,7 +642,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id20">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id20" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id20'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id20" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id20'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Readdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
     <span class="n">fuse_fill_dir_t</span> <span class="n">filler</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span>
     <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
@@ -664,7 +664,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="id21">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id21" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id21'">¶</a></h2>
+<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id21" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id21'">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Releasedir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
     <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">closedir</span><span class="p">((</span><span class="n">DIR</span><span class="o">*</span><span class="p">)</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">);</span>
@@ -687,7 +687,7 @@ framework has moved to user-mode.</p></li>
 </div>
 </section>
 <section id="fuse">
-<h2>FUSE<a class="headerlink" href="#fuse" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fuse'">¶</a></h2>
+<h2>FUSE<a class="headerlink" href="#fuse" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fuse'">¶</a></h2>
 <ul class="simple">
 <li><p>As you can see in the above example, the FUSE filesystem matches
 closely the contract of the UNIX system calls for files and folders.</p></li>
@@ -750,7 +750,7 @@ Ext2 is approximately 9000 lines of code.</p></li>
 </div><footer class="py-6 border-t border-border md:py-0">
 <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
 <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
 </div>
 </div>
 </footer>

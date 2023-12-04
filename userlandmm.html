@@ -6,12 +6,12 @@
 <meta charset="utf-8"/>
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
-<meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Userland Memory Management | Operating Systems: updated 18 May 2023</title>
-<meta content="Userland Memory Management | Operating Systems: updated 18 May 2023" property="og:title"/>
-<meta content="Userland Memory Management | Operating Systems: updated 18 May 2023" name="twitter:title"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Userland Memory Management | Operating Systems: updated 04 Dec 2023</title>
+<meta content="Userland Memory Management | Operating Systems: updated 04 Dec 2023" property="og:title"/>
+<meta content="Userland Memory Management | Operating Systems: updated 04 Dec 2023" name="twitter:title"/>
 <link href="_static/pygments.css" rel="stylesheet"/>
-<link href="_static/theme.a16405b310edf0713aee.css" rel="stylesheet"/>
+<link href="_static/theme.css" rel="stylesheet"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
 <link href="storage.html" rel="next" title="Storage and Devices"/>
@@ -28,9 +28,9 @@
       }
       if (!userPreference) {localStorage.setItem('darkMode', mode)}
     </script>
-<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-<script src="_static/doctools.js"></script>
-<script src="_static/sphinx_highlight.js"></script>
+<script src="_static/documentation_options.js?v=a0bb73f4"></script>
+<script src="_static/doctools.js?v=888ff710"></script>
+<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="" src="_static/theme.ad172c0f1249198ea036.js"></script>
 </head>
 <body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
@@ -38,7 +38,7 @@
       Skip to content
     </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
 <div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 04 Dec 2023</span>
 </a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
 <svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
 <path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
@@ -69,7 +69,7 @@
 </div>
 </header>
 <div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 18 May 2023</span>
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 04 Dec 2023</span>
 </a>
 <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
@@ -103,7 +103,7 @@
 <div class="w-full min-w-0 mx-auto">
 <nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
 <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
-<span class="hidden md:inline">Operating Systems: updated 18 May 2023</span>
+<span class="hidden md:inline">Operating Systems: updated 04 Dec 2023</span>
 <svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
@@ -112,9 +112,9 @@
 </nav>
 <div id="content" role="main">
 <section id="userland-memory-management">
-<h1>Userland Memory Management<a class="headerlink" href="#userland-memory-management" title="Permalink to this heading">¶</a></h1>
+<h1>Userland Memory Management<a class="headerlink" href="#userland-memory-management" title="Link to this heading">¶</a></h1>
 <section id="why-userland-memory-management">
-<h2>Why Userland Memory Management?<a class="headerlink" href="#why-userland-memory-management" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#why-userland-memory-management'">¶</a></h2>
+<h2>Why Userland Memory Management?<a class="headerlink" href="#why-userland-memory-management" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#why-userland-memory-management'">¶</a></h2>
 <ul class="simple">
 <li><p>Why discuss user land memory management in an OS course?</p></li>
 <li><p>After all, user land memory management is almost always an
@@ -128,7 +128,7 @@ primitive data types.</p></li>
 </ul>
 </section>
 <section id="id1">
-<h2>Why Userland Memory Management?<a class="headerlink" href="#id1" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
+<h2>Why Userland Memory Management?<a class="headerlink" href="#id1" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
 <ul class="simple">
 <li><p>Because programs need a view of the machine as something other than
 pages, we can consider the topic of user land memory management as a
@@ -139,10 +139,10 @@ the operating system implementation.</p></li>
 </ul>
 </section>
 <section id="heap-management">
-<h2>Heap Management<a class="headerlink" href="#heap-management" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#heap-management'">¶</a></h2>
+<h2>Heap Management<a class="headerlink" href="#heap-management" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#heap-management'">¶</a></h2>
 </section>
 <section id="the-heap">
-<h2>The Heap<a class="headerlink" href="#the-heap" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#the-heap'">¶</a></h2>
+<h2>The Heap<a class="headerlink" href="#the-heap" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#the-heap'">¶</a></h2>
 <ul class="simple">
 <li><p>The heap is the portion of a process’ memory that is used for data
 that lives beyond the lifetime of any one function or method. The
@@ -155,7 +155,7 @@ statements like new and deallocate memory with garbage collectors</p></li>
 </ul>
 </section>
 <section id="the-memory-manager">
-<h2>The Memory Manager<a class="headerlink" href="#the-memory-manager" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#the-memory-manager'">¶</a></h2>
+<h2>The Memory Manager<a class="headerlink" href="#the-memory-manager" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#the-memory-manager'">¶</a></h2>
 <ul class="simple">
 <li><p>The memory manager has the following responsibilities:</p>
 <ul>
@@ -174,7 +174,7 @@ implementations.</p></li>
 </ul>
 </section>
 <section id="characteristics-of-memory-allocation">
-<h2>Characteristics of Memory Allocation<a class="headerlink" href="#characteristics-of-memory-allocation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#characteristics-of-memory-allocation'">¶</a></h2>
+<h2>Characteristics of Memory Allocation<a class="headerlink" href="#characteristics-of-memory-allocation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#characteristics-of-memory-allocation'">¶</a></h2>
 <ul class="simple">
 <li><p>Requests from a program for chunks of the heap are typically not of
 the same size</p></li>
@@ -187,7 +187,7 @@ memory that are measured in bytes or kilo-bytes.</p></li>
 </ul>
 </section>
 <section id="id2">
-<h2>Characteristics of Memory Allocation<a class="headerlink" href="#id2" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
+<h2>Characteristics of Memory Allocation<a class="headerlink" href="#id2" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
 <ul class="simple">
 <li><p>Although not optimal, it is acceptable for an allocator to return a
 region of memory larger than the requested size.</p></li>
@@ -198,7 +198,7 @@ memory with a region of memory that is 32 bytes in size.s</p></li>
 </ul>
 </section>
 <section id="characteristics-of-a-good-memory-manager">
-<h2>Characteristics of a Good Memory Manager<a class="headerlink" href="#characteristics-of-a-good-memory-manager" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#characteristics-of-a-good-memory-manager'">¶</a></h2>
+<h2>Characteristics of a Good Memory Manager<a class="headerlink" href="#characteristics-of-a-good-memory-manager" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#characteristics-of-a-good-memory-manager'">¶</a></h2>
 <ul class="simple">
 <li><p>Space Efficiency - The memory manager should minimize the total heap
 needed by a program. This is accomplished by minimizing heap
@@ -213,7 +213,7 @@ allocations since smaller allocations happen more frequently.</p></li>
 </ul>
 </section>
 <section id="a-refresher-on-the-memory-hierarchy">
-<h2>A Refresher on the Memory Hierarchy<a class="headerlink" href="#a-refresher-on-the-memory-hierarchy" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#a-refresher-on-the-memory-hierarchy'">¶</a></h2>
+<h2>A Refresher on the Memory Hierarchy<a class="headerlink" href="#a-refresher-on-the-memory-hierarchy" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#a-refresher-on-the-memory-hierarchy'">¶</a></h2>
 <ul class="simple">
 <li><p>Memory Type / Memory Size / Access Time</p></li>
 <li><p>Registers / 32 words / 1 ns</p></li>
@@ -224,7 +224,7 @@ allocations since smaller allocations happen more frequently.</p></li>
 </ul>
 </section>
 <section id="program-locality">
-<h2>Program Locality<a class="headerlink" href="#program-locality" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#program-locality'">¶</a></h2>
+<h2>Program Locality<a class="headerlink" href="#program-locality" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#program-locality'">¶</a></h2>
 <ul class="simple">
 <li><p>Often, programs contain many instructions that are never executed.</p></li>
 <li><p>Programs built with reusable libraries, often only use a small
@@ -238,7 +238,7 @@ often not invoked.</p></li>
 </ul>
 </section>
 <section id="fragmentation">
-<h2>Fragmentation<a class="headerlink" href="#fragmentation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fragmentation'">¶</a></h2>
+<h2>Fragmentation<a class="headerlink" href="#fragmentation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fragmentation'">¶</a></h2>
 <ul class="simple">
 <li><p>Internal fragmentation - When a request for memory is answered with a
 region of memory that is larger than the request, the remainder is
@@ -253,7 +253,7 @@ deallocations cannot be controlled or predicted.</p></li>
 </ul>
 </section>
 <section id="reducing-fragmentation-of-the-heap">
-<h2>Reducing Fragmentation of the Heap<a class="headerlink" href="#reducing-fragmentation-of-the-heap" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reducing-fragmentation-of-the-heap'">¶</a></h2>
+<h2>Reducing Fragmentation of the Heap<a class="headerlink" href="#reducing-fragmentation-of-the-heap" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reducing-fragmentation-of-the-heap'">¶</a></h2>
 <ul class="simple">
 <li><p>The heap starts as one contiguous free space</p></li>
 <li><p>As the program allocates and deallocates memory, the free space will
@@ -267,7 +267,7 @@ free region that is large enough.</p></li>
 </ul>
 </section>
 <section id="best-fit-vs-next-fit">
-<h2>Best-Fit vs Next-Fit<a class="headerlink" href="#best-fit-vs-next-fit" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#best-fit-vs-next-fit'">¶</a></h2>
+<h2>Best-Fit vs Next-Fit<a class="headerlink" href="#best-fit-vs-next-fit" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#best-fit-vs-next-fit'">¶</a></h2>
 <ul class="simple">
 <li><p>The best-fit allocation policy is to fit each request into the free
 memory region that is the smallest that will satisfy the request</p></li>
@@ -282,7 +282,7 @@ fitting free region (although there are ways around this).</p></li>
 </ul>
 </section>
 <section id="best-fit">
-<h2>Best-Fit<a class="headerlink" href="#best-fit" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#best-fit'">¶</a></h2>
+<h2>Best-Fit<a class="headerlink" href="#best-fit" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#best-fit'">¶</a></h2>
 <ul class="simple">
 <li><p>To avoid the costs associated with searching for the best-fit free
 space region for an allocation, best-fit allocators commonly will
@@ -301,7 +301,7 @@ the operating system for more heap space.</p></li>
 </ul>
 </section>
 <section id="managing-free-space">
-<h2>Managing Free Space<a class="headerlink" href="#managing-free-space" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#managing-free-space'">¶</a></h2>
+<h2>Managing Free Space<a class="headerlink" href="#managing-free-space" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#managing-free-space'">¶</a></h2>
 <ul class="simple">
 <li><p>There are three approaches to managing free space:</p>
 <ul>
@@ -318,7 +318,7 @@ these lists are sorted to help best-fit algorithms.</p></li>
 </ul>
 </section>
 <section id="bugs-and-explicit-allocators">
-<h2>Bugs and Explicit Allocators<a class="headerlink" href="#bugs-and-explicit-allocators" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#bugs-and-explicit-allocators'">¶</a></h2>
+<h2>Bugs and Explicit Allocators<a class="headerlink" href="#bugs-and-explicit-allocators" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#bugs-and-explicit-allocators'">¶</a></h2>
 <ul class="simple">
 <li><p>For languages like C, when programs write beyond the boundaries of
 allocated sections of the memory explicitly allocated, it is possible
@@ -336,7 +336,7 @@ allocator can print an error to the console.</p></li>
 </ul>
 </section>
 <section id="debugging-malloc-free">
-<h2>Debugging malloc / free<a class="headerlink" href="#debugging-malloc-free" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#debugging-malloc-free'">¶</a></h2>
+<h2>Debugging malloc / free<a class="headerlink" href="#debugging-malloc-free" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#debugging-malloc-free'">¶</a></h2>
 <ul class="simple">
 <li><p>An excellent way to debug common malloc / free issues is to use the
 dmalloc library.</p></li>
@@ -351,7 +351,7 @@ existing applications without modification.</p></li>
 </ul>
 </section>
 <section id="expanding-the-heap">
-<h2>Expanding the Heap<a class="headerlink" href="#expanding-the-heap" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#expanding-the-heap'">¶</a></h2>
+<h2>Expanding the Heap<a class="headerlink" href="#expanding-the-heap" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#expanding-the-heap'">¶</a></h2>
 <ul class="simple">
 <li><p>There are two ways that UNIX allocators expand the heap:</p>
 <ul>
@@ -367,14 +367,14 @@ bucket (&gt; 1MB).</p></li>
 </ul>
 </section>
 <section id="recommended-reading">
-<h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#recommended-reading'">¶</a></h2>
+<h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#recommended-reading'">¶</a></h2>
 <ul class="simple">
 <li><p>Article by Doug Lea, the author of the GNU libc malloc/realloc/free -
 <a class="reference external" href="http://g.oswego.edu/dl/html/malloc.html">http://g.oswego.edu/dl/html/malloc.html</a></p></li>
 </ul>
 </section>
 <section id="problems-with-manual-deallocation">
-<h2>Problems with manual deallocation<a class="headerlink" href="#problems-with-manual-deallocation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#problems-with-manual-deallocation'">¶</a></h2>
+<h2>Problems with manual deallocation<a class="headerlink" href="#problems-with-manual-deallocation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#problems-with-manual-deallocation'">¶</a></h2>
 <ul class="simple">
 <li><p>Manual memory deallocation can lead to memory leaks. Memory leaks are
 defined as memory that has been allocated, but not deallocated and
@@ -385,7 +385,7 @@ this is not a problem. For longer lived programs this is a problem.</p></li>
 </ul>
 </section>
 <section id="id3">
-<h2>Problems with manual deallocation<a class="headerlink" href="#id3" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
+<h2>Problems with manual deallocation<a class="headerlink" href="#id3" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h2>
 <ul class="simple">
 <li><p>Manual memory deallocation can lead to problems if after the
 deallocation, a pointer refers to the deallocated space and the
@@ -396,7 +396,7 @@ to crashes or incorrect program behavior.</p></li>
 </ul>
 </section>
 <section id="avoiding-problems-with-manual-deallocation">
-<h2>Avoiding problems with manual deallocation<a class="headerlink" href="#avoiding-problems-with-manual-deallocation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#avoiding-problems-with-manual-deallocation'">¶</a></h2>
+<h2>Avoiding problems with manual deallocation<a class="headerlink" href="#avoiding-problems-with-manual-deallocation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#avoiding-problems-with-manual-deallocation'">¶</a></h2>
 <ul class="simple">
 <li><p>When designing an application, make sure each allocated object has a
 defined owner. This can be an instance of a class, or a function.
@@ -409,7 +409,7 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </ul>
 </section>
 <section id="a-simple-malloc-free-implementation-example-from-ibm-developer-works">
-<h2>A simple Malloc / Free Implementation (Example from IBM Developer Works)<a class="headerlink" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#a-simple-malloc-free-implementation-example-from-ibm-developer-works'">¶</a></h2>
+<h2>A simple Malloc / Free Implementation (Example from IBM Developer Works)<a class="headerlink" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#a-simple-malloc-free-implementation-example-from-ibm-developer-works'">¶</a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;unistd.h&gt;</span>
 <span class="nb">int</span> <span class="n">has_initialized</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -431,7 +431,7 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </div>
 </section>
 <section id="a-simple-malloc-free-implementation">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#a-simple-malloc-free-implementation" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#a-simple-malloc-free-implementation'">¶</a></h2>
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#a-simple-malloc-free-implementation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#a-simple-malloc-free-implementation'">¶</a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">myfree</span><span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="n">firstbyte</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">struct</span> <span class="n">mem_control_block</span> <span class="o">*</span><span class="n">mcb</span><span class="p">;</span>
@@ -444,7 +444,7 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </div>
 </section>
 <section id="id4">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id4" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id4" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>void *mymalloc(long numbytes) {
   void *current_location;
@@ -460,7 +460,7 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </div>
 </section>
 <section id="id5">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id5" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id5" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="n">current_location</span> <span class="o">!=</span> <span class="n">last_valid_address</span><span class="p">)</span>
 <span class="p">{</span>
@@ -482,7 +482,7 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </div>
 </section>
 <section id="id6">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id6" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
+<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id6" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h2>
 <p>{language=C, basicstyle=, indent=xleftmargin}</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  if(!memory_location)
   {
@@ -502,10 +502,10 @@ deallocate the object. This runs into trouble with cyclic structures.</p></li>
 </div>
 </section>
 <section id="garbage-collection">
-<h2>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#garbage-collection'">¶</a></h2>
+<h2>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#garbage-collection'">¶</a></h2>
 </section>
 <section id="id7">
-<h2>Garbage Collection<a class="headerlink" href="#id7" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
+<h2>Garbage Collection<a class="headerlink" href="#id7" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h2>
 <ul class="simple">
 <li><p>Data that can’t be referenced is considered garbage</p></li>
 <li><p>One problem that explicit allocators have is that deallocation is the
@@ -517,7 +517,7 @@ programming language in 1958.</p></li>
 </ul>
 </section>
 <section id="requirements-for-garbage-collectors">
-<h2>Requirements for Garbage Collectors<a class="headerlink" href="#requirements-for-garbage-collectors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#requirements-for-garbage-collectors'">¶</a></h2>
+<h2>Requirements for Garbage Collectors<a class="headerlink" href="#requirements-for-garbage-collectors" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#requirements-for-garbage-collectors'">¶</a></h2>
 <ul class="simple">
 <li><p>Most garbage collectors require that a system be type safe to support
 a collector.</p></li>
@@ -529,7 +529,7 @@ use of the full capability of C</p></li>
 </ul>
 </section>
 <section id="goals-for-a-garbage-collector">
-<h2>Goals for a Garbage Collector<a class="headerlink" href="#goals-for-a-garbage-collector" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#goals-for-a-garbage-collector'">¶</a></h2>
+<h2>Goals for a Garbage Collector<a class="headerlink" href="#goals-for-a-garbage-collector" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#goals-for-a-garbage-collector'">¶</a></h2>
 <ul class="simple">
 <li><p>Overall execution time for collection - Garbage collectors must
 access a lot of data. The faster they are the better</p></li>
@@ -543,7 +543,7 @@ deallocated.</p></li>
 </ul>
 </section>
 <section id="disadvantages-to-garbage-collection">
-<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#disadvantages-to-garbage-collection" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#disadvantages-to-garbage-collection'">¶</a></h2>
+<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#disadvantages-to-garbage-collection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#disadvantages-to-garbage-collection'">¶</a></h2>
 <ul class="simple">
 <li><p>Garbage collectors consume processing time determining which objects
 are garbage</p></li>
@@ -559,7 +559,7 @@ another. This can degrade performance.</p></li>
 </ul>
 </section>
 <section id="id8">
-<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#id8" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
+<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#id8" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h2>
 <ul class="simple">
 <li><p>Garbage collectors can’t detect when low physical memory conditions
 occur. With manual deallocation, the memory usage should always be
@@ -571,7 +571,7 @@ collectors can only collect garbage.</p></li>
 </ul>
 </section>
 <section id="reachability">
-<h2>Reachability<a class="headerlink" href="#reachability" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reachability'">¶</a></h2>
+<h2>Reachability<a class="headerlink" href="#reachability" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reachability'">¶</a></h2>
 <ul class="simple">
 <li><p>Every program has a concept of a root set of references. The root set
 is the list of references held on the stack of every executing
@@ -592,7 +592,7 @@ the stack that are not a part of the return are lost.</p></li>
 </ul>
 </section>
 <section id="reference-counting-garbage-collectors">
-<h2>Reference Counting Garbage Collectors<a class="headerlink" href="#reference-counting-garbage-collectors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reference-counting-garbage-collectors'">¶</a></h2>
+<h2>Reference Counting Garbage Collectors<a class="headerlink" href="#reference-counting-garbage-collectors" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#reference-counting-garbage-collectors'">¶</a></h2>
 <ul class="simple">
 <li><p>Reference counting garbage collectors work by detecting when an
 object’s reference count reaches zero and at that time deallocate the
@@ -613,7 +613,7 @@ also decrements the reference of every object it refers to.</p></li>
 </ul>
 </section>
 <section id="pros-cons-of-reference-counting-garbage-collectors">
-<h2>Pros-Cons of Reference Counting Garbage Collectors<a class="headerlink" href="#pros-cons-of-reference-counting-garbage-collectors" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pros-cons-of-reference-counting-garbage-collectors'">¶</a></h2>
+<h2>Pros-Cons of Reference Counting Garbage Collectors<a class="headerlink" href="#pros-cons-of-reference-counting-garbage-collectors" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#pros-cons-of-reference-counting-garbage-collectors'">¶</a></h2>
 <ul class="simple">
 <li><p>Pros</p>
 <ul>
@@ -632,7 +632,7 @@ structures.</p></li>
 </ul>
 </section>
 <section id="mark-and-sweep-garbage-collection">
-<h2>Mark-and-Sweep Garbage Collection<a class="headerlink" href="#mark-and-sweep-garbage-collection" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#mark-and-sweep-garbage-collection'">¶</a></h2>
+<h2>Mark-and-Sweep Garbage Collection<a class="headerlink" href="#mark-and-sweep-garbage-collection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#mark-and-sweep-garbage-collection'">¶</a></h2>
 <ul class="simple">
 <li><p>Mark-and-Sweep collectors work by stopping the execution of a program
 and use an algorithm to determine which objects are not reachable and
@@ -655,7 +655,7 @@ moved to the free list as garbage.</p></li>
 </ul>
 </section>
 <section id="mark-and-compact-garbage-collection">
-<h2>Mark-and-Compact Garbage Collection<a class="headerlink" href="#mark-and-compact-garbage-collection" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#mark-and-compact-garbage-collection'">¶</a></h2>
+<h2>Mark-and-Compact Garbage Collection<a class="headerlink" href="#mark-and-compact-garbage-collection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#mark-and-compact-garbage-collection'">¶</a></h2>
 <ul class="simple">
 <li><p>Compacting garbage collectors take the additional step of moving
 objects around in memory after collection to make free space
@@ -672,7 +672,7 @@ in the ACM library.</p></li>
 </ul>
 </section>
 <section id="garbage-collection-costs">
-<h2>Garbage Collection Costs<a class="headerlink" href="#garbage-collection-costs" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#garbage-collection-costs'">¶</a></h2>
+<h2>Garbage Collection Costs<a class="headerlink" href="#garbage-collection-costs" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#garbage-collection-costs'">¶</a></h2>
 <ul class="simple">
 <li><p>Mark-and-Sweep collectors costs are related to the number of
 reachable objects</p></li>
@@ -681,7 +681,7 @@ of reachable objects.</p></li>
 </ul>
 </section>
 <section id="incremental-garbage-collection">
-<h2>Incremental Garbage Collection<a class="headerlink" href="#incremental-garbage-collection" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#incremental-garbage-collection'">¶</a></h2>
+<h2>Incremental Garbage Collection<a class="headerlink" href="#incremental-garbage-collection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#incremental-garbage-collection'">¶</a></h2>
 <ul class="simple">
 <li><p>The previously mentioned garbage collectors stop the execution of all
 threads in a program to run. This can cause programs to pause for
@@ -697,7 +697,7 @@ addition to any newly unreachable objects.</p></li>
 </ul>
 </section>
 <section id="id9">
-<h2>Incremental Garbage Collection<a class="headerlink" href="#id9" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id9'">¶</a></h2>
+<h2>Incremental Garbage Collection<a class="headerlink" href="#id9" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id9'">¶</a></h2>
 <ul class="simple">
 <li><p>Why in general do incremental garbage collectors work well?</p></li>
 <li><p>For most programs, objects become garbage rapidly. This means that
@@ -713,7 +713,7 @@ also be copied multiple times.</p></li>
 </ul>
 </section>
 <section id="generational-garbage-collection">
-<h2>Generational Garbage Collection<a class="headerlink" href="#generational-garbage-collection" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#generational-garbage-collection'">¶</a></h2>
+<h2>Generational Garbage Collection<a class="headerlink" href="#generational-garbage-collection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#generational-garbage-collection'">¶</a></h2>
 <ul class="simple">
 <li><p>Generational garbage collectors are a specific way of implementing a
 copying incremental garbage collector.</p></li>
@@ -729,7 +729,7 @@ objects which are objects most likely to be garbage.</p></li>
 </ul>
 </section>
 <section id="id10">
-<h2>Generational Garbage Collection<a class="headerlink" href="#id10" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id10'">¶</a></h2>
+<h2>Generational Garbage Collection<a class="headerlink" href="#id10" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id10'">¶</a></h2>
 <ul class="simple">
 <li><p>Generational garbage collectors are used in many platforms -</p></li>
 <li><p>Java</p></li>
@@ -738,7 +738,7 @@ objects which are objects most likely to be garbage.</p></li>
 </ul>
 </section>
 <section id="buyer-beware">
-<h2>Buyer Beware<a class="headerlink" href="#buyer-beware" title="Permalink to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#buyer-beware'">¶</a></h2>
+<h2>Buyer Beware<a class="headerlink" href="#buyer-beware" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#buyer-beware'">¶</a></h2>
 <ul class="simple">
 <li><p>Even with advanced and efficient garbage collection algorithms, it is
 still possible in theory to “leak” memory.</p></li>
@@ -810,7 +810,7 @@ artificially.</p></li>
 </div><footer class="py-6 border-t border-border md:py-0">
 <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
 <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 6.2.1</a></p>
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
 </div>
 </div>
 </footer>
