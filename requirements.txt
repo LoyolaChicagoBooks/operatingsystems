@@ -1,2 +1,2 @@
 sphinx 
-sphinxawesome-theme == 5.0.0-rc.1
+sphinxawesome-theme == 5.1.0
