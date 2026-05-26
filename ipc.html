@@ -401,7 +401,7 @@
                   
   <section id="ipc-topics">
 <h1>IPC Topics<a class="headerlink" href="#ipc-topics" title="Link to this heading">#</a></h1>
-<p>Interprocess communication, or IPC, is the set of mechanisms processes
+<p id="index-0">Interprocess communication, or IPC, is the set of mechanisms processes
 use to exchange data or coordinate activity. UNIX systems provide many
 IPC mechanisms because different programs need different tradeoffs among
 speed, structure, persistence, and portability.</p>
@@ -410,7 +410,7 @@ shared memory, memory mapped files, files, UNIX domain sockets, Solaris
 doors, and TCP/IP sockets.</p>
 <section id="ipc-performance-hierarchy">
 <h2>IPC Performance Hierarchy<a class="headerlink" href="#ipc-performance-hierarchy" title="Link to this heading">#</a></h2>
-<p>IPC mechanisms differ mostly in how much kernel involvement they need.</p>
+<p id="index-1">IPC mechanisms differ mostly in how much kernel involvement they need.</p>
 <p>Shared memory and locks in shared memory are usually fastest after setup
 because ordinary reads and writes do not require a system call. Memory
 mapped files are also fast because they use the virtual memory system.
@@ -420,7 +420,7 @@ because they may involve filesystem or network activity.</p>
 </section>
 <section id="pipes">
 <h2>Pipes<a class="headerlink" href="#pipes" title="Link to this heading">#</a></h2>
-<p>A pipe is a half-duplex byte stream between related processes. Data flows
+<p id="index-2">A pipe is a half-duplex byte stream between related processes. Data flows
 in one direction, from the write end to the read end.</p>
 <p>Pipes are among the oldest UNIX IPC mechanisms. A parent process creates
 a pipe and then child processes inherit the pipe file descriptors across
@@ -430,7 +430,7 @@ coordination tasks.</p>
 </section>
 <section id="pipe-descriptors">
 <h2>Pipe Descriptors<a class="headerlink" href="#pipe-descriptors" title="Link to this heading">#</a></h2>
-<p>A pipe has two file descriptors: one for reading and one for writing.</p>
+<p id="index-3">A pipe has two file descriptors: one for reading and one for writing.</p>
 <p>On Linux, the call is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">pipe</span><span class="p">(</span><span class="nb">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
 </pre></div>
@@ -558,7 +558,7 @@ halves.</p></li>
 </section>
 <section id="pipes-and-context-switches">
 <h2>Pipes and Context Switches<a class="headerlink" href="#pipes-and-context-switches" title="Link to this heading">#</a></h2>
-<p>Pipe I/O crosses the user-kernel boundary. A write enters the kernel,
+<p id="index-4">Pipe I/O crosses the user-kernel boundary. A write enters the kernel,
 the kernel buffers the data, and a read later copies the data into the
 receiving process.</p>
 <figure class="align-center">
@@ -570,7 +570,7 @@ kernel-managed byte stream.</p>
 </section>
 <section id="named-pipes-and-fifos">
 <h2>Named Pipes and FIFOs<a class="headerlink" href="#named-pipes-and-fifos" title="Link to this heading">#</a></h2>
-<p>A named pipe, or FIFO, is a pipe that has a name in the filesystem.</p>
+<p id="index-5">A named pipe, or FIFO, is a pipe that has a name in the filesystem.</p>
 <p>Named pipes differ from ordinary pipes in three useful ways. They live in
 the filesystem namespace, they can outlive the processes that use them,
 and normal filesystem permissions can control access to them.</p>
@@ -602,7 +602,7 @@ work well when the program needs random access.</p>
 </section>
 <section id="named-pipe-atomicity">
 <h2>Named Pipe Atomicity<a class="headerlink" href="#named-pipe-atomicity" title="Link to this heading">#</a></h2>
-<p>Writes to a pipe are atomic only up to a system-defined size.</p>
+<p id="index-6">Writes to a pipe are atomic only up to a system-defined size.</p>
 <p>If each <code class="docutils literal notranslate"><span class="pre">write()</span></code> call is no larger than <code class="docutils literal notranslate"><span class="pre">PIPE_BUF</span></code>, the writes are
 atomic and are not interleaved with writes from other processes. If a
 write is larger than <code class="docutils literal notranslate"><span class="pre">PIPE_BUF</span></code>, the kernel may split the write and
@@ -612,7 +612,7 @@ mechanism.</p>
 </section>
 <section id="signals">
 <h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">#</a></h2>
-<p>A signal is a software interrupt delivered to a process.</p>
+<p id="index-7">A signal is a software interrupt delivered to a process.</p>
 <p>Signals are used for asynchronous events such as child termination,
 terminal interrupts, timers, broken pipes, and invalid memory accesses.
 Each signal has a disposition: ignore it, catch it with a handler, or use
@@ -620,7 +620,7 @@ the default action.</p>
 </section>
 <section id="important-signals">
 <h2>Important Signals<a class="headerlink" href="#important-signals" title="Link to this heading">#</a></h2>
-<p>Many UNIX systems define more than thirty signals. The following table
+<p id="index-8">Many UNIX systems define more than thirty signals. The following table
 lists common ones used in systems programming.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id1">
 <caption><span class="caption-text">List of Important Signals</span><a class="headerlink" href="#id1" title="Link to this table">#</a></caption>
@@ -682,7 +682,7 @@ lists common ones used in systems programming.</p>
 </section>
 <section id="handling-signals">
 <h2>Handling Signals<a class="headerlink" href="#handling-signals" title="Link to this heading">#</a></h2>
-<p>A process can register a handler for a catchable signal.</p>
+<p id="index-9">A process can register a handler for a catchable signal.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">handler</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
@@ -710,7 +710,7 @@ lists common ones used in systems programming.</p>
 </section>
 <section id="sending-signals">
 <h2>Sending Signals<a class="headerlink" href="#sending-signals" title="Link to this heading">#</a></h2>
-<p>Signals can be sent from the shell with <code class="docutils literal notranslate"><span class="pre">kill</span></code>.</p>
+<p id="index-10">Signals can be sent from the shell with <code class="docutils literal notranslate"><span class="pre">kill</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ firefox &amp;
 [1] 5050
 $ kill -USR1 5050
@@ -723,7 +723,7 @@ sets a timer for <code class="docutils literal notranslate"><span class="pre">SI
 </section>
 <section id="interrupted-system-calls">
 <h2>Interrupted System Calls<a class="headerlink" href="#interrupted-system-calls" title="Link to this heading">#</a></h2>
-<p>A signal can interrupt a blocking system call.</p>
+<p id="index-11">A signal can interrupt a blocking system call.</p>
 <p>Older UNIX systems could interrupt almost any blocking system call.
 Modern systems still treat reads and writes on pipes, terminals, and
 network devices as slow calls because they can block indefinitely. If a
@@ -734,7 +734,7 @@ with <code class="docutils literal notranslate"><span class="pre">SA_RESTART</sp
 </section>
 <section id="reentrant-signal-handlers">
 <h2>Reentrant Signal Handlers<a class="headerlink" href="#reentrant-signal-handlers" title="Link to this heading">#</a></h2>
-<p>A signal handler interrupts whatever the process was doing at that
+<p id="index-12">A signal handler interrupts whatever the process was doing at that
 moment. The interrupted code might have been inside <code class="docutils literal notranslate"><span class="pre">malloc()</span></code>,
 <code class="docutils literal notranslate"><span class="pre">printf()</span></code>, or another function with internal state.</p>
 <p>For that reason, signal handlers must only call reentrant, async-signal
@@ -745,7 +745,7 @@ or use mutable static data are not safe in a signal handler.</p>
 </section>
 <section id="sleep-with-alarm">
 <h2>Sleep with Alarm<a class="headerlink" href="#sleep-with-alarm" title="Link to this heading">#</a></h2>
-<p>Early UNIX implementations used <code class="docutils literal notranslate"><span class="pre">SIGALRM</span></code> to implement sleep-like
+<p id="index-13">Early UNIX implementations used <code class="docutils literal notranslate"><span class="pre">SIGALRM</span></code> to implement sleep-like
 behavior.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">sig_alrm</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signo</span><span class="p">)</span><span class="w"> </span>
 <span class="linenos"> 2</span><span class="w">    </span><span class="p">{</span>
@@ -772,7 +772,7 @@ behavior.</p>
 </section>
 <section id="better-sleep-with-longjmp">
 <h2>Better Sleep with Longjmp<a class="headerlink" href="#better-sleep-with-longjmp" title="Link to this heading">#</a></h2>
-<p>One attempted improvement is to use <code class="docutils literal notranslate"><span class="pre">setjmp()</span></code> and <code class="docutils literal notranslate"><span class="pre">longjmp()</span></code> so
+<p id="index-14">One attempted improvement is to use <code class="docutils literal notranslate"><span class="pre">setjmp()</span></code> and <code class="docutils literal notranslate"><span class="pre">longjmp()</span></code> so
 the signal handler can escape the interrupted wait.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">jmpbuf</span><span class="w"> </span><span class="n">env_alrm</span><span class="p">;</span>
 <span class="linenos"> 2</span>
@@ -802,7 +802,7 @@ masks matter.</p></li>
 </section>
 <section id="signal-timing-problem">
 <h2>Signal Timing Problem<a class="headerlink" href="#signal-timing-problem" title="Link to this heading">#</a></h2>
-<p>Signal-based sleep code is difficult because one signal can interrupt
+<p id="index-15">Signal-based sleep code is difficult because one signal can interrupt
 another handler or arrive between two operations that looked adjacent in
 the source.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">void</span><span class="w"> </span><span class="nf">sig_int</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -844,7 +844,7 @@ careful handling of <code class="docutils literal notranslate"><span class="pre"
 </section>
 <section id="memory-mapped-files">
 <h2>Memory Mapped Files<a class="headerlink" href="#memory-mapped-files" title="Link to this heading">#</a></h2>
-<p>A memory mapped file maps a file into a process’s virtual address space.
+<p id="index-16">A memory mapped file maps a file into a process’s virtual address space.
 After setup, the program can read and write the mapped region with normal
 memory operations.</p>
 <p>The file is the backing store for the mapped memory. If two processes map
@@ -854,7 +854,7 @@ shared data structures must not depend on process-local pointer values.</p>
 </section>
 <section id="virtual-addressing-in-mapped-files">
 <h2>Virtual Addressing in Mapped Files<a class="headerlink" href="#virtual-addressing-in-mapped-files" title="Link to this heading">#</a></h2>
-<p>Memory mapped regions should use position-independent data layouts.</p>
+<p id="index-17">Memory mapped regions should use position-independent data layouts.</p>
 <p>Pointers store virtual addresses, and the same mapped file can appear at
 different virtual addresses in different processes. Data stored in a
 mapped region should use fixed-size arrays, offsets, or indexes instead
@@ -923,7 +923,7 @@ them.</p></li>
 </section>
 <section id="using-mmap">
 <h2>Using mmap<a class="headerlink" href="#using-mmap" title="Link to this heading">#</a></h2>
-<p>The basic <code class="docutils literal notranslate"><span class="pre">mmap()</span></code> pattern is to create a file, size it, map it, and
+<p id="index-18">The basic <code class="docutils literal notranslate"><span class="pre">mmap()</span></code> pattern is to create a file, size it, map it, and
 then treat the mapped region as memory.</p>
 <p>The producer process creates and writes the mapped file.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
@@ -1146,7 +1146,7 @@ inspect the file.</p></li>
 </section>
 <section id="memory-mapped-atomicity">
 <h2>Memory Mapped Atomicity<a class="headerlink" href="#memory-mapped-atomicity" title="Link to this heading">#</a></h2>
-<p>Memory mapped I/O does not make reads and writes atomic.</p>
+<p id="index-19">Memory mapped I/O does not make reads and writes atomic.</p>
 <p>The system calls <code class="docutils literal notranslate"><span class="pre">mmap()</span></code> and <code class="docutils literal notranslate"><span class="pre">munmap()</span></code> set up and tear down the
 mapping. Ordinary reads and writes to mapped memory do not enter the
 kernel. That is why mapped memory is fast, but it also means the program
@@ -1155,7 +1155,7 @@ same region.</p>
 </section>
 <section id="shared-memory-locking">
 <h2>Shared Memory Locking<a class="headerlink" href="#shared-memory-locking" title="Link to this heading">#</a></h2>
-<p>Locks used inside shared memory must also be safe to share between
+<p id="index-20">Locks used inside shared memory must also be safe to share between
 processes.</p>
 <p>POSIX semaphores can be placed in shared memory when initialized with
 the process-shared argument enabled. Data structures in mapped memory
@@ -1593,7 +1593,7 @@ coordinate access across processes.</p></li>
 </section>
 <section id="memory-mapped-i-o-performance">
 <h2>Memory Mapped I/O Performance<a class="headerlink" href="#memory-mapped-i-o-performance" title="Link to this heading">#</a></h2>
-<p>Memory mapped I/O can be faster than ordinary file I/O because it avoids
+<p id="index-21">Memory mapped I/O can be faster than ordinary file I/O because it avoids
 an explicit copy between a user buffer and a kernel buffer.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">write()</span></code>, the process enters the kernel and the kernel copies
 data from the user buffer into filesystem buffers. With <code class="docutils literal notranslate"><span class="pre">mmap()</span></code>, the
@@ -1603,7 +1603,7 @@ file format already matches the program’s in-memory data model.</p>
 </section>
 <section id="files-as-ipc">
 <h2>Files as IPC<a class="headerlink" href="#files-as-ipc" title="Link to this heading">#</a></h2>
-<p>Files are the oldest and most portable form of IPC.</p>
+<p id="index-22">Files are the oldest and most portable form of IPC.</p>
 <p>File-based IPC appears in several patterns: persistent state, exposing
 current state, spool directories, lock files, and simple queues. Files
 are slower and less structured than specialized IPC mechanisms, but they
@@ -1611,7 +1611,7 @@ are durable and easy to inspect.</p>
 </section>
 <section id="exposing-current-state">
 <h2>Exposing Current State<a class="headerlink" href="#exposing-current-state" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">/proc</span></code> filesystem exposes kernel and process state as files.</p>
+<p id="index-23">The <code class="docutils literal notranslate"><span class="pre">/proc</span></code> filesystem exposes kernel and process state as files.</p>
 <p>This gives tools and developers a file-oriented interface to information
 that would otherwise require custom system calls.</p>
 <div class="pst-scrollable-table-container"><table class="table" id="id2">
@@ -1644,7 +1644,7 @@ that would otherwise require custom system calls.</p>
 </section>
 <section id="spool-folders">
 <h2>Spool Folders<a class="headerlink" href="#spool-folders" title="Link to this heading">#</a></h2>
-<p>A spool folder is a directory used as a persistent work queue.</p>
+<p id="index-24">A spool folder is a directory used as a persistent work queue.</p>
 <p>Mail daemons, print systems, and scheduled job systems often use spool
 folders. A daemon watches the directory, processes new files, and then
 moves or deletes completed work. If the daemon crashes, the queued work
@@ -1652,14 +1652,14 @@ remains on disk.</p>
 </section>
 <section id="cron-spool-folders">
 <h2>Cron Spool Folders<a class="headerlink" href="#cron-spool-folders" title="Link to this heading">#</a></h2>
-<p>Cron uses spool-like directories for scheduled tasks.</p>
+<p id="index-25">Cron uses spool-like directories for scheduled tasks.</p>
 <p>Common examples include <code class="docutils literal notranslate"><span class="pre">/etc/cron.daily</span></code>, <code class="docutils literal notranslate"><span class="pre">/etc/cron.hourly</span></code>,
 <code class="docutils literal notranslate"><span class="pre">/etc/cron.monthly</span></code>, and <code class="docutils literal notranslate"><span class="pre">/etc/cron.weekly</span></code>. At the scheduled time,
 cron runs executable files in the appropriate directory.</p>
 </section>
 <section id="cups-spool-folders">
 <h2>CUPS Spool Folders<a class="headerlink" href="#cups-spool-folders" title="Link to this heading">#</a></h2>
-<p>CUPS uses spool files to represent print jobs.</p>
+<p id="index-26">CUPS uses spool files to represent print jobs.</p>
 <p>The spool directory is typically <code class="docutils literal notranslate"><span class="pre">/var/spool/cups</span></code>. Data files contain
 the bytes to print, while control files describe the job. The naming
 convention gives the print system a simple domain model for queue
@@ -1667,7 +1667,7 @@ processing.</p>
 </section>
 <section id="lock-files">
 <h2>Lock Files<a class="headerlink" href="#lock-files" title="Link to this heading">#</a></h2>
-<p>A lock file uses atomic filesystem operations to represent ownership of
+<p id="index-27">A lock file uses atomic filesystem operations to represent ownership of
 a resource.</p>
 <p>For example, a server might create <code class="docutils literal notranslate"><span class="pre">/var/lock/http_80</span></code> before binding
 to port 80. If another process tries to create the same lock file at the
@@ -1676,7 +1676,7 @@ when the owning process exits normally.</p>
 </section>
 <section id="doors">
 <h2>Doors<a class="headerlink" href="#doors" title="Link to this heading">#</a></h2>
-<p>Doors are a Solaris IPC mechanism that exposes procedure calls through
+<p id="index-28">Doors are a Solaris IPC mechanism that exposes procedure calls through
 filesystem entries.</p>
 <p>They are not portable, but they are useful historically because they show
 one way to build RPC-like behavior into a filesystem namespace.</p>
@@ -1735,7 +1735,7 @@ one way to build RPC-like behavior into a filesystem namespace.</p>
 </section>
 <section id="domain-sockets">
 <h2>Domain Sockets<a class="headerlink" href="#domain-sockets" title="Link to this heading">#</a></h2>
-<p>A UNIX domain socket is a local socket addressed through the filesystem
+<p id="index-29">A UNIX domain socket is a local socket addressed through the filesystem
 namespace.</p>
 <p>Domain sockets are similar to named pipes, but they can be full-duplex,
 support multiple clients, and support stream or datagram communication.
@@ -1992,7 +1992,7 @@ command line.</p></li>
 </section>
 <section id="tcp-ip">
 <h2>TCP/IP<a class="headerlink" href="#tcp-ip" title="Link to this heading">#</a></h2>
-<p>TCP/IP sockets are the networked counterpart to local socket IPC.</p>
+<p id="index-30">TCP/IP sockets are the networked counterpart to local socket IPC.</p>
 <p>They use many of the same programming ideas as domain sockets, but the
 address is a network address and port rather than a local filesystem
 path. TCP/IP sockets are usually the right choice when communication must

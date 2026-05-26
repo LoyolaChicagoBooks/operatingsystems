@@ -404,13 +404,13 @@
                   
   <section id="virtual-memory">
 <h1>Virtual Memory<a class="headerlink" href="#virtual-memory" title="Link to this heading">#</a></h1>
-<p>Virtual memory is the operating-system layer that gives each process its
+<p id="index-0">Virtual memory is the operating-system layer that gives each process its
 own address space. It lets the kernel separate process memory from
 physical memory and decide which pages should be resident, shared,
 protected, or backed by storage.</p>
 <section id="what-is-virtual-memory">
 <h2>What is Virtual Memory?<a class="headerlink" href="#what-is-virtual-memory" title="Link to this heading">#</a></h2>
-<p>Virtual memory gives a process a private view of memory that does not
+<p id="index-1">Virtual memory gives a process a private view of memory that does not
 directly match the machine’s physical memory.</p>
 <p>This supports several operating-system goals:</p>
 <ul class="simple">
@@ -426,7 +426,7 @@ and kernel-managed tables.</p></li>
 </section>
 <section id="memory-management-units">
 <h2>Memory Management Units<a class="headerlink" href="#memory-management-units" title="Link to this heading">#</a></h2>
-<p>The memory management unit, or MMU, is the hardware that translates
+<p id="index-2">The memory management unit, or MMU, is the hardware that translates
 virtual addresses into physical addresses.</p>
 <p>The MMU also enforces memory protection and works with structures such
 as page tables and the translation lookaside buffer. In modern systems,
@@ -436,7 +436,7 @@ access goes and whether it is allowed.</p>
 </section>
 <section id="pages-and-page-tables">
 <h2>Pages and Page Tables<a class="headerlink" href="#pages-and-page-tables" title="Link to this heading">#</a></h2>
-<p>A page is a fixed-size block of virtual memory. A page table records how
+<p id="index-3">A page is a fixed-size block of virtual memory. A page table records how
 virtual pages map to physical pages.</p>
 <p>Every process appears to have access to a large address space, but only
 some of that address space is actually mapped and resident at any given
@@ -445,7 +445,7 @@ virtual addresses and enforce permissions.</p>
 </section>
 <section id="page-table-size">
 <h2>Page Table Size<a class="headerlink" href="#page-table-size" title="Link to this heading">#</a></h2>
-<p>Page size affects page-table overhead.</p>
+<p id="index-4">Page size affects page-table overhead.</p>
 <p>If a 32-bit system used 128-byte pages, it would need more than
 33 million page entries to describe a 4 GB address space. Even with very
 compact entries, that overhead would be too large for each process.</p>
@@ -456,7 +456,7 @@ small process.</p>
 </section>
 <section id="page-table-entries">
 <h2>Page Table Entries<a class="headerlink" href="#page-table-entries" title="Link to this heading">#</a></h2>
-<p>A page-table entry stores the physical page number and attributes for a
+<p id="index-5">A page-table entry stores the physical page number and attributes for a
 virtual page.</p>
 <p>For a 4 KB page in a 32-bit address space, 20 bits identify the page and
 12 bits remain for flags and other information. Common attributes include
@@ -464,7 +464,7 @@ whether the page is present, writable, executable, and modified.</p>
 </section>
 <section id="multi-level-page-tables">
 <h2>Multi-Level Page Tables<a class="headerlink" href="#multi-level-page-tables" title="Link to this heading">#</a></h2>
-<p>Multi-level page tables reduce memory overhead by allocating lower-level
+<p id="index-6">Multi-level page tables reduce memory overhead by allocating lower-level
 tables only for address ranges that are actually used.</p>
 <p>In a two-level page table, part of the virtual address selects a first
 level entry, and another part selects a second level entry. The first
@@ -481,7 +481,7 @@ into indexes and an offset.</p>
 </section>
 <section id="mmu-address-translation-algorithm">
 <h2>MMU Address Translation Algorithm<a class="headerlink" href="#mmu-address-translation-algorithm" title="Link to this heading">#</a></h2>
-<p>Address translation first checks the TLB. If the translation is not
+<p id="index-7">Address translation first checks the TLB. If the translation is not
 cached, the MMU and kernel page-table structures are used to find the
 physical page.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">physical_address</span> <span class="n">translate</span><span class="p">(</span><span class="n">virtual_address</span> <span class="n">v_addr</span><span class="p">)</span> <span class="p">{</span>
@@ -516,7 +516,7 @@ status bits.</p></li>
 </section>
 <section id="page-faults">
 <h2>Page Faults<a class="headerlink" href="#page-faults" title="Link to this heading">#</a></h2>
-<p>A page fault is an exception raised when a memory reference cannot be
+<p id="index-8">A page fault is an exception raised when a memory reference cannot be
 completed using the current page-table entry.</p>
 <p>Common causes include accessing a page that is not resident in physical
 memory, writing to a read-only page, or executing from a non-executable
@@ -525,7 +525,7 @@ whether the process must be notified or terminated.</p>
 </section>
 <section id="page-faults-in-unix">
 <h2>Page Faults in UNIX<a class="headerlink" href="#page-faults-in-unix" title="Link to this heading">#</a></h2>
-<p>UNIX systems usually handle nonresident pages by loading the page and
+<p id="index-9">UNIX systems usually handle nonresident pages by loading the page and
 retrying the instruction.</p>
 <p>If the page cannot be loaded because memory is exhausted, the process may
 fail or the system may take stronger action. If the access violates
@@ -533,7 +533,7 @@ permissions, the kernel normally sends <code class="docutils literal notranslate
 </section>
 <section id="page-faults-in-windows">
 <h2>Page Faults in Windows<a class="headerlink" href="#page-faults-in-windows" title="Link to this heading">#</a></h2>
-<p>Windows also handles nonresident pages by loading the page and retrying
+<p id="index-10">Windows also handles nonresident pages by loading the page and retrying
 the instruction when possible.</p>
 <p>If the fault cannot be repaired, Windows raises an exception in the
 faulting process. Permission faults are also reported through the
@@ -541,7 +541,7 @@ exception mechanism.</p>
 </section>
 <section id="page-replacement-and-swapping">
 <h2>Page Replacement and Swapping<a class="headerlink" href="#page-replacement-and-swapping" title="Link to this heading">#</a></h2>
-<p>Page replacement is the policy for choosing which physical page to reuse
+<p id="index-11">Page replacement is the policy for choosing which physical page to reuse
 when memory is needed.</p>
 <p>The swapper moves pages between physical memory and slower backing
 storage. It handles heap and stack pages, and it may also demand-page
@@ -558,7 +558,7 @@ overall system performance.</p>
 </section>
 <section id="physical-page-contenders">
 <h2>Physical Page Contenders<a class="headerlink" href="#physical-page-contenders" title="Link to this heading">#</a></h2>
-<p>Many uses compete for physical pages.</p>
+<p id="index-12">Many uses compete for physical pages.</p>
 <p>Important contenders include the filesystem cache, shared memory regions,
 memory mapped files, executable and library text, process stacks, process
 heaps, and device DMA buffers. Some DMA regions must not be swapped
@@ -566,7 +566,7 @@ because a device is using the physical address directly.</p>
 </section>
 <section id="swapper-algorithms">
 <h2>Swapper Algorithms<a class="headerlink" href="#swapper-algorithms" title="Link to this heading">#</a></h2>
-<p>A page replacement algorithm tries to minimize expensive page faults.</p>
+<p id="index-13">A page replacement algorithm tries to minimize expensive page faults.</p>
 <p>Useful measures include the total number of page faults, the page faults
 an optimal algorithm would have produced, and the working set of pages a
 process is actively using. No real algorithm can predict the future, so
@@ -575,7 +575,7 @@ history.</p>
 </section>
 <section id="page-classification">
 <h2>Page Classification<a class="headerlink" href="#page-classification" title="Link to this heading">#</a></h2>
-<p>Many processors record whether a page has been referenced or modified.</p>
+<p id="index-14">Many processors record whether a page has been referenced or modified.</p>
 <p>These bits divide pages into four classes:</p>
 <ul class="simple">
 <li><p>Not referenced and not modified.</p></li>
@@ -588,7 +588,7 @@ which pages have been used recently.</p>
 </section>
 <section id="not-recently-used">
 <h2>Not Recently Used<a class="headerlink" href="#not-recently-used" title="Link to this heading">#</a></h2>
-<p>Not Recently Used, or NRU, evicts pages from the lowest available page
+<p id="index-15">Not Recently Used, or NRU, evicts pages from the lowest available page
 class.</p>
 <p>NRU is simple. It prefers pages that have not been referenced and have
 not been modified. It is inexpensive, but it is only a rough estimate of
@@ -596,14 +596,14 @@ future page use.</p>
 </section>
 <section id="fifo-replacement">
 <h2>FIFO Replacement<a class="headerlink" href="#fifo-replacement" title="Link to this heading">#</a></h2>
-<p>First In First Out, or FIFO, evicts the oldest resident page.</p>
+<p id="index-16">First In First Out, or FIFO, evicts the oldest resident page.</p>
 <p>FIFO assumes the oldest page is least likely to be used again. That
 assumption is often wrong, so FIFO is rarely used directly in production
 systems.</p>
 </section>
 <section id="second-chance-fifo">
 <h2>Second-Chance FIFO<a class="headerlink" href="#second-chance-fifo" title="Link to this heading">#</a></h2>
-<p>Second-chance FIFO improves FIFO by checking the reference bit before
+<p id="index-17">Second-chance FIFO improves FIFO by checking the reference bit before
 evicting a page.</p>
 <p>If the oldest page has not been referenced, it can be evicted. If it has
 been referenced, the algorithm clears the reference bit and gives the
@@ -612,7 +612,7 @@ because they are old.</p>
 </section>
 <section id="clock-replacement">
 <h2>Clock Replacement<a class="headerlink" href="#clock-replacement" title="Link to this heading">#</a></h2>
-<p>The clock algorithm is an efficient implementation of second-chance
+<p id="index-18">The clock algorithm is an efficient implementation of second-chance
 replacement.</p>
 <p>It stores pages in a circular list and keeps a pointer to the next
 candidate. If the pointed-to page has a clear reference bit, it is
@@ -621,7 +621,7 @@ pointer.</p>
 </section>
 <section id="least-recently-used">
 <h2>Least Recently Used<a class="headerlink" href="#least-recently-used" title="Link to this heading">#</a></h2>
-<p>Least Recently Used, or LRU, evicts the page that has not been used for
+<p id="index-19">Least Recently Used, or LRU, evicts the page that has not been used for
 the longest time.</p>
 <p>LRU is often close to optimal because programs tend to reuse pages they
 used recently. A perfect LRU implementation is expensive because the
@@ -629,7 +629,7 @@ kernel would need to update ordering information on every memory access.</p>
 </section>
 <section id="not-frequently-used">
 <h2>Not Frequently Used<a class="headerlink" href="#not-frequently-used" title="Link to this heading">#</a></h2>
-<p>Not Frequently Used, or NFU, approximates LRU with counters.</p>
+<p id="index-20">Not Frequently Used, or NFU, approximates LRU with counters.</p>
 <p>At each clock interrupt, the operating system scans pages and increments
 a counter for each page whose reference bit is set. On a page fault, a
 page with a low counter is a candidate for eviction.</p>
@@ -638,7 +638,7 @@ keep a high counter long after it stops being useful.</p>
 </section>
 <section id="aging">
 <h2>Aging<a class="headerlink" href="#aging" title="Link to this heading">#</a></h2>
-<p>Aging improves NFU by making old references matter less over time.</p>
+<p id="index-21">Aging improves NFU by making old references matter less over time.</p>
 <p>At each clock interrupt, the operating system shifts each counter right.
 If the page was referenced, it sets the most significant bit. The result
 is a small history of recent use. Aging still has limited precision, but
@@ -646,7 +646,7 @@ it tracks recency better than plain NFU.</p>
 </section>
 <section id="belady-s-anomaly">
 <h2>Belady’s Anomaly<a class="headerlink" href="#belady-s-anomaly" title="Link to this heading">#</a></h2>
-<p>Belady’s anomaly is the surprising result that adding more physical pages
+<p id="index-22">Belady’s anomaly is the surprising result that adding more physical pages
 can increase page faults for some replacement algorithms and access
 patterns.</p>
 <p>For example, FIFO with the reference string <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">2</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">3</span> <span class="pre">2</span> <span class="pre">4</span> <span class="pre">3</span> <span class="pre">2</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">4</span></code>
@@ -663,7 +663,7 @@ physical pages.</p>
 </section>
 <section id="modeling-page-replacement">
 <h2>Modeling Page Replacement<a class="headerlink" href="#modeling-page-replacement" title="Link to this heading">#</a></h2>
-<p>Page replacement algorithms can be modeled with a reference string and a
+<p id="index-23">Page replacement algorithms can be modeled with a reference string and a
 fixed number of physical pages.</p>
 <p>The reference string is the ordered list of page accesses. The model
 tracks which pages are in physical memory and which pages have been
@@ -672,7 +672,7 @@ finds the page in memory or handles a page fault.</p>
 </section>
 <section id="modeling-lru">
 <h2>Modeling LRU<a class="headerlink" href="#modeling-lru" title="Link to this heading">#</a></h2>
-<p>LRU has the stack property: with more physical pages, the set of pages in
+<p id="index-24">LRU has the stack property: with more physical pages, the set of pages in
 memory is always a superset of the set that would be present with fewer
 physical pages.</p>
 <figure class="align-center">
@@ -684,7 +684,7 @@ string.</p>
 </section>
 <section id="distance-strings">
 <h2>Distance Strings<a class="headerlink" href="#distance-strings" title="Link to this heading">#</a></h2>
-<p>A distance string records how far a referenced page is from the top of
+<p id="index-25">A distance string records how far a referenced page is from the top of
 the algorithm’s conceptual stack.</p>
 <p>Pages not yet referenced have infinite distance. The distance string can
 estimate page faults for different physical memory sizes by counting how
@@ -713,7 +713,7 @@ and <code class="docutils literal notranslate"><span class="pre">n</span></code>
 </section>
 <section id="design-considerations-for-paging-systems">
 <h2>Design Considerations for Paging Systems<a class="headerlink" href="#design-considerations-for-paging-systems" title="Link to this heading">#</a></h2>
-<p>A naive paging system could start a process with none of its pages in
+<p id="index-26">A naive paging system could start a process with none of its pages in
 memory, but that would cause many page faults at startup.</p>
 <p>Real systems try to avoid unnecessary faults. They use locality,
 read-ahead, working-set estimates, and page replacement policies to keep
@@ -721,7 +721,7 @@ the pages a process is likely to use in memory.</p>
 </section>
 <section id="working-sets">
 <h2>Working Sets<a class="headerlink" href="#working-sets" title="Link to this heading">#</a></h2>
-<p>A working set is the set of pages a process is actively using during a
+<p id="index-27">A working set is the set of pages a process is actively using during a
 period of execution.</p>
 <p>Many programs show locality of reference. If a process is using one page
 now, it is likely to use the same page or nearby pages soon. Stacks,
@@ -737,7 +737,7 @@ now for fewer faults later.</p>
 </section>
 <section id="costs-of-paging-page-classes">
 <h2>Costs of Paging Page Classes<a class="headerlink" href="#costs-of-paging-page-classes" title="Link to this heading">#</a></h2>
-<p>Not all page evictions cost the same amount.</p>
+<p id="index-28">Not all page evictions cost the same amount.</p>
 <p>Unmodified pages can usually be dropped and reloaded later from their
 original backing store. Modified pages must be written to swap or another
 backing store before their physical page can be reused.</p>
@@ -753,7 +753,7 @@ when the performance tradeoff is reasonable.</p>
 </section>
 <section id="local-and-global-paging">
 <h2>Local and Global Paging<a class="headerlink" href="#local-and-global-paging" title="Link to this heading">#</a></h2>
-<p>Page replacement can be local or global.</p>
+<p id="index-29">Page replacement can be local or global.</p>
 <p>In global replacement, a faulting process may cause the kernel to evict a
 page from any process. In local replacement, the kernel prefers to evict
 pages owned by the process that faulted. Local replacement can improve
@@ -761,7 +761,7 @@ fairness, while global replacement can improve overall memory use.</p>
 </section>
 <section id="page-locking">
 <h2>Page Locking<a class="headerlink" href="#page-locking" title="Link to this heading">#</a></h2>
-<p>Page locking pins a page in physical memory so the swapper cannot evict
+<p id="index-30">Page locking pins a page in physical memory so the swapper cannot evict
 it.</p>
 <p>Pinned pages are needed for operations such as DMA, where a device reads
 from or writes to a specific physical memory region. During the DMA
@@ -770,7 +770,7 @@ and stable.</p>
 </section>
 <section id="copy-on-write">
 <h2>Copy on Write<a class="headerlink" href="#copy-on-write" title="Link to this heading">#</a></h2>
-<p>Copy on write, or COW, lets related processes share pages until one of
+<p id="index-31">Copy on write, or COW, lets related processes share pages until one of
 them writes to a shared page.</p>
 <p>After <code class="docutils literal notranslate"><span class="pre">fork()</span></code> or <code class="docutils literal notranslate"><span class="pre">clone()</span></code>, the kernel can copy page-table entries
 instead of copying every page. The shared entries are marked read-only.
@@ -780,7 +780,7 @@ faulting process’s page table, and marks the new page writable.</p>
 </section>
 <section id="backing-store">
 <h2>Backing Store<a class="headerlink" href="#backing-store" title="Link to this heading">#</a></h2>
-<p>Backing store is the persistent or recoverable location that backs a
+<p id="index-32">Backing store is the persistent or recoverable location that backs a
 virtual page.</p>
 <p>For heap, stack, and data pages, the backing store is usually a swap file
 or swap partition. Simpler systems often prefer swap partitions because
@@ -790,7 +790,7 @@ locations.</p>
 </section>
 <section id="hibernation">
 <h2>Hibernation<a class="headerlink" href="#hibernation" title="Link to this heading">#</a></h2>
-<p>Hibernation stores the machine’s memory state so the system can power
+<p id="index-33">Hibernation stores the machine’s memory state so the system can power
 down and later resume.</p>
 <p>To hibernate, the operating system writes used physical pages to a
 hibernation file or swap area. On the next boot, the kernel detects the
@@ -799,7 +799,7 @@ tables, and pages data back in as needed.</p>
 </section>
 <section id="hot-memory">
 <h2>Hot Memory<a class="headerlink" href="#hot-memory" title="Link to this heading">#</a></h2>
-<p>Hot memory is free memory kept available so the system can satisfy small
+<p id="index-34">Hot memory is free memory kept available so the system can satisfy small
 bursts of memory demand without immediate page replacement.</p>
 <p>Modern systems often keep some physical pages free even though using all
 memory for cache might seem optimal. This reserve reduces jitter when
@@ -818,7 +818,7 @@ area gives the kernel room to respond quickly to new allocation requests.</p>
 </section>
 <section id="summary-page-fault-handling">
 <h2>Summary: Page Fault Handling<a class="headerlink" href="#summary-page-fault-handling" title="Link to this heading">#</a></h2>
-<p>Page fault handling is the path from a faulting memory instruction back
+<p id="index-35">Page fault handling is the path from a faulting memory instruction back
 to a runnable process.</p>
 <p>The usual sequence is:</p>
 <ol class="arabic simple">
@@ -841,7 +841,7 @@ again.</p></li>
 </section>
 <section id="linux-kernel-module-case-study">
 <h2>Linux Kernel Module Case Study<a class="headerlink" href="#linux-kernel-module-case-study" title="Link to this heading">#</a></h2>
-<p>This case study shows the smallest structure of a Linux loadable kernel
+<p id="index-36">This case study shows the smallest structure of a Linux loadable kernel
 module.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>
 <span class="linenos"> 2</span>
@@ -906,7 +906,7 @@ output.</p></li>
 </section>
 <section id="linux-proc-module-case-study">
 <h2>Linux /proc Module Case Study<a class="headerlink" href="#linux-proc-module-case-study" title="Link to this heading">#</a></h2>
-<p>This case study shows a Linux kernel module that exposes state through a
+<p id="index-37">This case study shows a Linux kernel module that exposes state through a
 <code class="docutils literal notranslate"><span class="pre">/proc</span></code> entry.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/module.h&gt;</span>
 <span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span>
@@ -1041,7 +1041,7 @@ memory.</p></li>
 </section>
 <section id="linux-character-device-case-study">
 <h2>Linux Character Device Case Study<a class="headerlink" href="#linux-character-device-case-study" title="Link to this heading">#</a></h2>
-<p>This case study shows how a Linux character device exposes kernel code
+<p id="index-38">This case study shows how a Linux character device exposes kernel code
 through the file interface.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/*</span>
 <span class="linenos">  2</span><span class="cm"> *  example from htttp://tldbp.org/LDP/lkmpg/2.6/html/x569.html</span>
@@ -1237,7 +1237,7 @@ module unloads.</p></li>
 </section>
 <section id="linux-system-call-case-study">
 <h2>Linux System Call Case Study<a class="headerlink" href="#linux-system-call-case-study" title="Link to this heading">#</a></h2>
-<p>This case study shows the pieces needed to add and test a simple Linux
+<p id="index-39">This case study shows the pieces needed to add and test a simple Linux
 system call.</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="gh">diff -r linux-source-2.6.38-orig//arch/x86/ia32/ia32entry.S linux-source-2.6.38//arch/x86/ia32/ia32entry.S</span>
 <span class="linenos"> 2</span>853a854
@@ -1300,7 +1300,7 @@ kernel.</p></li>
 </section>
 <section id="minix-startup-case-study">
 <h2>Minix Startup Case Study<a class="headerlink" href="#minix-startup-case-study" title="Link to this heading">#</a></h2>
-<p>This case study shows a minimal Minix program using the System Event
+<p id="index-40">This case study shows a minimal Minix program using the System Event
 Framework startup path.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -1325,7 +1325,7 @@ examples.</p></li>
 </section>
 <section id="minix-time-driver-case-study">
 <h2>Minix Time Driver Case Study<a class="headerlink" href="#minix-time-driver-case-study" title="Link to this heading">#</a></h2>
-<p>This case study shows a small Minix character driver that exposes the
+<p id="index-41">This case study shows a small Minix character driver that exposes the
 current time from CMOS through a device interface.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="cp">#ifndef __TIME_H</span>
 <span class="linenos">2</span><span class="cp">#define __TIME_H</span>

@@ -1,6 +1,10 @@
 Virtual Memory
 ==============
 
+.. index::
+   single: virtual memory
+   pair: memory; virtual memory
+
 Virtual memory is the operating-system layer that gives each process its
 own address space. It lets the kernel separate process memory from
 physical memory and decide which pages should be resident, shared,
@@ -8,6 +12,10 @@ protected, or backed by storage.
 
 What is Virtual Memory?
 -----------------------
+
+.. index::
+   single: address space
+   pair: virtual memory; address space
 
 Virtual memory gives a process a private view of memory that does not
 directly match the machine's physical memory.
@@ -26,6 +34,12 @@ This supports several operating-system goals:
 Memory Management Units
 -----------------------
 
+.. index::
+   single: memory management unit (MMU)
+   single: MMU
+   single: translation lookaside buffer (TLB)
+   pair: CPU; MMU
+
 The memory management unit, or MMU, is the hardware that translates
 virtual addresses into physical addresses.
 
@@ -38,6 +52,12 @@ access goes and whether it is allowed.
 Pages and Page Tables
 ---------------------
 
+.. index::
+   single: pages
+   single: page tables
+   pair: virtual memory; pages
+   pair: virtual memory; page tables
+
 A page is a fixed-size block of virtual memory. A page table records how
 virtual pages map to physical pages.
 
@@ -48,6 +68,10 @@ virtual addresses and enforce permissions.
 
 Page Table Size
 ---------------
+
+.. index::
+   single: page size
+   pair: page tables; overhead
 
 Page size affects page-table overhead.
 
@@ -63,6 +87,10 @@ small process.
 Page Table Entries
 ------------------
 
+.. index::
+   single: page table entries
+   pair: page tables; entries
+
 A page-table entry stores the physical page number and attributes for a
 virtual page.
 
@@ -72,6 +100,10 @@ whether the page is present, writable, executable, and modified.
 
 Multi-Level Page Tables
 -----------------------
+
+.. index::
+   single: multi-level page tables
+   pair: page tables; multi-level
 
 Multi-level page tables reduce memory overhead by allocating lower-level
 tables only for address ranges that are actually used.
@@ -93,6 +125,12 @@ into indexes and an offset.
 
 MMU Address Translation Algorithm
 ---------------------------------
+
+.. index::
+   single: address translation
+   single: TLB
+   single: TLB miss
+   pair: MMU; address translation
 
 Address translation first checks the TLB. If the translation is not
 cached, the MMU and kernel page-table structures are used to find the
@@ -131,6 +169,11 @@ Key points:
 Page Faults
 -----------
 
+.. index::
+   single: page fault
+   single: page fault handler
+   pair: virtual memory; page fault
+
 A page fault is an exception raised when a memory reference cannot be
 completed using the current page-table entry.
 
@@ -142,6 +185,10 @@ whether the process must be notified or terminated.
 Page Faults in UNIX
 -------------------
 
+.. index::
+   single: SIGSEGV
+   pair: UNIX; page faults
+
 UNIX systems usually handle nonresident pages by loading the page and
 retrying the instruction.
 
@@ -152,6 +199,9 @@ permissions, the kernel normally sends ``SIGSEGV`` to the process.
 Page Faults in Windows
 ----------------------
 
+.. index::
+   pair: Windows; page faults
+
 Windows also handles nonresident pages by loading the page and retrying
 the instruction when possible.
 
@@ -161,6 +211,13 @@ exception mechanism.
 
 Page Replacement and Swapping
 -----------------------------
+
+.. index::
+   single: page replacement
+   single: swapper
+   single: swap file
+   single: swap partition
+   pair: virtual memory; page replacement
 
 Page replacement is the policy for choosing which physical page to reuse
 when memory is needed.
@@ -183,6 +240,11 @@ overall system performance.
 Physical Page Contenders
 ------------------------
 
+.. index::
+   single: filesystem cache
+   single: DMA buffers
+   pair: memory; physical page contenders
+
 Many uses compete for physical pages.
 
 Important contenders include the filesystem cache, shared memory regions,
@@ -192,6 +254,11 @@ because a device is using the physical address directly.
 
 Swapper Algorithms
 ------------------
+
+.. index::
+   single: page replacement algorithms
+   single: working set
+   pair: virtual memory; swapper algorithms
 
 A page replacement algorithm tries to minimize expensive page faults.
 
@@ -203,6 +270,10 @@ history.
 
 Page Classification
 -------------------
+
+.. index::
+   single: page classification
+   pair: page replacement; reference bit
 
 Many processors record whether a page has been referenced or modified.
 
@@ -219,6 +290,11 @@ which pages have been used recently.
 Not Recently Used
 -----------------
 
+.. index::
+   single: Not Recently Used (NRU)
+   single: NRU
+   pair: page replacement; NRU
+
 Not Recently Used, or NRU, evicts pages from the lowest available page
 class.
 
@@ -229,6 +305,10 @@ future page use.
 FIFO Replacement
 ----------------
 
+.. index::
+   single: FIFO page replacement
+   pair: page replacement; FIFO
+
 First In First Out, or FIFO, evicts the oldest resident page.
 
 FIFO assumes the oldest page is least likely to be used again. That
@@ -237,6 +317,10 @@ systems.
 
 Second-Chance FIFO
 ------------------
+
+.. index::
+   single: second-chance FIFO
+   pair: page replacement; second-chance
 
 Second-chance FIFO improves FIFO by checking the reference bit before
 evicting a page.
@@ -249,6 +333,10 @@ because they are old.
 Clock Replacement
 -----------------
 
+.. index::
+   single: clock replacement algorithm
+   pair: page replacement; clock
+
 The clock algorithm is an efficient implementation of second-chance
 replacement.
 
@@ -260,6 +348,11 @@ pointer.
 Least Recently Used
 -------------------
 
+.. index::
+   single: Least Recently Used (LRU)
+   single: LRU
+   pair: page replacement; LRU
+
 Least Recently Used, or LRU, evicts the page that has not been used for
 the longest time.
 
@@ -269,6 +362,11 @@ kernel would need to update ordering information on every memory access.
 
 Not Frequently Used
 -------------------
+
+.. index::
+   single: Not Frequently Used (NFU)
+   single: NFU
+   pair: page replacement; NFU
 
 Not Frequently Used, or NFU, approximates LRU with counters.
 
@@ -282,6 +380,10 @@ keep a high counter long after it stops being useful.
 Aging
 -----
 
+.. index::
+   single: aging (page replacement)
+   pair: page replacement; aging
+
 Aging improves NFU by making old references matter less over time.
 
 At each clock interrupt, the operating system shifts each counter right.
@@ -291,6 +393,10 @@ it tracks recency better than plain NFU.
 
 Belady's Anomaly
 ----------------
+
+.. index::
+   single: Belady's anomaly
+   pair: page replacement; Belady's anomaly
 
 Belady's anomaly is the surprising result that adding more physical pages
 can increase page faults for some replacement algorithms and access
@@ -313,6 +419,10 @@ physical pages.
 Modeling Page Replacement
 -------------------------
 
+.. index::
+   single: reference string
+   pair: page replacement; modeling
+
 Page replacement algorithms can be modeled with a reference string and a
 fixed number of physical pages.
 
@@ -323,6 +433,10 @@ finds the page in memory or handles a page fault.
 
 Modeling LRU
 ------------
+
+.. index::
+   single: LRU; stack property
+   pair: LRU; Belady's anomaly
 
 LRU has the stack property: with more physical pages, the set of pages in
 memory is always a superset of the set that would be present with fewer
@@ -338,6 +452,10 @@ string.
 
 Distance Strings
 ----------------
+
+.. index::
+   single: distance strings
+   pair: page replacement; distance strings
 
 A distance string records how far a referenced page is from the top of
 the algorithm's conceptual stack.
@@ -376,6 +494,9 @@ In this example, ``C1 = 4``, ``C2 = 2``, ``C3 = 1``, ``C4 = 3``,
 Design Considerations for Paging Systems
 ----------------------------------------
 
+.. index::
+   pair: virtual memory; paging design
+
 A naive paging system could start a process with none of its pages in
 memory, but that would cause many page faults at startup.
 
@@ -385,6 +506,11 @@ the pages a process is likely to use in memory.
 
 Working Sets
 ------------
+
+.. index::
+   single: working set
+   single: locality of reference
+   pair: virtual memory; working set
 
 A working set is the set of pages a process is actively using during a
 period of execution.
@@ -406,6 +532,9 @@ now for fewer faults later.
 Costs of Paging Page Classes
 ----------------------------
 
+.. index::
+   pair: page replacement; eviction cost
+
 Not all page evictions cost the same amount.
 
 Unmodified pages can usually be dropped and reloaded later from their
@@ -426,6 +555,11 @@ when the performance tradeoff is reasonable.
 Local and Global Paging
 -----------------------
 
+.. index::
+   single: global page replacement
+   single: local page replacement
+   pair: page replacement; local vs global
+
 Page replacement can be local or global.
 
 In global replacement, a faulting process may cause the kernel to evict a
@@ -435,6 +569,12 @@ fairness, while global replacement can improve overall memory use.
 
 Page Locking
 ------------
+
+.. index::
+   single: page locking
+   single: pinned pages
+   pair: virtual memory; page locking
+   single: DMA
 
 Page locking pins a page in physical memory so the swapper cannot evict
 it.
@@ -446,6 +586,11 @@ and stable.
 
 Copy on Write
 -------------
+
+.. index::
+   single: copy-on-write (COW)
+   single: COW
+   pair: virtual memory; copy-on-write
 
 Copy on write, or COW, lets related processes share pages until one of
 them writes to a shared page.
@@ -459,6 +604,12 @@ faulting process's page table, and marks the new page writable.
 Backing Store
 -------------
 
+.. index::
+   single: backing store
+   single: swap file
+   single: swap partition
+   pair: virtual memory; backing store
+
 Backing store is the persistent or recoverable location that backs a
 virtual page.
 
@@ -471,6 +622,10 @@ locations.
 Hibernation
 -----------
 
+.. index::
+   single: hibernation
+   pair: virtual memory; hibernation
+
 Hibernation stores the machine's memory state so the system can power
 down and later resume.
 
@@ -481,6 +636,10 @@ tables, and pages data back in as needed.
 
 Hot Memory
 ----------
+
+.. index::
+   single: hot memory
+   pair: memory; free page reserve
 
 Hot memory is free memory kept available so the system can satisfy small
 bursts of memory demand without immediate page replacement.
@@ -506,6 +665,9 @@ area gives the kernel room to respond quickly to new allocation requests.
 Summary: Page Fault Handling
 ----------------------------
 
+.. index::
+   pair: page fault; handling sequence
+
 Page fault handling is the path from a faulting memory instruction back
 to a runnable process.
 
@@ -530,6 +692,14 @@ The usual sequence is:
 Linux Kernel Module Case Study
 ------------------------------
 
+.. index::
+   single: Linux kernel module
+   single: MODULE_LICENSE
+   single: module_init
+   single: module_exit
+   single: printk()
+   pair: Linux; kernel modules
+
 This case study shows the smallest structure of a Linux loadable kernel
 module.
 
@@ -548,6 +718,12 @@ Key points:
 
 Linux /proc Module Case Study
 -----------------------------
+
+.. index::
+   single: /proc filesystem
+   single: vmalloc()
+   single: copy_from_user()
+   pair: Linux; /proc module
 
 This case study shows a Linux kernel module that exposes state through a
 ``/proc`` entry.
@@ -569,6 +745,14 @@ Key points:
 Linux Character Device Case Study
 ---------------------------------
 
+.. index::
+   single: character device driver
+   single: register_chrdev()
+   single: file_operations
+   single: put_user()
+   single: unregister_chrdev()
+   pair: Linux; character device
+
 This case study shows how a Linux character device exposes kernel code
 through the file interface.
 
@@ -588,6 +772,11 @@ Key points:
 
 Linux System Call Case Study
 ----------------------------
+
+.. index::
+   single: system call table
+   single: syscalls.h
+   pair: Linux; adding a system call
 
 This case study shows the pieces needed to add and test a simple Linux
 system call.
@@ -621,6 +810,12 @@ Key points:
 Minix Startup Case Study
 ------------------------
 
+.. index::
+   single: Minix
+   single: sef_startup()
+   single: System Event Framework (SEF)
+   pair: Minix; startup
+
 This case study shows a minimal Minix program using the System Event
 Framework startup path.
 
@@ -637,6 +832,11 @@ Key points:
 
 Minix Time Driver Case Study
 ----------------------------
+
+.. index::
+   single: Minix time driver
+   pair: Minix; character driver
+   single: CMOS
 
 This case study shows a small Minix character driver that exposes the
 current time from CMOS through a device interface.

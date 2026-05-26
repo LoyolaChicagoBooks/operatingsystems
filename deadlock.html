@@ -376,7 +376,7 @@
                   
   <section id="deadlock">
 <h1>Deadlock<a class="headerlink" href="#deadlock" title="Link to this heading">#</a></h1>
-<p>Deadlock occurs when two or more threads are each waiting for resources
+<p id="index-0">Deadlock occurs when two or more threads are each waiting for resources
 held by another thread in the same waiting cycle. Once the cycle forms,
 the threads cannot make progress unless something external breaks the
 cycle.</p>
@@ -385,7 +385,7 @@ conditions for it. The bug may depend on timing, scheduling, input, or
 the order in which threads reach the locks.</p>
 <section id="dining-philosophers-problem">
 <h2>Dining Philosophers Problem<a class="headerlink" href="#dining-philosophers-problem" title="Link to this heading">#</a></h2>
-<p>The dining philosophers problem is a small model of resource contention.
+<p id="index-1">The dining philosophers problem is a small model of resource contention.
 Each philosopher alternates between thinking and eating, and each needs
 two forks to eat.</p>
 <p>The usual rules are:</p>
@@ -399,7 +399,7 @@ eating.</p></li>
 </section>
 <section id="dining-philosophers-deadlock-scenario">
 <h2>Dining Philosophers Deadlock Scenario<a class="headerlink" href="#dining-philosophers-deadlock-scenario" title="Link to this heading">#</a></h2>
-<p>A deadlock can occur if every philosopher picks up one fork and then
+<p id="index-2">A deadlock can occur if every philosopher picks up one fork and then
 waits for the other fork.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eat</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">pick</span> <span class="n">up</span> <span class="n">right</span> <span class="n">fork</span><span class="p">;</span>
@@ -423,7 +423,7 @@ program is deadlocked.</p>
 </section>
 <section id="dining-philosophers-lock-graph">
 <h2>Dining Philosophers Lock Graph<a class="headerlink" href="#dining-philosophers-lock-graph" title="Link to this heading">#</a></h2>
-<p>A lock graph shows the possible ordering relationships among locks. If
+<p id="index-3">A lock graph shows the possible ordering relationships among locks. If
 the graph contains a cycle, a deadlock is possible.</p>
 <p>In the first dining philosophers algorithm, forks can be acquired in an
 order that forms a cycle.</p>
@@ -434,7 +434,7 @@ order that forms a cycle.</p>
 </section>
 <section id="avoiding-deadlock-with-try-and-release">
 <h2>Avoiding Deadlock with Try-and-Release<a class="headerlink" href="#avoiding-deadlock-with-try-and-release" title="Link to this heading">#</a></h2>
-<p>One way to avoid deadlock is to acquire both needed resources as a single
+<p id="index-4">One way to avoid deadlock is to acquire both needed resources as a single
 logical operation. If the second resource is not available, the thread
 releases the first resource and tries again later.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eat</span><span class="p">()</span> <span class="p">{</span>
@@ -457,7 +457,7 @@ rules to avoid starvation or livelock.</p>
 </section>
 <section id="avoiding-deadlock-with-lock-ordering">
 <h2>Avoiding Deadlock with Lock Ordering<a class="headerlink" href="#avoiding-deadlock-with-lock-ordering" title="Link to this heading">#</a></h2>
-<p>Another way to avoid deadlock is to assign a global order to resources
+<p id="index-5">Another way to avoid deadlock is to assign a global order to resources
 and require every thread to acquire resources in that order.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eat</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">pick</span> <span class="n">up</span> <span class="n">fork</span> <span class="k">with</span> <span class="n">lower</span> <span class="n">number</span><span class="p">;</span>
@@ -476,7 +476,7 @@ lock, no thread can create a circular wait.</p>
 </section>
 <section id="dijkstra-s-solution-and-the-banker-s-algorithm">
 <h2>Dijkstra’s Solution and the Banker’s Algorithm<a class="headerlink" href="#dijkstra-s-solution-and-the-banker-s-algorithm" title="Link to this heading">#</a></h2>
-<p>Dijkstra’s solution to the dining philosophers problem uses resource
+<p id="index-6">Dijkstra’s solution to the dining philosophers problem uses resource
 ordering. The same basic idea appears in the Banker’s algorithm: do not
 enter a resource allocation state that can lead to deadlock.</p>
 <p>The main advantage is simplicity. Lock ordering is easy to state, easy to
@@ -488,7 +488,7 @@ forbids them anyway.</p>
 </section>
 <section id="deadlock-avoidance-implementation">
 <h2>Deadlock Avoidance Implementation<a class="headerlink" href="#deadlock-avoidance-implementation" title="Link to this heading">#</a></h2>
-<p>Deadlock avoidance prevents unsafe lock acquisition by enforcing a
+<p id="index-7">Deadlock avoidance prevents unsafe lock acquisition by enforcing a
 consistent order.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">struct</span> <span class="p">{</span>
    <span class="nb">int</span> <span class="n">LockNumber</span><span class="p">;</span>
@@ -509,7 +509,7 @@ more than one lock.</p>
 </section>
 <section id="deadlock-prevention-implementation">
 <h2>Deadlock Prevention Implementation<a class="headerlink" href="#deadlock-prevention-implementation" title="Link to this heading">#</a></h2>
-<p>Deadlock prevention can also be done by acquiring locks with a
+<p id="index-8">Deadlock prevention can also be done by acquiring locks with a
 try-and-release rule. If any lock cannot be acquired, the thread releases
 what it already holds and tries again.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>typedef struct {
@@ -899,7 +899,7 @@ pthread handle.</p></li>
 </section>
 <section id="example-of-deadlock-in-nested-calls">
 <h2>Example of Deadlock in Nested Calls<a class="headerlink" href="#example-of-deadlock-in-nested-calls" title="Link to this heading">#</a></h2>
-<p>Deadlock can be harder to see when locks are acquired through nested
+<p id="index-9">Deadlock can be harder to see when locks are acquired through nested
 method calls.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">method1</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">a</span><span class="o">.</span><span class="n">lock</span><span class="p">();</span>
@@ -937,7 +937,7 @@ a larger lock-ordering cycle.</p>
 </section>
 <section id="multi-lock-solutions-in-windows">
 <h2>Multi-Lock Solutions in Windows<a class="headerlink" href="#multi-lock-solutions-in-windows" title="Link to this heading">#</a></h2>
-<p>Windows provides <code class="docutils literal notranslate"><span class="pre">WaitForMultipleObjects()</span></code> for waiting on multiple
+<p id="index-10">Windows provides <code class="docutils literal notranslate"><span class="pre">WaitForMultipleObjects()</span></code> for waiting on multiple
 kernel objects.</p>
 <p>The objects can include events, mutexes, semaphores, timers, and other
 waitable handles. This gives Windows programs a system-level way to wait
@@ -945,7 +945,7 @@ for one or more synchronization objects.</p>
 </section>
 <section id="multi-lock-solutions-in-linux-and-minix">
 <h2>Multi-Lock Solutions in Linux and Minix<a class="headerlink" href="#multi-lock-solutions-in-linux-and-minix" title="Link to this heading">#</a></h2>
-<p>Linux and Minix do not provide a general multi-lock operation for normal
+<p id="index-11">Linux and Minix do not provide a general multi-lock operation for normal
 pthread mutexes.</p>
 <p>The usual guidance is to avoid multi-locking when possible. When multiple
 locks are necessary, use a consistent ordering rule. For shared-memory
@@ -965,7 +965,7 @@ may be correct while the program state is not.</p>
 </section>
 <section id="starvation">
 <h2>Starvation<a class="headerlink" href="#starvation" title="Link to this heading">#</a></h2>
-<p>Starvation occurs when one or more threads wait indefinitely because
+<p id="index-12">Starvation occurs when one or more threads wait indefinitely because
 other threads keep getting access to the resource first.</p>
 <p>Starvation is closely related to scheduling fairness. A program can avoid
 deadlock and still be unfair enough that one thread makes little or no
@@ -1046,7 +1046,7 @@ is reduced.</p>
 </section>
 <section id="guidelines-to-avoid-starvation">
 <h2>Guidelines to Avoid Starvation<a class="headerlink" href="#guidelines-to-avoid-starvation" title="Link to this heading">#</a></h2>
-<p>Starvation is less likely when locks are held for short, predictable
+<p id="index-13">Starvation is less likely when locks are held for short, predictable
 periods.</p>
 <p>Useful guidelines include:</p>
 <ul class="simple">
@@ -1062,7 +1062,7 @@ fairness matters.</p></li>
 </section>
 <section id="livelock">
 <h2>Livelock<a class="headerlink" href="#livelock" title="Link to this heading">#</a></h2>
-<p>Livelock occurs when threads keep running but repeatedly take actions
+<p id="index-14">Livelock occurs when threads keep running but repeatedly take actions
 that prevent progress.</p>
 <p>It can happen in deadlock-avoidance code when two threads both release
 and retry at the same time.</p>
@@ -1103,7 +1103,7 @@ break the livelock.</p>
 </section>
 <section id="lock-fairness">
 <h2>Lock Fairness<a class="headerlink" href="#lock-fairness" title="Link to this heading">#</a></h2>
-<p>Lock fairness means that threads waiting for a lock have similar average
+<p id="index-15">Lock fairness means that threads waiting for a lock have similar average
 wait times.</p>
 <p>Fair locks can reduce starvation and make execution more predictable.
 Common approaches include FIFO wait queues and, less commonly, schedulers
@@ -1111,7 +1111,7 @@ that use timing history.</p>
 </section>
 <section id="fairness-tradeoffs">
 <h2>Fairness Tradeoffs<a class="headerlink" href="#fairness-tradeoffs" title="Link to this heading">#</a></h2>
-<p>Fairness has a cost because selecting the next owner of a lock is not the
+<p id="index-16">Fairness has a cost because selecting the next owner of a lock is not the
 same as immediately running that thread.</p>
 <p>A fair lock can reduce throughput when a thread repeatedly locks and
 unlocks a short critical section. An unfair lock may let the same thread
