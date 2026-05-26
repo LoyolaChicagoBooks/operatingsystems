@@ -1,205 +1,107 @@
 Files and I/O
 ===========================
 
+UNIX systems use files as a common interface for many resources. Regular
+files, directories, devices, pipes, and sockets have different behavior,
+but they are all named in the filesystem and many of them support the
+same basic operations: ``open()``, ``read()``, ``write()``, ``close()``,
+and ``select()``.
+
 Common attributes of all (UNIX) files
 -------------------------------------
 
--  All files:
+Files live in the filesystem namespace under ``/``. UNIX paths do not use
+drive letters. Each file has a name, an owning user, an owning group, and
+permission bits for the owner, group, and other users.
 
-   -  Live in the filesystem namespace (under root, or ``/``). No drive letters!
-
-   -  Have a name
-
-   -  Implement read, write, open, close, and select system calls.
-
--  All can be contained in either normal or *special* folders
-
--  All have a concept of a:
-
-   -  Owning user and group
-
--  Read/write/execute bits for the owning user/group, and for other
-   users/groups
-
--  A list of custom extended attributes
-
--  Creation date/time
-
--  Last accessed date/time
-
--  Beyond these few things, there's a great degree of variety in
-   semantics and structure for various file types
-
+Many filesystems also store extended attributes, creation time, last
+access time, and modification time. Beyond these shared attributes, file
+types vary widely in structure and behavior.
 
 Types of Files in Unix
 ----------------------
 
--  Regular files
-
--  Symbolic links
-
--  Folders
-
--  Block device files
-
--  Character device files
-
--  Named pipes/FIFOs
-
--  UNIX domain sockets
-
--  Doors (Solaris only)
-
+UNIX file types include regular files, symbolic links, directories, block
+device files, character device files, named pipes, UNIX domain sockets,
+and, on Solaris, doors.
 
 Regular Files
 -------------
 
--  Persist data from programs. Reside in filesystems.
+Regular files persist program data in a filesystem. They have ownership,
+permissions, and a defined size. They can normally be accessed
+sequentially or with random access through seek operations.
 
--  In addition to owner/permissions. Regular files have:
-
-   -  A committed and defined size (which differ for filesystems that
-      support sparse files)
-
-   -  Can be accessed sequentially
-
-   -  Can be accessed in random order
-
--  Exceptions exist for device restrictions such as exit for tape drives
-
+Sparse files are an important exception to the simple size model. A
+filesystem may represent large unwritten regions without allocating disk
+blocks for every byte.
 
 Folders
 -------
 
--  In early UNIX implementations, folders were files that listed other
-   files and had a special bit set to make them folders.
+Directories map names to filesystem entries. Early UNIX implementations
+represented directories as special files that listed other files. Modern
+systems still expose some of that model, but programs modify directories
+through directory-specific system calls rather than by writing directory
+bytes directly.
 
--  Folders were modified by reading from and writing to the file.
-
--  Some of these semantics still exist
-
--  Early operating systems did not support folders:
-
-   -  Macintosh file system (circa 1984)
-
-   -  CP/M file system (predecessor to MS-DOS and FAT)
-
--  Folders do not have a file size
-
--  The execute bit for a folder determines:
-
-   -  If the contents of the folder may be listed
-
-   -  If a program may change use it as its working folder
+Directories do not behave like regular files. The execute bit controls
+whether a process can traverse the directory and use it in path
+resolution. Read permission controls whether entries can be listed.
 
 Symbolic Links
 --------------
 
--  Symbolic links are a type of file that points to another file or
-   folder.
+A symbolic link is a file whose contents point to another file or
+directory. The target may be an absolute path or a relative path. If the
+target does not exist, the symbolic link is broken.
 
--  The pointer can be either a relative or absolute path.
-
--  Support exists in many modern operating systems (OS X, UNIX, and
-   Windows)
-
--  A symbolic link that refers to a file or folder that does not exist
-   is called 'broken'
-
--  File system operations on a symbolic link work on the file that they
-   point to with the exception of the unlink system call (to delete the
-   symbolic link)
-
--  Other system calls exist to help determine if a file/folder is a
-   symbolic link or a real file/folder
+Most filesystem operations follow a symbolic link and operate on its
+target. ``unlink()`` is the main exception: it removes the symbolic link
+itself.
 
 Block Device Files
 ------------------
 
--  Block device files are file abstractions for devices exposed by the
-   operating system.
+Block device files expose devices that operate in fixed-size blocks.
+Common examples are disks, optical drives, USB media, and RAM disks.
+Block devices usually support random access and buffered I/O.
 
--  Common device block files are:
-
-   -  Hard disks
-
-   -  CD/DVD/Blu-Ray drives
-
-   -  Floppy drives
-
-   -  USB media
-
-   -  Mapped memory devices (RAM disks, or diagnostic devices)
-
--  Block devices support:
-
-   -  Random access
-
-   -  Buffered read/write (through some characteristic block size)
-
-   -  Block device files are either automatically exposed by the
-      operating system through special file systems or are user created
-      through special system programs and system calls. Approaches vary.
-
-   -  Early Linux depended upon special programs
-
-   -  Modern Linux uses special filesystems (devfs, sysfs)
+Operating systems expose block devices through special filesystems or
+device-management tools. Linux has used several mechanisms over time,
+including device files and special filesystems such as ``devfs`` and
+``sysfs``.
 
 Character Device Files
 ----------------------
 
--  Character device files are file abstractions for devices exposed by
-   the operating system.
+Character device files expose stream-oriented devices. Common examples
+include terminals, serial ports, modems, network interfaces, sound
+devices, video devices, and tape drives.
 
--  Common character devices are:
-
-   -  terminals
-
-   -  serial ports
-
-   -  modems
-
-   -  network cards
-
-   -  video/sound devices
-
-   -  tape drives
-
--  Most character devices do not support random access.
-
--  Those that do, typically have a high cost for seek operations
+Most character devices do not support random access. When they do,
+seeking is often expensive or device-specific.
 
 Named Pipes/FIFOs
 -----------------
 
--  Named pipes are pipes that exist in the filesystem.
-
--  Allow for pipe operations in sets of programs that have different
-   lifetimes such as client server programs.
-
--  We will dig into more detail on pipes when we discuss inter-process
-   communication.
+Named pipes are pipes with names in the filesystem. They let unrelated
+processes communicate even when the processes do not share a parent-child
+relationship. We cover pipes in more detail in the IPC chapter.
 
 Unix Domain Sockets
 -------------------
 
--  Domain sockets are sockets that have a name in the filesystem.
-
--  Similar to named pipes except they can be created in a streaming or
-   datagram mode
-
--  Unlike regular sockets, domain sockets do not have an underlying
-   TCP/IP or UDP/IP protocol
+UNIX domain sockets are sockets with names in the filesystem. They are
+similar to named pipes, but can support stream or datagram communication.
+Unlike network sockets, they do not use TCP/IP or UDP/IP.
 
 Filesystem System Calls
 -----------------------
 
--  A majority of the system calls in a UNIX operating system exist to
-   operate upon files
-
--  The acronym MS-DOS expands to MicroSoft Disk Operating System. The
-   DOS part of this acronym seems to greatly apply to all operating
-   systems.
+Most UNIX systems have many file-oriented system calls. The basic pattern
+is simple: open a resource, perform operations on its file descriptor,
+and close the descriptor when finished.
 
 Filesystem System Calls
 -------------------------
@@ -212,13 +114,13 @@ Filesystem System Calls
      - Description
 
    * - ``open()``
-     - opens/creates files and returns a file descriptor
+     - opens or creates files and returns a file descriptor
 
    * - ``creat()``
      - creates new files
 
    * - ``close()``
-     - closes a file descriptor (reduces references to the file)
+     - closes a file descriptor
 
    * - ``lseek()``
      - updates a file descriptor's current file offset
@@ -236,22 +138,22 @@ Filesystem System Calls
      - updates a file descriptor to point to another one
 
    * - ``fcntl()``
-     - changes file properties (asynchronous I/O, file locks)
+     - changes file properties such as asynchronous I/O and file locks
 
    * - ``ioctl()``
-     - a 'catch all' interface that interacts with device files, setting atypical properties, etc...
+     - handles device-specific control operations
 
    * - ``stat()``
-     - returns rwx bits, size, timestamps, and other details
+     - returns permissions, size, timestamps, and other metadata
 
    * - ``access()``
      - tests for read, write, execute, or existence of a file
 
    * - ``umask()``
-     - updates file creation mask
+     - updates the file creation mask
 
    * - ``chmod()``
-     - updates rwx bits
+     - updates permission bits
 
 More Filesystem System Calls
 ------------------------------
@@ -260,340 +162,477 @@ More Filesystem System Calls
    :widths: 10 20
    :header-rows: 1
 
+   * - Function
+     - Description
+
    * - ``chown()``
-     - changes file user/group ownership
+     - changes file user or group ownership
 
    * - ``truncate()``
-     - change the length of a file (grow or shrink)
+     - changes the length of a file
 
    * - ``link()``
-     - create a hard link
+     - creates a hard link
 
    * - ``unlink()``
-     - remove a name in the filesystem and possibly the file it refers to (no processes have the file open)
+     - removes a name from the filesystem
 
    * - ``rmdir()``
-     - deletes empty directories
+     - deletes an empty directory
 
    * - ``remove()``
-     - combines unlink/rmdir into one call
+     - combines ``unlink()`` and ``rmdir()`` behavior
 
    * - ``rename()``
-     - renames a file, possibly changing its parent folder
+     - renames a file, possibly moving it to another directory
 
    * - ``symlink()``
      - creates a symbolic link
 
    * - ``readlink()``
-     - reads the value of a symbolic link
+     - reads the value stored in a symbolic link
 
    * - ``utime()``
-     - updates the access and modification time
+     - updates access and modification times
 
    * - ``mkdir()``
-     - creates a folder
+     - creates a directory
 
    * - ``opendir()``
-     - opens a folder for reading
+     - opens a directory for reading
 
    * - ``readdir()``
-     - reads the next entry in a folder
+     - reads the next directory entry
 
    * - ``rewinddir()``
-     - resets directory entry to beginning
+     - resets directory reading to the beginning
 
    * - ``closedir()``
      - closes a directory descriptor
 
    * - ``chdir()``
-     - changes current working directory
+     - changes the current working directory
 
    * - ``getcwd()``
-     - gets current working directory
+     - gets the current working directory
 
    * - ``sync()``
-     - flushes buffer cache for filesystem to disk
+     - flushes filesystem buffers to disk
 
 Opening Files with open()
 -------------------------
 
+``open()`` opens a file and returns a file descriptor.
+
 .. code-block:: c
 
-   int open(const char *pathname, int flags, mode_t mode)
-   int open(const char *pathname, int flags)
+   int open(const char *pathname, int flags, mode_t mode);
+   int open(const char *pathname, int flags);
 
--  *pathname* is the path to the file
+``pathname`` is the path to the file. ``flags`` controls how the file is
+opened. Common flags include ``O_APPEND``, ``O_ASYNC``, ``O_CREAT``,
+``O_DIRECT``, ``O_SYNC``, and ``O_TRUNC``.
 
--  *flags* can be combinations of:
+When ``O_CREAT`` is used, ``mode`` supplies permission bits. These are
+usually written in octal. For example, ``0700`` gives the owner read,
+write, and execute permission, while group and other users receive no
+permissions. ``0660`` gives the owner and group read/write permission.
 
-   -  ``O_APPEND``: open in append mode
-
-   -  ``O_ASYNC``: use signal driven asynchronous I/O
-
-   -  ``O_CREAT``: create the file if it does not exist
-
-   -  ``O_DIRECT``: minimize use of the buffer cache
-
-   -  ``O_SYNC``: opened for synchronous I/O - block until write calls are
-      committed to hardware
-
-   -  ``O_TRUNC``: if file already exists, truncate it to length 0
-
-   -  and many others...
-
--  *mode* is used for ``O_CREAT`` and is typically passed as an octal:
-
-   -  ``0XYZ``, ``X`` is for user, ``Y`` is for group, ``Z`` is for others
-
-   -  each digit, being an octal digit is composed of three bits
-
-   -  the most significant bit is read permissions
-
-   -  the next most significant bit is write permissions
-
-   -  the least significant bit is execute permissions
-
-   -  ``0700`` means user has rwx, group and other have no access
-
-   -  ``0660`` means user/group have rw, other has no acess
-
--  return value of ``open()`` is the file descriptor, or -1 if an error
-   happens
+The return value is a file descriptor on success and ``-1`` on error.
 
 Closing files with close()
 --------------------------
 
+``close()`` releases a file descriptor.
+
 .. code-block:: c
 
-   int close(int fd)
+   int close(int fd);
 
--  *fd* argument is a file descriptor returned by a call to: open, dup,
-   pipe, etc...
-
--  return value is 0 on success or -1 on failure (bad file descriptor,
-   interrupted by signal)
+The argument is a descriptor returned by calls such as ``open()``,
+``dup()``, or ``pipe()``. The return value is ``0`` on success and ``-1``
+on failure.
 
 Writing to a File
 -----------------
+
+``write()`` copies bytes from a user buffer to a file descriptor.
 
 .. code-block:: c
 
    ssize_t write(int fd, const void *buf, size_t count);
 
--  fd is an opened file descriptor
+``fd`` is the file descriptor, ``buf`` is the source buffer, and
+``count`` is the number of bytes to write. A return value of ``-1`` means
+an error occurred. A successful call usually returns ``count``, but code
+that needs to be robust should handle partial writes.
 
--  but is a buffer
+Writing Example
+---------------
 
--  count is the number of bytes from that buffer to write to the file at
-   the current offset
+The ``systems-code-examples/read-write-demo`` directory contains small
+separate examples for direct ``read()`` and ``write()`` calls.
 
--  the return value of the method will be
+.. literalinclude:: ../examples/systems-code-examples/read-write-demo/write-demo.c
+   :language: c
+   :linenos:
 
-   -  `return == -1` if an error is encountered
+Key points:
 
-   -  `return == count` in most successful cases
-
-   -  `return < count` in some implementations (network filesystems in some cases)
-
-Typical Write Algorithm
------------------------
-
-.. code-block:: c
-
-    const char *data = "foobar";
-    int fd = open("file", O_CREAT | O_TRUNC | O_RDWR, 0666);
-    size_t length = strlen(data), offset = 0;
-    while(length > 0) {
-       size_t written = write(fd, data + offset, length);
-       offset += written;
-       length -- written;
-    }
-    close(fd)
+- ``open()`` creates or truncates the file named ``file``.
+- ``strlen()`` is used to compute the number of bytes to write.
+- The loop handles the possibility that ``write()`` writes fewer bytes
+  than requested.
+- ``offset`` advances through the source string as bytes are written.
+- ``close()`` releases the descriptor after the write loop finishes.
 
 Reading from a File
 -------------------
 
-.. code-block:: c
-
-   size_t read(int fd, void *buf, size_t count);
-
--  takes as arguments a file descriptor, a destination buffer, and the
-   number of bytes to read into that buffer
-
--  the return values of the method will be:
-
-   -  ``return == -1`` if an error occurred
-
-   -  ``return == 0`` if EOF is encountered
-
-   -  ``return == count`` in most success cases
-
-Typical Read Algorithm
-----------------------
+``read()`` copies bytes from a file descriptor into a user buffer.
 
 .. code-block:: c
 
-    int fd = open("file", O_RDONLY, 0666);
-    char buffer[5];
-    while((length = read(fd, &buffer[0], 5)) != 0) {
-        write(1, &buffer[0], length);
-    }
-    close(fd);
+   ssize_t read(int fd, void *buf, size_t count);
+
+The return value is ``-1`` on error, ``0`` at end of file, and otherwise
+the number of bytes read. The number of bytes returned may be smaller
+than ``count``.
+
+Reading Example
+---------------
+
+.. literalinclude:: ../examples/systems-code-examples/read-write-demo/read-demo.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``open()`` opens the existing file for reading.
+- The buffer is deliberately small so the loop has to run more than once
+  for longer input.
+- ``read()`` returns ``0`` at end of file, which terminates the loop.
+- ``write(1, ...)`` writes the bytes to standard output.
+- This example omits detailed error handling so the read/write pattern is
+  easy to see.
+
+Complete File I/O Example
+-------------------------
+
+The ``systems-code-examples/file_rw`` example combines creation, writing,
+reading, closing, and removing a file.
+
+.. literalinclude:: ../examples/systems-code-examples/file_rw/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The first ``open()`` creates ``temp.dat``, truncating any existing file
+  with the same name.
+- The write loop keeps going until all bytes from ``file_data`` are
+  written.
+- The file is closed before it is reopened for reading.
+- The read loop writes each chunk to standard output as it is read.
+- ``unlink()`` removes the file's name from the filesystem at the end of
+  the example.
 
 Seeking within a File
 ---------------------
 
--  Not all files support seeking.
+Not all files support seeking. Regular files usually do. Pipes, sockets,
+and many character devices do not.
 
--  The use of seek calls is how random access I/O is performed
+``lseek()`` changes the current file offset for a descriptor.
 
--  The use of seek calls have performance implications (more later...)
+.. code-block:: c
 
--  ``off_t lseek(int fd, off_t offset, int whence)``
+   off_t lseek(int fd, off_t offset, int whence);
 
-   -  fd is a file descriptor
-
-   -  offset is the number of bytes relative to whence
-
-   -  whence is one of ``SEEK_SET`` (beginning of file), ``SEEK_CUR`` (current
-      position of the file descriptor), or ``SEEK_END`` (end of the file)
-
-   -  The ``off_t`` type is typically a 64-bit signed integer. It is possible
-      to seek both within and outside of a file.
-
--  Seeking outside of a file will cause the value of 0 to be written
-   from the end of the file to the seek position.
-
--  Filesystems that support sparse files, will optimize this to prevent
-   unnecessary write operations.
+``whence`` is usually ``SEEK_SET`` for the beginning of the file,
+``SEEK_CUR`` for the current offset, or ``SEEK_END`` for the end of the
+file. Seeking beyond the current end of a file can create a sparse file
+on filesystems that support sparse allocation.
 
 Standard File Descriptors
 -------------------------
 
+Every process starts with three standard file descriptors.
+
 stdin
-    standard input. default is the input pipe from the console; default
-    value is 0
+    Standard input. The default descriptor value is ``0``.
 
 stdout
-    standard output. default is the output pipe to the console; default
-    value is 1
+    Standard output. The default descriptor value is ``1``.
 
 stderr
-    standard error. default is the output pipe to the console; default
-    value is 2
+    Standard error. The default descriptor value is ``2``.
 
-every program is initialized with these three file descriptors open by
-default. their specific targets may have been redirected by the parent
-program (more later...)
+The parent process may redirect any of these before the child program
+runs.
 
 Duplicating File Descriptors
 ----------------------------
 
+``dup()`` duplicates a file descriptor and returns a new descriptor
+number.
+
 .. code-block:: c
 
-   int dup(int fd) : duplicate a file descriptor
+   int dup(int fd);
 
--  accepts a file descriptor and returns a copy of it with a new id
-
--  the duplicated file descriptor has an independent file offset and
-   reference to the file
-
--  reasons to duplicate file descriptors:
-
-   -  for use in multi-threading, to avoid calls to lseek()
-
-   -  one call necessary for redirecting stdin/stdout/stderr
+Programs use duplicated descriptors when they need another reference to
+the same open file. They are also useful in shell-style redirection.
 
 Redirecting File Descriptors
 ----------------------------
 
-.. code-block:: c
-
-   int dup2(int oldfd, int newfd) : redirect a file descriptor
-
--  makes ``newfd`` be a copy of ``oldfd``
-
--  if ``newfd`` is open, it is automatically closed
-
--  This call differs from ``dup()`` in that both of the file descriptors in
-   this case share the same file offset.
-
--  So, calling ``lseek()`` on one will cause the offset of the other to
-   change.
-
--  ``dup()`` and ``dup2()`` are used to redirect **stdin**, **stdout**, and **stderr** on the
-   command line (sometimes to combine them)
-
-Redirecting File Descriptors code example
------------------------------------------
+``dup2()`` redirects one descriptor to refer to another open file.
 
 .. code-block:: c
 
-    int main(int argc, char* argv[]) {
-        int pipes[2];
-        pipe(pipes);
-        int input = pipes[0], output = pipes[1];
-        int pid = fork();
-        if(pid > 0) {            //parent process
-            dup2(input, 0)   //redirect stdin
-            close(output);    //close unused half of pipe
-            scanf("%d\n", &value);
-            printf("child sent value = %d\n", value);
-        } else if(pid == 0) {  //child process
-            dup2(output, 1); //redirect STDOUT
-            close(input);        //close unused half of pipe
-            printf("%d\n", 5000);
-        }
-        return 0;
-    }
+   int dup2(int oldfd, int newfd);
+
+If ``newfd`` is already open, ``dup2()`` closes it first. After the call,
+``newfd`` refers to the same open file description as ``oldfd``. This is
+how shells redirect standard input, output, and error.
 
 Reading Folders
 ---------------
 
-.. code-block:: c
+Directories are read with directory-specific library calls such as
+``opendir()``, ``readdir()``, and ``closedir()``.
 
-    int main(int argc, char* argv[]) {
-        const char *dir = "/";
-        DIR *d = opendir(dir);
+Directory Traversal in C
+------------------------
 
-        struct dirent *de;
-        while((de = readdir(d)) != NULL) {
-            printf("name %s\n", de->d_name);
-        }
-        closedir(d);
-        return 0;
-    }
+The ``systems-code-examples/dir_list`` example lists entries in the root
+directory.
+
+.. literalinclude:: ../examples/systems-code-examples/dir_list/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``opendir()`` returns a ``DIR*`` handle for reading directory entries.
+- ``readdir()`` returns one ``struct dirent`` at a time.
+- The loop ends when ``readdir()`` returns ``NULL``.
+- ``closedir()`` releases the directory handle.
+- The example prints entry names, not full paths.
+
+Directory Traversal in C++
+--------------------------
+
+The ``systems-code-examples/dir_list_cpp`` example performs the same
+basic operation with C++17 filesystem support.
+
+.. literalinclude:: ../examples/systems-code-examples/dir_list_cpp/main.cpp
+   :language: c++
+   :linenos:
+
+Key points:
+
+- ``std::filesystem::directory_iterator`` wraps the directory traversal
+  pattern in a C++ range-like interface.
+- The exception handler catches filesystem errors, such as permission
+  problems.
+- ``entry.path().filename()`` extracts just the entry name.
+- The underlying work still depends on operating system directory
+  operations.
+
+Text Input
+----------
+
+Text-oriented programs often read a line, split it into words, and then
+process those words. C gives you low-level tools for this, which means
+programs must be careful about buffer sizes, terminators, and ownership
+of allocated memory.
+
+Bounded Line Input Example
+--------------------------
+
+The ``systems-code-examples/better_gets`` example implements a bounded
+line input function. The surrounding program also demonstrates signal and
+child-process handling, but the relevant part for this chapter is
+``better_gets()``.
+
+.. literalinclude:: ../examples/systems-code-examples/better_gets/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``better_gets()`` accepts both a buffer and a maximum length.
+- The loop stops before the buffer is full so there is room for the null
+  terminator.
+- Input stops at newline, end of file, or the configured length.
+- The implementation reads from descriptor ``0``, which is standard
+  input.
+- The rest of the example shows why reusable input helpers matter in
+  larger systems programs.
+
+Tokenizing Input with strtok()
+------------------------------
+
+The ``systems-code-examples/strtok`` example splits a string into tokens
+using whitespace delimiters.
+
+.. literalinclude:: ../examples/systems-code-examples/strtok/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``strtok()`` modifies the input string by replacing delimiters with
+  null terminators.
+- The first call receives the original string. Later calls pass ``NULL``
+  to continue tokenizing the same string.
+- The example stores pointers into the original string; it does not copy
+  each token.
+- The test function makes the expected token sequence explicit.
+
+Dynamic String Buffer
+---------------------
+
+The ``systems-code-examples/strbuffer_t`` example builds a small dynamic
+string buffer. It supports appending characters and returning a
+heap-allocated C string.
+
+.. literalinclude:: ../examples/systems-code-examples/strbuffer_t/strbuffer.h
+   :language: c
+   :linenos:
+
+.. literalinclude:: ../examples/systems-code-examples/strbuffer_t/strbuffer.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``strbuffer_t`` stores the backing array, capacity, resize increment,
+  and current position.
+- ``strbuffer_append()`` checks whether the buffer needs to grow before
+  storing the next character.
+- ``realloc()`` is used to grow the buffer while preserving existing
+  contents.
+- ``strbuffer_tostring()`` returns a separate heap allocation, so callers
+  must eventually free it.
+- ``strbuffer_getline()`` builds a line one character at a time.
+
+String Buffer Input Example
+---------------------------
+
+The ``systems-code-examples/strbuffer-demo`` directory shows how the
+string buffer can be used to read lines and split them into words.
+
+.. literalinclude:: ../examples/systems-code-examples/strbuffer-demo/strbuffer_getline_demo.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The example uses ``strbuffer_getline()`` so line length is not fixed by
+  a small stack buffer.
+- Each returned line is tokenized with ``strtok()``.
+- The loop exits when the input function reports end of file.
+- Each heap-allocated line is freed after it is processed.
+
+Regular Expression Example
+--------------------------
+
+The ``systems-code-examples/regex-demo`` example reads text and extracts
+matches using the POSIX regular expression API.
+
+.. literalinclude:: ../examples/systems-code-examples/regex-demo/try-regex.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- If the program receives an argument, it processes that argument as the
+  input text.
+- If there is no argument, it reads a line from standard input with the
+  string buffer helper.
+- ``regcomp()`` and related POSIX regex calls are wrapped in helper
+  functions from the example.
+- The match list is explicitly initialized, printed, and deleted.
+- ``regfree()`` releases resources owned by the compiled regular
+  expression.
+
+Character List Case Study
+-------------------------
+
+The ``systems-code-examples/charlist_t`` example stores characters in a
+tail queue. It is a small data-structure case study for text processing.
+
+.. literalinclude:: ../examples/systems-code-examples/charlist_t/charlist.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- Each character is stored in a heap-allocated list entry.
+- ``TAILQ_INSERT_TAIL`` appends entries while preserving order.
+- ``charlist_tostring()`` converts the list back into a normal C string.
+- ``charlist_delete()`` walks the list and frees each entry.
+- This representation is flexible but much heavier than a contiguous
+  string buffer.
+
+Word Counting with Hash Tables
+------------------------------
+
+The ``systems-code-examples/std-hsearch`` example uses the standard
+``hsearch`` family to maintain word counts.
+
+.. literalinclude:: ../examples/systems-code-examples/std-hsearch/wordtable-demo.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``wordtable_init()`` prepares a hash table with a fixed capacity.
+- Repeated words increment an existing count rather than creating a new
+  logical word.
+- The example looks up words after insertion and after decrementing
+  counts.
+- Cleanup is explicit because the table owns allocated entries.
+- Hash tables are useful when fast lookup matters more than sorted order.
+
+Word Counting with Trees
+------------------------
+
+The ``systems-code-examples/std-tsearch`` example stores word information
+in a binary search tree.
+
+.. literalinclude:: ../examples/systems-code-examples/std-tsearch/tsearch-wordinfo-demo.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``tsearch()`` inserts or finds an entry using the comparison function.
+- The comparison function orders entries by word text.
+- Repeated words find the existing node and increment its count.
+- ``twalk()`` traverses the tree and calls a callback for each node.
+- ``tdestroy()`` releases the tree at the end.
 
 Looking Ahead: I/O Performance
 ------------------------------
 
-Performance
------------
+Good I/O performance depends on choosing the right buffering strategy.
+Small buffers increase the number of system calls and lower throughput.
+Very large buffers may cause longer waits before processing can continue.
+Programs often need a balance.
 
--  Achieving good I/O performance is about choosing the right buffering
-   strategy.
-
--  Reading/Writing with small buffers will lead to lower throughput.
-
--  Reading/Writing with large buffers will create a longer wait for
-   read/write to return.
-
--  This time could be used processing the data.
-
--  balance must be achieved.
-
--  Producer/Consumer models are advantageous:
-
-   -  One process/thread reads a file (producer)
-
-   -  Another process/thread runs computation (consumer)
-
-   -  This way, you're computing and performing I/O at the same
-      timeConsider memory mapped I/O - (more later when we talk about
-      IPC)
+Producer-consumer designs can improve throughput. One thread or process
+reads data while another processes it. Memory-mapped I/O is another
+approach, and we return to it in the IPC chapter.
 
 Simple I/O Performance Experiment
 ---------------------------------
+
+The ``dd`` command gives a quick view of how block size can affect
+throughput.
 
 ::
 
@@ -605,71 +644,33 @@ Simple I/O Performance Experiment
     dd if=/dev/zero of=tmp.dat bs=100000 count=10 - 834 MB/s
     dd if=/dev/zero of=tmp.dat bs=1000000 count=1 - 461 MB/s
 
-In general:
-
--   Increasing block size improves performance.
-
--   This is a single run of ``dd`` for each block size. Multiple runs would likely result in higher average throughput.
-
--   System load at any given time can impact the observed performance numbers.
+Increasing block size usually improves performance until some other
+limit dominates. These are single-run measurements, so system load and
+cache state can affect the numbers.
 
 Reading/Writing Performance
 ---------------------------
 
--  Another approach to consider is Vectored I/O a.k.a. Gather-Scatter
+Vectored I/O, also called gather-scatter I/O, combines multiple buffers
+into one read or write operation. This reduces the number of system calls
+when a program has data split across several buffers.
 
--  Programs will often separate reads/writes into different calls.
+Vectored I/O Example
+--------------------
 
--  One example would be a program that writes a header and then the
-   content in two separate calls.
+The ``systems-code-examples/vectored_io`` example writes three separate
+buffers with one ``writev()`` call.
 
--  Additional calls involve additional context switches and decreased
-   performance.
+.. literalinclude:: ../examples/systems-code-examples/vectored_io/main.c
+   :language: c
+   :linenos:
 
--  Vectored I/O allows several read/write calls to be combined.
+Key points:
 
--  Smart operating system implementations will also allow them to be
-   read/written out of order.
-
--  This can make for significant performance gains.
-
--  We'll see more about this when we study the elevator algorithm as we
-   look deeper into storage topics.
-
-Performance Example
--------------------
-
-.. code-block:: c
-
-    char *file_data1 = "1234567890";
-    char *file_data2 = "abcdefghijk";
-    char *file_data3 = "lmnopqrstuvwxyz";
-    const char *file_name = "temp.dat";
-    int main(int argc, char* argv[]) {
-
-            int fd = open(file_name, O_CREAT|O_TRUNC|O_RDWR, 0666);
-            if(fd == (-1)) {
-                    printf("open returned (-1)\n");
-                    return (-1);
-            }
-
-            struct iovec buffers[3];
-            buffers[0].iov_base = file_data1;
-            buffers[0].iov_len = strlen(file_data1);
-            buffers[1].iov_base = file_data2;
-            buffers[1].iov_len = strlen(file_data2);
-            buffers[2].iov_base = file_data3;
-            buffers[2].iov_len = strlen(file_data3);
-
-            int written = writev(fd, buffers, 3);
-            if(written == (-1)) {
-                    printf("writev returned (-1)\n");
-                    return (-1);
-            }
-            printf("wrote %d bytes\n", written);
-
-            close(fd);
-            return 0;
-    }
-
-
+- Each ``struct iovec`` entry describes one buffer and its length.
+- ``writev()`` writes the buffers in order as one logical operation.
+- This avoids three separate ``write()`` system calls.
+- Vectored I/O is useful for data with a header, body, and trailer stored
+  in separate buffers.
+- The file descriptor is still opened and closed with the same calls used
+  for ordinary file I/O.
