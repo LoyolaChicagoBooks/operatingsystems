@@ -1,36 +1,40 @@
 Process/Thread Scheduling
 =========================
 
+Scheduling is the operating system activity that decides which runnable
+process or thread uses a CPU next. The scheduler has to balance
+responsiveness, fairness, throughput, and overhead. No policy optimizes
+all of these goals at the same time.
+
 Kernel Mode vs. User Mode
 -------------------------
 
-Kernel Mode
+Kernel mode can use the full instruction set of the CPU. This includes
+privileged operations such as enabling and disabling interrupts, updating
+page table registers, and installing interrupt table pointers. Kernel
+mode can also modify page tables and access memory that user programs
+cannot access.
 
-- Can use the full instruction set of the CPU. Including:
-
-	- Enabling / disabling interrupts
-	- Setting special registers (page table pointer, interrupt table pointer, etc...)
-
-- Can modify any location in memory and modify page tables
-
-User Mode
-
-- Cannot use privileged instructions.
-- Can only modify the memory assigned to the process.
+User mode cannot execute privileged instructions. A user-mode program can
+only modify memory assigned to its process, except through controlled
+interfaces such as system calls.
 
 Interrupts
 ----------
 
-- An interrupt is an event that requires immediate attention from the CPU.
+An interrupt is an event that requires the CPU to stop its current flow
+of execution and run an interrupt handler.
 
-- Procedure for handling interrupts
+The general interrupt path is:
 
-	#. Save all registers including the program counter to memory (typically the stack, but not always)
-	#. CPU looks up the interrupt handler on the interrupt vector table and calls the interrupt handler
-	#. Once the interrupt handler is completed, it restores all registers and returns to the program counter. It may optionally retry the instruction that caused the interrupt (in the case of a page fault).
-	#. The program continues execution, not knowing anything has happened
+1. Save CPU registers, including the program counter.
+2. Look up the handler in the interrupt vector table.
+3. Run the handler.
+4. Restore registers and return to the interrupted execution point.
 
-- This algorithm is the same for both hardware and software interrupts.
+This structure applies to both hardware and software interrupts. Some
+interrupts, such as page faults, may retry the instruction that caused
+the interrupt.
 
 Hardware Interrupts - PC Architecture
 -------------------------------------
@@ -43,218 +47,184 @@ Hardware Interrupts - PC Architecture
 Hardware Interrupts - Sources
 -----------------------------
 
-- Southbridge (aka slow stuff) interrupts
+Hardware interrupts come from devices and CPU components. Traditional PC
+systems routed many slower device interrupts through southbridge-related
+hardware. Multiprocessor systems use interrupt controllers such as APICs
+to route interrupts across CPUs.
 
-	- Early 8088/8086 PCs had a chip called the Intel 8253. 
-	- SMP motherboards include a APIC or Advanced Programmable Interrupt Controller to help route interrupts in multi-processor scenarios
-	- These chips control interrupts that come from disks, and
-
-- Northbridge (aka fast stuff) Interrupts
-
-	- MMU - page faults (not present, not valid, insufficient permissions)
-	- ALU - divide by zero exception
-	- Clock - clock ticks
+Other interrupts come from faster CPU-adjacent components. The MMU raises
+page faults. The ALU raises exceptions such as divide by zero. The clock
+raises periodic timer interrupts that give the operating system a regular
+chance to run the scheduler.
 
 Software Interrupts
 -------------------
 
-- In operating systems that have separation between kernel and user space, software interrupts are used to implement system calls.
+Operating systems use software interrupts or related CPU mechanisms to
+implement system calls. A user program cannot jump directly into kernel
+memory. Instead, it uses the system call interface, which switches into
+kernel mode in a controlled way.
 
-- Hello world in x86 assembly:
+This x86 assembly example writes "Hello World!" using the old Linux
+``int 0x80`` system call path.
 
 ::
 
 	section .text
 		global _start
 	_start:
-		mov    edx, len      ; message length
-		mov    ecx, msg      ; message to write
-		mov    ebx, 1        ; 1 = stdout, the file descriptor
-		mov    eax, 4        ; 4 = system call number (sys_write)
-		int    0x80          ; software interrupt to call the kernel
+		mov    edx, len       ; message length
+		mov    ecx, msg       ; message to write
+		mov    ebx, 1         ; stdout
+		mov    eax, 4         ; sys_write
+		int    0x80           ; software interrupt
 	section .data
-		msg    db   'Hello World!',0xa
-		len    equ  $ - msg
+		msg    db 'Hello World!',0xa
+		len    equ $ - msg
 
-
-- Software interrupts are much more expensive than making direct function calls through 'call' or 'jmp' like instructions.
-- This cost is worth it in terms of the savings we get in terms of system reliability and security
+Software interrupts are more expensive than ordinary function calls. The
+cost is worthwhile because the kernel boundary protects the system from
+ordinary program errors.
 
 Goals of a Process Scheduler
 ----------------------------
 
-- The attributes of a process scheduling policy are a combination of the following:
+A scheduler policy is judged by several goals:
 
-	#. Fairness: make sure each process gets its fair share of the CPU.
-	#. Efficiency: keep the CPU as busy as possible
-	#. Response time: minimize the response time for interactive users.
-	#. Turnaround: minimize the time batch users must wait for output
-	#. Throughput: maximize the number of jobs processed per hour
+- Fairness: each process gets a reasonable share of the CPU.
+- Efficiency: the CPU stays busy.
+- Response time: interactive work receives quick service.
+- Turnaround: batch jobs complete in a reasonable time.
+- Throughput: the system completes as many jobs as possible.
 
-- There are no scheduler implementations that are optimal in each of these attributes. There is always a trade-off. Many of these attributes can be contradictory.
+These goals conflict. A system tuned for interactive response time may
+not maximize throughput. A system tuned for throughput may feel less
+responsive to a user.
 
 Types of Scheduling Strategies
 ------------------------------
 
-- Preemptive
-- round-robin
-- priority scheduling
+Common strategies include preemptive scheduling, round-robin scheduling,
+priority scheduling, real-time scheduling, cooperative scheduling, and
+run-to-completion scheduling.
 
-	- shortest job first
-	- critical path 
-
-- Real-time 
-
-	- Earliest deadline
-	- Fixed priority
-
-- Cooperative / event driven
-- Run to completion / non-preemptive
-
-- Most modern operating systems use round-robin, preemptive scheduling with support for priorities.
+Most modern general-purpose operating systems use preemptive scheduling
+with time sharing and priorities.
 
 OS Support
 ----------
 
-- Non-Multitasking
+Older systems such as CP/M and MS-DOS were not multitasking operating
+systems. Windows 1.x through 3.x, classic Mac OS, and NetWare used
+cooperative multitasking, where programs had to yield control.
 
-	- CP/M
-	- MS-DOS
-
-- Cooperative multi-tasking
-
-	- Windows 1.x-3.x
-	- Mac OS 5 - 9
-	- NetWare
-
-- Preemptive multi-tasking
-
-	- Minix
-	- Windows 95-ME, NT4 - 7
-	- Linux, BSDs
-	- OS/2
-	- Mac OSX
-	- VMS
-	- Unix
+Modern systems such as Linux, BSD, Windows NT and later, macOS, VMS, and
+most UNIX systems use preemptive multitasking.
 
 Types of Processes to Schedule
 ------------------------------
 
-- Interactive processes
+Interactive processes spend much of their time waiting for user input or
+I/O. They often need low latency when they become runnable.
 
-	- Spend most of their time in the *not ready* state.
-	- Wait on either I/O operations to complete or for user interaction
-
-- CPU intensive processes
-
-	- Spend most of their time in the 'ready' state.
-	- Are largely CPU bound.
+CPU-intensive processes spend most of their time ready to run. They need
+enough CPU time for throughput, but they can usually tolerate longer
+latency than interactive processes.
 
 Preemptive Scheduling Key Terms
 -------------------------------
 
-- **Time Quantum** - the allotted time slice a program is run before a scheduling decision. Typically less than or equal to a clock tick.
+A time quantum is the amount of time a process or thread can run before a
+scheduling decision is made. On many systems the quantum is related to
+clock ticks.
 
-- **Clock** - one of two triggers for the scheduling algorithm. On most CPUs, the clock ticks at a rate of 50-100Hz. Each clock tick issues a hardware interrupt which permits the operating system to run the scheduler
+The clock is a hardware timer that periodically interrupts the CPU. The
+interrupt gives the kernel an opportunity to run scheduler code.
 
-- **Context Switch** - the process by which through a software or hardware interrupt, a process switches from user mode to kernel mode or from kernel mode to user mode
+A context switch saves the state of one execution context and restores
+the state of another. Context switches can be caused by timer interrupts,
+system calls, blocking I/O, faults, and other events.
 
 Process states
 -----------------
 
-- running - currently executing on one or more CPUs
-- ready - ready to be executed, but not running
-- not ready - not ready to run, currently waiting on an event
-- terminated - process has exited and is being cleaned up
+A process or thread is running when it is executing on a CPU. It is ready
+when it can run but is not currently selected. It is not ready when it is
+blocked waiting for an event. It is terminated when it has exited and is
+being cleaned up.
 
 Choosing a Quantum
 ------------------
-- Variables to consider
 
-	- Context switch / scheduler Overhead
-	- Quantum Length
-	- Number of Processes
+A shorter quantum improves responsiveness because a runnable process
+waits less time before getting a turn. A longer quantum improves
+efficiency because the system spends less time context switching.
 
-- Total Overhead: If overhead is 5ms and the quantum is 20ms, then overhead is 20%. If the quantum is 50ms, then the overhead is only 10%
-
-- Average Response Time: If overhead is 5ms, quantum, is 20ms, and 5 active processes exist, the time between runs will be: (overhead + quantum) * (runnable processes - 1) = 100ms. If the quantum is reduced to 10ms, then the time between runs will be: 60ms
-
-- So, the choice of a smaller quantum will make the system more responsive, and a longer quantum will make the system more efficient
+For example, if context-switch overhead is 5 ms and the quantum is 20 ms,
+overhead is 20 percent. If the quantum is 50 ms, overhead drops to about
+10 percent. The tradeoff is response time. With five runnable processes,
+a shorter quantum can reduce the time between turns.
 
 Context Switches
 ----------------
 
-- A context switch is the process by which a program saves it state to switch to the operating system
-- Context switches are caused by software and hardware interrupts
+A context switch saves the state of the current process or thread and
+restores the state of another. The saved state includes CPU registers and
+the program counter. The operating system also updates process state in
+its process or thread tables.
 
 Context switching - How it works
 -------------------------------------
 
-#. Save CPU registers of currently running process into the process table.
+The kernel first saves the CPU registers for the interrupted process or
+thread. It then marks that execution context as ready or not ready. A
+timer interrupt usually leaves it ready. A blocking system call usually
+leaves it not ready.
 
-#. Change the process state to
-
-   - Ready
-
-       - if the context switch was caused by a hardware interrupt
-       - if the context switch was caused by a software interrupt and the kernel
-         can return immediately (non blocking call)
-
-   - Not Ready
-
-       - if the context switch was caused by a software interrupt and the
-         kernel cannot return immediately (blocking call)
-
-#. Invoke the scheduler to find a 'ready' process and change its state to 'running'
-
-#. Restore registers for the new process and switch back to user mode.
-
+The scheduler then chooses a ready process or thread. The kernel restores
+that context's registers and returns to user mode.
 
 Degrees of Preemption
 ---------------------
 
-- Different operating systems have different degrees of preemption.
-- In simpler operating systems, user-mode tasks can be preempted, but kernel-mode tasks cannot.
-- Systems that also allow kernel-mode tasks to be preempted will be more responsive
-- Systems with preemptive kernels:
+Operating systems differ in how much kernel code can be preempted. Simple
+systems may preempt user-mode tasks but not kernel-mode tasks. Systems
+with preemptive kernels can interrupt more kernel activity, which can
+improve responsiveness.
 
-	- Linux since 2.6 (2003)
-	- Windows NT since NT4 (1996)
-	- Solaris 2.0 (1991, I think)
-	- AIX
-	- Some BSD systems (NetBSD since v5, not sure about others)
+Modern Linux, Windows NT and later, Solaris, AIX, and several BSD systems
+support kernel preemption to some degree.
 
-- The two units that can be considered for scheduling are threads and processes
-- Some operating systems only schedule on the process level and do not consider threads separately (Minix does this)
-- Other operating systems schedule on a per-thread level (Linux, Windows, OSX)
+The schedulable unit also differs. Some systems schedule processes.
+Others schedule threads. Linux, Windows, and macOS schedule at the thread
+level. Older or simpler systems may schedule only processes.
 
 Round - Robin Process Scheduling
 --------------------------------
 
-- Round robin scheduling is the simplest scheduling policy, but not the most efficient
-- The operating system maintains two lists:
+Round-robin scheduling is simple. The operating system keeps a runnable
+list and gives each runnable process or thread a turn. On a system with
+multiple CPUs, several items from the runnable list may run at once.
 
-	- runnable list
-	- non-runnable list
-
-- The operating system simply runs through the runnable list in order executing each process one at a time. (or N at a time for N-CPUs)
+Round robin is fair in a basic sense, but it does not account for
+priority, I/O behavior, or deadlines.
 
 Scheduling with Multiple Queues
 -------------------------------
 
-- Runnable threads are separated into queues based upon:
-- Quantum length
-- Process / thread priority
-- Each queue is then run round-robin
-- Algorithm (pseudo):
+Multiqueue schedulers separate runnable threads by priority or quantum
+length. Each queue can be scheduled round-robin, while the scheduler
+chooses higher-priority queues before lower-priority queues.
+
+A simple version looks like this:
 
 ::
 
 	thread schedule(thread interruptedThread) {
 		let highest = 0, lowest = 9;
 		Queue runQueue(10);
-		interruptedThread.state = runnable or blocked
-		queue(interruptedThread.priority).enqueue(interruptedThread)
+		interruptedThread.state = runnable or blocked;
+		queue(interruptedThread.priority).enqueue(interruptedThread);
 		for(int i = highest; i <= lowest; i++) {
 			if(queue(i) has any runnable threads) {
 				thread t = queue.dequeue();
@@ -264,71 +234,28 @@ Scheduling with Multiple Queues
 		}
 	}
 
-- What are some problems with this scheduling algorithm?
-- What happens if higher priority threads are always runnable?
-- How do we give processes that don't use their entire quantum (I/O bound) more priority?
-- Improved Algorithm (pseudo): 
-
-::
-
-	thread schedule(thread interruptedThread) {
-		let highest = 0, lowest = 9;
-		Queue runQueue(10);
-		if(interruptedThread.quantumUsed « Quantum) {
-			interruptedThread.priority = max(interruptedThread.priority+1, highest);
-		}
-		interruptedThread.state = runnable or blocked
-		queue(interruptedThread.priority).enqueue(interruptedThread)
-		for(int i = highest; i «= lowest; i++) {
-			if(queue(i) has any runnable threads) {
-				thread t = queue.dequeue();
-				t.state = running;
-				t.priority -= 1;
-				if(t.priority != t.basePriority && t.priority »= lowest) {
-					t.priority = t.basePriority;
-				}
-				return t;
-			}
-		}
-	}
-
-- The reason that this scheduler is better is because it accomplishes two things:
-
-	- It boosts priority of threads that don't completely use their allotted quantum (typically I/O bound)
-	- If a thread is run, then its priority is temporarily decreased. The higher priority a thread is, the more chances it will have to run before it gets to the lowest queue. Also, this ensures that all ready processes will be run at some point.
-
-- There are many variations on this type of scheduling that attempt to fine tune the rate of increase or decrease of thread priority. The most typical enhancement is to increase or decrease the amount of priority change with the number of priority changes.
+This policy can starve low-priority work if high-priority threads are
+always runnable. A common improvement is to temporarily boost threads
+that block before using their full quantum, because those threads are
+often interactive or I/O bound. Another improvement is to lower a thread's
+temporary priority after it runs.
 
 Real-time Schedulers
 --------------------
 
-- This is most typically used in real-time operating systems where the most important aspect of a process is not its priority but its deadline to complete a unit of work.
+Real-time scheduling is concerned with deadlines. A real-time task has an
+arrival time, a deadline, and an execution requirement. The scheduler's
+main goal is to complete required work before deadlines.
 
-- Attributes of real-time processes:
+A task set is schedulable when the system can meet all deadlines under
+the chosen policy. A simple utilization estimate is the sum of execution
+time divided by arrival period for each periodic task. If utilization is
+over 100 percent, not all work can finish on time.
 
-	- Arrival time (some absolute time)
-	- Deadline (some time relative to the arrival time)
-	- Execution requirement 
-
-		- Time for computation
-		- Time to complete system calls
-
-- The goal of a real-time scheduler is to make sure as many processes as possible get their full execution requirement before the deadline. 
-
-	- This isn't always possible (two processes arrive at the same time with 100ms requirements, both with deadlines 120ms away).
-
-- In a real time scheduler, completion of all tasks before deadlines is the most important goal. The next important goal is achieving high CPU utilization.
-
-- Terms:
-
-	- Utilization - the sum of the execution time divided by the arrival rate of the process (entering the runnable state)
-	- Schedulable - a set of processes is 'schedulable' if the utilization of the system is less than 100%
-- Example:
-
-	- Pa requires 2 units of time and arrives at t=0,5,10,15,....
-	- Pb requires 1 unit of time and arrives at t=2,4,6,8,10,....
-	- Utilization is: 2/5 + 1/2 = 90%. Therefore the system is schedulable.
-	- If Pc is added and requires 3 units of time and arrives at t=0,5,10,15,.... then utilization is 2/5 + 3/5 + 1/2 = 150% and the system is not schedulable. (at least some processes will miss their deadlines)
+For example, if task ``Pa`` needs 2 units every 5 units, and task ``Pb``
+needs 1 unit every 2 units, utilization is ``2/5 + 1/2 = 90%``. If a
+third task needs 3 units every 5 units, utilization becomes
+``2/5 + 1/2 + 3/5 = 150%``, which is not schedulable on one CPU.
 
 .. figure:: scheduling/rts_1.png
 	:align: center
@@ -337,286 +264,292 @@ Real-time Schedulers
 
 Example Real World RTS Problem
 ------------------------------
-- Example problem: Anti-Lock braking system.
 
-- Problem description: 
+An anti-lock braking system is a real-time scheduling problem. Wheel
+sensors and a vehicle speed sensor report values every 15 ms. Recording
+values takes 1 ms. Brake adjustment for all tires takes 6 ms.
 
-	- Each wheel has a sensor that reports wheel speed every 15ms
-	- An additional sensor reports vehicle speed every 15ms. Recording values takes 1ms.
-	- Wheel angular velocity is (wheel speed) / (wheel radius)
-	- Vehicle angular velocity is (vehicle speed) / (wheel radius)
-	- Wheel slip is 1 - (wheel angular velocity) / (vehical angular velocity)
-	- When slip = 1, a wheel is locked up. Ideal slip is 0.2. 
-	- Engineers report that slip can change at a rate of 0.1 per 50ms
-	- Adjusting anti-lock brakes for all tires takes 6ms.
-
-- What are the scheduling requirements of this system? 
-- What are the processes? 
-- What are the arrival rates and deadlines of processes? 
-- Do we need faster sensors?
-- Can we save money by:
-
-	- Getting a slower CPU?
-	- Getting slower sensors?
-	- Getting an ABS system that reacts slower?
+The system needs to detect wheel slip and react before slip changes too
+much. If two samples and one adjustment fit inside the required response
+window, the task set is schedulable.
 
 Solution to Example Real World RTS Problem
 ------------------------------------------
-- Sensor[A-D]: Period = 15ms, Requirement = 1ms
-- Sensor[V]: Period = 15ms, Requirement = 1ms
-- 2 samples can be taken and recorded for each tire in a period of 15ms*2+5ms = 35ms (the first recording period overlaps with the second reading so we don't count it)
-- If a problem is found, we can schedule a process to adjust anti-lock brakes which will take 6ms. 35ms + 6ms = 41ms. This is faster than the rate of change in slip of 50ms.
-- Is this schedulable? 1/15 + 1/15 + 1/15 + 1/15 + 1/15 + 6/35 = 50.47%. Yes!
+
+Five sensor tasks each need 1 ms every 15 ms. Brake adjustment needs 6 ms
+when scheduled. Two samples can be collected in 35 ms, and adjustment
+brings the total to 41 ms. That is below the 50 ms slip-change window.
+
+Utilization is approximately ``1/15 + 1/15 + 1/15 + 1/15 + 1/15 + 6/35``,
+or 50.47 percent. This leaves enough CPU time for the required work.
 
 .. figure:: scheduling/rts_2.png
 	:align: center
 	:width: 800px
 	:alt: RTS Example 2
 
-- It appears that we also have 
-- 8ms of extra time before our deadline 
-- 25ms of idle CPU time every 42ms
-- So, we can save money by using a slower CPU, ABS, and/or sensors.
-
 Types of Real-Time Scheduler Implementations
 --------------------------------------------
 
-- Earliest deadline first
+Earliest-deadline-first scheduling chooses the runnable task with the
+nearest deadline. It can work well when runtime estimates and arrival
+rates are accurate. When utilization exceeds 100 percent, the missed
+deadlines may be harder to predict.
 
-	- Works with estimates of process runtimes and arrival rates. 
-	- When system utilization is over 100%, which processes miss deadlines is unpredictable
-
-- Fixed priority
-
-	- Gives the highest priority task CPU whenever it is in the ready state.
-	- If utilization is over 100%, then lower priority tasks will not meet the deadline. This is more predictable and therefore more often favored
-	- Simpler to implement
+Fixed-priority scheduling always runs the highest-priority ready task. If
+the system is overloaded, lower-priority tasks miss deadlines first. This
+is often easier to reason about.
 
 Additional Concerns in Advanced Scheduler Implementations
 ---------------------------------------------------------
-- In more advanced operating systems, additional issues are considered in schedulers in addition to priority
 
-	- CPU / Core affinity
-	- How many pages of the working set of a process are resident
-	- NUMA
+Modern schedulers consider more than priority. CPU affinity matters
+because a thread may still have useful data in a CPU cache. Working-set
+residency matters because running a thread with many resident pages may
+avoid page faults.
 
-- If a process is scheduled on a given core previously:
-
-	- There is a decent chance that some of its pages are still in L1/L2/L3 cache. 
-	- Scheduling on that CPU again is better than not. 
-	- But, if too many processes are grouped on one CPU, they need to be migrated though.
-
-- NUMA = Non Uniform Memory Access
-
-	- This is common in machines with separate physical CPUs
-	- Each CPU gets a memory bus to one bank of CPUs.
-	- This means, that some of the memory is faster for for a given CPU and some memory is slower.
-	- When choosing a CPU to execute on, where pages are allocated matters. 
-	- Also, when the OS allocates pages, taking into account which NUMA region has been used before and how crowded / busy it is also matters.
+NUMA also matters on machines where memory access time depends on which
+CPU owns a memory bank. A scheduler may prefer a CPU near the memory a
+thread already uses, or it may move work to balance load.
 
 Process Priority and Scheduling in Linux
 ----------------------------------------
 
-- The Linux scheduler has several available policies:
+Linux supports normal and real-time scheduling policies. Normal policies
+include ``SCHED_OTHER``, ``SCHED_BATCH``, and ``SCHED_IDLE``. Real-time
+policies include ``SCHED_FIFO`` and ``SCHED_RR``.
 
-	- Normal policies:
+Scheduling policy can be set with:
 
-		- ``SCHED_OTHER`` - round-robin time sharing polic
-		- ``SCHED_BATCH`` - batch policy
-		- ``SCHED_IDLE`` - for running very low priority background jobs
+.. code-block:: c
 
-	- Real-time policies:
+   int sched_setscheduler(pid_t pid, int policy, struct sched_param *param);
 
-		- ``SCHED_FIFO`` - first-in, first-out  policy
-		- ``SCHED_RR`` - round-robin
-
-- Scheduling policy is controlled by:
-
-	- ``int sched_setscheduler(pid_t pid, int policy, sched_param *param);``
-	- the ``sched_param`` struct, takes amongst other things, a priority value
-	- this priority value is only consumed by the real time schedulers
-	- normal policies make use of *nice* values
+The ``sched_param`` structure includes a priority value. Real-time
+policies use that priority directly. Normal policies use nice values and
+other scheduler-specific rules.
 
 Linux Real Time Scheduler
 -------------------------
 
-- In Linux, real-time processes always have priority over non-real time processes.
+Linux real-time processes have priority over non-real-time processes.
 
-- ``SCHED_FIFO``
+``SCHED_FIFO`` uses one FIFO queue per priority. A running
+``SCHED_FIFO`` process continues until a higher-priority process becomes
+runnable, the process blocks, or the process calls ``sched_yield()``.
 
-	- Has one FIFO queue per-priority
-	- When sched_setscheduler is called, the process goes into the front of the queue.
-	- If the process is preempted, it keeps its place in the queue.
-	- If sched_yield is called, then the process moves to the back of the queue.
-	- Once running, the process will continue running until:
+``SCHED_RR`` is similar, but each process has a finite quantum. When the
+quantum expires, the process moves to the back of its priority queue.
 
-		- A higher priority process becomes runnable
-		- The process issues an I/O request
-		- The process calls sched_yield()
-
-	- ``SCHED_FIFO`` processes are prevented from locking the system up by the RLIMIT_RTTIME limit. This is the CPU time limit that a process may take up before issuing a system call. After this soft limit is hit, the process is signaled several time until a hard limit is reached. If the hard limit is reached, the process is killed.
-
-- ``SCHED_RR``:
-
-	- Exactly the same as ``SCHED_FIFO``, except:
-
-		- each process has a finite quantum.
-		- if a process is preempted, it moves to the back of the queue
+Linux limits real-time CPU consumption with ``RLIMIT_RTTIME`` so a
+real-time process cannot lock up the whole system indefinitely.
 
 Linux Preemptive Scheduler
 --------------------------
-- ``SCHED_OTHER``:
 
-	- This is the default scheduling policy in Linux. 
-	- Uses *nice* values for prioritization.
+``SCHED_OTHER`` is the default Linux time-sharing policy. It uses nice
+values as one input to prioritization.
 
-- ``SCHED_BATCH``:
-
-	- Same as ``SCHED_OTHER``, except...
-	- Notifies scheduler that the process is both non-interactive and not I/O intensive
-
-- ``SCHED_IDLE``:
-
-	- Same as ``SCHED_OTHER``, except...
-	- All processes in this class are always of lower priority than all other processes. This means that if any other process is runnable, these processes do not run.
-	- *nice* values are ignored completely
+``SCHED_BATCH`` is similar but tells the scheduler that the process is
+not interactive. ``SCHED_IDLE`` is for very low-priority work. A
+``SCHED_IDLE`` process runs only when no other normal work is runnable.
 
 Nice Values
 -----------
 
-- Common in all Unix schedulers is the use of *nice* values.
+UNIX systems use nice values to express process priority. The highest
+priority nice value is typically ``-20``. The lowest is typically ``19``.
+The default is ``0``.
 
-- The nice value is the priority level of a process.
-
-	- The highest priority is -20
-	- The lowest priority is 19
-	- The typical default priority is 0.
-
-- When a process calls fork(), the new process inherits the parent's nice value.
-- Non-root processes can increase the nice value
-- Only root processes can decrease the nice value
-- The effect of the nice value differs between scheduler implementations and is not the only factor taken into account in scheduling decisions
+A child process inherits its parent's nice value after ``fork()``.
+Non-root users can usually increase the nice value, lowering priority.
+Only root can decrease the nice value, raising priority.
 
 Process Scheduling in Windows
 -----------------------------
 
-- Windows has 6 process classes with 7 priorities within each class
+Windows uses process priority classes and thread priorities within each
+class. Common classes include Idle, Below Normal, Normal, Above Normal,
+High, and Realtime.
 
-- Classes:
+Within normal classes, work time-shares according to priority. Idle work
+runs only when no higher-priority work is runnable. Realtime work can run
+ahead of ordinary work and must be used carefully.
 
-	#. Idle
-	#. Below Normal
-	#. Normal
-	#. Above Normal
-	#. High
-	#. Realtime
-
-- Below - High:
-
-	- Within a class, processes time-share relative to priority
-	- Lower classes are not run unless higher classes are not runnable (or there are other idle CPUs)
-
-- Idle - only runs if no other process is runnable
-
-- Realtime - always run when runnable, will not be interrupted until the process makes a system call or goes to sleep.
-
-- Process scheduler takes NUMA into account in:
-
-	- XP Professional, Vista, 7
-	- Server 2003 / 2008 / 2008R2
-
-- Supports more advanced heap management and scheduling on systems with more than 64 CPUs in Server 2008R2 through the use of processor groups
-
-- Multimedia Class Scheduler Service:
-
-	- Creates classes of processes that have a minimum CPU requirement that the OS must meet.
-	- Typically used to make sure audio, video, etc... are responsive in the presence of higher system loads.
+Windows also considers NUMA and processor groups on large systems.
+Multimedia Class Scheduler Service reserves CPU capacity for workloads
+such as audio and video.
 
 User-Mode Schedulers
 --------------------
 
-- User-mode schedulers fall into two categories:
+User-mode schedulers manage user-level threads without asking the kernel
+to schedule each one independently. They may map many user threads onto
+one process or onto a smaller number of kernel threads.
 
-	- Per-process: N user threads per 1 process (N threads total)
-	- Per-thread: N user threads per 1 kernel thread (N*K threads)
-
-- Options:
-
-	- Windows:
-
-		- UMS Scheduler Component - 64-bit Server 2k8, Win 7
-		- Fibers
-
-	- Linux/Minix
-
-		- GNU Pth
-
-	- Custom:
-
-		- Use of setjump, longjmp functions to save / switch stacks
+Examples include Windows fibers, Windows User-Mode Scheduling, GNU Pth,
+and custom schedulers built with stack-switching mechanisms such as
+``setjmp()`` and ``longjmp()``.
 
 User-Mode Threads: Why?
 -----------------------
 
-- Useful on systems with no support for kernel threads:
+User-mode threads are useful on systems without kernel-thread support.
+They are also useful when an application needs a large number of logical
+threads and most of them are not CPU-bound.
 
-- Minix, Windows 3.x, Mac OS 5-9
-
-- Useful on systems with huge or volatile thread counts:
-
-	- An 8-CPU system with 24-32 active threads that doesn't create and destroy threads often, works very well.
-	- An 8-CPU system with 2000 threads will grind to a halt.
-	- An 8-CPU system with 10 threads, then 120 threads, then 5 threads, will waste a lot of time creating and destroying threads.
-
-- Creating and destroying user mode threads is relatively cheap when compared to kernel threads.
-
-- Systems like Erlang or others that create a high number of parallel components benefit greatly from being able to abstract an unlimited number of threads without the actual need for there to literally be that number of threads.
+Creating and destroying user-mode threads is usually cheaper than
+creating and destroying kernel threads. Systems such as Erlang benefit
+from this model because they can expose many lightweight concurrent
+activities without requiring one kernel thread per activity.
 
 User-Mode Threads: Why Not?
 ---------------------------
 
-- User mode threads have a lower degree of parallelism than do kernel mode threads. If you have 10 user threads on one kernel thread, you still are only executing on one CPU
+User-mode threads have less true parallelism. Ten user threads on one
+kernel thread still run on one CPU at a time.
 
-- User mode threads don't benefit from operating system scheduler advantages:
+The kernel also cannot schedule user-mode threads individually. It does
+not know their CPU usage, memory behavior, or blocking state. If one user
+thread blocks in a normal system call, it can block the kernel thread
+that carries the other user threads.
 
-	- Knowledge about CPU consumption
-	- Knowledge about memory utilization
-	- Knowledge about the page table and NUMA configuration
-
-- If one user mode thread locks up, it locks up its entire kernel thread. Other user mode threads on that kernel thread cannot proceed.
-
-- If one user mode thread makes a system call, the user mode threading library or the application must use asynchronous I/O function calls (which are more complex) to maintain responsiveness for other user mode threads. Otherwise the entire kernel thread will block.
-
-- User mode threads do not perform as well as a similar number of kernel threads for number crunching applications (unless the number is » 4 per CPU)
-
-- The reason for this is that kernel threads will have longer quantums than will user mode threads. User mode threads divide the quantum of one kernel mode thread.
-
-- This problem is not as important for interactive, I/O based, or mixed applications.
+User-mode threads can work well for I/O-bound or interactive workloads
+when the threading library uses nonblocking or asynchronous I/O. They are
+usually a poor fit for CPU-bound parallel computation.
 
 GNU - Pth - User Mode Pthreads
 ------------------------------
 
-- GNU Pth maps pretty closely to normal posix threading libraries.
-- The use of GNU Pth is probably best illustrated with an example.
-- The interesting calls are (pth_accept, pth_write, and pth_sleep). 
-- Since this program is I/O bound, we need to use asynchronous I/O calls to make sure all threads are responsive. 
-- This is accomplished with pth_* calls such as pth_write, pth_accept. 
-- These calls are asynchronous wrappers to normal system calls.
+GNU Pth provides a user-mode threading library with an API that resembles
+POSIX threads. Because the threads are scheduled in user mode, I/O-bound
+programs need Pth-aware calls such as ``pth_accept()``, ``pth_write()``,
+and ``pth_sleep()``.
 
 .. literalinclude:: ../examples/systems-code-examples/gnu_pth/main.c
    :language: c
    :linenos:
 
+Key points:
+
+- ``pth_init()`` initializes the user-mode threading runtime.
+- ``pth_spawn()`` creates lightweight user-mode threads.
+- The ticker thread sleeps with ``pth_sleep()`` so the Pth scheduler can
+  run other user threads.
+- The server accepts clients with ``pth_accept()`` rather than blocking
+  the whole process in ordinary ``accept()``.
+- ``pth_write()`` writes to the client connection without bypassing the
+  user-mode scheduler.
+
 PThreads - Kernel Threads
 -------------------------
-- Most POSIX compliant systems implement a pthreads library.
-- In Minix, the PThreads library makes use of a layer on top of pth.
-- In Linux, PThreads use the clone() system call to create lightweight processes (aka kernel threads).
-- Example
+
+Most POSIX-compliant systems provide pthreads. In Linux, pthreads are
+implemented with kernel threads created through ``clone()``.
+
+The examples in ``systems-code-examples/llnl_pthreads_examples`` are
+adapted from the LLNL POSIX Threads Programming tutorial and updated to
+build with this repository.
+
+.. note::
+
+   I ported these examples from the LLNL HPC Tutorials POSIX Threads
+   Programming tutorial. LLNL notes that the original tutorial is no
+   longer supported and remains available for archival purposes.
+   [#llnl-pthreads]_
+
+.. [#llnl-pthreads] Blaise Barney, Lawrence Livermore National
+   Laboratory, "POSIX Threads Programming," LLNL HPC Tutorials,
+   https://hpc-tutorials.llnl.gov/posix/.
+
+Basic pthread creation
+----------------------
 
 .. literalinclude:: ../examples/systems-code-examples/llnl_pthreads_examples/llnl1.c
    :language: c
    :linenos:
 
+Key points:
 
-This example is adapted from `LLNL POSIX Threads Programming tutorial <https://computing.llnl.gov/tutorials/pthreads>`__. You can find these in our ``systems-code-examples`` repository in the ``llnl_pthreads_examples`` folder, which have been updated to compile cleanly and have proper build files.
+- ``pthread_create()`` starts each worker thread.
+- Each thread receives a pointer to a separate ``thread_data_t`` entry.
+- The worker casts the ``void*`` argument back to the expected type.
+- ``pthread_exit(NULL)`` exits the calling thread without terminating the
+  whole process.
+- The main thread calls ``pthread_exit(NULL)`` so the process stays alive
+  until the worker threads finish.
+
+Joinable pthreads
+-----------------
+
+.. literalinclude:: ../examples/systems-code-examples/llnl_pthreads_examples/llnl2.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The thread attributes are configured with
+  ``PTHREAD_CREATE_JOINABLE``.
+- ``pthread_join()`` waits for each thread to finish.
+- Joining gives the main thread a synchronization point.
+- ``pthread_attr_destroy()`` releases the attribute object after thread
+  creation.
+- This version makes thread lifetime explicit.
+
+Condition variable preview
+--------------------------
+
+Condition variables are covered in more detail in the mutual exclusion
+chapter. This example appears here because it shows how scheduled
+threads can block and wake based on shared state.
+
+.. literalinclude:: ../examples/systems-code-examples/llnl_pthreads_examples/llnl_cv1.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- Two incrementing threads update a shared ``count``.
+- A watching thread waits until ``count`` reaches ``COUNT_LIMIT``.
+- ``pthread_cond_wait()`` releases the mutex while the thread waits and
+  reacquires it before returning.
+- ``pthread_cond_signal()`` wakes a waiting thread when the condition is
+  reached.
+- The scheduler can run other threads while the watcher is blocked.
+
+Condition variable with explicit shared data
+--------------------------------------------
+
+.. literalinclude:: ../examples/systems-code-examples/llnl_pthreads_examples/llnl_cv1_tsd.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- Shared state is stored in ``shared_data_t`` instead of global
+  variables.
+- Each thread receives a ``tsd_t`` structure with its ID and a pointer to
+  the shared state.
+- The locking pattern is the same as the previous example.
+- Passing explicit thread data makes dependencies clearer.
+- This style scales better as thread functions need more context.
+
+C# Thread Scheduling Case Study
+-------------------------------
+
+The ``systems-code-examples/threads_csharp`` example shows the same
+scheduling ideas in a managed runtime. The runtime creates operating
+system threads, and the operating system schedules them.
+
+.. literalinclude:: ../examples/systems-code-examples/threads_csharp/threads/ParallelComputation.cs
+   :language: csharp
+   :linenos:
+
+Key points:
+
+- The program creates one worker thread per processor reported by the
+  runtime.
+- Each worker receives a numeric range to search for divisors.
+- ``Thread.Start()`` begins execution of the worker method.
+- ``Thread.Join()`` waits for every worker before printing results.
+- ``lock`` protects the shared divisor list while workers add results.
