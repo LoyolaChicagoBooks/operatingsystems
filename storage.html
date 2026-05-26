@@ -380,12 +380,12 @@
                   
   <section id="storage-and-devices">
 <h1>Storage and Devices<a class="headerlink" href="#storage-and-devices" title="Link to this heading">#</a></h1>
-<p>Storage devices provide persistent or transient places to keep data.
+<p id="index-0">Storage devices provide persistent or transient places to keep data.
 Operating systems hide many device details behind block devices,
 filesystems, caches, and scheduling policies.</p>
 <section id="storage-devices">
 <h2>Storage Devices<a class="headerlink" href="#storage-devices" title="Link to this heading">#</a></h2>
-<p>Permanent storage keeps data after power is removed.</p>
+<p id="index-1">Permanent storage keeps data after power is removed.</p>
 <p>Common permanent media include magnetic devices such as hard disks and
 tape, optical devices such as CD, DVD, and Blu-ray, and solid-state
 devices such as flash storage. Transient storage includes RAM and
@@ -393,7 +393,7 @@ processor caches.</p>
 </section>
 <section id="ide-and-ata">
 <h2>IDE and ATA<a class="headerlink" href="#ide-and-ata" title="Link to this heading">#</a></h2>
-<p>IDE and ATA moved much of the responsibility for disk control into the
+<p id="index-2">IDE and ATA moved much of the responsibility for disk control into the
 drive itself.</p>
 <p>This made systems less dependent on motherboard-specific details about
 disk arms and motors. ATA devices present storage as 512-byte blocks.
@@ -402,7 +402,7 @@ rates such as 16, 33, 66, 100, and 133 MB/s.</p>
 </section>
 <section id="atapi">
 <h2>ATAPI<a class="headerlink" href="#atapi" title="Link to this heading">#</a></h2>
-<p>ATAPI extends ATA with commands needed by devices other than hard disks.</p>
+<p id="index-3">ATAPI extends ATA with commands needed by devices other than hard disks.</p>
 <p>Commands such as eject allowed CD, DVD, and Zip drives to use an
 ATA-compatible interface. ATAPI also helped improve performance through
 DMA, which lets devices transfer data directly to physical memory without
@@ -410,7 +410,7 @@ interrupting the CPU for every bus operation.</p>
 </section>
 <section id="sata">
 <h2>SATA<a class="headerlink" href="#sata" title="Link to this heading">#</a></h2>
-<p>Serial ATA, or SATA, reduces cabling and supports faster serial transfer
+<p id="index-4">Serial ATA, or SATA, reduces cabling and supports faster serial transfer
 rates than classic parallel ATA.</p>
 <p>SATA supports hot swapping, the ATAPI command interface, and transfer
 rates such as 1.5 Gb/s, 3 Gb/s, and 6 Gb/s. Many SATA controllers use
@@ -420,7 +420,7 @@ supports AHCI.</p>
 </section>
 <section id="hard-disk-geometry">
 <h2>Hard Disk Geometry<a class="headerlink" href="#hard-disk-geometry" title="Link to this heading">#</a></h2>
-<p>Traditional disk geometry describes storage with cylinders, heads, and
+<p id="index-5">Traditional disk geometry describes storage with cylinders, heads, and
 sectors.</p>
 <p>A sector is the basic addressable unit on the disk. A cylinder is a set
 of tracks at the same radius across platters. A head reads or writes one
@@ -432,7 +432,7 @@ sector.</p>
 </section>
 <section id="logical-block-addressing">
 <h2>Logical Block Addressing<a class="headerlink" href="#logical-block-addressing" title="Link to this heading">#</a></h2>
-<p>Logical block addressing, or LBA, converts physical geometry into a
+<p id="index-6">Logical block addressing, or LBA, converts physical geometry into a
 linear block number.</p>
 <p>For a CHS tuple, one common conversion is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="n">Nh</span> <span class="o">+</span> <span class="n">H</span><span class="p">)</span> <span class="o">*</span> <span class="n">Ns</span> <span class="o">+</span> <span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -443,7 +443,7 @@ track.</p>
 </section>
 <section id="storage-and-failure">
 <h2>Storage and Failure<a class="headerlink" href="#storage-and-failure" title="Link to this heading">#</a></h2>
-<p>Storage devices fail, so operating systems and storage systems must
+<p id="index-7">Storage devices fail, so operating systems and storage systems must
 design for failure.</p>
 <p>Large-scale studies have shown that disk failure rates vary by age,
 model, workload, and environment. The practical lesson is simple: durable
@@ -452,7 +452,7 @@ assumption that individual devices will keep working.</p>
 </section>
 <section id="maximizing-availability-with-raid">
 <h2>Maximizing Availability with RAID<a class="headerlink" href="#maximizing-availability-with-raid" title="Link to this heading">#</a></h2>
-<p>RAID uses multiple disks to improve capacity, performance, or
+<p id="index-8">RAID uses multiple disks to improve capacity, performance, or
 availability.</p>
 <p>RAID 0 stripes data across disks but provides no redundancy. RAID 1
 mirrors data across disks. RAID 5 and RAID 6 stripe data and store
@@ -460,7 +460,7 @@ parity so the system can recover after one or more disk failures.</p>
 </section>
 <section id="raid-implementation">
 <h2>RAID Implementation<a class="headerlink" href="#raid-implementation" title="Link to this heading">#</a></h2>
-<p>RAID can be implemented in hardware, partly in hardware, or in software.</p>
+<p id="index-9">RAID can be implemented in hardware, partly in hardware, or in software.</p>
 <p>A full hardware controller presents several disks as one logical device.
 A partial hardware controller may still depend on the host CPU for parity
 or buffering. Software RAID is implemented by the operating system and
@@ -468,7 +468,7 @@ presented upward to the filesystem layer as a storage device.</p>
 </section>
 <section id="raid-0">
 <h2>RAID 0<a class="headerlink" href="#raid-0" title="Link to this heading">#</a></h2>
-<p>RAID 0 stripes data across disks.</p>
+<p id="index-10">RAID 0 stripes data across disks.</p>
 <figure class="align-center">
 <img alt="RAID 0" src="_images/raid_0.png" />
 </figure>
@@ -477,7 +477,7 @@ If one disk fails, the array loses data.</p>
 </section>
 <section id="raid-1">
 <h2>RAID 1<a class="headerlink" href="#raid-1" title="Link to this heading">#</a></h2>
-<p>RAID 1 mirrors data across disks.</p>
+<p id="index-11">RAID 1 mirrors data across disks.</p>
 <figure class="align-center">
 <img alt="RAID 1" src="_images/raid_1.png" />
 </figure>
@@ -486,7 +486,7 @@ because each block is stored more than once.</p>
 </section>
 <section id="raid-5">
 <h2>RAID 5<a class="headerlink" href="#raid-5" title="Link to this heading">#</a></h2>
-<p>RAID 5 stripes data and parity across disks.</p>
+<p id="index-12">RAID 5 stripes data and parity across disks.</p>
 <figure class="align-center">
 <img alt="RAID 5" src="_images/raid_5.png" />
 </figure>
@@ -495,7 +495,7 @@ disk. RAID 5 needs at least three disks.</p>
 </section>
 <section id="raid-5-parity-write">
 <h2>RAID 5 Parity Write<a class="headerlink" href="#raid-5-parity-write" title="Link to this heading">#</a></h2>
-<p>Parity can be computed with exclusive-or.</p>
+<p id="index-13">Parity can be computed with exclusive-or.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">size_t</span> <span class="n">parityWrite</span><span class="p">(</span>
    <span class="nb">int</span> <span class="n">fd0</span><span class="p">,</span> <span class="nb">int</span> <span class="n">fd1</span><span class="p">,</span> <span class="nb">int</span> <span class="n">fd2</span><span class="p">,</span>
    <span class="n">const</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf0</span><span class="p">,</span> <span class="n">const</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf1</span><span class="p">,</span>
@@ -522,7 +522,7 @@ disk. RAID 5 needs at least three disks.</p>
 </section>
 <section id="raid-5-parity-read">
 <h2>RAID 5 Parity Read<a class="headerlink" href="#raid-5-parity-read" title="Link to this heading">#</a></h2>
-<p>The same XOR operation can recover missing data.</p>
+<p id="index-14">The same XOR operation can recover missing data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">size_t</span> <span class="n">parityRead</span><span class="p">(</span><span class="nb">int</span> <span class="n">fd0</span><span class="p">,</span> <span class="nb">int</span> <span class="n">fd1</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">char</span> <span class="o">*</span><span class="n">buff0</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
    <span class="n">char</span> <span class="o">*</span><span class="n">buff1</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
@@ -546,7 +546,7 @@ disk. RAID 5 needs at least three disks.</p>
 </section>
 <section id="raid-5-recovery-example">
 <h2>RAID 5 Recovery Example<a class="headerlink" href="#raid-5-recovery-example" title="Link to this heading">#</a></h2>
-<p>This example writes two data files and one parity file, deletes one data
+<p id="index-15">This example writes two data files and one parity file, deletes one data
 file, and reconstructs the missing data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
    <span class="nb">int</span> <span class="n">fd0</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;f0&quot;</span><span class="p">,</span> <span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span> <span class="mi">0666</span><span class="p">);</span>
@@ -595,8 +595,8 @@ file, and reconstructs the missing data.</p>
 </section>
 <section id="disk-partitioning">
 <h2>Disk Partitioning<a class="headerlink" href="#disk-partitioning" title="Link to this heading">#</a></h2>
-<p>Partitions divide a disk into regions with different roles or formats.</p>
-<p>A disk may contain filesystems, swap space, recovery areas, and
+<p id="index-16">Partitions divide a disk into regions with different roles or formats.</p>
+<p id="index-17">A disk may contain filesystems, swap space, recovery areas, and
 partitions used by other operating systems. On traditional PC systems,
 the master boot record format supports up to four primary partitions.
 One primary partition can be an extended partition containing multiple
@@ -604,21 +604,21 @@ logical partitions.</p>
 </section>
 <section id="disk-arms-and-heads">
 <h2>Disk Arms and Heads<a class="headerlink" href="#disk-arms-and-heads" title="Link to this heading">#</a></h2>
-<p>Mechanical disks have moving parts that affect performance.</p>
+<p id="index-18">Mechanical disks have moving parts that affect performance.</p>
 <p>The disk motor spins platters under the heads. A head moves to the right
 track before a sector can be read or written. The time spent moving the
 head is seek time, and disk scheduling algorithms try to reduce it.</p>
 </section>
 <section id="good-disk-scheduling">
 <h2>Good Disk Scheduling<a class="headerlink" href="#good-disk-scheduling" title="Link to this heading">#</a></h2>
-<p>A good disk scheduling algorithm balances throughput, latency, and
+<p id="index-19">A good disk scheduling algorithm balances throughput, latency, and
 fairness.</p>
 <p>It should avoid unnecessary head movement, prefer nearby requests when
 reasonable, and prevent any request from waiting too long.</p>
 </section>
 <section id="disk-scheduling-algorithms">
 <h2>Disk Scheduling Algorithms<a class="headerlink" href="#disk-scheduling-algorithms" title="Link to this heading">#</a></h2>
-<p>Common disk scheduling algorithms include FIFO, shortest seek first, the
+<p id="index-20">Common disk scheduling algorithms include FIFO, shortest seek first, the
 elevator algorithm, and FSCAN.</p>
 <p>These algorithms were most important for mechanical disks. Solid-state
 storage changes the cost model because there is no physical head seek,
@@ -627,14 +627,14 @@ internal device behavior.</p>
 </section>
 <section id="fifo-disk-scheduling">
 <h2>FIFO Disk Scheduling<a class="headerlink" href="#fifo-disk-scheduling" title="Link to this heading">#</a></h2>
-<p>FIFO serves requests in arrival order.</p>
+<p id="index-21">FIFO serves requests in arrival order.</p>
 <p>It is simple and fair, but it does not minimize head movement. A request
 far from the current head position is served when it reaches the front of
 the queue, even if many nearby requests are waiting.</p>
 </section>
 <section id="shortest-seek-first">
 <h2>Shortest Seek First<a class="headerlink" href="#shortest-seek-first" title="Link to this heading">#</a></h2>
-<p>Shortest seek first serves the request closest to the current head
+<p id="index-22">Shortest seek first serves the request closest to the current head
 position.</p>
 <p>This reduces total seek distance, but it can starve requests far from
 the current head position if nearby requests keep arriving.</p>
@@ -644,7 +644,7 @@ the current head position if nearby requests keep arriving.</p>
 </section>
 <section id="elevator-algorithm">
 <h2>Elevator Algorithm<a class="headerlink" href="#elevator-algorithm" title="Link to this heading">#</a></h2>
-<p>The elevator algorithm moves the disk head in one direction, serving
+<p id="index-23">The elevator algorithm moves the disk head in one direction, serving
 requests along the way, and then reverses direction.</p>
 <p>The idea is similar to an elevator serving floors. Requests in the
 current direction are served in order, and the direction changes only at
@@ -656,14 +656,14 @@ first.</p>
 </section>
 <section id="elevator-tradeoffs">
 <h2>Elevator Tradeoffs<a class="headerlink" href="#elevator-tradeoffs" title="Link to this heading">#</a></h2>
-<p>The elevator algorithm improves fairness but is not perfectly balanced.</p>
+<p id="index-24">The elevator algorithm improves fairness but is not perfectly balanced.</p>
 <p>Middle tracks can receive better average service because they are closer
 to more sweeps. Variants can reduce this imbalance by sweeping in one
 logical direction and returning to the beginning before serving again.</p>
 </section>
 <section id="fscan">
 <h2>FSCAN<a class="headerlink" href="#fscan" title="Link to this heading">#</a></h2>
-<p>FSCAN separates current requests from new requests.</p>
+<p id="index-25">FSCAN separates current requests from new requests.</p>
 <p>The scheduler services a fixed queue of requests while placing new
 requests into a second queue. When the first queue is empty, the second
 queue becomes the active queue. This bounds waiting time because new

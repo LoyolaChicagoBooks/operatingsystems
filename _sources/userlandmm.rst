@@ -1,12 +1,20 @@
 Userland Memory Management
 ==========================
 
+.. index::
+   single: userland memory management
+   pair: memory management; userland
+
 Userland memory management is the layer that turns pages from the
 operating system into objects, buffers, and runtime data structures used
 by programs.
 
 Why Userland Memory Management?
 -------------------------------
+
+.. index::
+   single: virtual pages
+   pair: memory; virtual pages
 
 Operating systems allocate memory to processes in units of virtual
 pages. Most programs do not work directly in pages.
@@ -21,6 +29,10 @@ inside that space.
 Userland Memory as Runtime Policy
 ---------------------------------
 
+.. index::
+   single: garbage collection
+   pair: memory management; language runtime
+
 Userland memory management belongs in libraries and language runtimes
 because allocation policy depends on the language.
 
@@ -33,8 +45,20 @@ but they still depend on operating-system services such as pages,
 Heap Management
 ---------------
 
+.. index::
+   single: heap
+   pair: memory; heap management
+
 The heap is the part of a process address space used for data whose
 lifetime is not tied to one stack frame.
+
+.. index::
+   single: malloc()
+   single: free()
+   single: new
+   single: delete
+   pair: C; malloc
+   pair: C++; new
 
 Stack memory is allocated and freed as functions call and return. Heap
 memory is allocated and freed according to program logic. In C and C++,
@@ -45,6 +69,10 @@ reclaimed.
 
 The Memory Manager
 ------------------
+
+.. index::
+   single: memory manager
+   pair: heap; memory manager
 
 A memory manager tracks allocated regions and free regions inside the
 heap.
@@ -57,7 +85,11 @@ Most allocators do not immediately return every freed region to the
 operating system.
 
 Characteristics of Allocation
------------------------------
+------------------------------
+
+.. index::
+   single: heap allocation
+   pair: allocator; characteristics
 
 Heap allocation requests vary in size and are freed in unpredictable
 orders.
@@ -70,6 +102,10 @@ The allocator must handle this pattern efficiently.
 Over-Allocation and Buckets
 ---------------------------
 
+.. index::
+   single: bucket allocator
+   pair: allocator; bucket
+
 Allocators often return a block that is slightly larger than the request.
 
 For example, a request for 31 bytes may be served from a 32-byte bucket.
@@ -78,6 +114,10 @@ allocation and can make free-list management faster.
 
 Characteristics of a Good Memory Manager
 ----------------------------------------
+
+.. index::
+   pair: memory manager; space efficiency
+   pair: memory manager; cache locality
 
 A good memory manager balances space efficiency, speed, and locality.
 
@@ -88,6 +128,11 @@ and deallocations are frequent operations, especially for small objects.
 
 Memory Hierarchy Refresher
 --------------------------
+
+.. index::
+   single: memory hierarchy
+   pair: cache; L1 cache
+   pair: cache; L2 cache
 
 Memory performance depends on where data is located in the hierarchy.
 
@@ -100,6 +145,10 @@ locality and page behavior.
 Program Locality
 ----------------
 
+.. index::
+   single: locality of reference
+   pair: memory; program locality
+
 Programs usually use a small part of their code and data heavily.
 
 Most execution time is spent in inner loops, recursive calls, and common
@@ -110,6 +159,12 @@ growth.
 
 Fragmentation
 -------------
+
+.. index::
+   single: fragmentation
+   single: internal fragmentation
+   single: external fragmentation
+   pair: heap; fragmentation
 
 Fragmentation is wasted memory caused by allocation size and placement.
 
@@ -127,6 +182,10 @@ One way to express external fragmentation is:
 Reducing Heap Fragmentation
 ---------------------------
 
+.. index::
+   pair: fragmentation; coalescing
+   pair: allocator; free list
+
 The heap starts as one contiguous free region, but allocation and
 deallocation split it over time.
 
@@ -138,6 +197,11 @@ and using size classes or buckets for common request sizes.
 First Fit and Best Fit
 ----------------------
 
+.. index::
+   single: first fit
+   single: best fit
+   pair: allocator; placement policy
+
 First fit and best fit are two basic policies for choosing a free block.
 
 First fit uses the first free region large enough for the request. Best
@@ -148,6 +212,10 @@ allocator uses data structures that organize free blocks by size.
 Best-Fit Buckets
 ----------------
 
+.. index::
+   pair: best fit; bucket allocator
+   pair: allocator; size class
+
 Bucket allocators approximate best fit with size classes.
 
 The allocator keeps separate free lists for common sizes. A request is
@@ -157,6 +225,11 @@ bucket or asks the operating system for more heap space.
 
 Managing Free Space
 -------------------
+
+.. index::
+   single: boundary tags
+   single: free list
+   pair: allocator; boundary tags
 
 Allocators need data structures that record which heap regions are free.
 
@@ -169,6 +242,12 @@ near program data.
 Bugs and Explicit Allocators
 ----------------------------
 
+.. index::
+   single: buffer overrun
+   single: double free
+   single: use-after-free
+   pair: memory; corruption
+
 Explicit allocators are vulnerable to bugs in the program using them.
 
 If a C program writes past the end of an allocated block, it may corrupt
@@ -180,6 +259,11 @@ to detect these errors.
 Debugging malloc and free
 -------------------------
 
+.. index::
+   single: dmalloc
+   pair: debugging; memory
+   pair: memory; leak detection
+
 Debugging allocators help find memory leaks, buffer overruns, double
 frees, and use-after-free errors.
 
@@ -189,6 +273,11 @@ also provide sanitizers and leak detectors that serve the same purpose.
 
 Expanding the Heap
 ------------------
+
+.. index::
+   single: sbrk()
+   single: mmap()
+   pair: heap; expansion
 
 UNIX allocators usually expand the heap with ``sbrk()`` or ``mmap()``.
 
@@ -200,6 +289,10 @@ small-object buckets.
 
 Simple malloc Case Study
 ------------------------
+
+.. index::
+   pair: malloc; implementation
+   pair: allocator; sbrk
 
 The ``systems-code-examples/malloc`` example implements a small allocator
 using ``sbrk()``.
@@ -244,6 +337,11 @@ Key points:
 Manual Deallocation Problems
 ----------------------------
 
+.. index::
+   single: memory leak
+   single: dangling pointer
+   pair: memory; manual deallocation
+
 Manual memory management can create leaks and dangling pointers.
 
 A memory leak occurs when allocated memory will never be freed and can no
@@ -254,6 +352,10 @@ crash the program, or create security vulnerabilities.
 
 Avoiding Manual Deallocation Problems
 -------------------------------------
+
+.. index::
+   single: reference counting
+   pair: memory; ownership
 
 Explicit memory management works best when ownership is clear.
 
@@ -267,6 +369,11 @@ itself.
 Garbage Collection
 ------------------
 
+.. index::
+   single: garbage collection
+   single: Lisp
+   pair: memory; garbage collection
+
 Garbage collection automatically reclaims heap objects that can no longer
 be reached by the program.
 
@@ -277,6 +384,10 @@ and does not eliminate every kind of memory leak.
 
 Requirements for Garbage Collectors
 -----------------------------------
+
+.. index::
+   single: root set
+   pair: garbage collection; type safety
 
 Garbage collectors need reliable information about references.
 
@@ -289,6 +400,10 @@ collector.
 Goals for a Garbage Collector
 -----------------------------
 
+.. index::
+   pair: garbage collection; pause time
+   pair: garbage collection; space overhead
+
 A garbage collector should reclaim memory without causing unacceptable
 pause times or memory overhead.
 
@@ -299,6 +414,10 @@ collectors make different tradeoffs among these goals.
 Disadvantages of Garbage Collection
 -----------------------------------
 
+.. index::
+   pair: garbage collection; CPU overhead
+   pair: garbage collection; memory pressure
+
 Garbage collection consumes CPU time and can run at inconvenient moments.
 
 Many collectors pause program execution at least briefly. If collection
@@ -308,6 +427,11 @@ enough to prevent paging.
 
 Reachability
 ------------
+
+.. index::
+   single: reachability
+   single: root set
+   pair: garbage collection; reachability
 
 Reachability determines whether an object is still live.
 
@@ -320,6 +444,10 @@ graph.
 Reference Counting
 ------------------
 
+.. index::
+   single: reference counting
+   pair: memory; reference counting
+
 Reference counting frees an object when its count reaches zero.
 
 New objects start with a reference count. Passing, copying, or storing a
@@ -330,6 +458,10 @@ and references held by that object are decremented.
 Reference Counting Tradeoffs
 ----------------------------
 
+.. index::
+   pair: reference counting; cycles
+   pair: reference counting; overhead
+
 Reference counting is simple but expensive in busy programs.
 
 Every reference update requires bookkeeping. Function calls and returns
@@ -338,6 +470,10 @@ two unreachable objects can keep each other's counts above zero.
 
 Mark-and-Sweep Garbage Collection
 ---------------------------------
+
+.. index::
+   single: mark-and-sweep
+   pair: garbage collection; mark-and-sweep
 
 Mark-and-sweep collection finds reachable objects and frees the rest.
 
@@ -348,6 +484,11 @@ it can pause the program and leave the heap fragmented.
 
 Mark-and-Compact Garbage Collection
 -----------------------------------
+
+.. index::
+   single: mark-and-compact
+   single: copying collector
+   pair: garbage collection; compaction
 
 Mark-and-compact collectors move live objects so free memory becomes
 contiguous.
@@ -360,6 +501,10 @@ requires updating references to moved objects.
 Garbage Collection Costs
 ------------------------
 
+.. index::
+   pair: garbage collection; cost
+   pair: mark-and-sweep; cost
+
 Collector cost depends on what the collector must scan or move.
 
 Mark-and-sweep cost is related to the number of reachable objects.
@@ -370,6 +515,10 @@ little garbage is present.
 Incremental Garbage Collection
 ------------------------------
 
+.. index::
+   single: incremental garbage collection
+   pair: garbage collection; incremental
+
 Incremental collectors divide collection work into smaller pieces.
 
 Instead of stopping all program threads for a full collection, an
@@ -378,7 +527,10 @@ pause times and improve responsiveness, but it makes the collector more
 complex.
 
 Why Incremental Collection Works
---------------------------------
+---------------------------------
+
+.. index::
+   pair: garbage collection; generational hypothesis
 
 Many objects die young.
 
@@ -390,7 +542,15 @@ survive early collections may be copied or scanned more than once.
 Generational Garbage Collection
 -------------------------------
 
+.. index::
+   single: generational garbage collection
+   pair: garbage collection; generational
+
 Generational garbage collection divides the heap by object age.
+
+.. index::
+   single: Java
+   pair: garbage collection; Java
 
 Young objects are collected frequently because most objects die young.
 Objects that survive are promoted to older generations, which are scanned
@@ -399,6 +559,9 @@ ideas in their collectors.
 
 Buyer Beware
 ------------
+
+.. index::
+   pair: garbage collection; memory leak
 
 Garbage collection does not make memory leaks impossible.
 
@@ -409,6 +572,10 @@ therefore still exhaust memory.
 
 Recommended Reading
 -------------------
+
+.. index::
+   single: Lea, Doug
+   pair: malloc; Doug Lea allocator
 
 Doug Lea's allocator article is a useful follow-up for explicit memory
 management and the design of ``malloc()`` implementations:

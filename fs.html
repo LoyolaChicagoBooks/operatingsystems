@@ -379,12 +379,12 @@
                   
   <section id="implementing-files-and-folders">
 <h1>Implementing Files and Folders<a class="headerlink" href="#implementing-files-and-folders" title="Link to this heading">#</a></h1>
-<p>Filesystems organize storage into named files, directories, metadata,
+<p id="index-0">Filesystems organize storage into named files, directories, metadata,
 and free space. Their design depends on the storage medium and on the
 operations the operating system needs to support.</p>
 <section id="filesystem-layout">
 <h2>Filesystem Layout<a class="headerlink" href="#filesystem-layout" title="Link to this heading">#</a></h2>
-<p>Simple media can store files contiguously with a table of contents.</p>
+<p id="index-1">Simple media can store files contiguously with a table of contents.</p>
 <p>Tape, optical media, and write-once media often favor contiguous layouts
 because files are not frequently modified in place. Hard disks, SSDs,
 flash media, and other reusable storage need more flexible structures
@@ -392,7 +392,7 @@ because files are created, extended, truncated, and deleted over time.</p>
 </section>
 <section id="linked-list-allocation">
 <h2>Linked-List Allocation<a class="headerlink" href="#linked-list-allocation" title="Link to this heading">#</a></h2>
-<p>Linked-list allocation stores each file as a chain of blocks.</p>
+<p id="index-2">Linked-list allocation stores each file as a chain of blocks.</p>
 <figure class="align-center">
 <img alt="Linked-list file allocation" src="_images/linked_list_files.png" />
 </figure>
@@ -403,7 +403,7 @@ the chain through earlier blocks.</p>
 </section>
 <section id="linked-list-tradeoffs">
 <h2>Linked-List Tradeoffs<a class="headerlink" href="#linked-list-tradeoffs" title="Link to this heading">#</a></h2>
-<p>Linked-list allocation is easy to implement but has practical costs.</p>
+<p id="index-3">Linked-list allocation is easy to implement but has practical costs.</p>
 <p>The final block can have internal fragmentation if it is not full. Each
 block also needs space for a pointer to the next block, leaving slightly
 less space for file data. Random access is slow because the filesystem
@@ -411,7 +411,7 @@ must traverse the chain.</p>
 </section>
 <section id="file-allocation-tables">
 <h2>File Allocation Tables<a class="headerlink" href="#file-allocation-tables" title="Link to this heading">#</a></h2>
-<p>A file allocation table, or FAT, stores the block chain in a central
+<p id="index-4">A file allocation table, or FAT, stores the block chain in a central
 table instead of inside each data block.</p>
 <figure class="align-center">
 <img alt="File allocation table" src="_images/linked_list_files_table.png" />
@@ -421,7 +421,7 @@ faster and lets each data block hold only file data.</p>
 </section>
 <section id="fat-tradeoffs">
 <h2>FAT Tradeoffs<a class="headerlink" href="#fat-tradeoffs" title="Link to this heading">#</a></h2>
-<p>FAT filesystems are simple and practical for small or moderate storage
+<p id="index-5">FAT filesystems are simple and practical for small or moderate storage
 devices.</p>
 <p>They make free-space management and disk layout straightforward. The main
 cost is that the table can become large on large filesystems and consume
@@ -429,14 +429,14 @@ significant memory.</p>
 </section>
 <section id="inodes">
 <h2>inodes<a class="headerlink" href="#inodes" title="Link to this heading">#</a></h2>
-<p>An inode is the central metadata structure in a UNIX filesystem.</p>
+<p id="index-6">An inode is the central metadata structure in a UNIX filesystem.</p>
 <p>An inode stores ownership, mode bits, timestamps, file size, device
 information, and pointers to blocks containing the file or directory
 contents. Directory entries map names to inode numbers.</p>
 </section>
 <section id="minix-inode">
 <h2>Minix inode<a class="headerlink" href="#minix-inode" title="Link to this heading">#</a></h2>
-<p>The Minix inode layout uses direct and indirect zones.</p>
+<p id="index-7">The Minix inode layout uses direct and indirect zones.</p>
 <figure class="align-center">
 <img alt="Minix inode" src="_images/minix_inode.png" />
 </figure>
@@ -447,7 +447,7 @@ quickly while still supporting larger files.</p>
 </section>
 <section id="inode-strategy">
 <h2>inode Strategy<a class="headerlink" href="#inode-strategy" title="Link to this heading">#</a></h2>
-<p>Direct, indirect, double-indirect, and triple-indirect blocks are a
+<p id="index-8">Direct, indirect, double-indirect, and triple-indirect blocks are a
 successful filesystem design pattern.</p>
 <p>Small files use direct pointers and avoid extra lookups. Larger files add
 levels of indirection only when needed. Linux filesystems such as ext2,
@@ -456,7 +456,7 @@ extents.</p>
 </section>
 <section id="block-caches">
 <h2>Block Caches<a class="headerlink" href="#block-caches" title="Link to this heading">#</a></h2>
-<p>A block cache keeps recently used disk blocks in memory.</p>
+<p id="index-9">A block cache keeps recently used disk blocks in memory.</p>
 <p>The cache supports read-ahead and write-behind. A <code class="docutils literal notranslate"><span class="pre">write()</span></code> call can
 update the cache and return before the block is physically written to
 disk. A background kernel task can later choose a good time and order to
@@ -464,7 +464,7 @@ write dirty blocks.</p>
 </section>
 <section id="minix-block-cache">
 <h2>Minix Block Cache<a class="headerlink" href="#minix-block-cache" title="Link to this heading">#</a></h2>
-<p>Minix uses an LRU-style block cache.</p>
+<p id="index-10">Minix uses an LRU-style block cache.</p>
 <figure class="align-center">
 <img alt="Minix block cache" src="_images/minix_block_cache.png" />
 </figure>
@@ -474,7 +474,7 @@ without repeated disk reads.</p>
 </section>
 <section id="block-cache-tradeoffs">
 <h2>Block Cache Tradeoffs<a class="headerlink" href="#block-cache-tradeoffs" title="Link to this heading">#</a></h2>
-<p>A larger block cache usually improves filesystem performance but uses
+<p id="index-11">A larger block cache usually improves filesystem performance but uses
 memory that programs could otherwise use.</p>
 <p>Write-behind delay creates another tradeoff. A longer delay lets the
 kernel batch writes and schedule them efficiently, but it increases the
@@ -483,7 +483,7 @@ durability but can reduce I/O scheduling opportunities.</p>
 </section>
 <section id="folders-and-path-traversal">
 <h2>Folders and Path Traversal<a class="headerlink" href="#folders-and-path-traversal" title="Link to this heading">#</a></h2>
-<p>A directory maps names to filesystem objects.</p>
+<p id="index-12">A directory maps names to filesystem objects.</p>
 <p>In UNIX filesystems, directories are represented by inodes whose contents
 are directory entries. Each entry maps a filename to another inode.
 Resolving a path means starting at a root directory and repeatedly
@@ -491,7 +491,7 @@ looking up the next path component.</p>
 </section>
 <section id="path-traversal">
 <h2>Path Traversal<a class="headerlink" href="#path-traversal" title="Link to this heading">#</a></h2>
-<p>Path traversal can cross mount points and therefore filesystem
+<p id="index-13">Path traversal can cross mount points and therefore filesystem
 implementations.</p>
 <figure class="align-center">
 <img alt="Path traversal" src="_images/path_traversal.png" />
@@ -502,7 +502,7 @@ different filesystems.</p>
 </section>
 <section id="virtual-filesystems">
 <h2>Virtual Filesystems<a class="headerlink" href="#virtual-filesystems" title="Link to this heading">#</a></h2>
-<p>A virtual filesystem, or VFS, defines a common interface between the
+<p id="index-14">A virtual filesystem, or VFS, defines a common interface between the
 kernel and filesystem implementations.</p>
 <p>The VFS lets the kernel handle common behavior such as path traversal,
 file descriptors, file locking, block cache integration, named pipes,
@@ -511,7 +511,7 @@ filesystem.</p>
 </section>
 <section id="vfs-adaptation">
 <h2>VFS Adaptation<a class="headerlink" href="#vfs-adaptation" title="Link to this heading">#</a></h2>
-<p>The VFS also lets operating systems support foreign or specialized
+<p id="index-15">The VFS also lets operating systems support foreign or specialized
 filesystems.</p>
 <p>A filesystem such as VFAT can be adapted to the kernel’s common file
 interface even if its native metadata model differs from UNIX. The VFS
@@ -519,7 +519,7 @@ contract lets different filesystems participate in the same namespace.</p>
 </section>
 <section id="filesystem-stacking">
 <h2>Filesystem Stacking<a class="headerlink" href="#filesystem-stacking" title="Link to this heading">#</a></h2>
-<p>Some VFS designs allow one filesystem to be stacked on another.</p>
+<p id="index-16">Some VFS designs allow one filesystem to be stacked on another.</p>
 <p>UMSDOS adapted VFAT into a more UNIX-like filesystem by adding hidden
 metadata files. Union filesystems overlay two filesystems so their
 contents appear as one tree. Stacking is useful when the desired behavior
@@ -527,7 +527,7 @@ can be expressed as a layer above an existing filesystem.</p>
 </section>
 <section id="user-mode-filesystems">
 <h2>User-Mode Filesystems<a class="headerlink" href="#user-mode-filesystems" title="Link to this heading">#</a></h2>
-<p>User-mode filesystems move filesystem implementation out of the kernel
+<p id="index-17">User-mode filesystems move filesystem implementation out of the kernel
 and into ordinary processes.</p>
 <p>FUSE is the common UNIX-like example. Dokan provides a similar idea on
 Windows. These frameworks make filesystem development easier because a
@@ -536,7 +536,7 @@ debugging tools can be used.</p>
 </section>
 <section id="user-mode-filesystem-tradeoffs">
 <h2>User-Mode Filesystem Tradeoffs<a class="headerlink" href="#user-mode-filesystem-tradeoffs" title="Link to this heading">#</a></h2>
-<p>User-mode filesystems improve development ergonomics but add crossings
+<p id="index-18">User-mode filesystems improve development ergonomics but add crossings
 between kernel mode and user mode.</p>
 <p>For many specialized filesystems, the development and safety advantages
 are worth the overhead. This pattern is part of a broader move to keep
@@ -545,7 +545,7 @@ required.</p>
 </section>
 <section id="pass-through-fuse-filesystem">
 <h2>Pass-Through FUSE Filesystem<a class="headerlink" href="#pass-through-fuse-filesystem" title="Link to this heading">#</a></h2>
-<p>A pass-through FUSE filesystem forwards operations to an underlying
+<p id="index-19">A pass-through FUSE filesystem forwards operations to an underlying
 directory.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">AbsPath</span><span class="p">(</span>
    <span class="n">char</span> <span class="n">dest</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">],</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
@@ -578,7 +578,7 @@ directory.</p></li>
 </section>
 <section id="fuse-name-operations">
 <h2>FUSE Name Operations<a class="headerlink" href="#fuse-name-operations" title="Link to this heading">#</a></h2>
-<p>FUSE callbacks often map directly to familiar UNIX file operations.</p>
+<p id="index-20">FUSE callbacks often map directly to familiar UNIX file operations.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Mkdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">mode_t</span> <span class="n">mode</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;**mkdir(path=</span><span class="si">%s</span><span class="s2">, mode=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">mode</span><span class="p">);</span>
    <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -626,7 +626,7 @@ filesystem behavior.</p></li>
 </section>
 <section id="fuse-file-i-o-operations">
 <h2>FUSE File I/O Operations<a class="headerlink" href="#fuse-file-i-o-operations" title="Link to this heading">#</a></h2>
-<p>File I/O callbacks handle opening, reading, writing, and syncing files.</p>
+<p id="index-21">File I/O callbacks handle opening, reading, writing, and syncing files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
    <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
@@ -667,7 +667,7 @@ filesystem behavior.</p></li>
 </section>
 <section id="fuse-directory-operations">
 <h2>FUSE Directory Operations<a class="headerlink" href="#fuse-directory-operations" title="Link to this heading">#</a></h2>
-<p>Directory callbacks open, read, and close directories.</p>
+<p id="index-22">Directory callbacks open, read, and close directories.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int ExampleFS::Opendir(const char *path,
    struct fuse_file_info *fileInfo) {
    printf(&quot;opendir(path=%s)\n&quot;, path);
@@ -713,7 +713,7 @@ int ExampleFS::Releasedir(
 </section>
 <section id="fuse">
 <h2>FUSE<a class="headerlink" href="#fuse" title="Link to this heading">#</a></h2>
-<p>FUSE mirrors the UNIX filesystem contract closely.</p>
+<p id="index-23">FUSE mirrors the UNIX filesystem contract closely.</p>
 <p>Each callback corresponds to a familiar file or directory operation.
 Because those operations have well-defined manual pages, a pass-through
 filesystem can be implemented with relatively little code. Simple FUSE
