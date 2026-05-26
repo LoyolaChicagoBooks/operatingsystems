@@ -1,6 +1,11 @@
 IPC Topics
 ==========
 
+.. index::
+   single: interprocess communication (IPC)
+   single: IPC mechanisms
+   pair: UNIX; IPC
+
 Interprocess communication, or IPC, is the set of mechanisms processes
 use to exchange data or coordinate activity. UNIX systems provide many
 IPC mechanisms because different programs need different tradeoffs among
@@ -12,6 +17,11 @@ doors, and TCP/IP sockets.
 
 IPC Performance Hierarchy
 -------------------------
+
+.. index::
+   single: shared memory
+   single: memory mapped files
+   pair: IPC; performance hierarchy
 
 IPC mechanisms differ mostly in how much kernel involvement they need.
 
@@ -25,6 +35,12 @@ because they may involve filesystem or network activity.
 Pipes
 -----
 
+.. index::
+   single: pipes
+   single: pipe()
+   pair: IPC; pipes
+   single: half-duplex
+
 A pipe is a half-duplex byte stream between related processes. Data flows
 in one direction, from the write end to the read end.
 
@@ -36,6 +52,10 @@ coordination tasks.
 
 Pipe Descriptors
 ----------------
+
+.. index::
+   single: pipe(); file descriptors
+   pair: Windows; CreatePipe()
 
 A pipe has two file descriptors: one for reading and one for writing.
 
@@ -102,6 +122,9 @@ Key points:
 Pipes and Context Switches
 --------------------------
 
+.. index::
+   pair: pipes; context switches
+
 Pipe I/O crosses the user-kernel boundary. A write enters the kernel,
 the kernel buffers the data, and a read later copies the data into the
 receiving process.
@@ -116,6 +139,13 @@ kernel-managed byte stream.
 
 Named Pipes and FIFOs
 ---------------------
+
+.. index::
+   single: named pipes
+   single: FIFOs
+   single: mkfifo
+   pair: IPC; named pipes
+   single: PIPE_BUF
 
 A named pipe, or FIFO, is a pipe that has a name in the filesystem.
 
@@ -158,6 +188,10 @@ work well when the program needs random access.
 Named Pipe Atomicity
 --------------------
 
+.. index::
+   pair: named pipes; atomicity
+   single: PIPE_BUF
+
 Writes to a pipe are atomic only up to a system-defined size.
 
 If each ``write()`` call is no larger than ``PIPE_BUF``, the writes are
@@ -170,6 +204,12 @@ mechanism.
 Signals
 -------
 
+.. index::
+   single: signals
+   single: signal handler
+   pair: IPC; signals
+   single: signal disposition
+
 A signal is a software interrupt delivered to a process.
 
 Signals are used for asynchronous events such as child termination,
@@ -179,6 +219,21 @@ the default action.
 
 Important Signals
 -----------------
+
+.. index::
+   single: SIGABRT
+   single: SIGALRM
+   single: SIGBUS
+   single: SIGCHLD
+   single: SIGCONT
+   single: SIGFPE
+   single: SIGHUP
+   single: SIGILL
+   single: SIGINT
+   single: SIGKILL
+   single: SIGPIPE
+   single: SIGSEGV
+   single: SIGSTOP
 
 Many UNIX systems define more than thirty signals. The following table
 lists common ones used in systems programming.
@@ -205,6 +260,11 @@ lists common ones used in systems programming.
 Handling Signals
 ----------------
 
+.. index::
+   single: signal()
+   single: pause()
+   pair: signals; signal handler registration
+
 A process can register a handler for a catchable signal.
 
 .. literalinclude:: ipc/code/sighandler.c
@@ -220,6 +280,12 @@ Key points:
 
 Sending Signals
 ---------------
+
+.. index::
+   single: kill()
+   single: raise()
+   single: alarm()
+   pair: signals; sending
 
 Signals can be sent from the shell with ``kill``.
 
@@ -237,6 +303,12 @@ sets a timer for ``SIGALRM``, and ``pause()`` waits for a signal.
 Interrupted System Calls
 ------------------------
 
+.. index::
+   single: EINTR
+   single: SA_RESTART
+   single: sigaction()
+   pair: signals; interrupted system calls
+
 A signal can interrupt a blocking system call.
 
 Older UNIX systems could interrupt almost any blocking system call.
@@ -250,6 +322,11 @@ with ``SA_RESTART`` and the system call is restartable.
 Reentrant Signal Handlers
 -------------------------
 
+.. index::
+   single: async-signal-safe functions
+   single: reentrant functions
+   pair: signals; reentrancy
+
 A signal handler interrupts whatever the process was doing at that
 moment. The interrupted code might have been inside ``malloc()``,
 ``printf()``, or another function with internal state.
@@ -262,6 +339,10 @@ or use mutable static data are not safe in a signal handler.
 
 Sleep with Alarm
 ----------------
+
+.. index::
+   single: SIGALRM
+   pair: signals; alarm()
 
 Early UNIX implementations used ``SIGALRM`` to implement sleep-like
 behavior.
@@ -281,6 +362,13 @@ Key points:
 Better Sleep with Longjmp
 -------------------------
 
+.. index::
+   single: setjmp()
+   single: longjmp()
+   single: sigsetjmp()
+   single: siglongjmp()
+   pair: signals; longjmp
+
 One attempted improvement is to use ``setjmp()`` and ``longjmp()`` so
 the signal handler can escape the interrupted wait.
 
@@ -299,6 +387,9 @@ Key points:
 
 Signal Timing Problem
 ---------------------
+
+.. index::
+   pair: signals; timing hazards
 
 Signal-based sleep code is difficult because one signal can interrupt
 another handler or arrive between two operations that looked adjacent in
@@ -331,6 +422,14 @@ careful handling of ``EINTR`` and careful signal-handler design.
 Memory Mapped Files
 -------------------
 
+.. index::
+   single: memory mapped files
+   single: mmap()
+   single: munmap()
+   single: MAP_SHARED
+   pair: IPC; memory mapped files
+   pair: virtual memory; mmap
+
 A memory mapped file maps a file into a process's virtual address space.
 After setup, the program can read and write the mapped region with normal
 memory operations.
@@ -342,6 +441,9 @@ shared data structures must not depend on process-local pointer values.
 
 Virtual Addressing in Mapped Files
 ----------------------------------
+
+.. index::
+   pair: memory mapped files; position-independent layout
 
 Memory mapped regions should use position-independent data layouts.
 
@@ -385,6 +487,10 @@ Key points:
 
 Using mmap
 ----------
+
+.. index::
+   single: mmap(); usage pattern
+   single: memcpy()
 
 The basic ``mmap()`` pattern is to create a file, size it, map it, and
 then treat the mapped region as memory.
@@ -449,6 +555,9 @@ Key points:
 Memory Mapped Atomicity
 -----------------------
 
+.. index::
+   pair: memory mapped files; atomicity
+
 Memory mapped I/O does not make reads and writes atomic.
 
 The system calls ``mmap()`` and ``munmap()`` set up and tear down the
@@ -459,6 +568,10 @@ same region.
 
 Shared Memory Locking
 ---------------------
+
+.. index::
+   single: shared memory locking
+   pair: POSIX; process-shared semaphores
 
 Locks used inside shared memory must also be safe to share between
 processes.
@@ -604,6 +717,10 @@ Key points:
 Memory Mapped I/O Performance
 -----------------------------
 
+.. index::
+   pair: memory mapped files; performance
+   pair: I/O; mmap vs write
+
 Memory mapped I/O can be faster than ordinary file I/O because it avoids
 an explicit copy between a user buffer and a kernel buffer.
 
@@ -616,6 +733,12 @@ file format already matches the program's in-memory data model.
 Files as IPC
 ------------
 
+.. index::
+   single: files as IPC
+   pair: IPC; files
+   single: lock files
+   single: spool directories
+
 Files are the oldest and most portable form of IPC.
 
 File-based IPC appears in several patterns: persistent state, exposing
@@ -625,6 +748,10 @@ are durable and easy to inspect.
 
 Exposing Current State
 ----------------------
+
+.. index::
+   single: /proc filesystem
+   pair: Linux; /proc
 
 The ``/proc`` filesystem exposes kernel and process state as files.
 
@@ -643,6 +770,10 @@ that would otherwise require custom system calls.
 Spool Folders
 -------------
 
+.. index::
+   single: spool directories
+   pair: IPC; spool directories
+
 A spool folder is a directory used as a persistent work queue.
 
 Mail daemons, print systems, and scheduled job systems often use spool
@@ -653,6 +784,10 @@ remains on disk.
 Cron Spool Folders
 ------------------
 
+.. index::
+   single: cron
+   pair: cron; spool directories
+
 Cron uses spool-like directories for scheduled tasks.
 
 Common examples include ``/etc/cron.daily``, ``/etc/cron.hourly``,
@@ -661,6 +796,10 @@ cron runs executable files in the appropriate directory.
 
 CUPS Spool Folders
 ------------------
+
+.. index::
+   single: CUPS
+   pair: CUPS; spool directories
 
 CUPS uses spool files to represent print jobs.
 
@@ -672,6 +811,10 @@ processing.
 Lock Files
 ----------
 
+.. index::
+   single: lock files
+   pair: IPC; lock files
+
 A lock file uses atomic filesystem operations to represent ownership of
 a resource.
 
@@ -682,6 +825,14 @@ when the owning process exits normally.
 
 Doors
 -----
+
+.. index::
+   single: doors (Solaris)
+   single: door_create()
+   single: door_call()
+   single: fattach()
+   single: fdetach()
+   pair: Solaris; doors
 
 Doors are a Solaris IPC mechanism that exposes procedure calls through
 filesystem entries.
@@ -724,6 +875,17 @@ Key points:
 
 Domain Sockets
 --------------
+
+.. index::
+   single: UNIX domain sockets
+   single: socket()
+   single: bind()
+   single: listen()
+   single: accept()
+   single: connect()
+   single: PF_UNIX
+   single: SOCK_STREAM
+   pair: IPC; domain sockets
 
 A UNIX domain socket is a local socket addressed through the filesystem
 namespace.
@@ -806,6 +968,11 @@ Key points:
 
 TCP/IP
 ------
+
+.. index::
+   single: TCP/IP sockets
+   pair: IPC; TCP/IP
+   single: network sockets
 
 TCP/IP sockets are the networked counterpart to local socket IPC.
 

@@ -1,6 +1,10 @@
 Deadlock
 ========
 
+.. index::
+   single: deadlock
+   pair: concurrency; deadlock
+
 Deadlock occurs when two or more threads are each waiting for resources
 held by another thread in the same waiting cycle. Once the cycle forms,
 the threads cannot make progress unless something external breaks the
@@ -12,6 +16,11 @@ the order in which threads reach the locks.
 
 Dining Philosophers Problem
 ---------------------------
+
+.. index::
+   single: dining philosophers problem
+   single: resource contention
+   pair: deadlock; dining philosophers
 
 The dining philosophers problem is a small model of resource contention.
 Each philosopher alternates between thinking and eating, and each needs
@@ -27,6 +36,10 @@ The usual rules are:
 
 Dining Philosophers Deadlock Scenario
 -------------------------------------
+
+.. index::
+   single: circular wait
+   pair: deadlock; circular wait
 
 A deadlock can occur if every philosopher picks up one fork and then
 waits for the other fork.
@@ -55,6 +68,10 @@ program is deadlocked.
 Dining Philosophers Lock Graph
 ------------------------------
 
+.. index::
+   single: lock graph
+   pair: deadlock; lock graph
+
 A lock graph shows the possible ordering relationships among locks. If
 the graph contains a cycle, a deadlock is possible.
 
@@ -68,6 +85,10 @@ order that forms a cycle.
 
 Avoiding Deadlock with Try-and-Release
 --------------------------------------
+
+.. index::
+   single: try-and-release
+   pair: deadlock avoidance; try-and-release
 
 One way to avoid deadlock is to acquire both needed resources as a single
 logical operation. If the second resource is not available, the thread
@@ -95,6 +116,10 @@ rules to avoid starvation or livelock.
 Avoiding Deadlock with Lock Ordering
 ------------------------------------
 
+.. index::
+   single: lock ordering
+   pair: deadlock avoidance; lock ordering
+
 Another way to avoid deadlock is to assign a global order to resources
 and require every thread to acquire resources in that order.
 
@@ -118,6 +143,11 @@ lock, no thread can create a circular wait.
 Dijkstra's Solution and the Banker's Algorithm
 ----------------------------------------------
 
+.. index::
+   single: Dijkstra, Edsger W.
+   single: Banker's algorithm
+   pair: deadlock avoidance; Banker's algorithm
+
 Dijkstra's solution to the dining philosophers problem uses resource
 ordering. The same basic idea appears in the Banker's algorithm: do not
 enter a resource allocation state that can lead to deadlock.
@@ -132,6 +162,10 @@ forbids them anyway.
 
 Deadlock Avoidance Implementation
 ---------------------------------
+
+.. index::
+   single: deadlock avoidance
+   pair: deadlock; avoidance implementation
 
 Deadlock avoidance prevents unsafe lock acquisition by enforcing a
 consistent order.
@@ -156,6 +190,11 @@ more than one lock.
 
 Deadlock Prevention Implementation
 ----------------------------------
+
+.. index::
+   single: deadlock prevention
+   single: try_lock
+   pair: deadlock; prevention implementation
 
 Deadlock prevention can also be done by acquiring locks with a
 try-and-release rule. If any lock cannot be acquired, the thread releases
@@ -242,6 +281,10 @@ Key points:
 Example of Deadlock in Nested Calls
 -----------------------------------
 
+.. index::
+   single: self-deadlock
+   pair: deadlock; nested lock acquisition
+
 Deadlock can be harder to see when locks are acquired through nested
 method calls.
 
@@ -286,6 +329,10 @@ a larger lock-ordering cycle.
 Multi-Lock Solutions in Windows
 -------------------------------
 
+.. index::
+   single: WaitForMultipleObjects()
+   pair: Windows; multi-lock
+
 Windows provides ``WaitForMultipleObjects()`` for waiting on multiple
 kernel objects.
 
@@ -295,6 +342,10 @@ for one or more synchronization objects.
 
 Multi-Lock Solutions in Linux and Minix
 ---------------------------------------
+
+.. index::
+   pair: Linux; multi-lock
+   pair: Minix; multi-lock
 
 Linux and Minix do not provide a general multi-lock operation for normal
 pthread mutexes.
@@ -319,6 +370,11 @@ may be correct while the program state is not.
 
 Starvation
 ----------
+
+.. index::
+   single: starvation
+   pair: concurrency; starvation
+   pair: scheduling; starvation
 
 Starvation occurs when one or more threads wait indefinitely because
 other threads keep getting access to the resource first.
@@ -411,6 +467,9 @@ is reduced.
 Guidelines to Avoid Starvation
 ------------------------------
 
+.. index::
+   pair: starvation; guidelines
+
 Starvation is less likely when locks are held for short, predictable
 periods.
 
@@ -427,6 +486,11 @@ Useful guidelines include:
 
 Livelock
 --------
+
+.. index::
+   single: livelock
+   pair: concurrency; livelock
+   single: backoff
 
 Livelock occurs when threads keep running but repeatedly take actions
 that prevent progress.
@@ -474,6 +538,11 @@ break the livelock.
 Lock Fairness
 -------------
 
+.. index::
+   single: lock fairness
+   single: FIFO wait queue
+   pair: synchronization; fairness
+
 Lock fairness means that threads waiting for a lock have similar average
 wait times.
 
@@ -483,6 +552,9 @@ that use timing history.
 
 Fairness Tradeoffs
 ------------------
+
+.. index::
+   pair: lock fairness; tradeoffs
 
 Fairness has a cost because selecting the next owner of a lock is not the
 same as immediately running that thread.
