@@ -46,7 +46,6 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'fs';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Storage Research at Loyola" href="research.html" />
     <link rel="prev" title="Storage and Devices" href="storage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -150,9 +149,6 @@
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementing Files and Folders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
 
     </div>
@@ -345,39 +341,28 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Implementing Files and Folders</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-lists">Linked-Lists</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Linked-Lists</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-allocation-tables-fat">File Allocation Tables (FAT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">File Allocation Tables (FAT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem-layout">Filesystem Layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-list-allocation">Linked-List Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-list-tradeoffs">Linked-List Tradeoffs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-allocation-tables">File Allocation Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fat-tradeoffs">FAT Tradeoffs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inodes">inodes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minix-inode">Minix - inode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Minix - inode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">inodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minix-inode">Minix inode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inode-strategy">inode Strategy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#block-caches">Block Caches</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Block Caches</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Block Caches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minix-block-cache">Minix Block Cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#block-cache-tradeoffs">Block Cache Tradeoffs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#folders-and-path-traversal">Folders and Path Traversal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-traversal">Path Traversal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems-vfs">Virtual Filesystems / VFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Virtual Filesystems / VFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems-and-stacking">Virtual Filesystems and Stacking</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems-and-user-mode">Virtual Filesystems and User-Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems">Virtual Filesystems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vfs-adaptation">VFS Adaptation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem-stacking">Filesystem Stacking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-filesystems">User-Mode Filesystems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">User-Mode Filesystems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-pass-through-fuse-filesystem">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Example pass-through FUSE Filesystem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-filesystem-tradeoffs">User-Mode Filesystem Tradeoffs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-through-fuse-filesystem">Pass-Through FUSE Filesystem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse-name-operations">FUSE Name Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse-file-i-o-operations">FUSE File I/O Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse-directory-operations">FUSE Directory Operations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse">FUSE</a></li>
 </ul>
             </nav>
@@ -392,596 +377,347 @@
                   
   <section id="implementing-files-and-folders">
 <h1>Implementing Files and Folders<a class="headerlink" href="#implementing-files-and-folders" title="Link to this heading">#</a></h1>
-<section id="id1">
-<h2>Implementing Files and Folders<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>How files and folders are implemented in a storage medium can greatly
-depend upon the physical characteristics and capabilities of that
-medium.</p></li>
-<li><p>For example, on tape-drives, CD/DVD/Blu-Ray, or write-once media,
-files and folders are stored contiguously with no fragmentation. All
-of the information about the filesystem can be held in a TOC (Table
-Of Contents).</p></li>
-<li><p>For filesystems with files that have a finite lifetime, such as on
-flash media, hard disks, SSDs, and others, the layout of files and
-folders must be maintained in a more complex way.</p></li>
-<li><p>Among these more advanced methods are linked lists and i-nodes.</p></li>
-<li><p>To manage free-space, objects like bit-maps and linked lists are
-possibilities.</p></li>
-</ul>
+<p>Filesystems organize storage into named files, directories, metadata,
+and free space. Their design depends on the storage medium and on the
+operations the operating system needs to support.</p>
+<section id="filesystem-layout">
+<h2>Filesystem Layout<a class="headerlink" href="#filesystem-layout" title="Link to this heading">#</a></h2>
+<p>Simple media can store files contiguously with a table of contents.</p>
+<p>Tape, optical media, and write-once media often favor contiguous layouts
+because files are not frequently modified in place. Hard disks, SSDs,
+flash media, and other reusable storage need more flexible structures
+because files are created, extended, truncated, and deleted over time.</p>
 </section>
-<section id="linked-lists">
-<h2>Linked-Lists<a class="headerlink" href="#linked-lists" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><figure class="align-center" id="id22">
-<img alt="image" src="_images/linked_list_files.png" />
-<figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id22" title="Link to this image">#</a></p>
-</figcaption>
+<section id="linked-list-allocation">
+<h2>Linked-List Allocation<a class="headerlink" href="#linked-list-allocation" title="Link to this heading">#</a></h2>
+<p>Linked-list allocation stores each file as a chain of blocks.</p>
+<figure class="align-center">
+<img alt="Linked-list file allocation" src="_images/linked_list_files.png" />
 </figure>
-</div></blockquote>
+<p>This layout avoids external fragmentation because blocks can be anywhere
+on the device. It is simple and works well for sequential access. Its
+main weakness is random access: finding block <code class="docutils literal notranslate"><span class="pre">K</span></code> requires following
+the chain through earlier blocks.</p>
 </section>
-<section id="id2">
-<h2>Linked-Lists<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Pros:</p>
-<ul>
-<li><p>No external fragmentation of files.</p></li>
-<li><p>Simple to implement</p></li>
-<li><p>Sequential access is very simple.</p></li>
-</ul>
-</li>
-<li><p>Cons:</p>
-<ul>
-<li><p>Has internal fragmentation of the last block unless the last block
-is used completely.</p></li>
-<li><p>Random access in the file is difficult because for N blocks K-1
-blocks must be read to find block K.</p></li>
-<li><p>Storage available in a single block is not a power of two. Most
-programs send data to the filesystem in as buffers of sizes that
-are powers of two.</p></li>
-</ul>
-</li>
-</ul>
+<section id="linked-list-tradeoffs">
+<h2>Linked-List Tradeoffs<a class="headerlink" href="#linked-list-tradeoffs" title="Link to this heading">#</a></h2>
+<p>Linked-list allocation is easy to implement but has practical costs.</p>
+<p>The final block can have internal fragmentation if it is not full. Each
+block also needs space for a pointer to the next block, leaving slightly
+less space for file data. Random access is slow because the filesystem
+must traverse the chain.</p>
 </section>
-<section id="file-allocation-tables-fat">
-<h2>File Allocation Tables (FAT)<a class="headerlink" href="#file-allocation-tables-fat" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><figure class="align-center" id="id23">
-<img alt="image" src="_images/linked_list_files_table.png" />
-<figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id23" title="Link to this image">#</a></p>
-</figcaption>
+<section id="file-allocation-tables">
+<h2>File Allocation Tables<a class="headerlink" href="#file-allocation-tables" title="Link to this heading">#</a></h2>
+<p>A file allocation table, or FAT, stores the block chain in a central
+table instead of inside each data block.</p>
+<figure class="align-center">
+<img alt="File allocation table" src="_images/linked_list_files_table.png" />
 </figure>
-</div></blockquote>
+<p>At mount time, the FAT can be loaded into memory. This makes traversal
+faster and lets each data block hold only file data.</p>
 </section>
-<section id="id3">
-<h2>File Allocation Tables (FAT)<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>FAT based filesystems improve over linked list filesystems by moving
-the linked list into a centralized table called the FAT.</p></li>
-<li><p>At FS mount time, the FAT is loaded into main memory. Random access
-is fast even though traversal is still needed.</p></li>
-<li><p>Pros:</p>
-<ul>
-<li><p>Implementing a FAT FS is simple. Managing free space and disk
-layout is simple.</p></li>
-<li><p>FAT can be loaded into memory for fast and simple operations.</p></li>
-<li><p>Because blocks don’t contain pointers, the entire block can be
-used for data.</p></li>
-</ul>
-</li>
-<li><p>Cons:</p>
-<ul>
-<li><p>For large filesystems the FAT can become large and consume a lot
-of memory.</p></li>
-</ul>
-</li>
-</ul>
+<section id="fat-tradeoffs">
+<h2>FAT Tradeoffs<a class="headerlink" href="#fat-tradeoffs" title="Link to this heading">#</a></h2>
+<p>FAT filesystems are simple and practical for small or moderate storage
+devices.</p>
+<p>They make free-space management and disk layout straightforward. The main
+cost is that the table can become large on large filesystems and consume
+significant memory.</p>
 </section>
 <section id="inodes">
 <h2>inodes<a class="headerlink" href="#inodes" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>inodes are the fundamental structures of a UNIX filesystem</p></li>
-<li><p>inodes have the following attributes:</p>
-<ul>
-<li><p>File Ownership - user, group</p></li>
-<li><p>File Mode - rwx bits for each of user, group, and others</p></li>
-<li><p>Last access and modified timestamps</p></li>
-<li><p>File size in bytes</p></li>
-<li><p>Device id</p></li>
-<li><p>Pointers to blocks on the storage device for the file or folder’s
-contents</p></li>
-</ul>
-</li>
-</ul>
+<p>An inode is the central metadata structure in a UNIX filesystem.</p>
+<p>An inode stores ownership, mode bits, timestamps, file size, device
+information, and pointers to blocks containing the file or directory
+contents. Directory entries map names to inode numbers.</p>
 </section>
 <section id="minix-inode">
-<h2>Minix - inode<a class="headerlink" href="#minix-inode" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><figure class="align-center" id="id24">
-<img alt="image" src="_images/minix_inode.png" />
-<figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id24" title="Link to this image">#</a></p>
-</figcaption>
+<h2>Minix inode<a class="headerlink" href="#minix-inode" title="Link to this heading">#</a></h2>
+<p>The Minix inode layout uses direct and indirect zones.</p>
+<figure class="align-center">
+<img alt="Minix inode" src="_images/minix_inode.png" />
 </figure>
-</div></blockquote>
+<p>The first zones point directly to data blocks. An indirect zone points to
+a block containing more block numbers. A double-indirect zone points to
+blocks that point to other blocks. This lets small files be accessed
+quickly while still supporting larger files.</p>
 </section>
-<section id="id4">
-<h2>Minix - inode<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The first 7 “zones” point to the first 7 blocks of the file.</p></li>
-<li><p>The “indirect zone” points to another block that contains a list of
-additional zones.</p></li>
-<li><p>This has the advantage that the file can begin to be read quickly
-with the initial set of blocks available.</p></li>
-<li><p>Also, the indirect zone allows for relatively fast random access by
-traversing the indirect blocks like a tree.</p></li>
-<li><p>The pointer to a “double indirect” zone is a list of a list of zones.</p></li>
-<li><p>The first few zones can address 7KB. The indirect zones can address
-up to 64MB. The double indirect zones can address more than 4GB.</p></li>
-</ul>
-</section>
-<section id="id5">
-<h2>inodes<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The strategy of using indirect, double indirect, and even triple
-indirect blocks is a very successful implementation strategy</p></li>
-<li><p>This approach is also used by ext2 / ext3 / ext4 in Linux.</p></li>
-</ul>
+<section id="inode-strategy">
+<h2>inode Strategy<a class="headerlink" href="#inode-strategy" title="Link to this heading">#</a></h2>
+<p>Direct, indirect, double-indirect, and triple-indirect blocks are a
+successful filesystem design pattern.</p>
+<p>Small files use direct pointers and avoid extra lookups. Larger files add
+levels of indirection only when needed. Linux filesystems such as ext2,
+ext3, and ext4 build on this general idea, though modern ext4 also uses
+extents.</p>
 </section>
 <section id="block-caches">
 <h2>Block Caches<a class="headerlink" href="#block-caches" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To improve the performance of a filesystem, and to make disk
-scheduling algorithms more realizable, most operating systems
-implement some kind of block cache.</p></li>
-<li><p>The block cache allows for read-ahead and write-behind. It also
-allows for lower latency I/O operations.</p></li>
-<li><p>With a block cache, the write() system call for instance only needs
-to complete modifications to the cache before returning. The
-operating system can complete the operation on disk in a background
-thread.</p></li>
-<li><p>Without this cache, the system call would not be able to return until
-the write had been committed to disk.</p></li>
-</ul>
+<p>A block cache keeps recently used disk blocks in memory.</p>
+<p>The cache supports read-ahead and write-behind. A <code class="docutils literal notranslate"><span class="pre">write()</span></code> call can
+update the cache and return before the block is physically written to
+disk. A background kernel task can later choose a good time and order to
+write dirty blocks.</p>
 </section>
-<section id="id6">
-<h2>Block Caches<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>In Minix, the block cache is implemented with an LRU policy. The
-cache maintains a linked list of buffers from most recently to least
-recently used</p>
-<blockquote>
-<div><figure class="align-center" id="id25">
-<img alt="image" src="_images/minix_block_cache.png" />
-<figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id25" title="Link to this image">#</a></p>
-</figcaption>
+<section id="minix-block-cache">
+<h2>Minix Block Cache<a class="headerlink" href="#minix-block-cache" title="Link to this heading">#</a></h2>
+<p>Minix uses an LRU-style block cache.</p>
+<figure class="align-center">
+<img alt="Minix block cache" src="_images/minix_block_cache.png" />
 </figure>
-</div></blockquote>
-</li>
-</ul>
+<p>The cache tracks buffers from most recently used to least recently used.
+This keeps frequently used filesystem metadata and data blocks available
+without repeated disk reads.</p>
 </section>
-<section id="id7">
-<h2>Block Caches<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Important parameters of any block cache are:</p>
-<ul>
-<li><p>The size of the cache in physical memory</p></li>
-<li><p>The delay before committing ’dirty’ items in the cache to disk</p></li>
-</ul>
-</li>
-<li><p>The larger the cache, the better the filesystem will likely perform,
-but this can come at the cost of available memory for programs.</p></li>
-<li><p>The larger the delay before writing items to the disk, the better the
-disk allocation and scheduling decisions the operating system can
-make.</p></li>
-<li><p>The shorter the delay before writing to disk, the greater the
-guarantee in the presence of failure that modifications will be
-persisted to disk.</p></li>
-</ul>
+<section id="block-cache-tradeoffs">
+<h2>Block Cache Tradeoffs<a class="headerlink" href="#block-cache-tradeoffs" title="Link to this heading">#</a></h2>
+<p>A larger block cache usually improves filesystem performance but uses
+memory that programs could otherwise use.</p>
+<p>Write-behind delay creates another tradeoff. A longer delay lets the
+kernel batch writes and schedule them efficiently, but it increases the
+amount of data that could be lost after a crash. A shorter delay improves
+durability but can reduce I/O scheduling opportunities.</p>
 </section>
 <section id="folders-and-path-traversal">
 <h2>Folders and Path Traversal<a class="headerlink" href="#folders-and-path-traversal" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>In all but the most simple filesystems, there is a concept of a
-folder and a path.</p></li>
-<li><p>In UNIX operating systems, folder entries are held within inodes that
-have the filetype in the mode set to type directory.</p></li>
-<li><p>The contents of the inode then are a list of filenames and pointers
-to the inodes of those files and/or folders.</p></li>
-<li><p>Resolving paths involve accessing a root folder, and accessing each
-folder recursively until reaching a file or finding the folder to be
-invalid.</p></li>
-</ul>
+<p>A directory maps names to filesystem objects.</p>
+<p>In UNIX filesystems, directories are represented by inodes whose contents
+are directory entries. Each entry maps a filename to another inode.
+Resolving a path means starting at a root directory and repeatedly
+looking up the next path component.</p>
 </section>
 <section id="path-traversal">
 <h2>Path Traversal<a class="headerlink" href="#path-traversal" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>An example of path traversal. When traversing paths, the path may
-cross into different filesystems.</p>
-<blockquote>
-<div><figure class="align-center" id="id26">
-<img alt="image" src="_images/path_traversal.png" />
-<figcaption>
-<p><span class="caption-text">image</span><a class="headerlink" href="#id26" title="Link to this image">#</a></p>
-</figcaption>
+<p>Path traversal can cross mount points and therefore filesystem
+implementations.</p>
+<figure class="align-center">
+<img alt="Path traversal" src="_images/path_traversal.png" />
 </figure>
-</div></blockquote>
-</li>
-</ul>
+<p>The virtual filesystem layer is responsible for making this traversal
+look like one namespace even when different parts of the path live on
+different filesystems.</p>
 </section>
-<section id="virtual-filesystems-vfs">
-<h2>Virtual Filesystems / VFS<a class="headerlink" href="#virtual-filesystems-vfs" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Aside from files and folders there are other things like named pipes,
-domain sockets, symbolic and hard links that need to be handled by
-the filesystem.</p></li>
-<li><p>Rather than have the semantics of these implemented in each
-filesystem implementation, many OS architectures include a virtual
-filesystem or VFS.</p></li>
-<li><p>The VFS stands between the OS kernel and the filesystem
-implementation.</p></li>
-</ul>
+<section id="virtual-filesystems">
+<h2>Virtual Filesystems<a class="headerlink" href="#virtual-filesystems" title="Link to this heading">#</a></h2>
+<p>A virtual filesystem, or VFS, defines a common interface between the
+kernel and filesystem implementations.</p>
+<p>The VFS lets the kernel handle common behavior such as path traversal,
+file descriptors, file locking, block cache integration, named pipes,
+domain sockets, and device files without duplicating that logic in every
+filesystem.</p>
 </section>
-<section id="id8">
-<h2>Virtual Filesystems / VFS<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The VFS can help adapt both foreign filesystems (such as VFAT) by
-producing a contract that these implementations can adapt to.</p></li>
-<li><p>The VFS can also help reduce code duplication between FS
-implementations by providing common structures and handling shared
-behavior:</p>
-<ul>
-<li><p>Path traversal</p></li>
-<li><p>Handling named pipes, domain sockets, etc…</p></li>
-<li><p>Managing file handles and file locking</p></li>
-<li><p>Structures and functions for the block cache.</p></li>
-<li><p>Structures and functions for accessing storage devices</p></li>
-</ul>
-</li>
-</ul>
+<section id="vfs-adaptation">
+<h2>VFS Adaptation<a class="headerlink" href="#vfs-adaptation" title="Link to this heading">#</a></h2>
+<p>The VFS also lets operating systems support foreign or specialized
+filesystems.</p>
+<p>A filesystem such as VFAT can be adapted to the kernel’s common file
+interface even if its native metadata model differs from UNIX. The VFS
+contract lets different filesystems participate in the same namespace.</p>
 </section>
-<section id="virtual-filesystems-and-stacking">
-<h2>Virtual Filesystems and Stacking<a class="headerlink" href="#virtual-filesystems-and-stacking" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>In some VFS implementations it is possible to stack filesystems on
-top of each other.</p></li>
-<li><p>A great example of this in Linux is UMSDOS: the base VFAT filesystem
-does not have support for users, groups, security or extended
-attributes. By creating special files on VFAT and then hiding them,
-UMSDOS can adapt VFAT to be a UNIX-like filesystem</p></li>
-<li><p>Another great example of this is UnionFS. It allows two filesystems
-to be transparently overlaid.</p></li>
-</ul>
-</section>
-<section id="virtual-filesystems-and-user-mode">
-<h2>Virtual Filesystems and User-Mode<a class="headerlink" href="#virtual-filesystems-and-user-mode" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Because VFS provides a contract for a filesystem to implement, it is
-simpler for unique filesystems to be implemented. Good examples
-include:</p></li>
-<li><p>Proc - process and kernel metadata, typically mounted under ’/proc’</p></li>
-<li><p>SysFs - exposes block and character device files to user mode,
-typically mounted under ’/dev’</p></li>
-<li><p>FUSE - provides infrastructure to redirect calls to and from the VFS
-to and from user mode programs.</p></li>
-</ul>
+<section id="filesystem-stacking">
+<h2>Filesystem Stacking<a class="headerlink" href="#filesystem-stacking" title="Link to this heading">#</a></h2>
+<p>Some VFS designs allow one filesystem to be stacked on another.</p>
+<p>UMSDOS adapted VFAT into a more UNIX-like filesystem by adding hidden
+metadata files. Union filesystems overlay two filesystems so their
+contents appear as one tree. Stacking is useful when the desired behavior
+can be expressed as a layer above an existing filesystem.</p>
 </section>
 <section id="user-mode-filesystems">
 <h2>User-Mode Filesystems<a class="headerlink" href="#user-mode-filesystems" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The advent of user-mode filesystems in popular operating systems
-(they existed in less popular operating systems for a while) has led
-to a great deal of new filesystem development.</p></li>
-<li><p>The two most popular systems are FUSE for Linux / MacOSX, and other
-UNIX-like systems, and Dokan for Windows systems.</p></li>
-<li><p>These frameworks have been greatly successful in large part because
-they help make the task of systems development much easier.</p></li>
-</ul>
+<p>User-mode filesystems move filesystem implementation out of the kernel
+and into ordinary processes.</p>
+<p>FUSE is the common UNIX-like example. Dokan provides a similar idea on
+Windows. These frameworks make filesystem development easier because a
+crash usually kills a process rather than the whole kernel, and ordinary
+debugging tools can be used.</p>
 </section>
-<section id="id9">
-<h2>User-Mode Filesystems<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Development in a monolithic kernel can be very challenging. Crashes
-can bring the entire system down, stopping and restarting components
-may not be possible, and often debugging is limited to logs.</p></li>
-<li><p>With user-mode development, it is possible to make use of a debugger
-in most cases.</p></li>
-<li><p>Because of these advantages systems like FUSE and Dokan have become
-very popular.</p></li>
-<li><p>Other areas of systems that were traditionally kernel mode only have
-moved to user-mode systems to ease development and improve
-architecture. In Windows, the display manager, and much of the driver
-framework has moved to user-mode.</p></li>
-</ul>
+<section id="user-mode-filesystem-tradeoffs">
+<h2>User-Mode Filesystem Tradeoffs<a class="headerlink" href="#user-mode-filesystem-tradeoffs" title="Link to this heading">#</a></h2>
+<p>User-mode filesystems improve development ergonomics but add crossings
+between kernel mode and user mode.</p>
+<p>For many specialized filesystems, the development and safety advantages
+are worth the overhead. This pattern is part of a broader move to keep
+more system services in user mode when kernel-mode performance is not
+required.</p>
 </section>
-<section id="example-pass-through-fuse-filesystem">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#example-pass-through-fuse-filesystem" title="Link to this heading">#</a></h2>
+<section id="pass-through-fuse-filesystem">
+<h2>Pass-Through FUSE Filesystem<a class="headerlink" href="#pass-through-fuse-filesystem" title="Link to this heading">#</a></h2>
+<p>A pass-through FUSE filesystem forwards operations to an underlying
+directory.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">AbsPath</span><span class="p">(</span>
-    <span class="n">char</span> <span class="n">dest</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">],</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">strcpy</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">_root</span><span class="p">);</span>
-  <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">PATH_MAX</span><span class="p">);</span>
+   <span class="n">char</span> <span class="n">dest</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">],</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">strcpy</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">_root</span><span class="p">);</span>
+   <span class="n">strncat</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">PATH_MAX</span><span class="p">);</span>
 <span class="p">}</span>
+
 <span class="n">void</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">setRootDir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;setting FS root to: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">_root</span> <span class="o">=</span> <span class="n">path</span><span class="p">;</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;setting FS root to: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="n">_root</span> <span class="o">=</span> <span class="n">path</span><span class="p">;</span>
 <span class="p">}</span>
+
 <span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Getattr</span><span class="p">(</span>
-    <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">statbuf</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;getattr(</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fullPath</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">lstat</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">statbuf</span><span class="p">));</span>
+   <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">stat</span> <span class="o">*</span><span class="n">statbuf</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;getattr(</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fullPath</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">lstat</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">statbuf</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AbsPath()</span></code> converts a FUSE path into a real path under the root
+directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setRootDir()</span></code> records the backing directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Getattr()</span></code> forwards metadata lookup to <code class="docutils literal notranslate"><span class="pre">lstat()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RETURN_ERRNO</span></code> adapts system-call errors to FUSE’s return convention.</p></li>
+</ul>
 </section>
-<section id="id10">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Readlink</span><span class="p">(</span>
-<span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">link</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">){</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;readlink(path=</span><span class="si">%s</span><span class="s2">, link=</span><span class="si">%s</span><span class="s2">, size=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
-                          <span class="n">path</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">size</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">readlink</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">size</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Mknod</span><span class="p">(</span>
-<span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">mode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="n">dev_t</span> <span class="n">dev</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;mknod(path=</span><span class="si">%s</span><span class="s2">, mode=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="o">//</span><span class="n">handles</span> <span class="n">creating</span> <span class="n">FIFOs</span><span class="p">,</span> <span class="n">regular</span> <span class="n">files</span><span class="p">,</span> <span class="n">etc</span><span class="o">...</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">mknod</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">dev</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id11">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<section id="fuse-name-operations">
+<h2>FUSE Name Operations<a class="headerlink" href="#fuse-name-operations" title="Link to this heading">#</a></h2>
+<p>FUSE callbacks often map directly to familiar UNIX file operations.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Mkdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">mode_t</span> <span class="n">mode</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;**mkdir(path=</span><span class="si">%s</span><span class="s2">, mode=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">mode</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">mkdir</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">mode</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;**mkdir(path=</span><span class="si">%s</span><span class="s2">, mode=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">mode</span><span class="p">);</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">mkdir</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">mode</span><span class="p">));</span>
 <span class="p">}</span>
+
 <span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Unlink</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;unlink(path=</span><span class="si">%s</span><span class="se">\n</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">unlink</span><span class="p">(</span><span class="n">fullPath</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;unlink(path=</span><span class="si">%s</span><span class="se">\n</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">unlink</span><span class="p">(</span><span class="n">fullPath</span><span class="p">));</span>
 <span class="p">}</span>
+
 <span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Rmdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;rmkdir(path=</span><span class="si">%s</span><span class="se">\n</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">rmdir</span><span class="p">(</span><span class="n">fullPath</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;rmkdir(path=</span><span class="si">%s</span><span class="se">\n</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">rmdir</span><span class="p">(</span><span class="n">fullPath</span><span class="p">));</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id12">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Symlink</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">link</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;symlink(path=</span><span class="si">%s</span><span class="s2">, link=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">link</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">symlink</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">link</span><span class="p">));</span>
+
+<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Symlink</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">link</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;symlink(path=</span><span class="si">%s</span><span class="s2">, link=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">link</span><span class="p">);</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">symlink</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">link</span><span class="p">));</span>
 <span class="p">}</span>
+
 <span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Rename</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">newpath</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;rename(path=</span><span class="si">%s</span><span class="s2">, newPath=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">newpath</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">rename</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">newpath</span><span class="p">));</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;rename(path=</span><span class="si">%s</span><span class="s2">, newPath=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">newpath</span><span class="p">);</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">rename</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">newpath</span><span class="p">));</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>Each callback receives a path in the mounted FUSE namespace.</p></li>
+<li><p>The implementation translates that path to a backing path.</p></li>
+<li><p>Directory and name operations are delegated to ordinary system calls.</p></li>
+<li><p>A pass-through filesystem can be small because it reuses existing
+filesystem behavior.</p></li>
+</ul>
 </section>
-<section id="id13">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Link</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">newpath</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;link(path=</span><span class="si">%s</span><span class="s2">, newPath=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">newpath</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">char</span> <span class="n">fullNewPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullNewPath</span><span class="p">,</span> <span class="n">newpath</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">link</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">fullNewPath</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Chmod</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">mode_t</span> <span class="n">mode</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;chmod(path=</span><span class="si">%s</span><span class="s2">, mode=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">chmod</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">mode</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id14">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Chown</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">uid_t</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid_t</span> <span class="n">gid</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;chown(path=</span><span class="si">%s</span><span class="s2">, uid=</span><span class="si">%d</span><span class="s2">, gid=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">uid</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">gid</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">chown</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">gid</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Truncate</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">newSize</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;truncate(path=</span><span class="si">%s</span><span class="s2">, newSize=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">newSize</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">truncate</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">newSize</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Utime</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">utimbuf</span> <span class="o">*</span><span class="n">ubuf</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;utime(path=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">utime</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">ubuf</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id15">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<section id="fuse-file-i-o-operations">
+<h2>FUSE File I/O Operations<a class="headerlink" href="#fuse-file-i-o-operations" title="Link to this heading">#</a></h2>
+<p>File I/O callbacks handle opening, reading, writing, and syncing files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Open</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
-        <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">flags</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
+   <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+   <span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">flags</span><span class="p">);</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
+
 <span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Read</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
-        <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">pread</span><span class="p">(</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">offset</span><span class="p">));</span>
+   <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">pread</span><span class="p">(</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">offset</span><span class="p">));</span>
 <span class="p">}</span>
+
 <span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Write</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
-        <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">pwrite</span><span class="p">(</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">offset</span><span class="p">));</span>
+   <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">pwrite</span><span class="p">(</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">offset</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Fsync</span><span class="p">(</span>
+   <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="nb">int</span> <span class="n">datasync</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fi</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;fsync(path=</span><span class="si">%s</span><span class="s2">, datasync=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">datasync</span><span class="p">);</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">datasync</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">fdatasync</span><span class="p">(</span><span class="n">fi</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">));</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">fsync</span><span class="p">(</span><span class="n">fi</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">));</span>
+   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Open()</span></code> stores the real file descriptor in the FUSE file handle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Read()</span></code> uses <code class="docutils literal notranslate"><span class="pre">pread()</span></code> so the offset is explicit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Write()</span></code> uses <code class="docutils literal notranslate"><span class="pre">pwrite()</span></code> for the same reason.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Fsync()</span></code> forwards durability requests to <code class="docutils literal notranslate"><span class="pre">fdatasync()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">fsync()</span></code>.</p></li>
+</ul>
 </section>
-<section id="id16">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Statfs</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">statvfs</span> <span class="o">*</span><span class="n">statInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;statfs(path=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">statvfs</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">statInfo</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Flush</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;flush(path=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="o">//</span><span class="n">noop</span> <span class="n">because</span> <span class="n">we</span> <span class="n">don</span><span class="s1">&#39;t maintain our own buffers</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Release</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;release(path=</span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id17">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Fsync</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="nb">int</span> <span class="n">datasync</span><span class="p">,</span> <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fi</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;fsync(path=</span><span class="si">%s</span><span class="s2">, datasync=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">datasync</span><span class="p">);</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">datasync</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">//</span><span class="n">sync</span> <span class="n">data</span> <span class="n">only</span>
-    <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">fdatasync</span><span class="p">(</span><span class="n">fi</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">));</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="o">//</span><span class="n">sync</span> <span class="n">data</span> <span class="o">+</span> <span class="n">file</span> <span class="n">metadata</span>
-    <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">fsync</span><span class="p">(</span><span class="n">fi</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Setxattr</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">value</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="nb">int</span> <span class="n">flags</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;setxattr(path=</span><span class="si">%s</span><span class="s2">, name=</span><span class="si">%s</span><span class="s2">, value=</span><span class="si">%s</span><span class="s2">, size=</span><span class="si">%d</span><span class="s2">, flags=</span><span class="si">%d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
-    <span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">size</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">lsetxattr</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">flags</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id18">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Getxattr</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
-    <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">value</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">getxattr</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">size</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Listxattr</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
-    <span class="n">char</span> <span class="o">*</span><span class="nb">list</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">llistxattr</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">size</span><span class="p">));</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Removexattr</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">lremovexattr</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">name</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id19">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="fuse-directory-operations">
+<h2>FUSE Directory Operations<a class="headerlink" href="#fuse-directory-operations" title="Link to this heading">#</a></h2>
+<p>Directory callbacks open, read, and close directories.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>int ExampleFS::Opendir(const char *path,
-    struct fuse_file_info *fileInfo) {
-  printf(&quot;opendir(path=%s)\n&quot;, path);
-  char fullPath[PATH_MAX];
-  AbsPath(fullPath, path);
-  DIR *dir = opendir(fullPath);
-  fileInfo-&gt;fh = (uint64_t)dir;
-  return NULL -- dir ? -errno : 0;
+   struct fuse_file_info *fileInfo) {
+   printf(&quot;opendir(path=%s)\n&quot;, path);
+   char fullPath[PATH_MAX];
+   AbsPath(fullPath, path);
+   DIR *dir = opendir(fullPath);
+   fileInfo-&gt;fh = (uint64_t)dir;
+   return NULL == dir ? -errno : 0;
+}
+
+int ExampleFS::Readdir(const char *path, void *buf,
+   fuse_fill_dir_t filler, off_t offset,
+   struct fuse_file_info *fileInfo) {
+   printf(&quot;readdir(path=%s, offset=%d)\n&quot;, path, (int)offset);
+   DIR *dir = (DIR*)fileInfo-&gt;fh;
+   struct dirent *de = readdir(dir);
+   if(NULL == de) {
+      return -errno;
+   } else {
+      do {
+         if(filler(buf, de-&gt;d_name, NULL, 0) != 0) {
+            return -ENOMEM;
+         }
+      } while(NULL != (de = readdir(dir)));
+   }
+   return 0;
+}
+
+int ExampleFS::Releasedir(
+   const char *path, struct fuse_file_info *fileInfo) {
+   closedir((DIR*)fileInfo-&gt;fh);
+   return 0;
 }
 </pre></div>
 </div>
-</section>
-<section id="id20">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Readdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
-    <span class="n">fuse_fill_dir_t</span> <span class="n">filler</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span>
-    <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;readdir(path=</span><span class="si">%s</span><span class="s2">, offset=</span><span class="si">%d</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="n">offset</span><span class="p">);</span>
-  <span class="n">DIR</span> <span class="o">*</span><span class="nb">dir</span> <span class="o">=</span> <span class="p">(</span><span class="n">DIR</span><span class="o">*</span><span class="p">)</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">;</span>
-  <span class="n">struct</span> <span class="n">dirent</span> <span class="o">*</span><span class="n">de</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">);</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">NULL</span> <span class="o">--</span> <span class="n">de</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">;</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="n">do</span> <span class="p">{</span>
-      <span class="k">if</span><span class="p">(</span><span class="n">filler</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">de</span><span class="o">-&gt;</span><span class="n">d_name</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="n">NULL</span> <span class="o">!=</span> <span class="p">(</span><span class="n">de</span> <span class="o">=</span> <span class="n">readdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">)));</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id21">
-<h2>Example pass-through FUSE Filesystem<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Releasedir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span>
-    <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">closedir</span><span class="p">((</span><span class="n">DIR</span><span class="o">*</span><span class="p">)</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Fsyncdir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="nb">int</span> <span class="n">datasync</span><span class="p">,</span>
-    <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Init</span><span class="p">(</span><span class="n">struct</span> <span class="n">fuse_conn_info</span> <span class="o">*</span><span class="n">conn</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nb">int</span> <span class="n">ExampleFS</span><span class="p">::</span><span class="n">Truncate</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">,</span>
-    <span class="n">struct</span> <span class="n">fuse_file_info</span> <span class="o">*</span><span class="n">fileInfo</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">char</span> <span class="n">fullPath</span><span class="p">[</span><span class="n">PATH_MAX</span><span class="p">];</span>
-  <span class="n">AbsPath</span><span class="p">(</span><span class="n">fullPath</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">RETURN_ERRNO</span><span class="p">(</span><span class="n">ftruncate</span><span class="p">(</span><span class="n">fileInfo</span><span class="o">-&gt;</span><span class="n">fh</span><span class="p">,</span> <span class="n">offset</span><span class="p">));</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Opendir()</span></code> opens the backing directory and stores the handle.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Readdir()</span></code> reads directory entries from the backing directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filler()</span></code> passes each name back to FUSE.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Releasedir()</span></code> closes the stored directory handle.</p></li>
+</ul>
 </section>
 <section id="fuse">
 <h2>FUSE<a class="headerlink" href="#fuse" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>As you can see in the above example, the FUSE filesystem matches
-closely the contract of the UNIX system calls for files and folders.</p></li>
-<li><p>Each of these functions has very well explained behavior that can be
-found in the manual pages for each of them.</p></li>
-<li><p>Typically, a FUSE filesystem can be implemented with between 500 -
-4000 lines of code. This is fairly comparable to kernel mode
-filesystems.</p></li>
-<li><p>A very advanced filesystem, NTFS, has been implemented with FUSE in
-about 17,500 lines of code.</p></li>
-<li><p>A very popular FUSE filesystem, SSHFS, has been implemented in about
-4,500 lines of code.</p></li>
-<li><p>In the Linux kernel, Ext4 is approximately 35,500 lines of code and
-Ext2 is approximately 9000 lines of code.</p></li>
-</ul>
+<p>FUSE mirrors the UNIX filesystem contract closely.</p>
+<p>Each callback corresponds to a familiar file or directory operation.
+Because those operations have well-defined manual pages, a pass-through
+filesystem can be implemented with relatively little code. Simple FUSE
+filesystems can be a few hundred to a few thousand lines, while more
+advanced filesystems are larger but still easier to develop than kernel
+filesystems.</p>
 </section>
 </section>
 
@@ -1005,15 +741,6 @@ Ext2 is approximately 9000 lines of code.</p></li>
         <p class="prev-next-title">Storage and Devices</p>
       </div>
     </a>
-    <a class="right-next"
-       href="research.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Storage Research at Loyola</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -1032,39 +759,28 @@ Ext2 is approximately 9000 lines of code.</p></li>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Implementing Files and Folders</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-lists">Linked-Lists</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Linked-Lists</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-allocation-tables-fat">File Allocation Tables (FAT)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">File Allocation Tables (FAT)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem-layout">Filesystem Layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-list-allocation">Linked-List Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linked-list-tradeoffs">Linked-List Tradeoffs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-allocation-tables">File Allocation Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fat-tradeoffs">FAT Tradeoffs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inodes">inodes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minix-inode">Minix - inode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Minix - inode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">inodes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minix-inode">Minix inode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inode-strategy">inode Strategy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#block-caches">Block Caches</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Block Caches</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Block Caches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minix-block-cache">Minix Block Cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#block-cache-tradeoffs">Block Cache Tradeoffs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#folders-and-path-traversal">Folders and Path Traversal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-traversal">Path Traversal</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems-vfs">Virtual Filesystems / VFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Virtual Filesystems / VFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems-and-stacking">Virtual Filesystems and Stacking</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems-and-user-mode">Virtual Filesystems and User-Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-filesystems">Virtual Filesystems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vfs-adaptation">VFS Adaptation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem-stacking">Filesystem Stacking</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-filesystems">User-Mode Filesystems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">User-Mode Filesystems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-pass-through-fuse-filesystem">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Example pass-through FUSE Filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Example pass-through FUSE Filesystem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-filesystem-tradeoffs">User-Mode Filesystem Tradeoffs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pass-through-fuse-filesystem">Pass-Through FUSE Filesystem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse-name-operations">FUSE Name Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse-file-i-o-operations">FUSE File I/O Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse-directory-operations">FUSE Directory Operations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuse">FUSE</a></li>
 </ul>
   </nav></div>

@@ -1,881 +1,666 @@
 Virtual Memory
 ==============
 
-Virtual Memory lecture...
+Virtual memory is the operating-system layer that gives each process its
+own address space. It lets the kernel separate process memory from
+physical memory and decide which pages should be resident, shared,
+protected, or backed by storage.
 
 What is Virtual Memory?
 -----------------------
 
--  Virtual memory is responsible for many capabilities in an operating
-   system. Among them are:
+Virtual memory gives a process a private view of memory that does not
+directly match the machine's physical memory.
 
-   -  Allowing one or more programs that require more bytes of memory
-      than are available to continue to run.
+This supports several operating-system goals:
 
-   -  To improve performance of I/O operations by supporting buffering
-      operations.
-
-   -  To reduce overall memory usage by allowing processes to share
-      pages of memory
-
-   -  To manage process memory protection and sandboxing (To provide a
-      virtual sub-machine to a process).
-
-   -  To translate virtual memory addresses to physical memory addresses
-      and to maintain the domain of virtual memory addresses.
+- Programs can run even when their total virtual memory use is larger
+  than available physical memory.
+- File I/O can be buffered and cached in memory.
+- Processes can share pages, such as executable code or shared library
+  text.
+- The kernel can enforce memory protection between processes.
+- Virtual addresses can be translated to physical addresses by hardware
+  and kernel-managed tables.
 
 Memory Management Units
 -----------------------
 
--  A Memory Management Unit (MMU hereafter) is a hardware component that
-   is responsible for:
+The memory management unit, or MMU, is the hardware that translates
+virtual addresses into physical addresses.
 
-   -  Translation of virtual addresses to physical addresses
-
-   -  Memory protection
-
-   -  Translation Lookaside Buffer
-
-   -  Page table entries
-
--  In some modern CPUs, the MMU is a part of the CPU.
-
--  When the processor has a cache miss and needs to access a page of
-   memory, it makes the request to the MMU
+The MMU also enforces memory protection and works with structures such
+as page tables and the translation lookaside buffer. In modern systems,
+the MMU is usually part of the CPU. When a process accesses memory, the
+CPU and MMU use the current process's page tables to decide where the
+access goes and whether it is allowed.
 
 Pages and Page Tables
 ---------------------
 
--  Every process gets a view of the machine that makes it appear that
-   the process has all of the machine’s address space available to it.
+A page is a fixed-size block of virtual memory. A page table records how
+virtual pages map to physical pages.
 
--  In reality, the process is only using a part of it. The parts (pages)
-   being used have to be maintained in a list by the operating system.
+Every process appears to have access to a large address space, but only
+some of that address space is actually mapped and resident at any given
+time. The operating system maintains page tables so the MMU can translate
+virtual addresses and enforce permissions.
 
-Pages and Page Tables
----------------------
+Page Table Size
+---------------
 
--  So, how is memory allocated in the operating system?
+Page size affects page-table overhead.
 
-   -  If we allocated 128 byte pages and had to maintain 4GB worth of
-      128 byte pages, we would need to maintain a list of:
+If a 32-bit system used 128-byte pages, it would need more than
+33 million page entries to describe a 4 GB address space. Even with very
+compact entries, that overhead would be too large for each process.
 
-   -  128 bytes - 7 bits to address, 25 bits for page offset, 4GB / 128B
-      = 33,554,432 entries \* 25 bits = 100MB per process in page table
-      entries.
-
-   -  4k bytes - 12 bits to address, 20 bits for page offset, 4GB / 4K =
-      1,048,576 entries \* 20 bits = 2.5MB per process
-
-   -  In 32-bit x86, the entries are 32 bits because other pieces of
-      information are needed other than the address. 1,048,576 \* 32bits
-      = 4MB per process.
-
-Pages and Page Tables
----------------------
-
--  Even at 4k pages, 2.5MB per process is pretty extreme. Imagine
-   launching a process that needs 100k of memory but has 2.5MB of
-   overhead! Imagine if you had to map more than 4GB of memory!
-
--  What are some ways we can solve this?
-
-What’s in a Page Table Entry?
------------------------------
-
--  If we use 4k pages, then we need to have 20 bits to address those
-   pages in a 4GB address space (or more if we use a 64-bit address
-   space)
-
--  We also need to know if the page has the following attributes:
-
-   -  is executable
-
-   -  is writable
-
-   -  is modified
-
-   -  is present
-
--  Additionally, we might want to store information about the process
-   ID, statistics, etc...
-
--  In a 32-bit x86, we have 32-bits to work with. 20-bits go to the page
-   address and 12 go to anything else we need.
+With 4 KB pages, a 4 GB address space has 1,048,576 virtual pages. On
+32-bit x86, each page-table entry is 32 bits, so a flat page table would
+still require about 4 MB per process. That is too much overhead for a
+small process.
 
 Page Table Entries
 ------------------
 
--  So, if we need 32-bit page table entries on the 32-bit x86, how can
-   we avoid having so many and having so much overhead?
+A page-table entry stores the physical page number and attributes for a
+virtual page.
 
--  The key part is how the first 20-bits of the 32-bit entry is managed.
-   How can we use those 20-bits?
+For a 4 KB page in a 32-bit address space, 20 bits identify the page and
+12 bits remain for flags and other information. Common attributes include
+whether the page is present, writable, executable, and modified.
 
--  The solution in x86 is the use of a 2 or 3 level page table.
+Multi-Level Page Tables
+-----------------------
 
-Page Table Entries
-------------------
+Multi-level page tables reduce memory overhead by allocating lower-level
+tables only for address ranges that are actually used.
 
--  In a 2 level page table, the first 10-bits is used for the first
-   level and the second 20-bits is used for the second level.
+In a two-level page table, part of the virtual address selects a first
+level entry, and another part selects a second level entry. The first
+level covers large regions. The second level is created only when a
+process actually uses pages in that region.
 
--  This doesn’t reduce the size of the entry, but reduces the number of
-   entries we need to store per process.
+Two-Level Page Table
+--------------------
 
--  Basically, this works by having one level of the page table manage a
-   larger range. If we’re using 10-bits, then the first level page table
-   is mapping 4MB pages, then the 2nd level divides it into 4k pages. We
-   only create entries in the 2nd level if any exist.
+The two-level page-table diagram shows how a virtual address can be split
+into indexes and an offset.
 
-Two Level Page Table (thanks Wikipedia)
----------------------------------------
+.. figure:: kernelmm/diagrams/two_level_page_table.*
+   :align: center
+   :alt: Two-level page table
 
-    .. figure:: kernelmm/diagrams/two_level_page_table.*
-       :align: center
-       :alt: image
+MMU Address Translation Algorithm
+---------------------------------
 
-       image
-
-MMU - Address Translation Algorithm
------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
+Address translation first checks the TLB. If the translation is not
+cached, the MMU and kernel page-table structures are used to find the
+physical page.
 
 ::
 
-       physical_address translate(virtual_address v_addr) {
-        physical_address addr;
-        if(tlb.contains(v_addr)) {
-            addr = tlb[v_addr];
-        } else {
-            first10 = (v_addr >> 0x16) & 0xa;
-            second10 = (v_addr >> 0xc) & 0xa;
-            level_1 = page_table_1[first10];
-            entry = level_1[second10];
-            physical_page = (v_addr >> 0xc) & 0x14;
-            if(physical_page >> RESIDENT_OFFSET & 0x01 -- 0)) {
-                generate page fault
-            }
-            addr = (physical_page << 0xc) & (v_addr & 0xc);
-            tlb[v_addr] = addr;
-        }
-        return addr;
+   physical_address translate(virtual_address v_addr) {
+      physical_address addr;
+      if(tlb.contains(v_addr)) {
+         addr = tlb[v_addr];
+      } else {
+         first10 = (v_addr >> 0x16) & 0xa;
+         second10 = (v_addr >> 0xc) & 0xa;
+         level_1 = page_table_1[first10];
+         entry = level_1[second10];
+         physical_page = (v_addr >> 0xc) & 0x14;
+         if(physical_page >> RESIDENT_OFFSET & 0x01 == 0) {
+            generate page fault;
+         }
+         addr = (physical_page << 0xc) & (v_addr & 0xc);
+         tlb[v_addr] = addr;
       }
+      return addr;
+   }
+
+Key points:
+
+- The TLB caches recent virtual-to-physical translations.
+- A TLB miss requires a page-table lookup.
+- Page-table entries contain both page addresses and permission or
+  status bits.
+- A nonresident page causes a page fault.
+- Once translation succeeds, the result can be cached in the TLB.
 
 Page Faults
 -----------
 
--  A page fault is generated by the MMU or by the CPU when:
+A page fault is an exception raised when a memory reference cannot be
+completed using the current page-table entry.
 
-   -  An instruction references a virtual address that is not resident
-      in physical memory.
+Common causes include accessing a page that is not resident in physical
+memory, writing to a read-only page, or executing from a non-executable
+page. The operating system decides whether the fault can be repaired or
+whether the process must be notified or terminated.
 
-   -  An instruction writes to a virtual address that is not writable
+Page Faults in UNIX
+-------------------
 
-   -  An instruction branches/jumps to an address that is not executable
+UNIX systems usually handle nonresident pages by loading the page and
+retrying the instruction.
 
--  Each operating system has a different implementation / reaction to
-   each type of page fault.
+If the page cannot be loaded because memory is exhausted, the process may
+fail or the system may take stronger action. If the access violates
+permissions, the kernel normally sends ``SIGSEGV`` to the process.
 
-Page Faults - UNIX
-------------------
+Page Faults in Windows
+----------------------
 
--  Not resident - invoke swapper, retry instruction if successful, crash
-   due to out of memory if it fails.
+Windows also handles nonresident pages by loading the page and retrying
+the instruction when possible.
 
--  Not writable / readable - sends a signal to the process: SIGSEGV.
-   Crashes by default, if handled, the process won’t crash
+If the fault cannot be repaired, Windows raises an exception in the
+faulting process. Permission faults are also reported through the
+exception mechanism.
 
-Page Faults - Windows
+Page Replacement and Swapping
+-----------------------------
+
+Page replacement is the policy for choosing which physical page to reuse
+when memory is needed.
+
+The swapper moves pages between physical memory and slower backing
+storage. It handles heap and stack pages, and it may also demand-page
+program text so execution can begin before the full program is loaded.
+
+When the Swapper Runs
 ---------------------
 
--  Not resident - invoke swapper, retry instruction if sucessful. Raise
-   exception if it fails.
+The swapper runs when a needed virtual page is not resident or when the
+system needs more free physical pages.
 
--  Not writable / readable - raises exception to the process.
+The operating system may also reclaim memory when a page would be more
+useful for another process, the filesystem cache, or another kernel
+purpose. The swapper is therefore part of both memory protection and
+overall system performance.
 
-Page Replacement / Swapping
----------------------------
+Physical Page Contenders
+------------------------
 
--  To support more optimal use of physical memory, operating systems
-   implement swappers.
+Many uses compete for physical pages.
 
--  A swapper is a program that swaps pages from physical memory to and
-   from persistent and slower storage.
-
--  The swapper is the program that handles page in/out operations for
-   the stack and heap segements.
-
--  Many implementations will also demand page in text segments of
-   programs to allow execution to begin before a program is fully
-   loaded.
-
-Page Replacement / Swapping
----------------------------
-
--  The swapper is invoked under the following conditions:
-
-   -  The OS tries to translate a virtual address to a physical address,
-      but the physical page is not resident
-
-   -  The OS has exhausted or nearly exhausted physical memory and needs
-      to move physical pages to slower storage.
-
-   -  The OS has determined that a region of memory would be better used
-      for another purpose:
-
-      -  For another program that is more active
-
-      -  For the filesystem cache
-
-Page Replacement / Swapping
----------------------------
-
--  Who are the contenders for physical pages?
-
--  The block / FS cache
-
-   -  Where recently read / written files are kept in memory by the OS
-
-   -  Promotes better I/O scheduling decisions by allowing write-behind
-      and read-ahead
-
-   -  Improves file operation performance
-
--  Shared memory regions / memory mapped files
-
--  Program library and executable files
-
--  Program stack and heap segments
-
--  Device driver DMA (Direct Memory Access) regions
-
-   -  Some exist outside of virtual / physical translation
-
-   -  These regions are typically off-limits to the swapper.
-
-   -  Some devices implement IO-MMUs
+Important contenders include the filesystem cache, shared memory regions,
+memory mapped files, executable and library text, process stacks, process
+heaps, and device DMA buffers. Some DMA regions must not be swapped
+because a device is using the physical address directly.
 
 Swapper Algorithms
 ------------------
 
--  Key measures to consider in a swapping algorithm:
+A page replacement algorithm tries to minimize expensive page faults.
 
-   -  Total page faults - during a period of time, how many page faults
-      occur?
+Useful measures include the total number of page faults, the page faults
+an optimal algorithm would have produced, and the working set of pages a
+process is actively using. No real algorithm can predict the future, so
+replacement policies approximate likely future behavior from recent
+history.
 
-   -  Optimal page faults - given an optimal algorithm (that can predict
-      the future) what were the minimum number of page faults?
+Page Classification
+-------------------
 
-      -  b.t.w. no such algorithm exists for programs subject to the
-         halting problem.
+Many processors record whether a page has been referenced or modified.
 
-   -  Working Set - the set of pages in a program that are most often
-      and recently used.
+These bits divide pages into four classes:
 
-Swapper Algorithms - Page Classification
-----------------------------------------
+- Not referenced and not modified.
+- Not referenced and modified.
+- Referenced and not modified.
+- Referenced and modified.
 
--  Most computers record how each page has been accessed.
+The operating system can clear reference bits periodically to estimate
+which pages have been used recently.
 
--  Typically, most hardware records whether a page has been read or
-   modified in two bit fields with the ability to reset these bits. This
-   yields four classes of pages:
+Not Recently Used
+-----------------
 
-   -  1 - Not referenced, not modified
+Not Recently Used, or NRU, evicts pages from the lowest available page
+class.
 
-   -  2 - Not referenced, modified
+NRU is simple. It prefers pages that have not been referenced and have
+not been modified. It is inexpensive, but it is only a rough estimate of
+future page use.
 
-   -  3 - Referenced, not modified
-
-   -  4 - Referenced, modified
-
--  Some hardware implementations will periodically clear the read bit to
-   help determine which pages have been recently read. This is how you
-   can get class 2 above.
-
-Swapper Algorithms - NRU
-------------------------
-
--  NRU - Not Recently Used
-
--  The NRU algorithm basically pages out pages from the lowest numbered
-   class that has pages available.
-
--  This is the simplest algorithm.
-
-Swapper Algorithms - FIFO
--------------------------
-
--  FIFO - First In First Out
-
--  When a page is loaded, it is added to the end of a list
-
--  When a page fault occurs and a new page needs to be loaded, the page
-   in the front of the list is removed and swapped out
-
--  FIFO works on the premise that the oldest page is the least likely to
-   be used in the future.
-
--  This algorithm is rarely used as is because this assumption is often
-   faulty
-
-Swapper Algorithms - Second Chance FIFO
----------------------------------------
-
--  Second chance FIFO improves over FIFOs deficiency of paging out
-   heavily used pages by taking into account the read and write bits
-
--  Second chance FIFO will scan the list in order for a page with both
-   read/write bits set to zero. If it finds a page in this class, it
-   will swap that page out. If it fails to find such a page, it will
-   swap out the first page in the list.
-
-Swapper Algorithms - Clock
---------------------------
-
--  The clock algorithm improves upon second chance FIFO
-
--  Second chance FIFO suffers from many modifications to its internal
-   list.
-
--  The clock algorithm uses a uses a circular list and stores a pointer
-   to the oldest page. When a page fault occurs, the page pointed to is
-   inspected. If its read bit is 0, it is evicted. If the read bit is 1,
-   it is set to 0 and the pointer advances.
-
--  In reality, the clock algorithm is only very slightly better than
-   second chance FIFO.
-
-Swapper Algorithms - LRU
-------------------------
-
--  LRU - Least Recently Used
-
--  LRU in practice is often close to optimal
-
--  LRU assumes:
-
-   -  Pages that have been heavily used recently will be heavily used in
-      the near future
-
-   -  Pages that have not been used recently will not be used in the
-      near future
-
--  To maintain the data necessary to implement LRU, the OS would have to
-   maintain a linked list of all pages in physical memory. This list
-   would have the most recently used page in the head and the least
-   recently used page in the tail. This is not cheap. Every access
-   requires a search of the list. Also the list can be very big.
-
-Swapper Algorithms - LRU/NFU
-----------------------------
-
--  NFU: Not Frequently Used - a software implementation of LRU
-
--  Each page gets a counter in the page table.
-
--  At each clock interrupt, the OS scans the page table and for each
-   page with the read bit = 1, increments the counter
-
--  When a page fault occurs, the page with the lowest counter is evicted
-
--  Problems with NFU
-
-   -  NFU isn’t forgetful enough
-
-   -  If a single page is very heavily accessed and then never again, it
-      will take a long time for it to be evicted (if ever).
-
-Swapper Algorithms - LRU/NFU - Aging
-------------------------------------
-
--  NFU can be improved with an approach called aging
-
--  NFU+Aging is a commonly used algorithm
-
--  Aging changes NFU slightly:
-
--  When a clock interrupt occurs, two things happen:
-
-   -  For each page with a read bit set to 1, the most significant bit
-      in the counter for that page is set.
-
-   -  Each page has its counter value shifted to the right, thereby
-      decreasing it.
-
-Swapper Algorithms - LRU/NFU - Aging
-------------------------------------
-
--  When a page fault occurs, the page with the lowest counter is
-   evicted.
-
--  This policy more closely approximates LRU by favoring recently
-   accessed pages and penalizing pages that have not been recently
-   access by decreasing their value.
-
--  This algorithm falls short of LRU in two ways:
-
-   -  The number of bits in the counter are finite. This allows for two
-      pages two have the value of zero, but one of them being more
-      recently used.
-
-   -  The algorithm is constrained to the grain of a clock interrupt.
-      All pages accessed between two successive interrupts are
-      considered to be as recently accessed as each other.
-
-Belady’s Anomoly
+FIFO Replacement
 ----------------
 
--  A seemingly obvious assumption to make is that having more physical
-   pages will reduce the total number of page faults.
+First In First Out, or FIFO, evicts the oldest resident page.
 
--  This assumption isn’t true for all page replacement algorithms and
-   all access patterns.
+FIFO assumes the oldest page is least likely to be used again. That
+assumption is often wrong, so FIFO is rarely used directly in production
+systems.
 
--  Example - Assume that there are 5 virtual pages numbered from 0 to 4
-   and these pages are accessed with the following pattern using FIFO:
+Second-Chance FIFO
+------------------
 
-   -  3 2 1 0 3 2 4 3 2 1 0 4
+Second-chance FIFO improves FIFO by checking the reference bit before
+evicting a page.
 
-   -  In this case, having 3 physical pages will result in 9 page faults
-      and having 4 physical pages will lead to 10 page faults!
+If the oldest page has not been referenced, it can be evicted. If it has
+been referenced, the algorithm clears the reference bit and gives the
+page another chance. This avoids evicting heavily used pages simply
+because they are old.
 
-Belady’s Anomoly (thanks Wikipedia)
------------------------------------
+Clock Replacement
+-----------------
 
-    .. figure:: kernelmm/diagrams/beladys_anomoly.*
-       :align: center
-       :alt: image
+The clock algorithm is an efficient implementation of second-chance
+replacement.
 
-       image
+It stores pages in a circular list and keeps a pointer to the next
+candidate. If the pointed-to page has a clear reference bit, it is
+evicted. If the bit is set, the algorithm clears it and advances the
+pointer.
 
-Belady’s Anomoly
+Least Recently Used
+-------------------
+
+Least Recently Used, or LRU, evicts the page that has not been used for
+the longest time.
+
+LRU is often close to optimal because programs tend to reuse pages they
+used recently. A perfect LRU implementation is expensive because the
+kernel would need to update ordering information on every memory access.
+
+Not Frequently Used
+-------------------
+
+Not Frequently Used, or NFU, approximates LRU with counters.
+
+At each clock interrupt, the operating system scans pages and increments
+a counter for each page whose reference bit is set. On a page fault, a
+page with a low counter is a candidate for eviction.
+
+NFU is not forgetful enough. A page that was used heavily in the past can
+keep a high counter long after it stops being useful.
+
+Aging
+-----
+
+Aging improves NFU by making old references matter less over time.
+
+At each clock interrupt, the operating system shifts each counter right.
+If the page was referenced, it sets the most significant bit. The result
+is a small history of recent use. Aging still has limited precision, but
+it tracks recency better than plain NFU.
+
+Belady's Anomaly
 ----------------
 
--  For two physical memory sizes it is possible to find an access order
-   to get ratios worse than even 2:1
+Belady's anomaly is the surprising result that adding more physical pages
+can increase page faults for some replacement algorithms and access
+patterns.
 
--  A paper by Fornai and Ivany showed that you can get any ratio with
-   the correct access pattern
+For example, FIFO with the reference string ``3 2 1 0 3 2 4 3 2 1 0 4``
+can produce 9 page faults with 3 physical pages and 10 page faults with
+4 physical pages. More memory does not always help FIFO.
+
+Belady's Anomaly Diagram
+------------------------
+
+The diagram shows a reference string where FIFO performs worse with more
+physical pages.
+
+.. figure:: kernelmm/diagrams/beladys_anomoly.*
+   :align: center
+   :alt: Belady's anomaly
 
 Modeling Page Replacement
 -------------------------
 
--  While examining a particular page replacement algorithm, the
-   following are considered:
+Page replacement algorithms can be modeled with a reference string and a
+fixed number of physical pages.
 
-   -  The reference string of the executing process
-
-   -  The number of pages available in memory
-
--  The reference string is a time ordered list of page accesses from one
-   or more processes. For simplicity, often only one process is
-   considered.
-
-Modeling Page Replacement
--------------------------
-
--  Notation for modeling a page replacement algorithm:
-
-   -  M - an array that keeps track of the state of memory. M has n
-      elements
-
-   -  n - the number of virtual pages.
-
-   -  M - divided into two parts: the first m entries are in physical
-      memory, the last n-m have been referenced but are paged out.
-
--  As a reference string is read, entry by entry, the algorithm checks
-   to see if the page is in memory (top part of M).
-
--  If not, a page fault occurs. If there is an empty slot (top part of
-   M), the page is moved from the bottom into that slot.
-
--  If the top part of M is full, the page replacement algorithm is
-   invoked to remove a page from memory.
+The reference string is the ordered list of page accesses. The model
+tracks which pages are in physical memory and which pages have been
+referenced but are not resident. On each reference, the algorithm either
+finds the page in memory or handles a page fault.
 
 Modeling LRU
 ------------
 
--  This is the LRU algorithm modeled with the reference string: 0 2 1 3
-   5 4 6 3 7 4 7 3 3 5 5 3 1 1 1 7 2 3 4 1
+LRU has the stack property: with more physical pages, the set of pages in
+memory is always a superset of the set that would be present with fewer
+physical pages.
 
-    .. figure:: kernelmm/diagrams/lru_reference_string.*
-       :align: center
-       :alt: image
+.. figure:: kernelmm/diagrams/lru_reference_string.*
+   :align: center
+   :alt: LRU reference string
 
-       image
+This property means LRU is not subject to Belady's anomaly. Adding more
+physical pages cannot make LRU perform worse for the same reference
+string.
 
-Modeling LRU
-------------
+Distance Strings
+----------------
 
--  LRU has an interesting property when modeled this way.
+A distance string records how far a referenced page is from the top of
+the algorithm's conceptual stack.
 
--  For LRU M(m, r) is always a subset of or equivalent to M(m+1, r).
+Pages not yet referenced have infinite distance. The distance string can
+estimate page faults for different physical memory sizes by counting how
+often the distance exceeds the number of available frames.
 
--  This means that at memory access ’r’, all of the pages in m will
-   exist if there were an additional page of physical memory m+1
+::
 
--  This means, that LRU always does as well or improves with more
-   physical pages and is not subject to Belady’s anomaly
+   Fm = Sum(k = m+1, n, Ck) + Cinf
 
-Modeling - Distance Strings
----------------------------
+Here, ``Ck`` is the number of times distance ``k`` occurs, ``Cinf`` is
+the number of infinite distances, ``m`` is the number of physical pages,
+and ``n`` is the number of virtual pages.
 
--  Another interesting measurement in this type of modeling is the
-   distance string.
+Distance String Example
+-----------------------
 
--  The distance string refers to the distance from the top of the
-   ’stack’ to where the page is in the stack.
+The distance-string counts can be read from the LRU model.
 
--  Pages not yet referenced get a distance of infinity.
+.. figure:: kernelmm/diagrams/lru_reference_string.*
+   :align: center
+   :alt: LRU reference string
 
--  The distance value depends upon both the reference string and the
-   algorithm.
+In this example, ``C1 = 4``, ``C2 = 2``, ``C3 = 1``, ``C4 = 3``,
+``C5 = 2``, ``C6 = 2``, ``C7 = 1``, and ``Cinf = 8``. Therefore:
 
--  The optimal algorithm will minimize the values of the distance
-   string.
+::
 
-Modeling - Distance Strings
----------------------------
-
--  The distance string can be used to estimate the number of page faults
-   for different physical memory sizes using the following formula
-
--  :math:`$Fm = Sum(k = m+1, n, Ck) + Cinf$`
-
-   -  :math:`$Ck$` = the occurrences of k in the distance string
-
-   -  :math:`$Cinf$` = the occurrences of infinity in the distance
-      string
-
-   -  :math:`$m$` = the number of physical pages
-
-   -  :math:`$n$` = the number of virtual pages
-
-   -  :math:`$Fm$` = the predicted page fault rate for m physical pages
-
-Modeling - Distance Strings
----------------------------
-
-    .. figure:: kernelmm/diagrams/lru_reference_string.*
-       :align: center
-       :alt: image
-
-       image
-
--  :math:`$C1 = 4$`, :math:`$C2 = 2$`, :math:`$C3 = 1$`,
-   :math:`$C4 = 3$`, :math:`$C5 = 2$`, :math:`$C6 = 2$`,
-   :math:`$C7 = 1$`, :math:`$Cinf = 8$`
-
--  So, for various memory sizes:
-
--  :math:`$F1 = 2+1+3+2+2+1+8 = 19$`
-
--  :math:`$F2 = 1+3+2+2+1+8 = 17$`
-
--  :math:`$F5 = 2+1+8 = 11$`
-
--  :math:`$F6 = 1+8 = 9$`
+   F1 = 2 + 1 + 3 + 2 + 2 + 1 + 8 = 19
+   F2 = 1 + 3 + 2 + 2 + 1 + 8 = 17
+   F5 = 2 + 1 + 8 = 11
+   F6 = 1 + 8 = 9
 
 Design Considerations for Paging Systems
 ----------------------------------------
 
--  A naive paging implementation would start up a process with none of
-   its pages in memory (libraries, program, data, bss, etc...).
+A naive paging system could start a process with none of its pages in
+memory, but that would cause many page faults at startup.
 
--  When the process attempts to execute its first instruction it would
-   immediately generate a page fault.
-
--  For the first few moments of a program’s execution it would generate
-   many page faults until it was mostly loaded and then run without
-   generating many page faults.
-
--  Generating many and unnecessary faults leads to poorly performing
-   applications.
+Real systems try to avoid unnecessary faults. They use locality,
+read-ahead, working-set estimates, and page replacement policies to keep
+the pages a process is likely to use in memory.
 
 Working Sets
 ------------
 
--  Although not universally true, many applications exhibit a locality
-   of reference.
+A working set is the set of pages a process is actively using during a
+period of execution.
 
--  This means that, if a process is working with a given page at one
-   point in time, then just before that time and in the near future it
-   is likely to continue to work with that page and pages that are near
-   (in terms of virtual address distance).
-
--  Many programs will have one or more regions that they exhibit a
-   locality of reference. Most commonly they will be one or more regions
-   in the stack or heap.
-
--  The set of pages that a process is currently using is called the
-   working set
+Many programs show locality of reference. If a process is using one page
+now, it is likely to use the same page or nearby pages soon. Stacks,
+heaps, loops, and data structures often create these patterns.
 
 Taking Advantage of Locality
 ----------------------------
 
--  If we take locality into account, how can we make paging systems
-   faster?
+Operating systems use locality to reduce page faults.
 
--  Some approaches:
+They may load adjacent pages from executable files or libraries, continue
+loading pages asynchronously after a fault, and prefer evicting pages far
+from the current working set. These techniques trade a little extra work
+now for fewer faults later.
 
-   -  When loading pages from a library or program file, adjacent pages
-      are loaded at the same time.
+Costs of Paging Page Classes
+----------------------------
 
-   -  Often, after servicing a page fault, and operating system can
-      continue to load program pages in asynchronously.
+Not all page evictions cost the same amount.
 
-   -  When choosing pages to evict, if there is more than one page that
-      is desirable to evict, the OS can choose to evict the page with
-      the greatest distance from any pages in the working set.
+Unmodified pages can usually be dropped and reloaded later from their
+original backing store. Modified pages must be written to swap or another
+backing store before their physical page can be reused.
 
-Costs of Paging Different Page Classes
---------------------------------------
+Reducing Paging Cost
+--------------------
 
--  Recall, earlier we defined the following classes of pages:
+The kernel can reduce future paging cost by cleaning modified pages in
+the background.
 
-   -  1 - Not referenced, not modified
+When the disk is otherwise idle, the system may write dirty pages that
+are likely eviction candidates. This makes later eviction cheaper because
+the page is already clean. Replacement policies also prefer clean pages
+when the performance tradeoff is reasonable.
 
-   -  2 - Not referenced, modified
+Local and Global Paging
+-----------------------
 
-   -  3 - Referenced, not modified
+Page replacement can be local or global.
 
-   -  4 - Referenced, modified
-
--  These classes differ in terms of eviction cost.
-
-Costs of Paging Different Page Classes
---------------------------------------
-
--  Text and other read-only pages will always be in classes 1 or 3 (not
-   modified)
-
--  Stack and heap pages can be in any of 1-4.
-
--  When a page in class 1 or 3 (not modified) is evicted, the swapper
-   only needs to mark the page as not resident and then reuse the
-   physical page for a new entry.
-
--  When a page in class 2 or 4 is evicted, the swapper must also copy
-   the contents of the page to a different storage system (typical a
-   disc). This increases the cost of evicting these pages.
-
-Costs of Paging Different Page Classes
---------------------------------------
-
--  How do we reduce cost?
-
--  In the background, when the disc is otherwise idle, we can commit
-   modified pages to the disc to reduce future cost.
-
--  Often, this behavior is reserved for pages that are likely to be
-   evicted rather than pages in the working set.
-
--  Chose unmodified pages over modified pages for eviction.
-
-Local vs Global Paging
-----------------------
-
--  In process scheduling, we try to be fair and give each runnable
-   process an even share of the CPU(s).
-
--  What are some things we can do to be ’fair’ in our page replacement
-   implementations?
-
--  One possibility to consider is local vs. global page replacement.
-
-   -  In global page replacement, if a process page faults, we consider
-      all of memory for page eviction.
-
-   -  In local page replacement, we consider only the process that
-      caused the page fault’s pages for page replacement or otherwise
-      favor them.
-
-   -  A local page replacement policy can help make sure that one
-      process that causes many page faults does not interfere with other
-      processes too much.
-
-   -  The downside to a local policy is that it can hurt overall system
-      performance
+In global replacement, a faulting process may cause the kernel to evict a
+page from any process. In local replacement, the kernel prefers to evict
+pages owned by the process that faulted. Local replacement can improve
+fairness, while global replacement can improve overall memory use.
 
 Page Locking
 ------------
 
--  For some operations, we need to guarantee that a page will remain in
-   physical memory
+Page locking pins a page in physical memory so the swapper cannot evict
+it.
 
--  The most common case is for regions of memory that are dedicated to
-   buffering for devices or regions of memory that work with DMA.
+Pinned pages are needed for operations such as DMA, where a device reads
+from or writes to a specific physical memory region. During the DMA
+operation, the kernel must ensure that the physical page remains present
+and stable.
 
--  DMA is basically a system by which an operating system kernel can
-   tell a device to write the results of an operation directly to a
-   specific region of memory without interacting directly with the CPU.
+Copy on Write
+-------------
 
--  During the period of time a DMA operation is occuring, the OS must
-   guarantee that the region of memory is not evicted by the swapper.
+Copy on write, or COW, lets related processes share pages until one of
+them writes to a shared page.
 
--  The best, but less ideal alternative to this is to only do DMA
-   operations to operating system buffers and then copy them to program
-   buffers.
-
-COW: Copy on Write
-------------------
-
--  In UNIX, we create processes by calling fork() or clone().
-
--  In either of these cases, regions of memory (from the program’s
-   perspective) are copied.
-
--  To avoid unnecessary copying, the operating system will only copy
-   page table entries.
-
--  When the page table entries are copied, they are all marked as
-   read-only for both the parent and child process.
-
--  After the copy operation, the parent and child process will share
-   each other’s physical pages.
-
-COW: Copy on Write
-------------------
-
--  COW comes into effect when write operations happen to a shared page.
-
--  The process that causes the page fault, will make a copy of the
-   physical page into a new physical page and updates its page table
-   entry to point to that page.
-
--  The new page will then be marked as writable.
-
--  In this way, new processes only use memory that is different from the
-   parent process.
+After ``fork()`` or ``clone()``, the kernel can copy page-table entries
+instead of copying every page. The shared entries are marked read-only.
+When the parent or child writes to one of those pages, the write causes a
+page fault. The kernel then copies the physical page, updates the
+faulting process's page table, and marks the new page writable.
 
 Backing Store
 -------------
 
--  For heap, stack, and data pages the backing store in most operating
-   systems is one of:
+Backing store is the persistent or recoverable location that backs a
+virtual page.
 
-   -  Swap file
-
-   -  Swap partition
-
--  In simpler operating systems, swap partitions are preferable because
-   the operating system can interact directly with the disc and not FS
-   code.
-
--  In more advanced operating systems (more recent versions of Linux or
-   Windows), the FS implementation is advanced enough that the OS can
-   guarantee the location of sectors of the swap file that there is no
-   overhead to using a swap file.
-
--  Swap files have the advantage of being able to be resized on demand.
-   In Linux, additional swap files can be created and then used with the
-   swapon command.
-
--  Windows manages one or more swap files automatically.
+For heap, stack, and data pages, the backing store is usually a swap file
+or swap partition. Simpler systems often prefer swap partitions because
+the kernel can address the disk directly. Modern systems can also use
+swap files efficiently because the filesystem can provide stable block
+locations.
 
 Hibernation
 -----------
 
--  Hibernation is a specific implementation of a swap file.
+Hibernation stores the machine's memory state so the system can power
+down and later resume.
 
--  To hibernate, the operating system will page out all used physical
-   pages to disc. Either a special hibernation file or the swap file
-   will be used.
+To hibernate, the operating system writes used physical pages to a
+hibernation file or swap area. On the next boot, the kernel detects the
+hibernated state, restores enough core state to resume, rebuilds page
+tables, and pages data back in as needed.
 
--  Then, the operating system will either shutdown the computer or put
-   the computer in a special low power state.
+Hot Memory
+----------
 
--  When the computer boots back up, the operating system will notice
-   that it was previously shutdown by hibernation.
+Hot memory is free memory kept available so the system can satisfy small
+bursts of memory demand without immediate page replacement.
 
--  After the core OS components are loaded, the OS will restore the page
-   table from the hibernation file and then begin paging in from the
-   hibernation file.
+Modern systems often keep some physical pages free even though using all
+memory for cache might seem optimal. This reserve reduces jitter when
+processes allocate memory, files are read, or the filesystem cache grows
+and shrinks.
 
-VM Performance - Hot Memory
----------------------------
+Hot Memory Example
+------------------
 
--  Theoretically, the best use of physical memory is to use all of the
-   physical memory if possible.
+The following diagram shows memory use on a long-running Linux system.
 
--  To improve performance and responsiveness of operations that need new
-   memory (reading a new file, writing new data, allocating new pages to
-   the heap or stack), many modern VM implementations will keep a few
-   pages free at all times.
+.. figure:: kernelmm/diagrams/hot_memory.*
+   :align: center
+   :alt: Hot memory
 
--  Both Windows and Linux will typically keep about 12-16MB free as a
-   "hot memory" area.
-
--  This hot memory area has the effect of preventing page faults due to
-   "jitters" of memory usage. So, if a process is increasing and
-   decreasing its memory usage rapidly, it will not likely generate page
-   faults.
-
-Modeling - Distance Strings
----------------------------
-
-    .. figure:: kernelmm/diagrams/hot_memory.*
-       :align: center
-       :alt: image
-
-       image
-
--  Here, we can see a long running Linux OS.
-
--  453388K is used by the FS - Cache
-
--  178580K is used by software
-
--  52704K is being used as buffers
-
--  18272K is swapped out
-
--  7972K is being kept as "hot memory" (or is otherwise recently freed)
+The example includes filesystem cache, software memory, buffers, swapped
+pages, and a small amount of free or recently freed memory. That free
+area gives the kernel room to respond quickly to new allocation requests.
 
 Summary: Page Fault Handling
 ----------------------------
 
--  1- The hardware interrupts the kernel. Program counter and registers
-   are saved. Information necessary to restart the current instruction
-   is also saved. The OS is then called.
+Page fault handling is the path from a faulting memory instruction back
+to a runnable process.
 
--  2- The OS discovers a page fault has occurred. The OS inspects either
-   a special register or inspects the saved instruction from 1 to figure
-   out which page is needed.
+The usual sequence is:
 
--  3- Once the page is discovered, it determines the cause of the page
-   fault. If the address is inconsistent with access rights or memory
-   accessible to the process, a signal is sent to the process or the
-   process is terminated.
+1. The hardware traps into the kernel and saves the process state.
+2. The kernel identifies the faulting address and the reason for the
+   fault.
+3. If the access is invalid, the kernel signals or terminates the
+   process.
+4. If the access is valid, the kernel finds or creates a free physical
+   page.
+5. If a dirty page must be evicted, the kernel schedules it to be written
+   to backing storage.
+6. The kernel loads the needed page from backing storage if needed.
+7. The page-table entry is updated to mark the page resident with the
+   correct permissions.
+8. The saved registers are restored.
+9. The faulting instruction is retried, and the process becomes runnable
+   again.
 
--  4- If it is consistent, the OS tries to acquire a free physical page
-   to load the necessary page into memory. If no physical page is free,
-   the page replacement algorithm is invoked.
+Linux Kernel Module Case Study
+------------------------------
 
-Summary: Page Fault Handling
+This case study shows the smallest structure of a Linux loadable kernel
+module.
+
+.. literalinclude:: ../examples/systems-code-examples/linux-kernel/proc_module/simple.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``MODULE_LICENSE()`` declares the module license to the kernel.
+- ``module_init()`` registers the function called when the module loads.
+- ``module_exit()`` registers the function called when the module
+  unloads.
+- ``printk()`` writes messages to the kernel log rather than standard
+  output.
+
+Linux /proc Module Case Study
+-----------------------------
+
+This case study shows a Linux kernel module that exposes state through a
+``/proc`` entry.
+
+.. literalinclude:: ../examples/systems-code-examples/linux-kernel/proc_module/fortune.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The module allocates kernel memory for stored fortune strings with
+  ``vmalloc()``.
+- ``create_proc_entry()`` creates the ``/proc/fortune`` interface.
+- ``copy_from_user()`` copies data safely from a user buffer into kernel
+  memory.
+- The read handler returns one stored fortune at a time.
+- Cleanup removes the proc entry and frees the allocated memory.
+
+Linux Character Device Case Study
+---------------------------------
+
+This case study shows how a Linux character device exposes kernel code
+through the file interface.
+
+.. literalinclude:: ../examples/systems-code-examples/linux-kernel/simple_chardev/chardev.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``register_chrdev()`` asks the kernel for a major device number.
+- The ``file_operations`` structure connects file operations to driver
+  functions.
+- ``device_open()`` prepares the message returned by the device.
+- ``put_user()`` copies bytes from kernel memory to the user buffer.
+- ``unregister_chrdev()`` removes the device registration when the
+  module unloads.
+
+Linux System Call Case Study
 ----------------------------
 
--  5- If the evicted page is dirty, it is scheduled to be written to
-   disc. In this case the faulting process is put to sleep and a context
-   switch occurs.
+This case study shows the pieces needed to add and test a simple Linux
+system call.
 
--  6- As soon as the evicted page is clean, the OS schedules a disc
-   operation to load the page. While waiting for the load, the faulting
-   process is suspended and the scheduler will pick another process to
-   run.
+.. literalinclude:: ../examples/systems-code-examples/linux-kernel/syscall/syscall.patch
+   :language: diff
+   :linenos:
+   :start-at: diff -r linux-source-2.6.38-orig//arch/x86/ia32/ia32entry.S
+   :end-before: Only in linux-source-2.6.38/: .config
 
--  7- As soon as the page is loaded from disc, the page table entry is
-   updated to reflect its position and updates the status of the page to
-   resident
+Key points:
 
--  8- The OS restores the registers of the program, and depending on
-   hardware details will retry the faulting instruction, updating the
-   program counter accordingly.
+- The patch adds a system call number for the new call.
+- The syscall table is updated so the kernel can dispatch to the new
+  handler.
+- The public syscall declaration is added to ``syscalls.h``.
+- The implementation adds two integer arguments and returns the result.
 
--  9- The faulting process is then marked as runnable for the scheduler.
+.. literalinclude:: ../examples/systems-code-examples/linux-kernel/syscall/test/main.cc
+   :language: cpp
+   :linenos:
 
+Key points:
 
+- The test program defines the syscall number used by the patched
+  kernel.
+- ``syscall()`` invokes the kernel entry directly.
+- The wrapper function gives the test a normal C function shape.
+- ``perror()`` reports failure if the syscall returns ``-1``.
+
+Minix Startup Case Study
+------------------------
+
+This case study shows a minimal Minix program using the System Event
+Framework startup path.
+
+.. literalinclude:: ../examples/systems-code-examples/minix-kernel/sample1/sample1.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``sef_startup()`` initializes the Minix service environment.
+- The program then runs ordinary user code.
+- The example is useful as a minimal starting point for Minix service
+  examples.
+
+Minix Time Driver Case Study
+----------------------------
+
+This case study shows a small Minix character driver that exposes the
+current time from CMOS through a device interface.
+
+.. literalinclude:: ../examples/systems-code-examples/minix-kernel/time/time.h
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``TIME_MAJOR`` defines the major number for the time device.
+- The header keeps the device number separate from the driver
+  implementation.
+
+.. literalinclude:: ../examples/systems-code-examples/minix-kernel/time/time.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The driver table connects Minix driver operations to local functions.
+- ``read_register()`` and ``write_register()`` access CMOS registers
+  through kernel calls.
+- ``get_time()`` reads a stable RTC value and converts BCD fields.
+- ``time_transfer()`` copies formatted time data to the requesting
+  process.
+- The SEF callbacks handle fresh startup, live update, and restart.

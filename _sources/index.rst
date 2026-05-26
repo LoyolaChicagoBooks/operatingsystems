@@ -26,7 +26,3 @@ the Computer Science Department.
    userlandmm
    storage
    fs
-   research
-   linux_vm
-   windows_vm
-

@@ -1,620 +1,396 @@
 Implementing Files and Folders
 ==============================
 
-Implementing Files and Folders
-------------------------------
+Filesystems organize storage into named files, directories, metadata,
+and free space. Their design depends on the storage medium and on the
+operations the operating system needs to support.
 
--  How files and folders are implemented in a storage medium can greatly
-   depend upon the physical characteristics and capabilities of that
-   medium.
+Filesystem Layout
+-----------------
 
--  For example, on tape-drives, CD/DVD/Blu-Ray, or write-once media,
-   files and folders are stored contiguously with no fragmentation. All
-   of the information about the filesystem can be held in a TOC (Table
-   Of Contents).
+Simple media can store files contiguously with a table of contents.
 
--  For filesystems with files that have a finite lifetime, such as on
-   flash media, hard disks, SSDs, and others, the layout of files and
-   folders must be maintained in a more complex way.
+Tape, optical media, and write-once media often favor contiguous layouts
+because files are not frequently modified in place. Hard disks, SSDs,
+flash media, and other reusable storage need more flexible structures
+because files are created, extended, truncated, and deleted over time.
 
--  Among these more advanced methods are linked lists and i-nodes.
+Linked-List Allocation
+----------------------
 
--  To manage free-space, objects like bit-maps and linked lists are
-   possibilities.
+Linked-list allocation stores each file as a chain of blocks.
 
-Linked-Lists
-------------
+.. figure:: storage/diagrams/linked_list_files.*
+   :align: center
+   :alt: Linked-list file allocation
 
-    .. figure:: storage/diagrams/linked_list_files.*
-       :align: center
-       :alt: image
+This layout avoids external fragmentation because blocks can be anywhere
+on the device. It is simple and works well for sequential access. Its
+main weakness is random access: finding block ``K`` requires following
+the chain through earlier blocks.
 
-       image
+Linked-List Tradeoffs
+---------------------
 
-Linked-Lists
-------------
+Linked-list allocation is easy to implement but has practical costs.
 
--  Pros:
+The final block can have internal fragmentation if it is not full. Each
+block also needs space for a pointer to the next block, leaving slightly
+less space for file data. Random access is slow because the filesystem
+must traverse the chain.
 
-   -  No external fragmentation of files.
+File Allocation Tables
+----------------------
 
-   -  Simple to implement
+A file allocation table, or FAT, stores the block chain in a central
+table instead of inside each data block.
 
-   -  Sequential access is very simple.
+.. figure:: storage/diagrams/linked_list_files_table.*
+   :align: center
+   :alt: File allocation table
 
--  Cons:
+At mount time, the FAT can be loaded into memory. This makes traversal
+faster and lets each data block hold only file data.
 
-   -  Has internal fragmentation of the last block unless the last block
-      is used completely.
+FAT Tradeoffs
+-------------
 
-   -  Random access in the file is difficult because for N blocks K-1
-      blocks must be read to find block K.
+FAT filesystems are simple and practical for small or moderate storage
+devices.
 
-   -  Storage available in a single block is not a power of two. Most
-      programs send data to the filesystem in as buffers of sizes that
-      are powers of two.
-
-File Allocation Tables (FAT)
-----------------------------
-
-    .. figure:: storage/diagrams/linked_list_files_table.*
-       :align: center
-       :alt: image
-
-       image
-
-File Allocation Tables (FAT)
-----------------------------
-
--  FAT based filesystems improve over linked list filesystems by moving
-   the linked list into a centralized table called the FAT.
-
--  At FS mount time, the FAT is loaded into main memory. Random access
-   is fast even though traversal is still needed.
-
--  Pros:
-
-   -  Implementing a FAT FS is simple. Managing free space and disk
-      layout is simple.
-
-   -  FAT can be loaded into memory for fast and simple operations.
-
-   -  Because blocks don’t contain pointers, the entire block can be
-      used for data.
-
--  Cons:
-
-   -  For large filesystems the FAT can become large and consume a lot
-      of memory.
+They make free-space management and disk layout straightforward. The main
+cost is that the table can become large on large filesystems and consume
+significant memory.
 
 inodes
 ------
 
--  inodes are the fundamental structures of a UNIX filesystem
+An inode is the central metadata structure in a UNIX filesystem.
 
--  inodes have the following attributes:
+An inode stores ownership, mode bits, timestamps, file size, device
+information, and pointers to blocks containing the file or directory
+contents. Directory entries map names to inode numbers.
 
-   -  File Ownership - user, group
+Minix inode
+-----------
 
-   -  File Mode - rwx bits for each of user, group, and others
+The Minix inode layout uses direct and indirect zones.
 
-   -  Last access and modified timestamps
+.. figure:: storage/diagrams/minix_inode.*
+   :align: center
+   :alt: Minix inode
 
-   -  File size in bytes
+The first zones point directly to data blocks. An indirect zone points to
+a block containing more block numbers. A double-indirect zone points to
+blocks that point to other blocks. This lets small files be accessed
+quickly while still supporting larger files.
 
-   -  Device id
+inode Strategy
+--------------
 
-   -  Pointers to blocks on the storage device for the file or folder’s
-      contents
+Direct, indirect, double-indirect, and triple-indirect blocks are a
+successful filesystem design pattern.
 
-Minix - inode
--------------
-
-    .. figure:: storage/diagrams/minix_inode.*
-       :align: center
-       :alt: image
-
-       image
-
-Minix - inode
--------------
-
--  The first 7 "zones" point to the first 7 blocks of the file.
-
--  The "indirect zone" points to another block that contains a list of
-   additional zones.
-
--  This has the advantage that the file can begin to be read quickly
-   with the initial set of blocks available.
-
--  Also, the indirect zone allows for relatively fast random access by
-   traversing the indirect blocks like a tree.
-
--  The pointer to a "double indirect" zone is a list of a list of zones.
-
--  The first few zones can address 7KB. The indirect zones can address
-   up to 64MB. The double indirect zones can address more than 4GB.
-
-inodes
-------
-
--  The strategy of using indirect, double indirect, and even triple
-   indirect blocks is a very successful implementation strategy
-
--  This approach is also used by ext2 / ext3 / ext4 in Linux.
+Small files use direct pointers and avoid extra lookups. Larger files add
+levels of indirection only when needed. Linux filesystems such as ext2,
+ext3, and ext4 build on this general idea, though modern ext4 also uses
+extents.
 
 Block Caches
 ------------
 
--  To improve the performance of a filesystem, and to make disk
-   scheduling algorithms more realizable, most operating systems
-   implement some kind of block cache.
+A block cache keeps recently used disk blocks in memory.
 
--  The block cache allows for read-ahead and write-behind. It also
-   allows for lower latency I/O operations.
+The cache supports read-ahead and write-behind. A ``write()`` call can
+update the cache and return before the block is physically written to
+disk. A background kernel task can later choose a good time and order to
+write dirty blocks.
 
--  With a block cache, the write() system call for instance only needs
-   to complete modifications to the cache before returning. The
-   operating system can complete the operation on disk in a background
-   thread.
+Minix Block Cache
+-----------------
 
--  Without this cache, the system call would not be able to return until
-   the write had been committed to disk.
+Minix uses an LRU-style block cache.
 
-Block Caches
-------------
+.. figure:: storage/diagrams/minix_block_cache.*
+   :align: center
+   :alt: Minix block cache
 
--  In Minix, the block cache is implemented with an LRU policy. The
-   cache maintains a linked list of buffers from most recently to least
-   recently used
+The cache tracks buffers from most recently used to least recently used.
+This keeps frequently used filesystem metadata and data blocks available
+without repeated disk reads.
 
-    .. figure:: storage/diagrams/minix_block_cache.*
-       :align: center
-       :alt: image
+Block Cache Tradeoffs
+---------------------
 
-       image
+A larger block cache usually improves filesystem performance but uses
+memory that programs could otherwise use.
 
-Block Caches
-------------
-
--  Important parameters of any block cache are:
-
-   -  The size of the cache in physical memory
-
-   -  The delay before committing ’dirty’ items in the cache to disk
-
--  The larger the cache, the better the filesystem will likely perform,
-   but this can come at the cost of available memory for programs.
-
--  The larger the delay before writing items to the disk, the better the
-   disk allocation and scheduling decisions the operating system can
-   make.
-
--  The shorter the delay before writing to disk, the greater the
-   guarantee in the presence of failure that modifications will be
-   persisted to disk.
+Write-behind delay creates another tradeoff. A longer delay lets the
+kernel batch writes and schedule them efficiently, but it increases the
+amount of data that could be lost after a crash. A shorter delay improves
+durability but can reduce I/O scheduling opportunities.
 
 Folders and Path Traversal
 --------------------------
 
--  In all but the most simple filesystems, there is a concept of a
-   folder and a path.
+A directory maps names to filesystem objects.
 
--  In UNIX operating systems, folder entries are held within inodes that
-   have the filetype in the mode set to type directory.
-
--  The contents of the inode then are a list of filenames and pointers
-   to the inodes of those files and/or folders.
-
--  Resolving paths involve accessing a root folder, and accessing each
-   folder recursively until reaching a file or finding the folder to be
-   invalid.
+In UNIX filesystems, directories are represented by inodes whose contents
+are directory entries. Each entry maps a filename to another inode.
+Resolving a path means starting at a root directory and repeatedly
+looking up the next path component.
 
 Path Traversal
 --------------
 
--  An example of path traversal. When traversing paths, the path may
-   cross into different filesystems.
+Path traversal can cross mount points and therefore filesystem
+implementations.
 
-    .. figure:: storage/diagrams/path_traversal.*
-       :align: center
-       :alt: image
+.. figure:: storage/diagrams/path_traversal.*
+   :align: center
+   :alt: Path traversal
 
-       image
+The virtual filesystem layer is responsible for making this traversal
+look like one namespace even when different parts of the path live on
+different filesystems.
 
-Virtual Filesystems / VFS
--------------------------
+Virtual Filesystems
+-------------------
 
--  Aside from files and folders there are other things like named pipes,
-   domain sockets, symbolic and hard links that need to be handled by
-   the filesystem.
+A virtual filesystem, or VFS, defines a common interface between the
+kernel and filesystem implementations.
 
--  Rather than have the semantics of these implemented in each
-   filesystem implementation, many OS architectures include a virtual
-   filesystem or VFS.
+The VFS lets the kernel handle common behavior such as path traversal,
+file descriptors, file locking, block cache integration, named pipes,
+domain sockets, and device files without duplicating that logic in every
+filesystem.
 
--  The VFS stands between the OS kernel and the filesystem
-   implementation.
+VFS Adaptation
+--------------
 
-Virtual Filesystems / VFS
--------------------------
+The VFS also lets operating systems support foreign or specialized
+filesystems.
 
--  The VFS can help adapt both foreign filesystems (such as VFAT) by
-   producing a contract that these implementations can adapt to.
+A filesystem such as VFAT can be adapted to the kernel's common file
+interface even if its native metadata model differs from UNIX. The VFS
+contract lets different filesystems participate in the same namespace.
 
--  The VFS can also help reduce code duplication between FS
-   implementations by providing common structures and handling shared
-   behavior:
+Filesystem Stacking
+-------------------
 
-   -  Path traversal
+Some VFS designs allow one filesystem to be stacked on another.
 
-   -  Handling named pipes, domain sockets, etc...
-
-   -  Managing file handles and file locking
-
-   -  Structures and functions for the block cache.
-
-   -  Structures and functions for accessing storage devices
-
-Virtual Filesystems and Stacking
---------------------------------
-
--  In some VFS implementations it is possible to stack filesystems on
-   top of each other.
-
--  A great example of this in Linux is UMSDOS: the base VFAT filesystem
-   does not have support for users, groups, security or extended
-   attributes. By creating special files on VFAT and then hiding them,
-   UMSDOS can adapt VFAT to be a UNIX-like filesystem
-
--  Another great example of this is UnionFS. It allows two filesystems
-   to be transparently overlaid.
-
-Virtual Filesystems and User-Mode
----------------------------------
-
--  Because VFS provides a contract for a filesystem to implement, it is
-   simpler for unique filesystems to be implemented. Good examples
-   include:
-
--  Proc - process and kernel metadata, typically mounted under ’/proc’
-
--  SysFs - exposes block and character device files to user mode,
-   typically mounted under ’/dev’
-
--  FUSE - provides infrastructure to redirect calls to and from the VFS
-   to and from user mode programs.
+UMSDOS adapted VFAT into a more UNIX-like filesystem by adding hidden
+metadata files. Union filesystems overlay two filesystems so their
+contents appear as one tree. Stacking is useful when the desired behavior
+can be expressed as a layer above an existing filesystem.
 
 User-Mode Filesystems
 ---------------------
 
--  The advent of user-mode filesystems in popular operating systems
-   (they existed in less popular operating systems for a while) has led
-   to a great deal of new filesystem development.
+User-mode filesystems move filesystem implementation out of the kernel
+and into ordinary processes.
 
--  The two most popular systems are FUSE for Linux / MacOSX, and other
-   UNIX-like systems, and Dokan for Windows systems.
+FUSE is the common UNIX-like example. Dokan provides a similar idea on
+Windows. These frameworks make filesystem development easier because a
+crash usually kills a process rather than the whole kernel, and ordinary
+debugging tools can be used.
 
--  These frameworks have been greatly successful in large part because
-   they help make the task of systems development much easier.
+User-Mode Filesystem Tradeoffs
+------------------------------
 
-User-Mode Filesystems
----------------------
+User-mode filesystems improve development ergonomics but add crossings
+between kernel mode and user mode.
 
--  Development in a monolithic kernel can be very challenging. Crashes
-   can bring the entire system down, stopping and restarting components
-   may not be possible, and often debugging is limited to logs.
+For many specialized filesystems, the development and safety advantages
+are worth the overhead. This pattern is part of a broader move to keep
+more system services in user mode when kernel-mode performance is not
+required.
 
--  With user-mode development, it is possible to make use of a debugger
-   in most cases.
+Pass-Through FUSE Filesystem
+----------------------------
 
--  Because of these advantages systems like FUSE and Dokan have become
-   very popular.
-
--  Other areas of systems that were traditionally kernel mode only have
-   moved to user-mode systems to ease development and improve
-   architecture. In Windows, the display manager, and much of the driver
-   framework has moved to user-mode.
-
-Example pass-through FUSE Filesystem
-------------------------------------
+A pass-through FUSE filesystem forwards operations to an underlying
+directory.
 
 ::
 
-    void ExampleFS::AbsPath(
-        char dest[PATH_MAX], const char *path) {
+   void ExampleFS::AbsPath(
+      char dest[PATH_MAX], const char *path) {
       strcpy(dest, _root);
       strncat(dest, path, PATH_MAX);
-    }
-    void ExampleFS::setRootDir(const char *path) {
+   }
+
+   void ExampleFS::setRootDir(const char *path) {
       printf("setting FS root to: %s\n", path);
       _root = path;
-    }
-    int ExampleFS::Getattr(
-        const char *path, struct stat *statbuf) {
+   }
+
+   int ExampleFS::Getattr(
+      const char *path, struct stat *statbuf) {
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       printf("getattr(%s)\n", fullPath);
       return RETURN_ERRNO(lstat(fullPath, statbuf));
-    }
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
+Key points:
 
-::
+- ``AbsPath()`` converts a FUSE path into a real path under the root
+  directory.
+- ``setRootDir()`` records the backing directory.
+- ``Getattr()`` forwards metadata lookup to ``lstat()``.
+- ``RETURN_ERRNO`` adapts system-call errors to FUSE's return convention.
 
-    int ExampleFS::Readlink(
-    const char* path, char* link, size_t size){
-      printf("readlink(path=%s, link=%s, size=%d)\n", 
-                              path, link, (int)size);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(readlink(fullPath, link, size));
-    }
-    int ExampleFS::Mknod(
-    const char *path, mode_t mode, dev_t dev) {
-      printf("mknod(path=%s, mode=%d)\n", path, mode);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      //handles creating FIFOs, regular files, etc...
-      return RETURN_ERRNO(mknod(fullPath, mode, dev));
-    }
+FUSE Name Operations
+--------------------
 
-Example pass-through FUSE Filesystem
-------------------------------------
+FUSE callbacks often map directly to familiar UNIX file operations.
 
 ::
 
-    int ExampleFS::Mkdir(const char *path, mode_t mode) {
+   int ExampleFS::Mkdir(const char *path, mode_t mode) {
       printf("**mkdir(path=%s, mode=%d)\n", path, (int)mode);
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       return RETURN_ERRNO(mkdir(fullPath, mode));
-    }
-    int ExampleFS::Unlink(const char *path) {
+   }
+
+   int ExampleFS::Unlink(const char *path) {
       printf("unlink(path=%s\n)", path);
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       return RETURN_ERRNO(unlink(fullPath));
-    }
-    int ExampleFS::Rmdir(const char *path) {
+   }
+
+   int ExampleFS::Rmdir(const char *path) {
       printf("rmkdir(path=%s\n)", path);
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       return RETURN_ERRNO(rmdir(fullPath));
-    }
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
-
-::
-
-    int ExampleFS::Symlink(const char *path, const char *link) {
+   int ExampleFS::Symlink(const char *path, const char *link) {
       printf("symlink(path=%s, link=%s)\n", path, link);
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       return RETURN_ERRNO(symlink(fullPath, link));
-    }
-    int ExampleFS::Rename(const char *path, const char *newpath) {
+   }
+
+   int ExampleFS::Rename(const char *path, const char *newpath) {
       printf("rename(path=%s, newPath=%s)\n", path, newpath);
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       return RETURN_ERRNO(rename(fullPath, newpath));
-    }
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
+Key points:
 
-::
+- Each callback receives a path in the mounted FUSE namespace.
+- The implementation translates that path to a backing path.
+- Directory and name operations are delegated to ordinary system calls.
+- A pass-through filesystem can be small because it reuses existing
+  filesystem behavior.
 
-    int ExampleFS::Link(const char *path, const char *newpath) {
-      printf("link(path=%s, newPath=%s)\n", path, newpath);
-      char fullPath[PATH_MAX];
-      char fullNewPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      AbsPath(fullNewPath, newpath);
-      return RETURN_ERRNO(link(fullPath, fullNewPath));
-    }
-    int ExampleFS::Chmod(const char *path, mode_t mode) {
-      printf("chmod(path=%s, mode=%d)\n", path, mode);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(chmod(fullPath, mode));
-    }
+FUSE File I/O Operations
+------------------------
 
-Example pass-through FUSE Filesystem
-------------------------------------
+File I/O callbacks handle opening, reading, writing, and syncing files.
 
 ::
 
-    int ExampleFS::Chown(const char *path, uid_t uid, gid_t gid) {
-      printf("chown(path=%s, uid=%d, gid=%d)\n", 
-                path, (int)uid, (int)gid);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(chown(fullPath, uid, gid));
-    }
-    int ExampleFS::Truncate(const char *path, off_t newSize) {
-      printf("truncate(path=%s, newSize=%d\n", path, (int)newSize);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(truncate(fullPath, newSize));
-    }
-    int ExampleFS::Utime(const char *path, struct utimbuf *ubuf) {
-      printf("utime(path=%s)\n", path);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(utime(fullPath, ubuf));
-    }
-
-Example pass-through FUSE Filesystem
-------------------------------------
-
-::
-
-    int ExampleFS::Open(const char *path, 
-            struct fuse_file_info *fileInfo) {
+   int ExampleFS::Open(const char *path,
+      struct fuse_file_info *fileInfo) {
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       fileInfo->fh = open(fullPath, fileInfo->flags);
       return 0;
-    }
-    int ExampleFS::Read(const char *path, char *buf, 
-            size_t size, off_t offset, struct fuse_file_info *fileInfo) {
+   }
+
+   int ExampleFS::Read(const char *path, char *buf,
+      size_t size, off_t offset, struct fuse_file_info *fileInfo) {
       return RETURN_ERRNO(pread(fileInfo->fh, buf, size, offset));
-    }
-    int ExampleFS::Write(const char *path, const char *buf, 
-            size_t size, off_t offset, struct fuse_file_info *fileInfo) {
+   }
+
+   int ExampleFS::Write(const char *path, const char *buf,
+      size_t size, off_t offset, struct fuse_file_info *fileInfo) {
       return RETURN_ERRNO(pwrite(fileInfo->fh, buf, size, offset));
-    }
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
-
-::
-
-    int ExampleFS::Statfs(const char *path, struct statvfs *statInfo) {
-      printf("statfs(path=%s)\n", path);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(statvfs(fullPath, statInfo));
-    }
-    int ExampleFS::Flush(const char *path, struct fuse_file_info *fileInfo) {
-      printf("flush(path=%s)\n", path);
-      //noop because we don't maintain our own buffers
-      return 0;
-    }
-    int ExampleFS::Release(const char *path, struct fuse_file_info *fileInfo) {
-      printf("release(path=%s)\n", path);
-      return 0;
-    }
-
-Example pass-through FUSE Filesystem
-------------------------------------
-
-::
-
-    int ExampleFS::Fsync(const char *path, int datasync, struct fuse_file_info *fi) {
+   int ExampleFS::Fsync(
+      const char *path, int datasync, struct fuse_file_info *fi) {
       printf("fsync(path=%s, datasync=%d\n", path, datasync);
       if(datasync) {
-        //sync data only
-        return RETURN_ERRNO(fdatasync(fi->fh));
+         return RETURN_ERRNO(fdatasync(fi->fh));
       } else {
-        //sync data + file metadata
-        return RETURN_ERRNO(fsync(fi->fh));
+         return RETURN_ERRNO(fsync(fi->fh));
       }
-    }
-    int ExampleFS::Setxattr(const char *path, const char *name, const char *value, size_t size, int flags) {
-      printf("setxattr(path=%s, name=%s, value=%s, size=%d, flags=%d\n",
-        path, name, value, (int)size, flags);
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(lsetxattr(fullPath, name, value, size, flags));
-    }
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
+Key points:
 
-::
+- ``Open()`` stores the real file descriptor in the FUSE file handle.
+- ``Read()`` uses ``pread()`` so the offset is explicit.
+- ``Write()`` uses ``pwrite()`` for the same reason.
+- ``Fsync()`` forwards durability requests to ``fdatasync()`` or
+  ``fsync()``.
 
-    int ExampleFS::Getxattr(const char *path, 
-        const char *name, char *value, size_t size) {
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(getxattr(fullPath, name, value, size));
-    }
-    int ExampleFS::Listxattr(const char *path, 
-        char *list, size_t size) {
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(llistxattr(fullPath, list, size));
-    }
-    int ExampleFS::Removexattr(const char *path, const char *name) {
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(lremovexattr(fullPath, name));
-    }
+FUSE Directory Operations
+-------------------------
 
-Example pass-through FUSE Filesystem
-------------------------------------
+Directory callbacks open, read, and close directories.
 
 ::
 
-    int ExampleFS::Opendir(const char *path, 
-        struct fuse_file_info *fileInfo) {
+   int ExampleFS::Opendir(const char *path,
+      struct fuse_file_info *fileInfo) {
       printf("opendir(path=%s)\n", path);
       char fullPath[PATH_MAX];
       AbsPath(fullPath, path);
       DIR *dir = opendir(fullPath);
       fileInfo->fh = (uint64_t)dir;
-      return NULL -- dir ? -errno : 0;
-    }
+      return NULL == dir ? -errno : 0;
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
-
-::
-
-    int ExampleFS::Readdir(const char *path, void *buf, 
-        fuse_fill_dir_t filler, off_t offset, 
-        struct fuse_file_info *fileInfo) {
+   int ExampleFS::Readdir(const char *path, void *buf,
+      fuse_fill_dir_t filler, off_t offset,
+      struct fuse_file_info *fileInfo) {
       printf("readdir(path=%s, offset=%d)\n", path, (int)offset);
       DIR *dir = (DIR*)fileInfo->fh;
       struct dirent *de = readdir(dir);
-      if(NULL -- de) {
-        return -errno;
+      if(NULL == de) {
+         return -errno;
       } else {
-        do {
-          if(filler(buf, de->d_name, NULL, 0) != 0) {
-            return -ENOMEM;
-          }
-        } while(NULL != (de = readdir(dir)));
+         do {
+            if(filler(buf, de->d_name, NULL, 0) != 0) {
+               return -ENOMEM;
+            }
+         } while(NULL != (de = readdir(dir)));
       }
       return 0;
-    }
+   }
 
-Example pass-through FUSE Filesystem
-------------------------------------
-
-::
-
-    int ExampleFS::Releasedir(const char *path, 
-        struct fuse_file_info *fileInfo) {
+   int ExampleFS::Releasedir(
+      const char *path, struct fuse_file_info *fileInfo) {
       closedir((DIR*)fileInfo->fh);
       return 0;
-    }
-    int ExampleFS::Fsyncdir(const char *path, int datasync, 
-        struct fuse_file_info *fileInfo) {
-      return 0;
-    }
-    int ExampleFS::Init(struct fuse_conn_info *conn) {
-      return 0;
-    }
-    int ExampleFS::Truncate(const char *path, off_t offset, 
-        struct fuse_file_info *fileInfo) {
-      char fullPath[PATH_MAX];
-      AbsPath(fullPath, path);
-      return RETURN_ERRNO(ftruncate(fileInfo->fh, offset));
-    }
+   }
+
+Key points:
+
+- ``Opendir()`` opens the backing directory and stores the handle.
+- ``Readdir()`` reads directory entries from the backing directory.
+- ``filler()`` passes each name back to FUSE.
+- ``Releasedir()`` closes the stored directory handle.
 
 FUSE
 ----
 
--  As you can see in the above example, the FUSE filesystem matches
-   closely the contract of the UNIX system calls for files and folders.
+FUSE mirrors the UNIX filesystem contract closely.
 
--  Each of these functions has very well explained behavior that can be
-   found in the manual pages for each of them.
-
--  Typically, a FUSE filesystem can be implemented with between 500 -
-   4000 lines of code. This is fairly comparable to kernel mode
-   filesystems.
-
--  A very advanced filesystem, NTFS, has been implemented with FUSE in
-   about 17,500 lines of code.
-
--  A very popular FUSE filesystem, SSHFS, has been implemented in about
-   4,500 lines of code.
-
--  In the Linux kernel, Ext4 is approximately 35,500 lines of code and
-   Ext2 is approximately 9000 lines of code.
+Each callback corresponds to a familiar file or directory operation.
+Because those operations have well-defined manual pages, a pass-through
+filesystem can be implemented with relatively little code. Simple FUSE
+filesystems can be a few hundred to a few thousand lines, while more
+advanced filesystems are larger but still easier to develop than kernel
+filesystems.

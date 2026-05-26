@@ -150,9 +150,6 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="research.html">Storage Research at Loyola</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
-<li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
 
     </div>
@@ -346,49 +343,40 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-userland-memory-management">Why Userland Memory Management?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Why Userland Memory Management?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#userland-memory-as-runtime-policy">Userland Memory as Runtime Policy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heap-management">Heap Management</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-heap">The Heap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-memory-manager">The Memory Manager</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-memory-allocation">Characteristics of Memory Allocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Characteristics of Memory Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-allocation">Characteristics of Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#over-allocation-and-buckets">Over-Allocation and Buckets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-a-good-memory-manager">Characteristics of a Good Memory Manager</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-refresher-on-the-memory-hierarchy">A Refresher on the Memory Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-hierarchy-refresher">Memory Hierarchy Refresher</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#program-locality">Program Locality</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fragmentation">Fragmentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-fragmentation-of-the-heap">Reducing Fragmentation of the Heap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-fit-vs-next-fit">Best-Fit vs Next-Fit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-fit">Best-Fit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-heap-fragmentation">Reducing Heap Fragmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-fit-and-best-fit">First Fit and Best Fit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-fit-buckets">Best-Fit Buckets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-free-space">Managing Free Space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bugs-and-explicit-allocators">Bugs and Explicit Allocators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-malloc-free">Debugging malloc / free</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-malloc-and-free">Debugging malloc and free</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-heap">Expanding the Heap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-reading">Recommended Reading</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems-with-manual-deallocation">Problems with manual deallocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Problems with manual deallocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-problems-with-manual-deallocation">Avoiding problems with manual deallocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works">A simple Malloc / Free Implementation (Example from IBM Developer Works)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-malloc-free-implementation">A simple Malloc / Free Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">A simple Malloc / Free Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">A simple Malloc / Free Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">A simple Malloc / Free Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-malloc-case-study">Simple malloc Case Study</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-deallocation-problems">Manual Deallocation Problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-manual-deallocation-problems">Avoiding Manual Deallocation Problems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garbage-collection">Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-garbage-collectors">Requirements for Garbage Collectors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-for-a-garbage-collector">Goals for a Garbage Collector</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages-to-garbage-collection">Disadvantages to Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Disadvantages to Garbage Collection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages-of-garbage-collection">Disadvantages of Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reachability">Reachability</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-counting-garbage-collectors">Reference Counting Garbage Collectors</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-cons-of-reference-counting-garbage-collectors">Pros-Cons of Reference Counting Garbage Collectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-counting">Reference Counting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-counting-tradeoffs">Reference Counting Tradeoffs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mark-and-sweep-garbage-collection">Mark-and-Sweep Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mark-and-compact-garbage-collection">Mark-and-Compact Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garbage-collection-costs">Garbage Collection Costs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-garbage-collection">Incremental Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Incremental Garbage Collection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-incremental-collection-works">Why Incremental Collection Works</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generational-garbage-collection">Generational Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Generational Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buyer-beware">Buyer Beware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-reading">Recommended Reading</a></li>
 </ul>
             </nav>
         </div>
@@ -402,646 +390,493 @@
                   
   <section id="userland-memory-management">
 <h1>Userland Memory Management<a class="headerlink" href="#userland-memory-management" title="Link to this heading">#</a></h1>
+<p>Userland memory management is the layer that turns pages from the
+operating system into objects, buffers, and runtime data structures used
+by programs.</p>
 <section id="why-userland-memory-management">
 <h2>Why Userland Memory Management?<a class="headerlink" href="#why-userland-memory-management" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Why discuss user land memory management in an OS course?</p></li>
-<li><p>After all, user land memory management is almost always an
-implementation detail of a standard library or virtual machine.</p></li>
-<li><p>The reason that this is important is that the OS allocates to user
-programs memory as units of contiguous virtual pages.</p></li>
-<li><p>The unit of the page is not very useful for many programs. Most
-programs work in terms of structured objects that are composed of
-primitive data types and pointers to other structured objects or
-primitive data types.</p></li>
-</ul>
+<p>Operating systems allocate memory to processes in units of virtual
+pages. Most programs do not work directly in pages.</p>
+<p>Programs usually allocate objects, arrays, strings, and linked data
+structures. A C program may request 24 bytes for a structure or 1024
+bytes for a buffer. A Java or C# program may allocate an object with
+<code class="docutils literal notranslate"><span class="pre">new</span></code>. The operating system provides the virtual address space, but the
+language runtime or standard library manages the smaller allocations
+inside that space.</p>
 </section>
-<section id="id1">
-<h2>Why Userland Memory Management?<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Because programs need a view of the machine as something other than
-pages, we can consider the topic of user land memory management as a
-detail of the virtual machine that the system provides.</p></li>
-<li><p>Because the details of the memory management system differ based on
-language needs, it is impractical for this component to exist within
-the operating system implementation.</p></li>
-</ul>
+<section id="userland-memory-as-runtime-policy">
+<h2>Userland Memory as Runtime Policy<a class="headerlink" href="#userland-memory-as-runtime-policy" title="Link to this heading">#</a></h2>
+<p>Userland memory management belongs in libraries and language runtimes
+because allocation policy depends on the language.</p>
+<p>C and C++ need explicit allocation and deallocation. Java, C#, Python,
+and many other languages need allocation plus garbage collection. These
+policies are too language-specific to live entirely inside the kernel,
+but they still depend on operating-system services such as pages,
+<code class="docutils literal notranslate"><span class="pre">sbrk()</span></code>, and <code class="docutils literal notranslate"><span class="pre">mmap()</span></code>.</p>
 </section>
 <section id="heap-management">
 <h2>Heap Management<a class="headerlink" href="#heap-management" title="Link to this heading">#</a></h2>
-</section>
-<section id="the-heap">
-<h2>The Heap<a class="headerlink" href="#the-heap" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The heap is the portion of a process’ memory that is used for data
-that lives beyond the lifetime of any one function or method. The
-lifetime of this data is defined by when it is allocated and when the
-heap manager either explicitly deletes it or garbage collects it.</p></li>
-<li><p>Languages like C or C++ allocate chunks of memory manually through
-explicit statements like malloc, free, new, delete, etc…</p></li>
-<li><p>Languages like C# or Java allocate chunks of memory through
-statements like new and deallocate memory with garbage collectors</p></li>
-</ul>
+<p>The heap is the part of a process address space used for data whose
+lifetime is not tied to one stack frame.</p>
+<p>Stack memory is allocated and freed as functions call and return. Heap
+memory is allocated and freed according to program logic. In C and C++,
+the program manages this lifetime explicitly with calls such as
+<code class="docutils literal notranslate"><span class="pre">malloc()</span></code>, <code class="docutils literal notranslate"><span class="pre">free()</span></code>, <code class="docutils literal notranslate"><span class="pre">new</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete</span></code>. In garbage-collected
+languages, the runtime decides when unreachable heap objects can be
+reclaimed.</p>
 </section>
 <section id="the-memory-manager">
 <h2>The Memory Manager<a class="headerlink" href="#the-memory-manager" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The memory manager has the following responsibilities:</p>
-<ul>
-<li><p>Manages list of allocated sections of memory</p></li>
-<li><p>Manages list of free regions in memory</p></li>
-<li><p>Allocation - When a program manages memory for an object, the
-memory manager will find a chunk of contiguous memory at least as
-large as the object. If not enough contiguous memory is available,
-it asks the operating system for more heap space</p></li>
-<li><p>Deallocation - When a program deallocates heap memory, the memory
-manager returns the deallocated space to the free list. Memory is
-typically not returned to the operating system in most
-implementations.</p></li>
-</ul>
-</li>
-</ul>
+<p>A memory manager tracks allocated regions and free regions inside the
+heap.</p>
+<p>When a program requests memory, the manager finds a contiguous free
+region large enough for the request. If no suitable region exists, the
+manager asks the operating system for more heap space. When memory is
+freed, the manager returns the region to its free-space data structures.
+Most allocators do not immediately return every freed region to the
+operating system.</p>
 </section>
-<section id="characteristics-of-memory-allocation">
-<h2>Characteristics of Memory Allocation<a class="headerlink" href="#characteristics-of-memory-allocation" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Requests from a program for chunks of the heap are typically not of
-the same size</p></li>
-<li><p>Deallocation is not predictable. In the stack, memory is allocated
-and freed in First In Last Out order. This is not true of the heap.</p></li>
-<li><p>Therefore, the memory manager must be prepared to handle requests of
-differing size in unpredictable order</p></li>
-<li><p>Most of the time, the majority of requests are for small regions of
-memory that are measured in bytes or kilo-bytes.</p></li>
-</ul>
+<section id="characteristics-of-allocation">
+<h2>Characteristics of Allocation<a class="headerlink" href="#characteristics-of-allocation" title="Link to this heading">#</a></h2>
+<p>Heap allocation requests vary in size and are freed in unpredictable
+orders.</p>
+<p>Unlike stack allocation, heap allocation is not first-in, last-out. A
+program may allocate many small objects, free some of them, allocate a
+large buffer, and keep other objects alive for the rest of the process.
+The allocator must handle this pattern efficiently.</p>
 </section>
-<section id="id2">
-<h2>Characteristics of Memory Allocation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Although not optimal, it is acceptable for an allocator to return a
-region of memory larger than the requested size.</p></li>
-<li><p>Many allocators will split the heap into buckets of a different chunk
-sizes.</p></li>
-<li><p>So, for example an allocator may service a request for 31 bytes of
-memory with a region of memory that is 32 bytes in size.s</p></li>
-</ul>
+<section id="over-allocation-and-buckets">
+<h2>Over-Allocation and Buckets<a class="headerlink" href="#over-allocation-and-buckets" title="Link to this heading">#</a></h2>
+<p>Allocators often return a block that is slightly larger than the request.</p>
+<p>For example, a request for 31 bytes may be served from a 32-byte bucket.
+This wastes a small amount of memory inside the block, but it simplifies
+allocation and can make free-list management faster.</p>
 </section>
 <section id="characteristics-of-a-good-memory-manager">
 <h2>Characteristics of a Good Memory Manager<a class="headerlink" href="#characteristics-of-a-good-memory-manager" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Space Efficiency - The memory manager should minimize the total heap
-needed by a program. This is accomplished by minimizing heap
-fragmentation.</p></li>
-<li><p>Program Efficiency - Allocations should be arranged in memory to
-preserve locality</p></li>
-<li><p>Low Overhead - Memory allocations / deallocations are frequent
-operations in a program. Because of this, the overhead of the memory
-manager should be minimized. Efficiency for smaller memory
-allocations should be a priority over efficiency for larger
-allocations since smaller allocations happen more frequently.</p></li>
-</ul>
+<p>A good memory manager balances space efficiency, speed, and locality.</p>
+<p>Space efficiency means minimizing fragmentation and total heap size.
+Program efficiency means placing related allocations close enough to
+benefit from cache locality. Low overhead matters because allocations
+and deallocations are frequent operations, especially for small objects.</p>
 </section>
-<section id="a-refresher-on-the-memory-hierarchy">
-<h2>A Refresher on the Memory Hierarchy<a class="headerlink" href="#a-refresher-on-the-memory-hierarchy" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Memory Type / Memory Size / Access Time</p></li>
-<li><p>Registers / 32 words / 1 ns</p></li>
-<li><p>L1 Cache / 16 - 64KB / 5-10 ns</p></li>
-<li><p>L2 Cache / 128KB - 4MB / 40-60 ns</p></li>
-<li><p>Physical Memory / 512MB - 8GB / 100 - 150 ns</p></li>
-<li><p>Swap File / 512MB - 8GB / 3 - 15 ms</p></li>
-</ul>
+<section id="memory-hierarchy-refresher">
+<h2>Memory Hierarchy Refresher<a class="headerlink" href="#memory-hierarchy-refresher" title="Link to this heading">#</a></h2>
+<p>Memory performance depends on where data is located in the hierarchy.</p>
+<p>Registers are fastest and smallest. L1 cache is larger but slower. L2
+and later caches are slower still. Physical memory is much slower than
+cache, and swap is slower by orders of magnitude. A memory manager cannot
+control all of these layers, but allocation placement can affect cache
+locality and page behavior.</p>
 </section>
 <section id="program-locality">
 <h2>Program Locality<a class="headerlink" href="#program-locality" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Often, programs contain many instructions that are never executed.</p></li>
-<li><p>Programs built with reusable libraries, often only use a small
-fraction of the capability of these libraries.</p></li>
-<li><p>Programs typically spend most of their time executing innermost loops
-and recursive functions.</p></li>
-<li><p>Only a small fraction of code that could be executed is actually
-executed. This means, that within any given method, there are basic
-blocks of code dedicated to exception and error handling that is
-often not invoked.</p></li>
-</ul>
+<p>Programs usually use a small part of their code and data heavily.</p>
+<p>Most execution time is spent in inner loops, recursive calls, and common
+paths. Libraries may contain many functions that a particular program
+never calls. Good memory management tries to preserve this locality by
+keeping related objects near each other and avoiding unnecessary heap
+growth.</p>
 </section>
 <section id="fragmentation">
 <h2>Fragmentation<a class="headerlink" href="#fragmentation" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Internal fragmentation - When a request for memory is answered with a
-region of memory that is larger than the request, the remainder is
-wasted.</p></li>
-<li><p>External fragmentation - Regions of contiguous memory that are not
-large enough to service requests.</p></li>
-<li><p>External fragmentation = 1 - (largest free region / total free
-memory)</p></li>
-<li><p>Fragmentation comes about because while decisions can be made about
-where heap allocations are placed, the order of their eventual
-deallocations cannot be controlled or predicted.</p></li>
-</ul>
+<p>Fragmentation is wasted memory caused by allocation size and placement.</p>
+<p>Internal fragmentation occurs when an allocator returns a block larger
+than the request. External fragmentation occurs when the heap has enough
+total free memory, but the free memory is split into regions too small to
+satisfy a request.</p>
+<p>One way to express external fragmentation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">largest</span> <span class="n">free</span> <span class="n">region</span> <span class="o">/</span> <span class="n">total</span> <span class="n">free</span> <span class="n">memory</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
-<section id="reducing-fragmentation-of-the-heap">
-<h2>Reducing Fragmentation of the Heap<a class="headerlink" href="#reducing-fragmentation-of-the-heap" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The heap starts as one contiguous free space</p></li>
-<li><p>As the program allocates and deallocates memory, the free space will
-no longer be contiguous</p></li>
-<li><p>After a while, there may be regions of free space that are not large
-enough to service a memory allocation request.</p></li>
-<li><p>If the free space becomes sufficiently fragmented, then it is
-possible that even though there is enough total free memory, a
-request for more memory could fail because there isn’t a contiguous
-free region that is large enough.</p></li>
-</ul>
+<section id="reducing-heap-fragmentation">
+<h2>Reducing Heap Fragmentation<a class="headerlink" href="#reducing-heap-fragmentation" title="Link to this heading">#</a></h2>
+<p>The heap starts as one contiguous free region, but allocation and
+deallocation split it over time.</p>
+<p>After enough activity, the heap may contain many small free regions that
+cannot serve larger requests. An allocator reduces fragmentation by
+choosing where to place allocations, coalescing adjacent free regions,
+and using size classes or buckets for common request sizes.</p>
 </section>
-<section id="best-fit-vs-next-fit">
-<h2>Best-Fit vs Next-Fit<a class="headerlink" href="#best-fit-vs-next-fit" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The best-fit allocation policy is to fit each request into the free
-memory region that is the smallest that will satisfy the request</p></li>
-<li><p>The first-fit allocation policy is to fit each request into the first
-free memory region encountered in a search that will satisfy the
-request</p></li>
-<li><p>Overall, the best-fit policy provides the best performance in most
-cases.</p></li>
-<li><p>The downside to the best-fit policy is that it results in a more
-complex allocator and there is some cost to the search for the best
-fitting free region (although there are ways around this).</p></li>
-</ul>
+<section id="first-fit-and-best-fit">
+<h2>First Fit and Best Fit<a class="headerlink" href="#first-fit-and-best-fit" title="Link to this heading">#</a></h2>
+<p>First fit and best fit are two basic policies for choosing a free block.</p>
+<p>First fit uses the first free region large enough for the request. Best
+fit uses the smallest free region that can satisfy the request. Best fit
+can reduce wasted space, but it requires more searching unless the
+allocator uses data structures that organize free blocks by size.</p>
 </section>
-<section id="best-fit">
-<h2>Best-Fit<a class="headerlink" href="#best-fit" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To avoid the costs associated with searching for the best-fit free
-space region for an allocation, best-fit allocators commonly will
-split up the heap into different buckets.</p></li>
-<li><p>Each of these buckets will be responsible for serving different sized
-requests.</p></li>
-<li><p>In the GNU Standard C Library, there are buckets of size 8-byte,
-16-byte, 24-byte, …. 512-byte. For larger allocations, there are
-additional buckets for sizes spread out logarithmically (512, 576,
-640, ….)</p></li>
-<li><p>To service an allocation request, the allocator will use the free
-list in the bucket that is the smallest that is also the same size or
-larger than the request. If that bucket is empty, then the next
-largest one is used. If all buckets are full, then the allocator asks
-the operating system for more heap space.</p></li>
-</ul>
+<section id="best-fit-buckets">
+<h2>Best-Fit Buckets<a class="headerlink" href="#best-fit-buckets" title="Link to this heading">#</a></h2>
+<p>Bucket allocators approximate best fit with size classes.</p>
+<p>The allocator keeps separate free lists for common sizes. A request is
+rounded up to the nearest size class, and the allocator uses that
+bucket’s free list. If the bucket is empty, the allocator tries a larger
+bucket or asks the operating system for more heap space.</p>
 </section>
 <section id="managing-free-space">
 <h2>Managing Free Space<a class="headerlink" href="#managing-free-space" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>There are three approaches to managing free space:</p>
-<ul>
-<li><p>If buckets are being used, then a bitmap of which items in each
-bucket are free can be maintained. This is pretty straightforward.</p></li>
-<li><p>Boundary Tags - At the high and low end of each chunk, we keep a
-bit telling us if the chunk is free or allocated and how big the
-chunk is</p></li>
-<li><p>Doubly Linked, Embedded Free List - The free chunks contain
-pointers to a previous free chunk and a next free chunk. Often
-these lists are sorted to help best-fit algorithms.</p></li>
-</ul>
-</li>
-</ul>
+<p>Allocators need data structures that record which heap regions are free.</p>
+<p>Common approaches include bitmaps for fixed-size buckets, boundary tags
+at the start and end of chunks, and embedded doubly linked free lists
+inside free chunks. Boundary tags and embedded lists are flexible, but
+they are vulnerable to memory overwrites because allocator metadata sits
+near program data.</p>
 </section>
 <section id="bugs-and-explicit-allocators">
 <h2>Bugs and Explicit Allocators<a class="headerlink" href="#bugs-and-explicit-allocators" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>For languages like C, when programs write beyond the boundaries of
-allocated sections of the memory explicitly allocated, it is possible
-that these overwrites will write into structures used by the
-allocator.</p></li>
-<li><p>Because of this possibility, different allocators are more or less
-susceptible to different types of errors. In general, Boundary Tags,
-and Doubly Linked Embedded Free List are fairly vulnerable to these
-types of bugs. Bucket allocators with bitmaps are less susceptible.</p></li>
-<li><p>This reality can be of use during debugging. There are some
-debug-only allocators that return extra large regions of memory for
-each allocation and pad the front and back of each region. At
-deallocation time, if the padded values are altered, then the
-allocator can print an error to the console.</p></li>
-</ul>
+<p>Explicit allocators are vulnerable to bugs in the program using them.</p>
+<p>If a C program writes past the end of an allocated block, it may corrupt
+allocator metadata. If it frees the same pointer twice or uses a pointer
+after freeing it, the allocator can later return overlapping or invalid
+memory. Debug allocators often add padding and checks around allocations
+to detect these errors.</p>
 </section>
-<section id="debugging-malloc-free">
-<h2>Debugging malloc / free<a class="headerlink" href="#debugging-malloc-free" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>An excellent way to debug common malloc / free issues is to use the
-dmalloc library.</p></li>
-<li><p>This library is available at <a class="reference external" href="http://dmalloc.com">http://dmalloc.com</a>. It can be used in
-existing applications without modification.</p></li>
-<li><p>This library can help you discover:</p>
-<ul>
-<li><p>Where un-freed objects were originally allocated.</p></li>
-<li><p>Where any buffer overruns are if they are encountered.</p></li>
-</ul>
-</li>
-</ul>
+<section id="debugging-malloc-and-free">
+<h2>Debugging malloc and free<a class="headerlink" href="#debugging-malloc-and-free" title="Link to this heading">#</a></h2>
+<p>Debugging allocators help find memory leaks, buffer overruns, double
+frees, and use-after-free errors.</p>
+<p>Tools such as <code class="docutils literal notranslate"><span class="pre">dmalloc</span></code> can be linked into existing C programs to
+record allocation sites and check heap consistency. Modern toolchains
+also provide sanitizers and leak detectors that serve the same purpose.</p>
 </section>
 <section id="expanding-the-heap">
 <h2>Expanding the Heap<a class="headerlink" href="#expanding-the-heap" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>There are two ways that UNIX allocators expand the heap:</p>
-<ul>
-<li><p>sbrk - Asks the OS to increase the data segment by N bytes.</p></li>
-<li><p>mmap/mfree - Requests from the OS to allocate a separate
-non-contiguous region of memory. Since these regions are
-non-contiguous, it is simpler to return them to the OS. mmap/mfree
-have a fairly large overhead. Often, mmap/mfree are used to
-service requests for larger allocations that don’t fit into a
-bucket (&gt; 1MB).</p></li>
-</ul>
-</li>
-</ul>
+<p>UNIX allocators usually expand the heap with <code class="docutils literal notranslate"><span class="pre">sbrk()</span></code> or <code class="docutils literal notranslate"><span class="pre">mmap()</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sbrk()</span></code> moves the program break and grows the traditional contiguous
+heap. <code class="docutils literal notranslate"><span class="pre">mmap()</span></code> can allocate separate non-contiguous regions, which are
+often easier to return to the operating system. Many allocators use
+<code class="docutils literal notranslate"><span class="pre">mmap()</span></code> for large allocations because large regions do not fit well in
+small-object buckets.</p>
 </section>
-<section id="recommended-reading">
-<h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Article by Doug Lea, the author of the GNU libc malloc/realloc/free -
-<a class="reference external" href="http://g.oswego.edu/dl/html/malloc.html">http://g.oswego.edu/dl/html/malloc.html</a></p></li>
-</ul>
-</section>
-<section id="problems-with-manual-deallocation">
-<h2>Problems with manual deallocation<a class="headerlink" href="#problems-with-manual-deallocation" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Manual memory deallocation can lead to memory leaks. Memory leaks are
-defined as memory that has been allocated, but not deallocated and
-will not be referenced at any point in the future.</p></li>
-<li><p>Memory leaks do not cause a program to be incorrect or to crash as
-long as enough free memory is available. For short lived programs
-this is not a problem. For longer lived programs this is a problem.</p></li>
-</ul>
-</section>
-<section id="id3">
-<h2>Problems with manual deallocation<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Manual memory deallocation can lead to problems if after the
-deallocation, a pointer refers to the deallocated space and the
-program dereferences that pointer in the future. This can lead to
-modification of memory that was allocated to different pointers or to
-memory that has been released to the operating system. This can lead
-to crashes or incorrect program behavior.</p></li>
-</ul>
-</section>
-<section id="avoiding-problems-with-manual-deallocation">
-<h2>Avoiding problems with manual deallocation<a class="headerlink" href="#avoiding-problems-with-manual-deallocation" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>When designing an application, make sure each allocated object has a
-defined owner. This can be an instance of a class, or a function.
-This is applicable when the owner can be determined statically.</p></li>
-<li><p>When the owner cannot be determined statically, using reference
-counters is advisable. Whenever a reference to an object is created,
-we increment the reference counter. Whenever a reference goes away,
-we decrease the reference counter. When the counter reaches zero, we
-deallocate the object. This runs into trouble with cyclic structures.</p></li>
-</ul>
-</section>
-<section id="a-simple-malloc-free-implementation-example-from-ibm-developer-works">
-<h2>A simple Malloc / Free Implementation (Example from IBM Developer Works)<a class="headerlink" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works" title="Link to this heading">#</a></h2>
-<p>{language=C, basicstyle=, indent=xleftmargin}</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;unistd.h&gt;</span>
-<span class="nb">int</span> <span class="n">has_initialized</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">void</span> <span class="o">*</span><span class="n">managed_memory_start</span><span class="p">;</span>
-<span class="n">void</span> <span class="o">*</span><span class="n">last_valid_address</span><span class="p">;</span>
-
-<span class="n">struct</span> <span class="n">mem_control_block</span> <span class="p">{</span>
-  <span class="nb">int</span> <span class="n">is_available</span><span class="p">;</span>
-  <span class="nb">int</span> <span class="n">size</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">void</span> <span class="n">malloc_init</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">last_valid_address</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-  <span class="n">managed_memory_start</span> <span class="o">=</span> <span class="n">last_valid_address</span><span class="p">;</span>
-   <span class="n">has_initialized</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
+<section id="simple-malloc-case-study">
+<h2>Simple malloc Case Study<a class="headerlink" href="#simple-malloc-case-study" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/malloc</span></code> example implements a small allocator
+using <code class="docutils literal notranslate"><span class="pre">sbrk()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="cp">#ifndef MALLOC_H</span>
+<span class="linenos">2</span><span class="cp">#define MALLOC_H</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">mymalloc</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">numbytes</span><span class="p">);</span>
+<span class="linenos">5</span><span class="kt">void</span><span class="w"> </span><span class="nf">myfree</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">firstbyte</span><span class="p">);</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="cp">#endif</span>
 </pre></div>
 </div>
-</section>
-<section id="a-simple-malloc-free-implementation">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#a-simple-malloc-free-implementation" title="Link to this heading">#</a></h2>
-<p>{language=C, basicstyle=, indent=xleftmargin}</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">myfree</span><span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="n">firstbyte</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">struct</span> <span class="n">mem_control_block</span> <span class="o">*</span><span class="n">mcb</span><span class="p">;</span>
-  <span class="n">mcb</span> <span class="o">=</span> <span class="p">(</span><span class="n">struct</span> <span class="n">mem_control_block</span><span class="o">*</span><span class="p">)</span>
-           <span class="p">(</span><span class="n">firstbyte</span> <span class="o">-</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">struct</span> <span class="n">mem_control_block</span><span class="p">));</span>
-  <span class="n">mcb</span><span class="o">-&gt;</span><span class="n">is_available</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="k">return</span><span class="p">;</span>
-<span class="p">}</span>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The public interface mirrors the shape of <code class="docutils literal notranslate"><span class="pre">malloc()</span></code> and <code class="docutils literal notranslate"><span class="pre">free()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mymalloc()</span></code> returns a pointer to usable memory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfree()</span></code> marks a previously allocated block as available.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cm">/*</span>
+<span class="linenos">  2</span><span class="cm"> *  Code borrowed from www.ibm.com/developerworks/linux/library/l-memory/</span>
+<span class="linenos">  3</span><span class="cm"> */</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos">  5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">  6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;malloc.h&quot;</span>
+<span class="linenos">  7</span>
+<span class="linenos">  8</span><span class="kt">int</span><span class="w"> </span><span class="n">has_initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">  9</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">managed_memory_start</span><span class="p">;</span>
+<span class="linenos"> 10</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">last_valid_address</span><span class="p">;</span>
+<span class="linenos"> 11</span>
+<span class="linenos"> 12</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span>
+<span class="linenos"> 13</span><span class="p">{</span>
+<span class="linenos"> 14</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">is_available</span><span class="p">;</span>
+<span class="linenos"> 15</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+<span class="linenos"> 16</span><span class="p">};</span>
+<span class="linenos"> 17</span>
+<span class="linenos"> 18</span><span class="kt">void</span><span class="w"> </span><span class="nf">malloc_init</span><span class="p">()</span>
+<span class="linenos"> 19</span><span class="p">{</span>
+<span class="linenos"> 20</span><span class="w">    </span><span class="cm">/* grab the last valid address from the OS */</span>
+<span class="linenos"> 21</span><span class="w">    </span><span class="n">last_valid_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="linenos"> 22</span><span class="w">    </span><span class="cm">/* we don&#39;t have any memory to manage yet, so</span>
+<span class="linenos"> 23</span><span class="cm">     *just set the beginning to be last_valid_address</span>
+<span class="linenos"> 24</span><span class="cm">     */</span>
+<span class="linenos"> 25</span><span class="w">    </span><span class="n">managed_memory_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">last_valid_address</span><span class="p">;</span>
+<span class="linenos"> 26</span><span class="w">    </span><span class="cm">/* Okay, we&#39;re initialized and ready to go */</span>
+<span class="linenos"> 27</span><span class="w">    </span><span class="n">has_initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos"> 28</span><span class="p">}</span>
+<span class="linenos"> 29</span>
+<span class="linenos"> 30</span><span class="kt">void</span><span class="w"> </span><span class="nf">myfree</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">firstbyte</span><span class="p">)</span>
+<span class="linenos"> 31</span><span class="p">{</span>
+<span class="linenos"> 32</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="w"> </span><span class="o">*</span><span class="n">mcb</span><span class="p">;</span>
+<span class="linenos"> 33</span><span class="w">    </span><span class="cm">/* Backup from the given pointer to find the</span>
+<span class="linenos"> 34</span><span class="cm">     * mem_control_block</span>
+<span class="linenos"> 35</span><span class="cm">     */</span>
+<span class="linenos"> 36</span><span class="w">    </span><span class="n">mcb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="o">*</span><span class="p">)(</span><span class="n">firstbyte</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="p">));</span>
+<span class="linenos"> 37</span><span class="w">    </span><span class="cm">/* Mark the block as being available */</span>
+<span class="linenos"> 38</span><span class="w">    </span><span class="n">mcb</span><span class="o">-&gt;</span><span class="n">is_available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos"> 39</span><span class="w">    </span><span class="cm">/* That&#39;s It!  We&#39;re done. */</span>
+<span class="linenos"> 40</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 41</span><span class="p">}</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">mymalloc</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">numbytes</span><span class="p">)</span>
+<span class="linenos"> 44</span><span class="p">{</span>
+<span class="linenos"> 45</span><span class="w">    </span><span class="cm">/* Holds where we are looking in memory */</span>
+<span class="linenos"> 46</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">current_location</span><span class="p">;</span>
+<span class="linenos"> 47</span><span class="w">    </span><span class="cm">/* This is the same as current_location, but cast to a</span>
+<span class="linenos"> 48</span><span class="cm">     * memory_control_block</span>
+<span class="linenos"> 49</span><span class="cm">     */</span>
+<span class="linenos"> 50</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="w"> </span><span class="o">*</span><span class="n">current_location_mcb</span><span class="p">;</span>
+<span class="linenos"> 51</span><span class="w">    </span><span class="cm">/* This is the memory location we will return.  It will</span>
+<span class="linenos"> 52</span><span class="cm">     * be set to 0 until we find something suitable</span>
+<span class="linenos"> 53</span><span class="cm">     */</span>
+<span class="linenos"> 54</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">memory_location</span><span class="p">;</span>
+<span class="linenos"> 55</span><span class="w">    </span><span class="cm">/* Initialize if we haven&#39;t already done so */</span>
+<span class="linenos"> 56</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="w"> </span><span class="n">has_initialized</span><span class="p">)</span>
+<span class="linenos"> 57</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 58</span><span class="w">        </span><span class="n">malloc_init</span><span class="p">();</span>
+<span class="linenos"> 59</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 60</span><span class="w">    </span><span class="cm">/* The memory we search for has to include the memory</span>
+<span class="linenos"> 61</span><span class="cm">     * control block, but the users of malloc don&#39;t need</span>
+<span class="linenos"> 62</span><span class="cm">     * to know this, so we&#39;ll just add it in for them.</span>
+<span class="linenos"> 63</span><span class="cm">     */</span>
+<span class="linenos"> 64</span><span class="w">    </span><span class="n">numbytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numbytes</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="p">);</span>
+<span class="linenos"> 65</span><span class="w">    </span><span class="cm">/* Set memory_location to 0 until we find a suitable</span>
+<span class="linenos"> 66</span><span class="cm">     * location</span>
+<span class="linenos"> 67</span><span class="cm">     */</span>
+<span class="linenos"> 68</span><span class="w">    </span><span class="n">memory_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 69</span><span class="w">    </span><span class="cm">/* Begin searching at the start of managed memory */</span>
+<span class="linenos"> 70</span><span class="w">    </span><span class="n">current_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">managed_memory_start</span><span class="p">;</span>
+<span class="linenos"> 71</span><span class="w">    </span><span class="cm">/* Keep going until we have searched all allocated space */</span>
+<span class="linenos"> 72</span><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">current_location</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last_valid_address</span><span class="p">)</span>
+<span class="linenos"> 73</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 74</span><span class="w">        </span><span class="cm">/* current_location and current_location_mcb point</span>
+<span class="linenos"> 75</span><span class="cm">         * to the same address.  However, current_location_mcb</span>
+<span class="linenos"> 76</span><span class="cm">         * is of the correct type, so we can use it as a struct.</span>
+<span class="linenos"> 77</span><span class="cm">         * current_location is a void pointer so we can use it</span>
+<span class="linenos"> 78</span><span class="cm">         * to calculate addresses.</span>
+<span class="linenos"> 79</span><span class="cm">         */</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="n">current_location_mcb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">current_location</span><span class="p">;</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">is_available</span><span class="p">)</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 83</span><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">size</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">numbytes</span><span class="p">)</span>
+<span class="linenos"> 84</span><span class="w">            </span><span class="p">{</span>
+<span class="linenos"> 85</span><span class="w">                </span><span class="cm">/* Woohoo!  We&#39;ve found an open,</span>
+<span class="linenos"> 86</span><span class="cm">                 * appropriately-size location.</span>
+<span class="linenos"> 87</span><span class="cm">                 */</span>
+<span class="linenos"> 88</span><span class="w">                </span><span class="cm">/* It is no longer available */</span>
+<span class="linenos"> 89</span><span class="w">                </span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">is_available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 90</span><span class="w">                </span><span class="cm">/* We own it */</span>
+<span class="linenos"> 91</span><span class="w">                </span><span class="n">memory_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_location</span><span class="p">;</span>
+<span class="linenos"> 92</span><span class="w">                </span><span class="cm">/* Leave the loop */</span>
+<span class="linenos"> 93</span><span class="w">                </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos"> 94</span><span class="w">            </span><span class="p">}</span>
+<span class="linenos"> 95</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 96</span><span class="w">        </span><span class="cm">/* If we made it here, it&#39;s because the Current memory</span>
+<span class="linenos"> 97</span><span class="cm">         * block not suitable; move to the next one</span>
+<span class="linenos"> 98</span><span class="cm">         */</span>
+<span class="linenos"> 99</span><span class="w">        </span><span class="n">current_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_location</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
+<span class="linenos">100</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="cm">/* If we still don&#39;t have a valid location, we&#39;ll</span>
+<span class="linenos">103</span><span class="cm">     * have to ask the operating system for more memory</span>
+<span class="linenos">104</span><span class="cm">     */</span>
+<span class="linenos">105</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">memory_location</span><span class="p">)</span>
+<span class="linenos">106</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">107</span><span class="w">        </span><span class="cm">/* Move the program break numbytes further */</span>
+<span class="linenos">108</span><span class="w">        </span><span class="n">sbrk</span><span class="p">(</span><span class="n">numbytes</span><span class="p">);</span>
+<span class="linenos">109</span><span class="w">        </span><span class="cm">/* The new memory will be where the last valid</span>
+<span class="linenos">110</span><span class="cm">         * address left off</span>
+<span class="linenos">111</span><span class="cm">         */</span>
+<span class="linenos">112</span><span class="w">        </span><span class="n">memory_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">last_valid_address</span><span class="p">;</span>
+<span class="linenos">113</span><span class="w">        </span><span class="cm">/* We&#39;ll move the last valid address forward</span>
+<span class="linenos">114</span><span class="cm">         * numbytes</span>
+<span class="linenos">115</span><span class="cm">         */</span>
+<span class="linenos">116</span><span class="w">        </span><span class="n">last_valid_address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">last_valid_address</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">numbytes</span><span class="p">;</span>
+<span class="linenos">117</span><span class="w">        </span><span class="cm">/* We need to initialize the mem_control_block */</span>
+<span class="linenos">118</span><span class="w">        </span><span class="n">current_location_mcb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="o">*</span><span class="p">)</span><span class="n">memory_location</span><span class="p">;</span>
+<span class="linenos">119</span><span class="w">        </span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">is_available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">120</span><span class="w">        </span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numbytes</span><span class="p">;</span>
+<span class="linenos">121</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">122</span><span class="w">    </span><span class="cm">/* Now, no matter what (well, except for error conditions),</span>
+<span class="linenos">123</span><span class="cm">     * memory_location has the address of the memory, including</span>
+<span class="linenos">124</span><span class="cm">     * the mem_control_block</span>
+<span class="linenos">125</span><span class="cm">     */</span>
+<span class="linenos">126</span><span class="w">    </span><span class="cm">/* Move the pointer past the mem_control_block */</span>
+<span class="linenos">127</span><span class="w">    </span><span class="n">memory_location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memory_location</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">mem_control_block</span><span class="p">);</span>
+<span class="linenos">128</span><span class="w">    </span><span class="cm">/* Return the pointer */</span>
+<span class="linenos">129</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">memory_location</span><span class="p">;</span>
+<span class="linenos">130</span><span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="id4">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>{language=C, basicstyle=, indent=xleftmargin}</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>void *mymalloc(long numbytes) {
-  void *current_location;
-  struct mem_control_block *current_location_mcb;
-  void *memory_location;
-  if(! has_initialized)   {
-    malloc_init();
-  }
-  numbytes = numbytes + sizeof(struct mem_control_block);
-  memory_location = 0;
-  current_location = managed_memory_start;
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">malloc_init()</span></code> records the current program break as the start of the
+managed heap.</p></li>
+<li><p>Each allocation stores a small control block before the returned
+memory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mymalloc()</span></code> scans existing blocks for a free block large enough for
+the request.</p></li>
+<li><p>If no block is available, <code class="docutils literal notranslate"><span class="pre">sbrk()</span></code> grows the heap.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfree()</span></code> marks the block available but does not coalesce adjacent
+free blocks or return memory to the operating system.</p></li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;malloc.h&quot;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">mymalloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">10</span><span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">11</span><span class="w">    </span><span class="n">strncpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">);</span>
+<span class="linenos">13</span><span class="w">    </span><span class="n">myfree</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">15</span><span class="p">}</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The demo allocates enough memory for <code class="docutils literal notranslate"><span class="pre">hello</span> <span class="pre">world</span></code> and the null byte.</p></li>
+<li><p>The buffer is initialized before use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strncpy()</span></code> copies the message into the allocated region.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfree()</span></code> returns the block to the allocator’s free list.</p></li>
+</ul>
 </section>
-<section id="id5">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>{language=C, basicstyle=, indent=xleftmargin}</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="n">current_location</span> <span class="o">!=</span> <span class="n">last_valid_address</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">current_location_mcb</span> <span class="o">=</span>
-         <span class="p">(</span><span class="n">struct</span> <span class="n">mem_control_block</span> <span class="o">*</span><span class="p">)</span><span class="n">current_location</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">is_available</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">&gt;=</span> <span class="n">numbytes</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">is_available</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="n">memory_location</span> <span class="o">=</span> <span class="n">current_location</span><span class="p">;</span>
-      <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="n">current_location</span> <span class="o">=</span> <span class="n">current_location</span> <span class="o">+</span>
-                    <span class="n">current_location_mcb</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+<section id="manual-deallocation-problems">
+<h2>Manual Deallocation Problems<a class="headerlink" href="#manual-deallocation-problems" title="Link to this heading">#</a></h2>
+<p>Manual memory management can create leaks and dangling pointers.</p>
+<p>A memory leak occurs when allocated memory will never be freed and can no
+longer be reached by the program. A dangling pointer occurs when a
+pointer still refers to memory after that memory has been freed. Leaks
+usually waste memory over time. Dangling pointers can corrupt data,
+crash the program, or create security vulnerabilities.</p>
 </section>
-<section id="id6">
-<h2>A simple Malloc / Free Implementation<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
-<p>{language=C, basicstyle=, indent=xleftmargin}</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  if(!memory_location)
-  {
-    sbrk(numbytes);
-    memory_location = last_valid_address;
-    last_valid_address = last_valid_address + numbytes;
-    current_location_mcb =
-               (struct mem_control_block*)memory_location;
-    current_location_mcb-&gt;is_available = 0;
-    current_location_mcb-&gt;size = numbytes;
-  }
-  memory_location = memory_location +
-              sizeof(struct mem_control_block);
-  return memory_location;
-}
-</pre></div>
-</div>
+<section id="avoiding-manual-deallocation-problems">
+<h2>Avoiding Manual Deallocation Problems<a class="headerlink" href="#avoiding-manual-deallocation-problems" title="Link to this heading">#</a></h2>
+<p>Explicit memory management works best when ownership is clear.</p>
+<p>Each allocated object should have a defined owner responsible for freeing
+it. When ownership cannot be determined statically, reference counting
+can help. A reference count is incremented when a reference is created
+and decremented when a reference is removed. When the count reaches zero,
+the object can be freed. Reference counting does not handle cycles by
+itself.</p>
 </section>
 <section id="garbage-collection">
 <h2>Garbage Collection<a class="headerlink" href="#garbage-collection" title="Link to this heading">#</a></h2>
-</section>
-<section id="id7">
-<h2>Garbage Collection<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Data that can’t be referenced is considered garbage</p></li>
-<li><p>One problem that explicit allocators have is that deallocation is the
-source of bugs</p></li>
-<li><p>Some runtimes and programming languages provide automatic garbage
-collectors.</p></li>
-<li><p>The first garbage collector implementation was for the LISP
-programming language in 1958.</p></li>
-</ul>
+<p>Garbage collection automatically reclaims heap objects that can no longer
+be reached by the program.</p>
+<p>The first garbage collector was implemented for Lisp in 1958. Since then,
+garbage collection has become a common feature of language runtimes. It
+reduces many manual deallocation errors, but it introduces runtime costs
+and does not eliminate every kind of memory leak.</p>
 </section>
 <section id="requirements-for-garbage-collectors">
 <h2>Requirements for Garbage Collectors<a class="headerlink" href="#requirements-for-garbage-collectors" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Most garbage collectors require that a system be type safe to support
-a collector.</p></li>
-<li><p>Most garbage collectors require that references / pointers refer to
-the beginning of an object and not somewhere in the middle</p></li>
-<li><p>In general, these guarantees cannot be made for C programs.</p></li>
-<li><p>Garbage collectors exist for C, but programmers have to limit their
-use of the full capability of C</p></li>
-</ul>
+<p>Garbage collectors need reliable information about references.</p>
+<p>Most collectors require type safety and a way to find the root set of
+references. They also need references to point to recognizable objects,
+not arbitrary locations inside objects. These guarantees are difficult in
+C because pointer arithmetic and casts can hide references from the
+collector.</p>
 </section>
 <section id="goals-for-a-garbage-collector">
 <h2>Goals for a Garbage Collector<a class="headerlink" href="#goals-for-a-garbage-collector" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Overall execution time for collection - Garbage collectors must
-access a lot of data. The faster they are the better</p></li>
-<li><p>Space Usage - Garbage collectors must keep fragmentation to a minimum</p></li>
-<li><p>Wait time - Many garbage collectors require that a program be
-temporarily halted while running. So, it is desirable that the
-maximum wait time be small.</p></li>
-<li><p>Locality - Like explicit allocators, garbage collectors can help
-preserve locality by allocating memory from regions that are recently
-deallocated.</p></li>
-</ul>
+<p>A garbage collector should reclaim memory without causing unacceptable
+pause times or memory overhead.</p>
+<p>Important goals include low total collection time, low space overhead,
+short maximum pauses, and good locality after collection. Different
+collectors make different tradeoffs among these goals.</p>
 </section>
-<section id="disadvantages-to-garbage-collection">
-<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#disadvantages-to-garbage-collection" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Garbage collectors consume processing time determining which objects
-are garbage</p></li>
-<li><p>Garbage collectors run interval is not predictable. This can cause
-trouble for:</p>
-<ul>
-<li><p>The garbage collector may run too late, allowing too much garbage
-to pile up</p></li>
-<li><p>Garbage collectors need to halt execution to one degree or
-another. This can degrade performance.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="id8">
-<h2>Disadvantages to Garbage Collection<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Garbage collectors can’t detect when low physical memory conditions
-occur. With manual deallocation, the memory usage should always be
-the minimum needed, but with garbage collectors, this can be
-variable. So, it is possible that a garbage collector can encourage
-overuse of physical memory or unnecessary paging.</p></li>
-<li><p>Garbage collectors cannot remove all possible memory leaks. Garbage
-collectors can only collect garbage.</p></li>
-</ul>
+<section id="disadvantages-of-garbage-collection">
+<h2>Disadvantages of Garbage Collection<a class="headerlink" href="#disadvantages-of-garbage-collection" title="Link to this heading">#</a></h2>
+<p>Garbage collection consumes CPU time and can run at inconvenient moments.</p>
+<p>Many collectors pause program execution at least briefly. If collection
+runs too late, garbage can accumulate and increase memory pressure. A
+collector also may not know about system-wide low-memory pressure early
+enough to prevent paging.</p>
 </section>
 <section id="reachability">
 <h2>Reachability<a class="headerlink" href="#reachability" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Every program has a concept of a root set of references. The root set
-is the list of references held on the stack of every executing
-thread.</p></li>
-<li><p>Some programming language and compiler support is required to make
-sure that this list is available to the garbage collector.</p></li>
-<li><p>Operations that change reachability:</p>
-<ul>
-<li><p>Allocations - allocating new objects create new reachable objects</p></li>
-<li><p>Method “out” parameters and return values - Values returned from
-allocations within a method remain reachable by the caller</p></li>
-<li><p>Reference copying - Copying a reference from one reference
-variable to another.</p></li>
-<li><p>Method returns - When a method returns, all of the references on
-the stack that are not a part of the return are lost.</p></li>
-</ul>
-</li>
-</ul>
+<p>Reachability determines whether an object is still live.</p>
+<p>The root set includes references from thread stacks, registers, and
+global variables. Objects reachable from the root set are live. Objects
+not reachable from the root set are garbage. Allocations, parameter
+passing, assignments, and function returns all change the reachability
+graph.</p>
 </section>
-<section id="reference-counting-garbage-collectors">
-<h2>Reference Counting Garbage Collectors<a class="headerlink" href="#reference-counting-garbage-collectors" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Reference counting garbage collectors work by detecting when an
-object’s reference count reaches zero and at that time deallocate the
-object. References are increased and decreased in the following
-manner:</p>
-<ul>
-<li><p>Allocation - New objects start with a reference count of 1</p></li>
-<li><p>Parameter passing - when a parameter is passed to a method, it’s
-reference count is incremented</p></li>
-<li><p>Reference assignments - If a copy of the reference is made, the
-reference count goes up by 1</p></li>
-<li><p>Method returns - when a method returns, all references on that
-method’s stack have their counts decremented by 1</p></li>
-<li><p>Transitive - if a reference count of an object reaches 0, then it
-also decrements the reference of every object it refers to.</p></li>
-</ul>
-</li>
-</ul>
+<section id="reference-counting">
+<h2>Reference Counting<a class="headerlink" href="#reference-counting" title="Link to this heading">#</a></h2>
+<p>Reference counting frees an object when its count reaches zero.</p>
+<p>New objects start with a reference count. Passing, copying, or storing a
+reference increments the count. Removing or overwriting a reference
+decrements the count. When the count reaches zero, the object is freed
+and references held by that object are decremented.</p>
 </section>
-<section id="pros-cons-of-reference-counting-garbage-collectors">
-<h2>Pros-Cons of Reference Counting Garbage Collectors<a class="headerlink" href="#pros-cons-of-reference-counting-garbage-collectors" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Pros</p>
-<ul>
-<li><p>The implementation is very simple.</p></li>
-</ul>
-</li>
-<li><p>Cons</p>
-<ul>
-<li><p>There is a lot of book keeping overhead. Every time a method is
-called and returned from, each parameter and stack variable has to
-be touched an additional time.</p></li>
-<li><p>Reference counting cannot collect unreachable, cyclic data
-structures.</p></li>
-</ul>
-</li>
-</ul>
+<section id="reference-counting-tradeoffs">
+<h2>Reference Counting Tradeoffs<a class="headerlink" href="#reference-counting-tradeoffs" title="Link to this heading">#</a></h2>
+<p>Reference counting is simple but expensive in busy programs.</p>
+<p>Every reference update requires bookkeeping. Function calls and returns
+can touch many references. Reference counting also cannot collect cycles:
+two unreachable objects can keep each other’s counts above zero.</p>
 </section>
 <section id="mark-and-sweep-garbage-collection">
 <h2>Mark-and-Sweep Garbage Collection<a class="headerlink" href="#mark-and-sweep-garbage-collection" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Mark-and-Sweep collectors work by stopping the execution of a program
-and use an algorithm to determine which objects are not reachable and
-return those unreachable objects to the free list.</p></li>
-<li><p>The algorithm works by maintaining four sets</p>
-<ul>
-<li><p>The free list - a list of free memory regions</p></li>
-<li><p>The root set - a list of all references on the stacks of all
-executing threads and global variables.</p></li>
-<li><p>The referenced list - a list of objects that are referenced.</p></li>
-<li><p>The unscanned list - a list of allocated objects that have not yet
-been found to be referenced.</p></li>
-</ul>
-</li>
-<li><p>The algorithm then does a depth first search form all items in the
-root set. If an item is reached in the scan, it is removed from the
-unscanned list to the referenced list.</p></li>
-<li><p>After the scan is complete, items remaining in the unscanned list are
-moved to the free list as garbage.</p></li>
-</ul>
+<p>Mark-and-sweep collection finds reachable objects and frees the rest.</p>
+<p>The collector starts from the root set and traverses references to mark
+live objects. After marking finishes, allocated objects that were not
+marked are moved to the free list. Mark-and-sweep can collect cycles, but
+it can pause the program and leave the heap fragmented.</p>
 </section>
 <section id="mark-and-compact-garbage-collection">
 <h2>Mark-and-Compact Garbage Collection<a class="headerlink" href="#mark-and-compact-garbage-collection" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Compacting garbage collectors take the additional step of moving
-objects around in memory after collection to make free space
-contiguous and to make allocated objects closer to each other in
-memory.</p></li>
-<li><p>The most popular type of these collectors are copying collectors.</p></li>
-<li><p>Copying collectors modify the Mark-and-Sweep collector algorithm by
-performing a copy operation to a contiguous free memory region that
-is set aside at collection time instead of adding the objects to the
-referenced list. Then, after collection is complete, the previous
-memory region becomes the free memory region.</p></li>
-<li><p>For more details, see “Cheney’s Algorithm” in a paper by C.J. Cheney
-in the ACM library.</p></li>
-</ul>
+<p>Mark-and-compact collectors move live objects so free memory becomes
+contiguous.</p>
+<p>Copying collectors are a common form of compacting collection. Live
+objects are copied into a new contiguous region. After the copy, the old
+region becomes free. This improves allocation speed and locality, but it
+requires updating references to moved objects.</p>
 </section>
 <section id="garbage-collection-costs">
 <h2>Garbage Collection Costs<a class="headerlink" href="#garbage-collection-costs" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Mark-and-Sweep collectors costs are related to the number of
-reachable objects</p></li>
-<li><p>Compacting (Copying) collectors costs are related to the total size
-of reachable objects.</p></li>
-</ul>
+<p>Collector cost depends on what the collector must scan or move.</p>
+<p>Mark-and-sweep cost is related to the number of reachable objects.
+Compacting and copying collector cost is related to the total size of
+reachable objects. Large live heaps are therefore expensive even when
+little garbage is present.</p>
 </section>
 <section id="incremental-garbage-collection">
 <h2>Incremental Garbage Collection<a class="headerlink" href="#incremental-garbage-collection" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>The previously mentioned garbage collectors stop the execution of all
-threads in a program to run. This can cause programs to pause for
-long periods of time.</p></li>
-<li><p>To keep programs responsive, incremental garbage collection is
-desirable.</p></li>
-<li><p>Instead of collecting all garbage, incremental garbage collectors
-just collect objects that can be found to be unreachable without
-performing a mark and sweep algorithm.</p></li>
-<li><p>Then, in subsequent collections, the collector will be able to
-collect objects that became unreachable by the previous collection in
-addition to any newly unreachable objects.</p></li>
-</ul>
+<p>Incremental collectors divide collection work into smaller pieces.</p>
+<p>Instead of stopping all program threads for a full collection, an
+incremental collector does part of the work at a time. This can reduce
+pause times and improve responsiveness, but it makes the collector more
+complex.</p>
 </section>
-<section id="id9">
-<h2>Incremental Garbage Collection<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Why in general do incremental garbage collectors work well?</p></li>
-<li><p>For most programs, objects become garbage rapidly. This means that
-most allocations in a program become unreferenced fairly soon after
-being allocated.</p></li>
-<li><p>Often, the number of objects that become garbage rapidly is in the
-range of 80 - 95 percent. These objects are typically easily
-collected and at a high rate by an incremental garbage collector</p></li>
-<li><p>The downside is that, very often an object that survives a first
-round of incremental collection, will often survive more than one
-round. In copying incremental collectors, this means that they will
-also be copied multiple times.</p></li>
-</ul>
+<section id="why-incremental-collection-works">
+<h2>Why Incremental Collection Works<a class="headerlink" href="#why-incremental-collection-works" title="Link to this heading">#</a></h2>
+<p>Many objects die young.</p>
+<p>For many programs, most allocations become unreachable soon after they
+are created. Incremental collectors benefit from this pattern because
+they can reclaim young garbage quickly. The downside is that objects that
+survive early collections may be copied or scanned more than once.</p>
 </section>
 <section id="generational-garbage-collection">
 <h2>Generational Garbage Collection<a class="headerlink" href="#generational-garbage-collection" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Generational garbage collectors are a specific way of implementing a
-copying incremental garbage collector.</p></li>
-<li><p>Generational collectors split the heap into N sections. Section 0 is
-the oldest, 1 is the next oldest, ….</p></li>
-<li><p>When section 0 becomes full, then the collector is invoked and copies
-reachable objects into section 1, making the entire section 0 free.</p></li>
-<li><p>When any 1…N section becomes full, the same algorithm takes place.</p></li>
-<li><p>Occasionally, garbage collection is run for some value of i between 1
-and N to free objects in sections 1…N.</p></li>
-<li><p>This type of collection is very fast because it favors scanning young
-objects which are objects most likely to be garbage.</p></li>
-</ul>
-</section>
-<section id="id10">
-<h2>Generational Garbage Collection<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Generational garbage collectors are used in many platforms -</p></li>
-<li><p>Java</p></li>
-<li><p>.NET</p></li>
-<li><p>Python</p></li>
-</ul>
+<p>Generational garbage collection divides the heap by object age.</p>
+<p>Young objects are collected frequently because most objects die young.
+Objects that survive are promoted to older generations, which are scanned
+less often. Java, .NET, Python, and many other runtimes use generational
+ideas in their collectors.</p>
 </section>
 <section id="buyer-beware">
 <h2>Buyer Beware<a class="headerlink" href="#buyer-beware" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Even with advanced and efficient garbage collection algorithms, it is
-still possible in theory to “leak” memory.</p></li>
-<li><p>Programs that have poorly defined object lifetimes or hang on to
-references for too long can accumulate objects that will never be
-referenced in the future.</p></li>
-<li><p>Programs like these will slowly run out of memory without creating
-any garbage for the collector to reclaim.</p></li>
-<li><p>It is also important to remember that with incremental / generational
-collectors, not all garbage is collected every time. Also some of
-these collectors will never reclaim large objects (greater than 8KB)
-due to the cost. It is possible in these systems to run out of memory
-artificially.</p></li>
-</ul>
+<p>Garbage collection does not make memory leaks impossible.</p>
+<p>A program can still hold references longer than necessary. If an object
+remains reachable, the collector must keep it, even if the program will
+never use it again. Large reachable structures and long-lived caches can
+therefore still exhaust memory.</p>
+</section>
+<section id="recommended-reading">
+<h2>Recommended Reading<a class="headerlink" href="#recommended-reading" title="Link to this heading">#</a></h2>
+<p>Doug Lea’s allocator article is a useful follow-up for explicit memory
+management and the design of <code class="docutils literal notranslate"><span class="pre">malloc()</span></code> implementations:
+<a class="reference external" href="http://gee.cs.oswego.edu/dl/html/malloc.html">http://gee.cs.oswego.edu/dl/html/malloc.html</a></p>
 </section>
 </section>
 
@@ -1093,49 +928,40 @@ artificially.</p></li>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-userland-memory-management">Why Userland Memory Management?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Why Userland Memory Management?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#userland-memory-as-runtime-policy">Userland Memory as Runtime Policy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heap-management">Heap Management</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-heap">The Heap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-memory-manager">The Memory Manager</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-memory-allocation">Characteristics of Memory Allocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Characteristics of Memory Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-allocation">Characteristics of Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#over-allocation-and-buckets">Over-Allocation and Buckets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#characteristics-of-a-good-memory-manager">Characteristics of a Good Memory Manager</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-refresher-on-the-memory-hierarchy">A Refresher on the Memory Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-hierarchy-refresher">Memory Hierarchy Refresher</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#program-locality">Program Locality</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fragmentation">Fragmentation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-fragmentation-of-the-heap">Reducing Fragmentation of the Heap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-fit-vs-next-fit">Best-Fit vs Next-Fit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-fit">Best-Fit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-heap-fragmentation">Reducing Heap Fragmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-fit-and-best-fit">First Fit and Best Fit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-fit-buckets">Best-Fit Buckets</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-free-space">Managing Free Space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bugs-and-explicit-allocators">Bugs and Explicit Allocators</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-malloc-free">Debugging malloc / free</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-malloc-and-free">Debugging malloc and free</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-heap">Expanding the Heap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-reading">Recommended Reading</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems-with-manual-deallocation">Problems with manual deallocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Problems with manual deallocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-problems-with-manual-deallocation">Avoiding problems with manual deallocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-malloc-free-implementation-example-from-ibm-developer-works">A simple Malloc / Free Implementation (Example from IBM Developer Works)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-malloc-free-implementation">A simple Malloc / Free Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">A simple Malloc / Free Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">A simple Malloc / Free Implementation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">A simple Malloc / Free Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-malloc-case-study">Simple malloc Case Study</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-deallocation-problems">Manual Deallocation Problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#avoiding-manual-deallocation-problems">Avoiding Manual Deallocation Problems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garbage-collection">Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-garbage-collectors">Requirements for Garbage Collectors</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-for-a-garbage-collector">Goals for a Garbage Collector</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages-to-garbage-collection">Disadvantages to Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Disadvantages to Garbage Collection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disadvantages-of-garbage-collection">Disadvantages of Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reachability">Reachability</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-counting-garbage-collectors">Reference Counting Garbage Collectors</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-cons-of-reference-counting-garbage-collectors">Pros-Cons of Reference Counting Garbage Collectors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-counting">Reference Counting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-counting-tradeoffs">Reference Counting Tradeoffs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mark-and-sweep-garbage-collection">Mark-and-Sweep Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mark-and-compact-garbage-collection">Mark-and-Compact Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#garbage-collection-costs">Garbage Collection Costs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-garbage-collection">Incremental Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Incremental Garbage Collection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-incremental-collection-works">Why Incremental Collection Works</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generational-garbage-collection">Generational Garbage Collection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Generational Garbage Collection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buyer-beware">Buyer Beware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommended-reading">Recommended Reading</a></li>
 </ul>
   </nav></div>
 
