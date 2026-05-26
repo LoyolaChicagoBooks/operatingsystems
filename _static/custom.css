@@ -1,0 +1,5 @@
+/* Force single-column index page */
+table.genindextable td {
+    display: block;
+    width: 100% !important;
+}
