@@ -44,6 +44,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'Introduction to Operating Systems: Principles and Practice'
 authors = u'Loyola University Chicago Computer Science Department; Edited by George K. Thiruvathukal'
+author = authors
 copyright = u'2026, Loyola University Chicago Computer Science Department'
 
 # The version info for the project you're documenting, acts as replacement for
