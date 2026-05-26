@@ -1,58 +1,34 @@
 Introduction to Processes
 ===========================
 
--  An executing program or job
+A process is an executing program. It has a memory address space, a
+program image, handles to files, and the operating system state needed
+for interprocess communication.
 
--  Components
-
-   -  Memory address space
-
-   -  Program image
-
-   -  Handles to files
-
-   -  Interprocess communication
-
--  Every process has a parent
-
-   -  top most process in UNIX is "init"
-
-   -  Windows top most processes are:
-
-      -  system.exe - OS kernel
-
-      -  csrss.exe - handles user mode win32 calls
-
-      -  wininit.exe - manages system services
-
-      -  explorer.exe - OS shell
-
-      -  winlogin.exe - OS login service
+Every process has a parent. In traditional UNIX systems, the top of the
+process tree is ``init``. On Windows, several system processes fill
+similar roles, including ``system.exe`` for the kernel, ``csrss.exe`` for
+user-mode Win32 support, ``wininit.exe`` for system services,
+``explorer.exe`` for the shell, and ``winlogin.exe`` for login services.
 
 Process Memory Layout
 ---------------------
 
--  Text - machine instructions of a program.
+A process address space is normally divided into a few major regions.
+The text segment contains the machine instructions of the program. The
+data segment contains initialized static data and constants. The BSS
+segment contains uninitialized static data.
 
--  Data - initialized static data and constants
+The heap is used for dynamic memory allocation. A process may have one
+or more heaps. The stack contains local variables, call frames, and
+return values. Kernel-mode threads normally have one stack per thread.
+User-mode threading libraries may multiplex many user threads over a
+smaller number of kernel-thread stacks.
 
--  BSS - uninitialized static data
-
--  Heap - dynamic memory of a process
-
-   -  one or more per process
-
--  Stack - local variables, call stack, return values
-
-   -  one per thread for kernel mode threads
-
-   -  one per n-threads for user mode threads
-
--  layout of and allocation of text, data, bss, and initial values for
-   first thread’s stack and heap are the responsibility of the loader
-
--  management of stack and heap are through the process’s runtime
-   library and program instructions
+The loader is responsible for laying out the text, data, BSS, initial
+heap, and initial stack. After the process starts, stack and heap
+management are handled by the program, its runtime library, and the
+operating system.
 
 Process Memory Layout
 ---------------------
@@ -75,168 +51,181 @@ Multithreaded Memory Layout
 Preliminaries
 -----------------
 
--  Code for examples in maintained at |systems-code-examples-url| 
+The code examples are maintained at |systems-code-examples-url|. You can
+use |systems-code-examples-clone| to clone them into a folder named
+``systems-code-examples``.
 
--  You can use |systems-code-examples-clone| to clone to a folder ``systems-code-examples``.
+Full working demonstrations are referenced by directory name, such as
+``systems-code-examples/fork``. To build most examples, install ``gcc``,
+``cmake``, and ``make``. The examples have been tested on Ubuntu Linux,
+macOS, and Windows Subsystem for Linux 2 with Ubuntu.
 
--  All subsequent examples that are full-working demonstrations will be referenced as ``systems-code-examples/<example-name>``.
+Most examples use the same pattern::
 
--  To run examples, make sure you have `gcc`, `cmake`, and `make` on your computer.
+   $ cd systems-code-examples/<example-name>
+   $ cmake .
+   $ make
 
--  We only have tested on Ubuntu Linux, MacOS, and Windows Subsystem for Linux 2 (with Ubuntu 20.04 LTS). Most others should work.
-
-
+The output executable is normally written to the example's ``bin``
+subdirectory.
 
 Examine Process Layout Example
 ---------------------------------
 
--  Most of our examples are written in C with some C++.
+The ``systems-code-examples/c_intro`` example is a small C++ program used
+to examine process layout and the basic build process. It is also a
+useful first example because it has separate source files and a CMake
+build.
 
--  Getting the code
+Get and build the code::
 
-   |systems-code-examples-clone|
-   ``cd systems-code-examples/c_intro``
+   $ git clone https://github.com/SoftwareSystemsLaboratory/systems-code-examples
+   $ cd systems-code-examples/c_intro
+   $ cmake .
+   $ make
 
--  Generate the `Makefile` using `cmake`::
+Run the ``layout`` shell script to show the size of the text, data, and
+BSS sections in bytes::
 
-     $ cd c_intro
-     $ cmake .
-     -- The C compiler identification is GNU 9.3.0
-     -- The CXX compiler identification is GNU 9.3.0
-     -- Check for working C compiler: /usr/bin/cc
-     -- Check for working C compiler: /usr/bin/cc -- works
-     -- Detecting C compiler ABI info
-     -- Detecting C compiler ABI info - done
-     -- Detecting C compile features
-     -- Detecting C compile features - done
-     -- Check for working CXX compiler: /usr/bin/c++
-     -- Check for working CXX compiler: /usr/bin/c++ -- works
-     -- Detecting CXX compiler ABI info
-     -- Detecting CXX compiler ABI info - done
-     -- Detecting CXX compile features
-     -- Detecting CXX compile features - done
-     >> Linux
-     -- Configuring done
-     -- Generating done
-     -- Build files have been written to: /home/gkt/Work/systems-code-examples/c_intro
+   $ ./layout
 
+   section               size   addr
+   .text                 3957    4352
+   .data                   24   20480
+   .bss                     8   20504
 
--  Run `make` to crate the executable::
+The main program for this example is:
 
-     $ make
-     Scanning dependencies of target c-intro-demo
-     [ 20%] Building CXX object CMakeFiles/c-intro-demo.dir/main.cc.o
-     [ 40%] Building CXX object CMakeFiles/c-intro-demo.dir/debug.cc.o
-     [ 60%] Building CXX object CMakeFiles/c-intro-demo.dir/list.cc.o
-     [ 80%] Building CXX object CMakeFiles/c-intro-demo.dir/tests.cc.o
-     [100%] Linking CXX executable bin/c-intro-demo
-     [100%] Built target c-intro-demo
+.. literalinclude:: ../examples/systems-code-examples/c_intro/main.cc
+   :language: c++
+   :linenos:
 
--  Note that for all of our examples, the output executable appears in the `bin` subdirectory.
+Key points:
 
--  Note also that almost all of our examples use `cmake` and `make` as shown here.
-     
--  Run the `layout` shell script, which shows the size of the text, data, and bss in *bytes*::
+- The program is split across multiple source files, so the build has to
+  compile each file and link the resulting object files.
+- The example gives us an executable we can inspect with tools such as
+  ``size`` and ``nm``.
+- The ``layout`` script connects the compiled program back to the text,
+  data, and BSS sections discussed above.
 
-     $ ./layout
-
-     section               size   addr
-     .text                 3957    4352
-     .data                   24   20480
-     .bss                     8   20504
-     
 Loading Programs
 ----------------
 
--  loader allocates memory for executable's text, data, bss, heap, and
-   stack. and loads program's image into memory
+When a program is loaded, the loader allocates memory for the executable
+text, data, BSS, heap, and stack. It then loads the program image into
+memory.
 
--  loader gets information from OS where shared libraries are already
-   allocated in memory and loads the ones that are not already loaded.
-   each shared library has its own text, data, and bss
+The loader also handles shared libraries. It asks the operating system
+which shared libraries are already loaded and loads the ones that are
+not. Each shared library has its own text, data, and BSS sections. The
+loader then resolves external symbols so references in the executable
+point to the correct locations in memory.
 
--  loader goes through executable and adjusts the list of external
-   symbols to point to the correct spots in memory (to shared libraries)
+The ``nm`` command shows symbols in a compiled object file or executable.
+After the executable is ready, the loader invokes ``_start()``.
+``_start()`` calls ``_init()`` for each shared library, initializes static
+constructors for global objects, and then calls ``main()``.
 
--  try the ``nm`` command to see the symbols in a compiled object/executable.
+Simple Executable Example
+-------------------------
 
--  once program is ready, loader invokes ``_start()`` method
+The ``systems-code-examples/hello-exe`` example is the smallest complete
+executable example in the repository. It is useful for confirming the
+build process before looking at larger programs.
 
--  ``_start()`` calls ``_init()`` for each shared library
+.. literalinclude:: ../examples/systems-code-examples/hello-exe/demo.c
+   :language: c
+   :linenos:
 
--  ``_start()`` initializes static constructors of objects defined as
-   global variables
+Key points:
 
--  ``_start()`` calls main() and program begins
+- ``main()`` is the entry point that application programmers normally
+  write, even though the loader starts execution before ``main()``.
+- The program calls a function from a header-defined interface rather
+  than doing all work inline.
+- This is a minimal executable for checking compiler, linker, and loader
+  behavior.
 
 Loading shared libraries (.so)
 ------------------------------
 
--  Libraries also have a data, bss, and text segment
+Libraries also have text, data, and BSS sections. Shared libraries must
+use position-independent memory references so the same library can be
+mapped at different addresses in different processes. GCC uses the
+``-fpic`` or ``-fPIC`` flags for this. Newer GCC versions often make PIC
+the default. Use ``-fno-pic`` when you need to compare against non-PIC
+output.
 
--  Memory references in shared libraries are position independent (GCC
-   ``-fpic`` or ``-fPIC`` flagsA. Newer GCC makes PIC defualt. Use ``-fno-pic``
-   if you notice this.
+The dynamic linker resolves position-independent memory accesses by
+writing entries in the global offset table, or GOT, for each process.
+This is necessary because a shared library may be loaded at different
+offsets in different executions, while still allowing the operating
+system to share the library's text segment among processes.
 
--  Linker must resolve all of these position independent memory accesses
-   to local accesses. This is accomplished by writing the GOT for each
-   linked process.
+Shared Library Example
+----------------------
 
--  The need for the memory addresses to be position independent is
-   because the offset that a shared library will be loaded will differ
-   between executions of the same program and among other programs.
+The ``systems-code-examples/hello-lib`` example separates a function into
+a small library and calls it from an executable. This is the simplest
+repository example for discussing the boundary between application code
+and library code.
 
--  Also, the same loaded shared library will be shared with other
-   processes without reloading. So, the same library may have different
-   offsets for different programs
+.. literalinclude:: ../examples/systems-code-examples/hello-lib/hello.c
+   :language: c
+   :linenos:
+
+.. literalinclude:: ../examples/systems-code-examples/hello-lib/hello.h
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``hello.h`` declares the interface that other source files can include.
+- ``hello.c`` provides the implementation that can be compiled into a
+  library.
+- The executable depends on the library code being linked or loaded
+  before the call to ``say_hi()`` can run.
 
 more about GCC pic option
 ---------------------------
 
-Based on the *man page* for ``gcc``
+Based on the *man page* for ``gcc``:
 
 Generate position-independent code (PIC) suitable for use in a shared
 library, if supported for the target machine. Such code accesses all
 constant addresses through a global offset table (GOT). The dynamic
-loader resolves the GOT entries when the program starts (the dynamic
-loader is not part of GCC; it is part of the operating system). If the
-GOT size for the linked executable exceeds a machine-specific maximum
-size, you get an error message from the linker indicating that -fpic
-does not work; in that case, recompile with -fPIC instead. (These
-maximums are 8k on the SPARC and 32k on the m68k and RS/6000. The 386
-has no such limit.)
+loader resolves the GOT entries when the program starts. If the GOT size
+for the linked executable exceeds a machine-specific maximum size, the
+linker reports that ``-fpic`` does not work. In that case, recompile with
+``-fPIC`` instead.
 
-Loading shared libraries (.so)
-------------------------------
+Loading static libraries
+------------------------
 
--  Static libraries do not contain position independent code
-
--  Static libraries are simply a collection of unlinked ``.o`` (object)
-   files
-
--  The dynamic linker simply loads the text, data, and bss sections of
-   each object file into the program's address space
+Static libraries do not contain position-independent code. A static
+library is a collection of unlinked ``.o`` object files. When the program
+is linked, the linker copies the needed object code into the final
+executable.
 
 Position Independent Code Example
 ------------------------------------------
 
-- Get the code
+The ``systems-code-examples/pic`` example shows the difference between
+generating PIC and non-PIC assembly.
 
-  |systems-code-examples-clone|
+Get the code and build it with the example makefile::
 
-  ``cd systems-code-examples/pic``
+  $ git clone https://github.com/SoftwareSystemsLaboratory/systems-code-examples
+  $ cd systems-code-examples/pic
+  $ make -f Makefile.pic
 
--  For this example, you can build it using ``make -f Makefile.pic``. 
-
--  The main purpose of this example is to show the difference between generating PIC vs. non-PIC. 
-
-main.cc
+main.c
 ---------
 
 .. literalinclude:: ../examples/systems-code-examples/pic/main.c
    :language: c
    :linenos:
-
 
 main.nopic.s - non-position independent code (gcc -fno-pic)
 --------------------------------------------------------------
@@ -244,7 +233,6 @@ main.nopic.s - non-position independent code (gcc -fno-pic)
 .. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/main.nopic.s
    :linenos:
    :end-before: cfi_endproc
-
 
 main.nopic.s - position independent code (gcc -fpic, default option)
 ---------------------------------------------------------------------------
@@ -259,234 +247,310 @@ What's the difference?
 .. literalinclude:: ../examples/systems-code-examples/pic/results-gcc-9.3.0/diff-pic-vs-nopic.diff
    :linenos:
 
+Key points:
+
+- The C source is intentionally small so the assembly differences are
+  easier to see.
+- The non-PIC version can use more direct addressing because it assumes a
+  fixed relationship between code and data.
+- The PIC version uses relative addressing through the global offset
+  table so the code can be loaded at different virtual addresses.
+
 Shared Libraries - Evaluation
 ---------------------------------
 
-Strengths
+Shared libraries reduce memory use when multiple processes load the same
+library because the text segment can be reused. They also allow programs
+to benefit from library updates without rebuilding the executable.
 
--  Reduced memory footprint. If two programs load the same shared
-   library, the .text segment is reused across processes thanks to the
-   GOT
-
-Weaknesses
-
--  Requires a more advanced virtual memory implementation in the
-   operating system. Sometimes not practical for simple or embedded
-   systems
-
--  Requires more advanced compiler code generators. Different processors
-   have special features regarding memory offset registers or function
-   table size limitations.
+The cost is complexity. Shared libraries require virtual memory support,
+dynamic linking, position-independent code, and careful handling of
+version and path compatibility.
 
 Static Libraries - Evaluation
 --------------------------------
 
-Strengths
+Static libraries make sense when reuse is not important, when deployment
+must avoid runtime dependencies, or when the program must be self
+contained. Static linking can also avoid version and path problems.
 
--  Makes sense when re-use is not desired. A good example would be
-   installer executables with very large .data segments.
-
--  Faster first load loading time than shared libraries.
-
--  Fewer instructions generated for GOT lookups (minor issue)
-
-Weaknesses
-
--  Much larger memory footprint. Little reuse of common code between
-   applications.
-
+The main cost is memory use. Common code is copied into each executable,
+so there is less sharing across processes.
 
 Libraries vs. Statically-Linked Programs
 ----------------------------------------
 
-Dynamic Linking advantages:
-
--  Memory footprint
-
--  Code reuse
-
--  Improvement with new versions of shared libraries
-
--  Smaller executables
-
-Static linking advantages:
-
--  When deploying software, dependencies are less of a concern (e.g.
-   missing dependencies, incorrectly upgraded dependencies, custom
-   patches and alterations to shared code)
-
--  Versioning and path problems are less of a concern
-
--  Code obfuscation can obfuscate across object files
-
--  Compiler optimizers can optimize across object files
+Dynamic linking is usually chosen for memory footprint, code reuse,
+smaller executables, and easier library updates. Static linking is useful
+when deployment simplicity matters more than sharing. It can also make
+whole-program optimization and obfuscation easier because more code is
+available to the linker at once.
 
 Process Protection
 ------------------
 
-In modern operating systems with virtual memory and privileged
-separation the following protections are afforded:
+Modern operating systems use virtual memory and privilege separation to
+protect processes from each other and from the kernel.
 
--  One process cannot read the memory of another process (except when
-   explicitly permitted)
-
--  A process can fully manage the memory that it can access - garbage
-   collection, explicit allocation/deallocation, method call and
-   parameter passing standards, stack management, etc.
-
--  A crash, exception, resource starvation, deadlock, or other fault in
-   one process does not directly affect other processes
-
--  While mapped to the same address space, the process cannot modify
-   kernel memory or memory otherwise protected by the operating system
-   (such as text pages).
+One process cannot read another process's memory unless the operating
+system explicitly permits it. A process can manage the memory it owns,
+including allocation, deallocation, garbage collection, calling
+conventions, and stack management. A crash, exception, resource
+starvation, or deadlock in one process does not directly modify another
+process. Even though kernel memory may be mapped into the process address
+space, user code cannot modify kernel memory or other protected pages.
 
 Process Creation with fork()
 ----------------------------
 
-From the ``fork()`` man page:
+``fork()`` creates a new process by duplicating the calling process. The
+new process is the child. The calling process is the parent. The child has
+its own process ID, and its parent process ID is the parent's process ID.
+The parent's threads are not recreated in the child.
 
--  ``fork()`` creates a new process by duplicating the calling process. 
-   The new process, referred to as the child, is an exact duplicate of the calling process,
-   referred to as the parent, except for the following points:
-
--  the child has its own unique process id (PID)
-
--  the child's parent PID is the same as the parent's PID
-
--  the parent's threads are not recreated on the child
-
-interesting point: in Linux, ``fork() != fork()``; ``fork()`` calls ``clone()``
-
-From the man page:
-
--  ``fork()`` returns the child PID to the parent
-
--  ``fork()`` returns 0 to the child
-
--  ``fork()`` returns -1 if the child cannot be created
+In Linux, the C library implementation of ``fork()`` uses ``clone()``.
+From the programmer's point of view, ``fork()`` returns the child PID to
+the parent, returns ``0`` to the child, and returns ``-1`` if the child
+cannot be created.
 
 fork() example
 --------------
 
-See ``systems-code-examples/fork`` if you want to run this program.
+The ``systems-code-examples/fork`` example shows the basic return-value
+pattern used to distinguish parent and child execution.
 
 ::
-   
-   $ cd systems-code-examples/fork
-   $ cmake
-   $ make
 
+   $ cd systems-code-examples/fork
+   $ cmake .
+   $ make
 
 .. literalinclude:: ../examples/systems-code-examples/fork/main.c
    :language: c
    :linenos:
 
+Key points:
+
+- The call to ``fork()`` creates two processes that continue from the
+  same point in the program.
+- The parent sees the child's process ID as the return value.
+- The child sees ``0`` as the return value, which is how the code chooses
+  the child branch.
+
+fork() and exec() example
+-------------------------
+
+The ``systems-code-examples/fork_exec`` example creates a pipe, forks,
+redirects standard input and standard output with ``dup2()``, and then
+uses ``execvp()`` to replace each process image. The parent runs ``wc``.
+The child runs ``echo``.
+
+.. literalinclude:: ../examples/systems-code-examples/fork_exec/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``pipe()`` creates a kernel buffer with one file descriptor for reading
+  and one for writing.
+- ``dup2()`` redirects standard input or standard output before the
+  process image is replaced.
+- ``execvp()`` replaces the current program with another executable; code
+  after a successful ``execvp()`` call does not run.
+
 Process Creation with clone()
 -----------------------------
 
--  similar to ``fork()`` in that a child process is created.
+``clone()`` is similar to ``fork()`` because it creates a child execution
+context. Unlike ``fork()``, it allows selected parts of the parent process
+to be shared with the child.
 
--  ``clone()`` allows different parts of the parent process to be shared
-   with the child process
+Linux uses flags to control what is shared. ``CLONE_FS`` shares file
+system information such as ``chroot``, ``chdir``, and ``umask``.
+``CLONE_FILES`` shares the file descriptor table. ``CLONE_SIGHAND``
+shares signal handlers. ``CLONE_VM`` shares the page table. These flags
+are part of how Linux creates lightweight processes and kernel threads.
 
--  flags for creating a light weight process (kernel thread):
-
-   -  ``CLONE_FS`` - share FS information (chroot, chdir, umask)
-
-   -  ``CLONE_FILES`` - share file descriptor table
-
-   -  ``CLONE_SIGHAND`` - share signal handlers
-
-   -  ``CLONE_VM`` - share page table
-
--  many more flags exist - don't forget this little known capability!
-
--  glibc's version of ``fork()``, calls ``clone()`` without any of these flags
-
--  ``clone()`` not present in every UNIX OS (available in Linux but not
-   Minix)
+glibc's ``fork()`` calls ``clone()`` without these sharing flags.
+``clone()`` is Linux-specific and is not present in every UNIX-like
+operating system.
 
 Windows CreateProcess() and CreateThread()
 ------------------------------------------
 
--  Different from UNIX ``fork()``/``clone()`` - parts of processes are not
-   shared
+Windows does not expose the same process-sharing model as UNIX
+``fork()`` and Linux ``clone()``. ``CreateProcess()`` creates a new
+process and is closest to calling ``fork()`` followed by ``execve()`` on
+UNIX. ``CreateThread()`` creates a new thread and is closest to using
+``clone()`` with thread-sharing flags.
 
--  Windows has two flavors:
-
-   -  ``CreateProcess()`` - creates a new process, equivalent of calling
-      ``fork()`` then ``execve()`` in UNIX
-
-   -  ``CreateThread()`` - equivalent of creating ``clone()`` with thread flags
-
--  Is this a disadvantage?
-
-   -  For most use cases and most programs, no.
-
-   -  The vast majority of calls to ``clone()`` in UNIX are equivalent to
-      ``CreateThread()``
-
-   -  The vast majority of calls to ``fork()`` in UNIX are equivalent to
-      ``CreateProcess()``
+For most programs, this is not a practical disadvantage. Most UNIX uses
+of ``fork()`` are followed by ``exec()``, and most uses of ``clone()`` are
+for thread creation.
 
 Emulating fork() on Windows
 ---------------------------
 
-A well known system, Cygwin, implements ``fork()`` on Windows as follows:
+Cygwin implements ``fork()`` on Windows by combining ``CreateProcess()``,
+saved register state, copied memory regions, and synchronization. The
+parent creates a suspended child process, saves register state with
+``setjmp()``, copies the BSS and data sections to the child, wakes the
+child, and then coordinates stack, heap, and memory-mapped region copies.
 
-1. cygwin.dll calls ``CreateProcess()`` to create a suspended child process
+This approach is closer to "copy on fork" than modern UNIX copy-on-write.
+It is useful for compatibility, but it is more expensive than a native
+UNIX ``fork()`` implementation.
 
-2. parent process calls ``setjmp()`` to save registers
+System Call Boundary Example
+----------------------------
 
-3. parent process copies its BSS and DATA sections to the child's
-   address space.
+The ``systems-code-examples/syscall`` example compares three ways to
+write output: the C library ``printf()``, the POSIX ``write()`` wrapper,
+and a direct ``syscall()`` invocation.
 
-4. parent wakes child up and waits on a named mutex (mutual exclusion mechanism).
+.. literalinclude:: ../examples/systems-code-examples/syscall/main.c
+   :language: c
+   :linenos:
 
-5. child wakes up, realizes it was a forked process, then longjumps to
-   the saved jump buffer. child unlock's
+Key points:
 
-6. parent's named mutex and waits on a second mutex
+- ``printf()`` is a C library call, not a direct system call.
+- ``write()`` is the usual POSIX wrapper for the kernel's write system
+  call.
+- ``syscall(SYS_write, ...)`` bypasses the wrapper and invokes the system
+  call interface directly.
 
-7. parent wakes up, copies its stack and heap to the child process.
-   release's child's named mutex
+Command-Line Option Example
+---------------------------
 
-8. Child wakes up and copies any memory mapped regions the parent
-   signals to the child through shared memory
+The ``systems-code-examples/getopt`` example shows how a process receives
+command-line arguments through ``argc`` and ``argv`` and turns them into
+structured options.
 
-9. ``fork()`` system call in Cygwin does not use copy on write, but "copy on
-   fork". this is similar to ``fork()`` implementations in early UNIX
-   operating systems
+.. literalinclude:: ../examples/systems-code-examples/getopt/main.c
+   :language: c
+   :linenos:
 
-Causes of process termination
------------------------------
+.. literalinclude:: ../examples/systems-code-examples/getopt/cl.h
+   :language: c
+   :linenos:
 
--  Normal exit–return from ``main(...)``
+Key points:
 
--  Error exit–return from ``main(...)`` with an error code
+- ``argc`` and ``argv`` are the process's command-line interface.
+- The parsing code converts raw strings into a structured options object.
+- The program exits with success or failure depending on whether the
+  command line was valid.
 
--  Fatal error
+Process Termination
+-------------------
 
-   -  segfault/bus error–process tries to read/write inaccessible memory
-      or write to read-only memory.
+A process can terminate normally by returning from ``main()``. It can
+also terminate with an error code, by encountering a fatal error, or by
+being terminated externally by another process.
 
-   -  stack overflow–stack pointer grows to larger than stack area
-
-   -  protection fault–trying to run privileged instructions such as
-      enabling/disabling interrupts
-
-   -  instruction faults–divide by zero
-
--  External termination by another process either through signals or
-   system calls
+Fatal errors include segmentation faults or bus errors from invalid
+memory access, stack overflow, protection faults from privileged
+instructions, and instruction faults such as divide by zero.
 
 wait() and waitpid() examples
 -----------------------------
 
-See ``systems-code-examples/wait`` if you want to run this program.
+The ``systems-code-examples/wait`` example shows how a parent process can
+wait for a child process to terminate.
 
 .. literalinclude:: ../examples/systems-code-examples/wait/main.c
    :language: c
    :linenos:
 
+Key points:
+
+- The parent process uses ``wait()`` or ``waitpid()`` to collect child
+  exit status.
+- Waiting also prevents terminated children from remaining as zombie
+  processes.
+- The status value encodes how the child terminated.
+
+SIGCHLD examples
+----------------
+
+The ``systems-code-examples/fork_sigchld`` example handles ``SIGCHLD`` to
+notice when a child process exits. It uses ``wait()`` in the signal
+handler to collect the child's exit status.
+
+.. literalinclude:: ../examples/systems-code-examples/fork_sigchld/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``sigaction()`` installs a handler for ``SIGCHLD`` before the fork.
+- The kernel sends ``SIGCHLD`` to the parent when the child exits.
+- The handler calls ``wait()`` to collect the child's exit status.
+
+The ``systems-code-examples/fork_sigchld2`` example extends this pattern
+to multiple child processes. It uses ``waitpid()`` with ``WNOHANG`` so the
+handler can collect every child that has exited without blocking.
+
+.. literalinclude:: ../examples/systems-code-examples/fork_sigchld2/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The parent tracks child process IDs in a small table.
+- The signal handler loops with ``waitpid(-1, ..., WNOHANG)`` to collect
+  all children that have exited.
+- ``WNOHANG`` matters because a signal handler should not block waiting
+  for children that are still running.
+
+Process-Oriented C Case Studies
+-------------------------------
+
+Some examples in the repository are best treated as short systems C case
+studies. They support the process chapter because they make memory,
+calling conventions, and low-level representation concrete.
+
+The ``systems-code-examples/objects`` example shows object-style
+programming in C using ``struct`` values and functions.
+
+.. literalinclude:: ../examples/systems-code-examples/objects/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The ``Employee`` structure groups related fields in one allocation.
+- Functions such as ``Employee_New`` and ``Employee_Print`` act like
+  methods by taking an ``Employee*`` argument.
+- The example uses dynamic allocation, so it also previews memory
+  management issues handled later.
+
+The ``systems-code-examples/strlen`` example is a small C string and
+memory-layout demonstration.
+
+.. literalinclude:: ../examples/systems-code-examples/strlen/main.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- C strings are byte arrays terminated by ``'\0'``.
+- ``strlen()`` counts characters before the terminator, not the storage
+  used by the array.
+- The example is useful for connecting string behavior to memory layout.
+
+The ``systems-code-examples/parity`` example is a low-level bit
+manipulation example.
+
+.. literalinclude:: ../examples/systems-code-examples/parity/parity.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The code works directly with integer bits rather than higher-level data
+  structures.
+- Bit operations are common in operating systems code for flags, masks,
+  and packed state.
+- Small examples like this help make machine representation visible.
