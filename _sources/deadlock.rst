@@ -1,394 +1,493 @@
 Deadlock
 ========
 
-Deadlock - definition
----------------------
+Deadlock occurs when two or more threads are each waiting for resources
+held by another thread in the same waiting cycle. Once the cycle forms,
+the threads cannot make progress unless something external breaks the
+cycle.
 
-- Formal: A condition when two or more threads of execution are each waiting for resources in a cycle.
-- Informal: When two threads get into a chicken before the egg situation in locking. 
-- When a deadlock condition occurs, unless otherwise broken, the threads of execution involved will remain halted until they are terminated externally.
-- If deadlock is possible, it may not always happen immediately. If it is possible it can happen eventually given the right timing.
+Deadlock may not happen immediately in a program that contains the
+conditions for it. The bug may depend on timing, scheduling, input, or
+the order in which threads reach the locks.
 
 Dining Philosophers Problem
 ---------------------------
 
-- a philosopher can be either eating or thinking
-- philosophers cannot communicate with each other in any way
-- to eat, a philosopher needs both the right and left fork
+The dining philosophers problem is a small model of resource contention.
+Each philosopher alternates between thinking and eating, and each needs
+two forks to eat.
 
-Dining Philosophers - deadlock scenario
----------------------------------------
+The usual rules are:
+
+- A philosopher can be eating or thinking.
+- Philosophers do not communicate with each other.
+- A philosopher needs both the left fork and the right fork before
+  eating.
+- Each fork can be held by only one philosopher at a time.
+
+Dining Philosophers Deadlock Scenario
+-------------------------------------
+
+A deadlock can occur if every philosopher picks up one fork and then
+waits for the other fork.
 
 ::
 
-	eat() {
-		pick up right fork;
-		pick up left fork;
-		proceed with eating;
-	}
+   eat() {
+      pick up right fork;
+      pick up left fork;
+      proceed with eating;
+   }
 
-- t = 0: p1, p2, p3, p4, p5 each pick up right fork
-- t = 1: p1 tries to pick up left fork, cannot proceed because p5 has it held
-- t = 2: p2 tries to pick up left fork, cannot proceed because p1 has it held
-- t = ......
-- The waiting operation will continue forever. Each philosopher has one fork in their hand. Each philosopher is waiting on a fork held by another
+One possible execution is:
 
-Dining Philosophers - Lock Graph
---------------------------------
+- At ``t = 0``, every philosopher picks up the fork on the right.
+- At ``t = 1``, philosopher 1 tries to pick up the left fork, but
+  philosopher 5 holds it.
+- At ``t = 2``, philosopher 2 tries to pick up the left fork, but
+  philosopher 1 holds it.
+- The same pattern continues around the table.
 
-- In the first algorithm, locks can be obtained in any order. Given this, it is possible to draw a cycle on the graph and deadlock.
+Every philosopher holds one fork and waits for a fork held by another
+philosopher. No philosopher can finish eating and release a fork, so the
+program is deadlocked.
+
+Dining Philosophers Lock Graph
+------------------------------
+
+A lock graph shows the possible ordering relationships among locks. If
+the graph contains a cycle, a deadlock is possible.
+
+In the first dining philosophers algorithm, forks can be acquired in an
+order that forms a cycle.
 
 .. figure:: deadlock/undirected_lock_graph.*
-	:align: center
-	:width: 450px
-	:alt: Undirected Lock Graph
+   :align: center
+   :width: 450px
+   :alt: Undirected Lock Graph
 
-Dining Philosophers
--------------------
+Avoiding Deadlock with Try-and-Release
+--------------------------------------
 
-- What algorithm can we implement for eat() so that there will be no deadlock?
-- Why did we encounter deadlock?
-
-
-Dining Philosophers - solution 1
---------------------------------
+One way to avoid deadlock is to acquire both needed resources as a single
+logical operation. If the second resource is not available, the thread
+releases the first resource and tries again later.
 
 ::
 
-	eat() {
-		while(does not have both forks) {
-			pickup left fork
-			if(can pick up right fork) {
-				pick up right fork;
-			} else {
-				put down left fork;
-			}
-		}
-		proceed with eating
-	}
+   eat() {
+      while(does not have both forks) {
+         pickup left fork;
+         if(can pick up right fork) {
+            pick up right fork;
+         } else {
+            put down left fork;
+         }
+      }
+      proceed with eating;
+   }
 
-- this solution works because it obtains both forks as an atomic operation: if the philosopher cannot obtain the second fork, they put down their held fork. either they get both forks or no forks.
-- this prevents a cycle because of the check operation
+This avoids the deadlock cycle because a philosopher does not continue
+holding one fork while waiting forever for the other fork. The tradeoff
+is that the implementation is more complex and can still need fairness
+rules to avoid starvation or livelock.
 
-Dining Philosophers - solution 2
---------------------------------
+Avoiding Deadlock with Lock Ordering
+------------------------------------
 
-- each fork is assigned a number
+Another way to avoid deadlock is to assign a global order to resources
+and require every thread to acquire resources in that order.
 
 ::
 
-	eat() {
-		pick up fork with lower number
-		pick up fork with higher number
-		proceed with eating
-	}
+   eat() {
+      pick up fork with lower number;
+      pick up fork with higher number;
+      proceed with eating;
+   }
 
-- this solution works because the resources are assigned a partial order. this effectively reduces the number of possible edges in the order of locks that can be obtained in the resource lock graph. the graph is reduced to an directional acyclic graph which by definition cannot have cycles and cannot deadlock.
-- In solution 2, since the order of locks is agreed upon, the graph becomes directed and acyclic.
-- Given these rules, you cannot draw a cycle on this graph and cannot deadlock
+This works because a global order removes cycles from the lock graph. If
+all threads acquire the lower-numbered lock before the higher-numbered
+lock, no thread can create a circular wait.
 
 .. figure:: deadlock/directed_lock_graph.*
-	:align: center
-	:width: 450px
-	:alt: Undirected Lock Graph
+   :align: center
+   :width: 450px
+   :alt: Directed Lock Graph
 
-Dijkstra's Solution / Bankers Algorithm
----------------------------------------
+Dijkstra's Solution and the Banker's Algorithm
+----------------------------------------------
 
-- Solution #2 to the dining philosopher's problem is also known as Dijkstra's solution or the banker's algorithm
-- Up sides to this solution
-	- Simple to implement and verify lock ordering.
-	- Multi-lock algorithms can be implemented by comparing memory addresses. i.e. mutexes can be locked in the order they appear in memory
-- Down sides to this solution
-	- If you examine the undirected cyclic graph earlier, there are several permutations of acquiring locks that do not deadlock.
-	- In the directed acyclic graph, all permutations are deadlock free, but the total number of deadlock free permutations is much less than in the undirected cyclic graph
-	- Because of these issues, the total concurrency possible is less than optimal
+Dijkstra's solution to the dining philosophers problem uses resource
+ordering. The same basic idea appears in the Banker's algorithm: do not
+enter a resource allocation state that can lead to deadlock.
 
-Optimization to Dijkstra's Solution
------------------------------------
+The main advantage is simplicity. Lock ordering is easy to state, easy to
+review, and often easy to implement. A common approach is to lock mutexes
+in address order or in the order they appear in a table.
 
-- Solution #1 represents an optimization to Dijkstra's solution.
-- In solution #1, the graph remains undirected and cyclic, but the heuristic is changed to only obtain both resources if they can be obtained atomically.
-- In solution #1, all of the possible deadlock free permutations can be achieved. Because of this, more concurrency is possible.
-- The downside to solution #1 is that it is typically more complex to implement
-
+The main disadvantage is reduced concurrency. Some lock acquisition
+orders would be safe in a specific execution, but a strict global order
+forbids them anyway.
 
 Deadlock Avoidance Implementation
 ---------------------------------
 
-- aka. Banker's algorithm
-- aka. Dijkstra's solution
+Deadlock avoidance prevents unsafe lock acquisition by enforcing a
+consistent order.
 
 ::
 
-	typedef struct {
-		int LockNumber;
-		void* LockObject;
-	} lock;
+   typedef struct {
+      int LockNumber;
+      void* LockObject;
+   } lock;
 
-	void multi_lock(lock* locks, int count) {
-		sort(locks, count);
-		for(int i = 0; i < count; i++) {
-			lock(locks[i]);
-		}
-	}
+   void multi_lock(lock* locks, int count) {
+      sort(locks, count);
+      for(int i = 0; i < count; i++) {
+         lock(locks[i]);
+      }
+   }
 
+The important part is not the sorting function itself. The important
+part is that every caller uses the same ordering rule before acquiring
+more than one lock.
 
 Deadlock Prevention Implementation
 ----------------------------------
 
-- aka. optimization to Dijkstra's solution
-- This is just one implementation approach. Others involving lock tables or coordinators also exist
+Deadlock prevention can also be done by acquiring locks with a
+try-and-release rule. If any lock cannot be acquired, the thread releases
+what it already holds and tries again.
 
 ::
 
-	typedef struct {
-		int LockNumber;
-		void* LockObject;
-	} lock;
+   typedef struct {
+      int LockNumber;
+      void* LockObject;
+   } lock;
 
-	void multi_lock(lock* locks, int count) {
-		while(1) {
-			int i = 0;
-			for(i = 0; i < count; i++) {
-				if(!try_lock(locks[i])) {
-					for(int j = 0; j < i; j++) {
-						unlock(locks[j]);
-					}
-				      break;
-				}
-			}
-			if(i == count) {
-				return;
-			}
-		}
-	}
+   void multi_lock(lock* locks, int count) {
+      while(1) {
+         int i = 0;
+         for(i = 0; i < count; i++) {
+            if(!try_lock(locks[i])) {
+               for(int j = 0; j < i; j++) {
+                  unlock(locks[j]);
+               }
+               break;
+            }
+         }
+         if(i == count) {
+            return;
+         }
+      }
+   }
 
+This approach can allow more concurrency than strict ordering, but it can
+also be harder to reason about. Without backoff or fairness, two threads
+can repeatedly interfere with each other.
 
+Dining Philosophers Example
+---------------------------
 
-Example of Deadlock
--------------------
+The ``systems-code-examples/dining-philosophers`` example can run with
+or without resource ordering. The default mode can deadlock. The
+``DINING_POLICY=avoid_deadlock`` mode reorders forks to avoid the cycle.
 
-- Where is the Deadlock?
+.. literalinclude:: ../examples/systems-code-examples/dining-philosophers/diner-demo.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- The program creates five shared ``fork_t`` objects and five
+  ``diner_t`` objects.
+- Each diner receives pointers to the two forks it needs.
+- The default order gives each diner its normal left and right fork.
+- When the policy is ``avoid_deadlock``, the program reorders the fork
+  pointers so each diner follows the same resource order.
+- The main thread prints each diner's state so deadlock can be observed.
+
+.. literalinclude:: ../examples/systems-code-examples/dining-philosophers/diners.c
+   :language: c
+   :linenos:
+
+Key points:
+
+- Each fork is protected by a ``pthread_mutex_t``.
+- ``fork_pickup()`` locks the fork mutex, and ``fork_putdown()``
+  unlocks it.
+- ``diner_run()`` repeatedly thinks, picks up the left fork, picks up the
+  right fork, eats, and releases both forks.
+- The short sleep between fork acquisitions makes the deadlock easier to
+  reproduce.
+- ``get_dining_policy()`` reads the environment variable that selects
+  the deadlock-avoidance policy.
+
+.. literalinclude:: ../examples/systems-code-examples/dining-philosophers/diners.h
+   :language: c
+   :linenos:
+
+Key points:
+
+- ``fork_t`` stores the fork id and the mutex protecting that fork.
+- ``diner_t`` stores the diner id, current state, fork pointers, and
+  pthread handle.
+- The ``dining_policy_t`` enum records whether fork reordering is active.
+- The header separates the shared data model from the implementation in
+  ``diners.c``.
+
+Example of Deadlock in Nested Calls
+-----------------------------------
+
+Deadlock can be harder to see when locks are acquired through nested
+method calls.
 
 ::
 
-	void method1() {
-		a.lock();
-		method2();
-		a.unlock();
-	}
+   void method1() {
+      a.lock();
+      method2();
+      a.unlock();
+   }
 
 ::
 
-	void method2() {
-		b.lock();
-		c.lock();
-		b.unlock();
-		c.unlock();
-	}
+   void method2() {
+      b.lock();
+      c.lock();
+      b.unlock();
+      c.unlock();
+   }
 
 ::
 
-	void method3() {
-		c.lock();
-		method2();
-		method4();
-		c.unlock();
-	}
+   void method3() {
+      c.lock();
+      method2();
+      method4();
+      c.unlock();
+   }
 
 ::
 
-	void method4() {
-		d.lock();
-		d.unlock();
-	}
+   void method4() {
+      d.lock();
+      d.unlock();
+   }
 
+Here, ``method3()`` locks ``c`` and then calls ``method2()``, which tries
+to lock ``c`` again after locking ``b``. Depending on the lock type and
+the rest of the program, this can produce self-deadlock or contribute to
+a larger lock-ordering cycle.
 
 Multi-Lock Solutions in Windows
 -------------------------------
 
-- C++ method in Windows is WaitForMultipleObjects().
-- The method accepts N many lock handles
-- This method accepts many types of resources and locks:
-	- events
-	- mutexes
-	- semaphores
-	- timers
-	- and many others...
+Windows provides ``WaitForMultipleObjects()`` for waiting on multiple
+kernel objects.
 
-Multi-Lock Solutions in Linux/Minix
+The objects can include events, mutexes, semaphores, timers, and other
+waitable handles. This gives Windows programs a system-level way to wait
+for one or more synchronization objects.
+
+Multi-Lock Solutions in Linux and Minix
+---------------------------------------
+
+Linux and Minix do not provide a general multi-lock operation for normal
+pthread mutexes.
+
+The usual guidance is to avoid multi-locking when possible. When multiple
+locks are necessary, use a consistent ordering rule. For shared-memory
+semaphores, virtual address order is not reliable across processes, so
+the order should come from a shared table, array index, or explicit lock
+number.
+
+Deadlock with Correct Lock Ordering
 -----------------------------------
 
-- To my knowledge, there are no multi-lock solutions provided for free in Linux or Minix
-- The general rule of thumb is to try to avoid multi-locking if possible by design or if it is necessary to use the memory order of the locks as an ordering.
-- If using shared memory semaphores, memory ordering WILL NOT work since virtual addresses will not be reliable. In this case, lock ordering must be enforced by some other mechanism such as storing locks in an array and locking them in the array's order.
+Lock ordering prevents circular wait, but it does not prevent every way a
+program can stop making progress.
 
-Deadlock with Lock Ordering
----------------------------
-
-- While having multiple locks obtained out of order can lead to deadlock, it is possible for correctly ordered locks to end up in deadlock in other ways.
-- If an executing thread locks a resource and fails to release the lock, any other thread trying to obtain the lock will be deadlock. This can occur for one or more of the following reasons:
-	- Programmer error: there is no call to release a lock
-	- A thread crashes without releasing a lock
-	- The condition for releasing a lock is never met (infinite loop, poorly defined rules in a monitor, etc..)
-- These types of deadlock are practically more difficult to handle. 
+A thread can still lock a resource and fail to release it. Common causes
+include missing unlock calls, crashes while holding a lock, infinite
+loops inside critical sections, and monitor conditions that never become
+true. These failures are often harder to handle because the lock order
+may be correct while the program state is not.
 
 Starvation
 ----------
 
-- Starvation is a close cousin to deadlock. Starvation means that practically, one thread will have exclusive lock on a resource and one or more threads will not.
-- This is similar to a scheduling problem in terms of fairness.
-- Example live lock problem:
+Starvation occurs when one or more threads wait indefinitely because
+other threads keep getting access to the resource first.
 
-- Thread1:
+Starvation is closely related to scheduling fairness. A program can avoid
+deadlock and still be unfair enough that one thread makes little or no
+progress.
 
-::
+Starvation Example
+------------------
 
-	Queue _queue = new Queue();
-	Mutex _mutex = new Mutex();
-	void add() {
-		int value = 0;
-		while(1) {
-			_mutex-»Lock();
-			while(_queue-»count() » 0) {
-				value += _queue-»Dequeue();
-				printf("current value = %d\n", value);
-			}
-			_mutex-»Unlock();
-		}
-	}
-
-- Thread2:
+This example holds a lock while performing blocking I/O. That can make
+other threads wait much longer than necessary.
 
 ::
 
-	void read_values() {
-		while(1) {
-			int value = 0;
-			_mutex-»Lock();
-			scanf("%d\n", &value);
-			_queue-»Enqueue(value);
-			_mutex-»Unlock();
-		}
-	}
+   Queue _queue = new Queue();
+   Mutex _mutex = new Mutex();
 
-- There are two potential starvation problems here. Can you spot them?
-- In thread1, we make a call to printf(). This will cause thread1 to go to sleep at which time, thread2 will not be able to obtain the lock.
-- In thread2, we make a call to scanf(), while waiting for input the lock is held and thread1 will not be able to acquire the lock
-- How can we make this code better?
-
-- Thread1:
+   void add() {
+      int value = 0;
+      while(1) {
+         _mutex->Lock();
+         while(_queue->count() > 0) {
+            value += _queue->Dequeue();
+            printf("current value = %d\n", value);
+         }
+         _mutex->Unlock();
+      }
+   }
 
 ::
 
-	Queue _queue = new Queue();
-	Mutex _mutex = new Mutex();
-	void add() {
-		int value = 0;
-		while(1) {
-			_mutex-»Lock();
-			while(_queue-»count() » 0) {
-				value += _queue-»Dequeue();
-				_mutex->Unlock();
-				printf("current value = %d\n", value);
-				_mutex->Lock();
-			}
-			_mutex-»Unlock();
-		}
-	}
+   void read_values() {
+      while(1) {
+         int value = 0;
+         _mutex->Lock();
+         scanf("%d\n", &value);
+         _queue->Enqueue(value);
+         _mutex->Unlock();
+      }
+   }
 
-- Thread2:
+The first thread holds the lock while calling ``printf()``. The second
+thread holds the lock while calling ``scanf()``. Both operations can
+block, and while either one blocks the other thread cannot enter the
+critical section.
+
+Reducing Starvation
+-------------------
+
+One simple improvement is to keep blocking I/O outside the critical
+section.
 
 ::
 
-	void read_values() {
-		while(1) {
-			int value = 0;
-			scanf("%d\n", &value);
-			_mutex-»Lock();
-			_queue-»Enqueue(value);
-			_mutex-»Unlock();
-		}
-	}
+   Queue _queue = new Queue();
+   Mutex _mutex = new Mutex();
 
-- In this version of the code, the locks are not held during I/O operations like printf or scanf (which call read and write).
-- Because locks are not held during blocking operations, locks and unlocks will occur more often which will reduce the average waiting time to receive a lock.
+   void add() {
+      int value = 0;
+      while(1) {
+         _mutex->Lock();
+         while(_queue->count() > 0) {
+            value += _queue->Dequeue();
+            _mutex->Unlock();
+            printf("current value = %d\n", value);
+            _mutex->Lock();
+         }
+         _mutex->Unlock();
+      }
+   }
 
-Guidlines to Avoid Starvation
------------------------------
+::
 
-- Where possible, limit locks to computationally bound code
-- Keep critical sections short. If a computation is longer running, design code to give up a lock periodically.
-- If possible, make copies in critical sections and perform computations outside of locks. An example could be:
-   #. acquire lock
-   #. copy item in queue
-   #. update item as "in progress"
-   #. release lock
-   #. perform computation
-   #. acquire lock
-   #. remove item from queue
-   #. release lock﻿
-- Make sure the lock library you use has some fairness guarantee.
+   void read_values() {
+      while(1) {
+         int value = 0;
+         scanf("%d\n", &value);
+         _mutex->Lock();
+         _queue->Enqueue(value);
+         _mutex->Unlock();
+      }
+   }
+
+This version does not hold the lock during ``printf()`` or ``scanf()``.
+The critical section is shorter, and the average wait time for the lock
+is reduced.
+
+Guidelines to Avoid Starvation
+------------------------------
+
+Starvation is less likely when locks are held for short, predictable
+periods.
+
+Useful guidelines include:
+
+- Keep critical sections short.
+- Avoid blocking I/O while holding a lock.
+- If a computation is long-running, design it so the lock can be released
+  periodically.
+- Copy the needed data while holding the lock, then do expensive work
+  after releasing it.
+- Use synchronization libraries that provide fairness guarantees when
+  fairness matters.
 
 Livelock
 --------
 
-- Livelock is similar to deadlock.
-- Livelock is basically a race condition in avoidance of deadlock.
-- An example of livelock would be if one process is trying to multi-lock by testing, then acquiring each lock in turn, and another process is doing the same, they could both block each other by their corrective actions.
-- Example:
+Livelock occurs when threads keep running but repeatedly take actions
+that prevent progress.
+
+It can happen in deadlock-avoidance code when two threads both release
+and retry at the same time.
 
 ::
 
-	void thread1() {
-		while(1) {
-			a.lock();
-			if(b.trylock()) {
-				//do work
-				b.unlock();
-			}
-			a.unlock();
-		}
-	}
+   void thread1() {
+      while(1) {
+         a.lock();
+         if(b.trylock()) {
+            /* do work */
+            b.unlock();
+         }
+         a.unlock();
+      }
+   }
 
 ::
 
-	void thread2() {
-		while(1) {
-			b.lock();
-			if(a.trylock()) {
-				//do work
-				a.unlock();
-			}
-			b.unlock();
-		}
-	}
+   void thread2() {
+      while(1) {
+         b.lock();
+         if(a.trylock()) {
+            /* do work */
+            a.unlock();
+         }
+         b.unlock();
+      }
+   }
 
-- t0: thread1 locks a, context switch
-- t1: thread2 locks b, tries to lock a, fails, context switch
-- t2: thread1 tries to lock b, fails, unlocks a, context switch
-- t3: thread 2 unlocks b, context switch
+One possible sequence is:
+
+- ``thread1`` locks ``a``.
+- ``thread2`` locks ``b`` and fails to lock ``a``.
+- ``thread1`` fails to lock ``b`` and releases ``a``.
+- ``thread2`` releases ``b``.
+
+If the pattern repeats, both threads continue executing but neither
+completes the protected work. Backoff, ordering, or a coordinator can
+break the livelock.
 
 Lock Fairness
 -------------
 
-- Lock fairness is best described as having each executing thread waiting for a lock having a similar average wait time for that lock.
-- Locks that are unfair can lead to resource starvation.
-- The two most common approaches involve:
-	- FIFO queues - common
-	- Lock scheduler with a time table and history - not common
+Lock fairness means that threads waiting for a lock have similar average
+wait times.
 
-Lock Fairness. Pros / Cons
---------------------------
+Fair locks can reduce starvation and make execution more predictable.
+Common approaches include FIFO wait queues and, less commonly, schedulers
+that use timing history.
 
-- Remember, while the word 'fair' sounds good, that 'fairness' comes at some expense.
-- The key point to remember, is that when a thread is "chosen" to acquire a lock, there will be a non zero time between that choice and when that thread executes. That can be thought of as the "fairness cost".
-- Pros:
-	- Reduces starvation
-	- Creates more predictable execution patterns
-- Cons:
-	- If a thread locks in a loop, letting a thread re-acquire a lock if its quantum isn't complete can improve total performance. Fair locks don't always allow for a lock to be re-acquired if the quantum isn't finished. This can lead to shorter quantums which will hurt throughput.
-	- Lock fairness can create short quantums for short locks. This can in-turn hurt locality
+Fairness Tradeoffs
+------------------
 
+Fairness has a cost because selecting the next owner of a lock is not the
+same as immediately running that thread.
 
+A fair lock can reduce throughput when a thread repeatedly locks and
+unlocks a short critical section. An unfair lock may let the same thread
+reacquire the lock quickly, which can improve locality and throughput but
+can also starve other threads.
