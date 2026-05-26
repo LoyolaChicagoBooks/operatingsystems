@@ -42,9 +42,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Operating Systems'
-authors = u'Operating Systems Faculty at Loyola University Chicago'
-copyright = u'2013-2020, ' + authors
+project = u'Introduction to Operating Systems: Principles and Practice'
+authors = u'Loyola University Chicago Computer Science Department; Edited by George K. Thiruvathukal'
+copyright = u'2026, Loyola University Chicago Computer Science Department'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
