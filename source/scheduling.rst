@@ -1,6 +1,11 @@
 Process/Thread Scheduling
 =========================
 
+.. index::
+   single: scheduling
+   pair: scheduling; definition
+   single: scheduler
+
 Scheduling is the operating system activity that decides which runnable
 process or thread uses a CPU next. The scheduler has to balance
 responsiveness, fairness, throughput, and overhead. No policy optimizes
@@ -8,6 +13,14 @@ all of these goals at the same time.
 
 Kernel Mode vs. User Mode
 -------------------------
+
+.. index::
+   single: kernel mode
+   single: user mode
+   pair: CPU; kernel mode
+   pair: CPU; user mode
+   single: privileged instructions
+   single: page tables
 
 Kernel mode can use the full instruction set of the CPU. This includes
 privileged operations such as enabling and disabling interrupts, updating
@@ -21,6 +34,12 @@ interfaces such as system calls.
 
 Interrupts
 ----------
+
+.. index::
+   single: interrupt
+   single: interrupt handler
+   single: interrupt vector table
+   pair: CPU; interrupt
 
 An interrupt is an event that requires the CPU to stop its current flow
 of execution and run an interrupt handler.
@@ -47,6 +66,14 @@ Hardware Interrupts - PC Architecture
 Hardware Interrupts - Sources
 -----------------------------
 
+.. index::
+   single: hardware interrupts
+   single: southbridge
+   single: APIC
+   single: MMU
+   single: timer interrupt
+   pair: CPU; hardware interrupt
+
 Hardware interrupts come from devices and CPU components. Traditional PC
 systems routed many slower device interrupts through southbridge-related
 hardware. Multiprocessor systems use interrupt controllers such as APICs
@@ -59,6 +86,12 @@ chance to run the scheduler.
 
 Software Interrupts
 -------------------
+
+.. index::
+   single: software interrupts
+   single: system call interface
+   pair: x86; int 0x80
+   single: int 0x80
 
 Operating systems use software interrupts or related CPU mechanisms to
 implement system calls. A user program cannot jump directly into kernel
@@ -89,6 +122,13 @@ ordinary program errors.
 Goals of a Process Scheduler
 ----------------------------
 
+.. index::
+   single: scheduling; goals
+   single: fairness
+   single: throughput
+   single: response time
+   single: turnaround time
+
 A scheduler policy is judged by several goals:
 
 - Fairness: each process gets a reasonable share of the CPU.
@@ -104,6 +144,14 @@ responsive to a user.
 Types of Scheduling Strategies
 ------------------------------
 
+.. index::
+   single: preemptive scheduling
+   single: round-robin scheduling
+   single: priority scheduling
+   single: real-time scheduling
+   single: cooperative scheduling
+   pair: scheduling; strategies
+
 Common strategies include preemptive scheduling, round-robin scheduling,
 priority scheduling, real-time scheduling, cooperative scheduling, and
 run-to-completion scheduling.
@@ -113,6 +161,13 @@ with time sharing and priorities.
 
 OS Support
 ----------
+
+.. index::
+   single: CP/M
+   single: MS-DOS
+   single: cooperative multitasking
+   single: preemptive multitasking
+   pair: Windows; scheduling history
 
 Older systems such as CP/M and MS-DOS were not multitasking operating
 systems. Windows 1.x through 3.x, classic Mac OS, and NetWare used
@@ -124,6 +179,11 @@ most UNIX systems use preemptive multitasking.
 Types of Processes to Schedule
 ------------------------------
 
+.. index::
+   single: interactive processes
+   single: CPU-intensive processes
+   pair: process; types for scheduling
+
 Interactive processes spend much of their time waiting for user input or
 I/O. They often need low latency when they become runnable.
 
@@ -133,6 +193,12 @@ latency than interactive processes.
 
 Preemptive Scheduling Key Terms
 -------------------------------
+
+.. index::
+   single: time quantum
+   single: clock interrupt
+   single: context switch
+   pair: scheduling; time quantum
 
 A time quantum is the amount of time a process or thread can run before a
 scheduling decision is made. On many systems the quantum is related to
@@ -148,6 +214,14 @@ system calls, blocking I/O, faults, and other events.
 Process states
 -----------------
 
+.. index::
+   single: process states
+   single: running state
+   single: ready state
+   single: blocked state
+   single: terminated state
+   pair: process; states
+
 A process or thread is running when it is executing on a CPU. It is ready
 when it can run but is not currently selected. It is not ready when it is
 blocked waiting for an event. It is terminated when it has exited and is
@@ -155,6 +229,10 @@ being cleaned up.
 
 Choosing a Quantum
 ------------------
+
+.. index::
+   pair: scheduling; quantum selection
+   pair: context switch; overhead
 
 A shorter quantum improves responsiveness because a runnable process
 waits less time before getting a turn. A longer quantum improves
@@ -167,6 +245,10 @@ a shorter quantum can reduce the time between turns.
 
 Context Switches
 ----------------
+
+.. index::
+   single: context switch
+   pair: scheduler; context switch
 
 A context switch saves the state of the current process or thread and
 restores the state of another. The saved state includes CPU registers and
@@ -187,6 +269,11 @@ that context's registers and returns to user mode.
 Degrees of Preemption
 ---------------------
 
+.. index::
+   single: preemptive kernel
+   single: kernel preemption
+   pair: Linux; kernel preemption
+
 Operating systems differ in how much kernel code can be preempted. Simple
 systems may preempt user-mode tasks but not kernel-mode tasks. Systems
 with preemptive kernels can interrupt more kernel activity, which can
@@ -202,6 +289,10 @@ level. Older or simpler systems may schedule only processes.
 Round - Robin Process Scheduling
 --------------------------------
 
+.. index::
+   single: round-robin scheduling
+   pair: scheduling; round-robin
+
 Round-robin scheduling is simple. The operating system keeps a runnable
 list and gives each runnable process or thread a turn. On a system with
 multiple CPUs, several items from the runnable list may run at once.
@@ -211,6 +302,12 @@ priority, I/O behavior, or deadlines.
 
 Scheduling with Multiple Queues
 -------------------------------
+
+.. index::
+   single: multiqueue scheduling
+   single: priority queue
+   single: starvation
+   pair: scheduling; multiple queues
 
 Multiqueue schedulers separate runnable threads by priority or quantum
 length. Each queue can be scheduled round-robin, while the scheduler
@@ -243,6 +340,12 @@ temporary priority after it runs.
 Real-time Schedulers
 --------------------
 
+.. index::
+   single: real-time scheduling
+   single: deadline
+   pair: scheduling; real-time
+   single: utilization
+
 Real-time scheduling is concerned with deadlines. A real-time task has an
 arrival time, a deadline, and an execution requirement. The scheduler's
 main goal is to complete required work before deadlines.
@@ -264,6 +367,10 @@ third task needs 3 units every 5 units, utilization becomes
 
 Example Real World RTS Problem
 ------------------------------
+
+.. index::
+   pair: real-time scheduling; anti-lock braking system
+   single: anti-lock braking system (ABS)
 
 An anti-lock braking system is a real-time scheduling problem. Wheel
 sensors and a vehicle speed sensor report values every 15 ms. Recording
@@ -291,6 +398,11 @@ or 50.47 percent. This leaves enough CPU time for the required work.
 Types of Real-Time Scheduler Implementations
 --------------------------------------------
 
+.. index::
+   single: earliest-deadline-first scheduling (EDF)
+   single: fixed-priority scheduling
+   pair: scheduling; EDF
+
 Earliest-deadline-first scheduling chooses the runnable task with the
 nearest deadline. It can work well when runtime estimates and arrival
 rates are accurate. When utilization exceeds 100 percent, the missed
@@ -303,6 +415,13 @@ is often easier to reason about.
 Additional Concerns in Advanced Scheduler Implementations
 ---------------------------------------------------------
 
+.. index::
+   single: CPU affinity
+   single: NUMA
+   single: working set
+   pair: scheduling; CPU affinity
+   pair: scheduling; NUMA
+
 Modern schedulers consider more than priority. CPU affinity matters
 because a thread may still have useful data in a CPU cache. Working-set
 residency matters because running a thread with many resident pages may
@@ -314,6 +433,15 @@ thread already uses, or it may move work to balance load.
 
 Process Priority and Scheduling in Linux
 ----------------------------------------
+
+.. index::
+   single: SCHED_OTHER
+   single: SCHED_BATCH
+   single: SCHED_IDLE
+   single: SCHED_FIFO
+   single: SCHED_RR
+   single: sched_setscheduler()
+   pair: Linux; scheduling policies
 
 Linux supports normal and real-time scheduling policies. Normal policies
 include ``SCHED_OTHER``, ``SCHED_BATCH``, and ``SCHED_IDLE``. Real-time
@@ -331,6 +459,11 @@ other scheduler-specific rules.
 
 Linux Real Time Scheduler
 -------------------------
+
+.. index::
+   single: RLIMIT_RTTIME
+   single: sched_yield()
+   pair: Linux; real-time scheduler
 
 Linux real-time processes have priority over non-real-time processes.
 
@@ -357,6 +490,11 @@ not interactive. ``SCHED_IDLE`` is for very low-priority work. A
 Nice Values
 -----------
 
+.. index::
+   single: nice values
+   pair: process; priority
+   pair: UNIX; nice values
+
 UNIX systems use nice values to express process priority. The highest
 priority nice value is typically ``-20``. The lowest is typically ``19``.
 The default is ``0``.
@@ -367,6 +505,12 @@ Only root can decrease the nice value, raising priority.
 
 Process Scheduling in Windows
 -----------------------------
+
+.. index::
+   single: priority classes (Windows)
+   single: Multimedia Class Scheduler Service
+   pair: Windows; scheduling
+   pair: Windows; thread priorities
 
 Windows uses process priority classes and thread priorities within each
 class. Common classes include Idle, Below Normal, Normal, Above Normal,
@@ -382,6 +526,14 @@ such as audio and video.
 
 User-Mode Schedulers
 --------------------
+
+.. index::
+   single: user-mode schedulers
+   single: Windows fibers
+   single: GNU Pth
+   pair: threading; user-mode
+   single: setjmp()
+   single: longjmp()
 
 User-mode schedulers manage user-level threads without asking the kernel
 to schedule each one independently. They may map many user threads onto
@@ -421,6 +573,15 @@ usually a poor fit for CPU-bound parallel computation.
 GNU - Pth - User Mode Pthreads
 ------------------------------
 
+.. index::
+   single: GNU Pth
+   single: pth_init()
+   single: pth_spawn()
+   single: pth_accept()
+   single: pth_write()
+   single: pth_sleep()
+   pair: threading; GNU Pth
+
 GNU Pth provides a user-mode threading library with an API that resembles
 POSIX threads. Because the threads are scheduled in user mode, I/O-bound
 programs need Pth-aware calls such as ``pth_accept()``, ``pth_write()``,
@@ -443,6 +604,15 @@ Key points:
 
 PThreads - Kernel Threads
 -------------------------
+
+.. index::
+   single: pthreads
+   single: POSIX threads
+   single: pthread_create()
+   single: pthread_exit()
+   single: pthread_join()
+   single: pthread_attr_t
+   pair: threading; pthreads
 
 Most POSIX-compliant systems provide pthreads. In Linux, pthreads are
 implemented with kernel threads created through ``clone()``.
@@ -499,6 +669,12 @@ Key points:
 Condition variable preview
 --------------------------
 
+.. index::
+   single: condition variables
+   single: pthread_cond_wait()
+   single: pthread_cond_signal()
+   pair: synchronization; condition variables
+
 Condition variables are covered in more detail in the mutual exclusion
 chapter. This example appears here because it shows how scheduled
 threads can block and wake based on shared state.
@@ -536,6 +712,11 @@ Key points:
 
 C# Thread Scheduling Case Study
 -------------------------------
+
+.. index::
+   pair: C#; thread scheduling
+   single: Thread.Start()
+   single: Thread.Join()
 
 The ``systems-code-examples/threads_csharp`` example shows the same
 scheduling ideas in a managed runtime. The runtime creates operating
