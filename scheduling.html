@@ -377,6 +377,11 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-threads-why-not">User-Mode Threads: Why Not?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnu-pth-user-mode-pthreads">GNU - Pth - User Mode Pthreads</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pthreads-kernel-threads">PThreads - Kernel Threads</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-pthread-creation">Basic pthread creation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joinable-pthreads">Joinable pthreads</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-variable-preview">Condition variable preview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-variable-with-explicit-shared-data">Condition variable with explicit shared data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-thread-scheduling-case-study">C# Thread Scheduling Case Study</a></li>
 </ul>
             </nav>
         </div>
@@ -390,42 +395,35 @@
                   
   <section id="process-thread-scheduling">
 <h1>Process/Thread Scheduling<a class="headerlink" href="#process-thread-scheduling" title="Link to this heading">#</a></h1>
+<p>Scheduling is the operating system activity that decides which runnable
+process or thread uses a CPU next. The scheduler has to balance
+responsiveness, fairness, throughput, and overhead. No policy optimizes
+all of these goals at the same time.</p>
 <section id="kernel-mode-vs-user-mode">
 <h2>Kernel Mode vs. User Mode<a class="headerlink" href="#kernel-mode-vs-user-mode" title="Link to this heading">#</a></h2>
-<p>Kernel Mode</p>
-<ul>
-<li><p>Can use the full instruction set of the CPU. Including:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Enabling / disabling interrupts</p></li>
-<li><p>Setting special registers (page table pointer, interrupt table pointer, etc…)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Can modify any location in memory and modify page tables</p></li>
-</ul>
-<p>User Mode</p>
-<ul class="simple">
-<li><p>Cannot use privileged instructions.</p></li>
-<li><p>Can only modify the memory assigned to the process.</p></li>
-</ul>
+<p>Kernel mode can use the full instruction set of the CPU. This includes
+privileged operations such as enabling and disabling interrupts, updating
+page table registers, and installing interrupt table pointers. Kernel
+mode can also modify page tables and access memory that user programs
+cannot access.</p>
+<p>User mode cannot execute privileged instructions. A user-mode program can
+only modify memory assigned to its process, except through controlled
+interfaces such as system calls.</p>
 </section>
 <section id="interrupts">
 <h2>Interrupts<a class="headerlink" href="#interrupts" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>An interrupt is an event that requires immediate attention from the CPU.</p></li>
-<li><p>Procedure for handling interrupts</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Save all registers including the program counter to memory (typically the stack, but not always)</p></li>
-<li><p>CPU looks up the interrupt handler on the interrupt vector table and calls the interrupt handler</p></li>
-<li><p>Once the interrupt handler is completed, it restores all registers and returns to the program counter. It may optionally retry the instruction that caused the interrupt (in the case of a page fault).</p></li>
-<li><p>The program continues execution, not knowing anything has happened</p></li>
+<p>An interrupt is an event that requires the CPU to stop its current flow
+of execution and run an interrupt handler.</p>
+<p>The general interrupt path is:</p>
+<ol class="arabic simple">
+<li><p>Save CPU registers, including the program counter.</p></li>
+<li><p>Look up the handler in the interrupt vector table.</p></li>
+<li><p>Run the handler.</p></li>
+<li><p>Restore registers and return to the interrupted execution point.</p></li>
 </ol>
-</div></blockquote>
-</li>
-<li><p>This algorithm is the same for both hardware and software interrupts.</p></li>
-</ul>
+<p>This structure applies to both hardware and software interrupts. Some
+interrupts, such as page faults, may retry the instruction that caused
+the interrupt.</p>
 </section>
 <section id="hardware-interrupts-pc-architecture">
 <h2>Hardware Interrupts - PC Architecture<a class="headerlink" href="#hardware-interrupts-pc-architecture" title="Link to this heading">#</a></h2>
@@ -436,271 +434,153 @@
 </section>
 <section id="hardware-interrupts-sources">
 <h2>Hardware Interrupts - Sources<a class="headerlink" href="#hardware-interrupts-sources" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Southbridge (aka slow stuff) interrupts</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Early 8088/8086 PCs had a chip called the Intel 8253.</p></li>
-<li><p>SMP motherboards include a APIC or Advanced Programmable Interrupt Controller to help route interrupts in multi-processor scenarios</p></li>
-<li><p>These chips control interrupts that come from disks, and</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Northbridge (aka fast stuff) Interrupts</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>MMU - page faults (not present, not valid, insufficient permissions)</p></li>
-<li><p>ALU - divide by zero exception</p></li>
-<li><p>Clock - clock ticks</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Hardware interrupts come from devices and CPU components. Traditional PC
+systems routed many slower device interrupts through southbridge-related
+hardware. Multiprocessor systems use interrupt controllers such as APICs
+to route interrupts across CPUs.</p>
+<p>Other interrupts come from faster CPU-adjacent components. The MMU raises
+page faults. The ALU raises exceptions such as divide by zero. The clock
+raises periodic timer interrupts that give the operating system a regular
+chance to run the scheduler.</p>
 </section>
 <section id="software-interrupts">
 <h2>Software Interrupts<a class="headerlink" href="#software-interrupts" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>In operating systems that have separation between kernel and user space, software interrupts are used to implement system calls.</p></li>
-<li><p>Hello world in x86 assembly:</p></li>
-</ul>
+<p>Operating systems use software interrupts or related CPU mechanisms to
+implement system calls. A user program cannot jump directly into kernel
+memory. Instead, it uses the system call interface, which switches into
+kernel mode in a controlled way.</p>
+<p>This x86 assembly example writes “Hello World!” using the old Linux
+<code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">0x80</span></code> system call path.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>section .text
         global _start
 _start:
-        mov    edx, len      ; message length
-        mov    ecx, msg      ; message to write
-        mov    ebx, 1        ; 1 = stdout, the file descriptor
-        mov    eax, 4        ; 4 = system call number (sys_write)
-        int    0x80          ; software interrupt to call the kernel
+        mov    edx, len       ; message length
+        mov    ecx, msg       ; message to write
+        mov    ebx, 1         ; stdout
+        mov    eax, 4         ; sys_write
+        int    0x80           ; software interrupt
 section .data
-        msg    db   &#39;Hello World!&#39;,0xa
-        len    equ  $ - msg
+        msg    db &#39;Hello World!&#39;,0xa
+        len    equ $ - msg
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Software interrupts are much more expensive than making direct function calls through ‘call’ or ‘jmp’ like instructions.</p></li>
-<li><p>This cost is worth it in terms of the savings we get in terms of system reliability and security</p></li>
-</ul>
+<p>Software interrupts are more expensive than ordinary function calls. The
+cost is worthwhile because the kernel boundary protects the system from
+ordinary program errors.</p>
 </section>
 <section id="goals-of-a-process-scheduler">
 <h2>Goals of a Process Scheduler<a class="headerlink" href="#goals-of-a-process-scheduler" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>The attributes of a process scheduling policy are a combination of the following:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Fairness: make sure each process gets its fair share of the CPU.</p></li>
-<li><p>Efficiency: keep the CPU as busy as possible</p></li>
-<li><p>Response time: minimize the response time for interactive users.</p></li>
-<li><p>Turnaround: minimize the time batch users must wait for output</p></li>
-<li><p>Throughput: maximize the number of jobs processed per hour</p></li>
-</ol>
-</div></blockquote>
-</li>
-<li><p>There are no scheduler implementations that are optimal in each of these attributes. There is always a trade-off. Many of these attributes can be contradictory.</p></li>
+<p>A scheduler policy is judged by several goals:</p>
+<ul class="simple">
+<li><p>Fairness: each process gets a reasonable share of the CPU.</p></li>
+<li><p>Efficiency: the CPU stays busy.</p></li>
+<li><p>Response time: interactive work receives quick service.</p></li>
+<li><p>Turnaround: batch jobs complete in a reasonable time.</p></li>
+<li><p>Throughput: the system completes as many jobs as possible.</p></li>
 </ul>
+<p>These goals conflict. A system tuned for interactive response time may
+not maximize throughput. A system tuned for throughput may feel less
+responsive to a user.</p>
 </section>
 <section id="types-of-scheduling-strategies">
 <h2>Types of Scheduling Strategies<a class="headerlink" href="#types-of-scheduling-strategies" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Preemptive</p></li>
-<li><p>round-robin</p></li>
-<li><p>priority scheduling</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>shortest job first</p></li>
-<li><p>critical path</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Real-time</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Earliest deadline</p></li>
-<li><p>Fixed priority</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Cooperative / event driven</p></li>
-<li><p>Run to completion / non-preemptive</p></li>
-<li><p>Most modern operating systems use round-robin, preemptive scheduling with support for priorities.</p></li>
-</ul>
+<p>Common strategies include preemptive scheduling, round-robin scheduling,
+priority scheduling, real-time scheduling, cooperative scheduling, and
+run-to-completion scheduling.</p>
+<p>Most modern general-purpose operating systems use preemptive scheduling
+with time sharing and priorities.</p>
 </section>
 <section id="os-support">
 <h2>OS Support<a class="headerlink" href="#os-support" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Non-Multitasking</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>CP/M</p></li>
-<li><p>MS-DOS</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Cooperative multi-tasking</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Windows 1.x-3.x</p></li>
-<li><p>Mac OS 5 - 9</p></li>
-<li><p>NetWare</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Preemptive multi-tasking</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Minix</p></li>
-<li><p>Windows 95-ME, NT4 - 7</p></li>
-<li><p>Linux, BSDs</p></li>
-<li><p>OS/2</p></li>
-<li><p>Mac OSX</p></li>
-<li><p>VMS</p></li>
-<li><p>Unix</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Older systems such as CP/M and MS-DOS were not multitasking operating
+systems. Windows 1.x through 3.x, classic Mac OS, and NetWare used
+cooperative multitasking, where programs had to yield control.</p>
+<p>Modern systems such as Linux, BSD, Windows NT and later, macOS, VMS, and
+most UNIX systems use preemptive multitasking.</p>
 </section>
 <section id="types-of-processes-to-schedule">
 <h2>Types of Processes to Schedule<a class="headerlink" href="#types-of-processes-to-schedule" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Interactive processes</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Spend most of their time in the <em>not ready</em> state.</p></li>
-<li><p>Wait on either I/O operations to complete or for user interaction</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>CPU intensive processes</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Spend most of their time in the ‘ready’ state.</p></li>
-<li><p>Are largely CPU bound.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Interactive processes spend much of their time waiting for user input or
+I/O. They often need low latency when they become runnable.</p>
+<p>CPU-intensive processes spend most of their time ready to run. They need
+enough CPU time for throughput, but they can usually tolerate longer
+latency than interactive processes.</p>
 </section>
 <section id="preemptive-scheduling-key-terms">
 <h2>Preemptive Scheduling Key Terms<a class="headerlink" href="#preemptive-scheduling-key-terms" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>Time Quantum</strong> - the allotted time slice a program is run before a scheduling decision. Typically less than or equal to a clock tick.</p></li>
-<li><p><strong>Clock</strong> - one of two triggers for the scheduling algorithm. On most CPUs, the clock ticks at a rate of 50-100Hz. Each clock tick issues a hardware interrupt which permits the operating system to run the scheduler</p></li>
-<li><p><strong>Context Switch</strong> - the process by which through a software or hardware interrupt, a process switches from user mode to kernel mode or from kernel mode to user mode</p></li>
-</ul>
+<p>A time quantum is the amount of time a process or thread can run before a
+scheduling decision is made. On many systems the quantum is related to
+clock ticks.</p>
+<p>The clock is a hardware timer that periodically interrupts the CPU. The
+interrupt gives the kernel an opportunity to run scheduler code.</p>
+<p>A context switch saves the state of one execution context and restores
+the state of another. Context switches can be caused by timer interrupts,
+system calls, blocking I/O, faults, and other events.</p>
 </section>
 <section id="process-states">
 <h2>Process states<a class="headerlink" href="#process-states" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>running - currently executing on one or more CPUs</p></li>
-<li><p>ready - ready to be executed, but not running</p></li>
-<li><p>not ready - not ready to run, currently waiting on an event</p></li>
-<li><p>terminated - process has exited and is being cleaned up</p></li>
-</ul>
+<p>A process or thread is running when it is executing on a CPU. It is ready
+when it can run but is not currently selected. It is not ready when it is
+blocked waiting for an event. It is terminated when it has exited and is
+being cleaned up.</p>
 </section>
 <section id="choosing-a-quantum">
 <h2>Choosing a Quantum<a class="headerlink" href="#choosing-a-quantum" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Variables to consider</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Context switch / scheduler Overhead</p></li>
-<li><p>Quantum Length</p></li>
-<li><p>Number of Processes</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Total Overhead: If overhead is 5ms and the quantum is 20ms, then overhead is 20%. If the quantum is 50ms, then the overhead is only 10%</p></li>
-<li><p>Average Response Time: If overhead is 5ms, quantum, is 20ms, and 5 active processes exist, the time between runs will be: (overhead + quantum) * (runnable processes - 1) = 100ms. If the quantum is reduced to 10ms, then the time between runs will be: 60ms</p></li>
-<li><p>So, the choice of a smaller quantum will make the system more responsive, and a longer quantum will make the system more efficient</p></li>
-</ul>
+<p>A shorter quantum improves responsiveness because a runnable process
+waits less time before getting a turn. A longer quantum improves
+efficiency because the system spends less time context switching.</p>
+<p>For example, if context-switch overhead is 5 ms and the quantum is 20 ms,
+overhead is 20 percent. If the quantum is 50 ms, overhead drops to about
+10 percent. The tradeoff is response time. With five runnable processes,
+a shorter quantum can reduce the time between turns.</p>
 </section>
 <section id="context-switches">
 <h2>Context Switches<a class="headerlink" href="#context-switches" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>A context switch is the process by which a program saves it state to switch to the operating system</p></li>
-<li><p>Context switches are caused by software and hardware interrupts</p></li>
-</ul>
+<p>A context switch saves the state of the current process or thread and
+restores the state of another. The saved state includes CPU registers and
+the program counter. The operating system also updates process state in
+its process or thread tables.</p>
 </section>
 <section id="context-switching-how-it-works">
 <h2>Context switching - How it works<a class="headerlink" href="#context-switching-how-it-works" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p>Save CPU registers of currently running process into the process table.</p></li>
-<li><p>Change the process state to</p>
-<ul>
-<li><p>Ready</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>if the context switch was caused by a hardware interrupt</p></li>
-<li><p>if the context switch was caused by a software interrupt and the kernel
-can return immediately (non blocking call)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Not Ready</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>if the context switch was caused by a software interrupt and the
-kernel cannot return immediately (blocking call)</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</li>
-<li><p>Invoke the scheduler to find a ‘ready’ process and change its state to ‘running’</p></li>
-<li><p>Restore registers for the new process and switch back to user mode.</p></li>
-</ol>
+<p>The kernel first saves the CPU registers for the interrupted process or
+thread. It then marks that execution context as ready or not ready. A
+timer interrupt usually leaves it ready. A blocking system call usually
+leaves it not ready.</p>
+<p>The scheduler then chooses a ready process or thread. The kernel restores
+that context’s registers and returns to user mode.</p>
 </section>
 <section id="degrees-of-preemption">
 <h2>Degrees of Preemption<a class="headerlink" href="#degrees-of-preemption" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Different operating systems have different degrees of preemption.</p></li>
-<li><p>In simpler operating systems, user-mode tasks can be preempted, but kernel-mode tasks cannot.</p></li>
-<li><p>Systems that also allow kernel-mode tasks to be preempted will be more responsive</p></li>
-<li><p>Systems with preemptive kernels:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Linux since 2.6 (2003)</p></li>
-<li><p>Windows NT since NT4 (1996)</p></li>
-<li><p>Solaris 2.0 (1991, I think)</p></li>
-<li><p>AIX</p></li>
-<li><p>Some BSD systems (NetBSD since v5, not sure about others)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>The two units that can be considered for scheduling are threads and processes</p></li>
-<li><p>Some operating systems only schedule on the process level and do not consider threads separately (Minix does this)</p></li>
-<li><p>Other operating systems schedule on a per-thread level (Linux, Windows, OSX)</p></li>
-</ul>
+<p>Operating systems differ in how much kernel code can be preempted. Simple
+systems may preempt user-mode tasks but not kernel-mode tasks. Systems
+with preemptive kernels can interrupt more kernel activity, which can
+improve responsiveness.</p>
+<p>Modern Linux, Windows NT and later, Solaris, AIX, and several BSD systems
+support kernel preemption to some degree.</p>
+<p>The schedulable unit also differs. Some systems schedule processes.
+Others schedule threads. Linux, Windows, and macOS schedule at the thread
+level. Older or simpler systems may schedule only processes.</p>
 </section>
 <section id="round-robin-process-scheduling">
 <h2>Round - Robin Process Scheduling<a class="headerlink" href="#round-robin-process-scheduling" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Round robin scheduling is the simplest scheduling policy, but not the most efficient</p></li>
-<li><p>The operating system maintains two lists:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>runnable list</p></li>
-<li><p>non-runnable list</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>The operating system simply runs through the runnable list in order executing each process one at a time. (or N at a time for N-CPUs)</p></li>
-</ul>
+<p>Round-robin scheduling is simple. The operating system keeps a runnable
+list and gives each runnable process or thread a turn. On a system with
+multiple CPUs, several items from the runnable list may run at once.</p>
+<p>Round robin is fair in a basic sense, but it does not account for
+priority, I/O behavior, or deadlines.</p>
 </section>
 <section id="scheduling-with-multiple-queues">
 <h2>Scheduling with Multiple Queues<a class="headerlink" href="#scheduling-with-multiple-queues" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Runnable threads are separated into queues based upon:</p></li>
-<li><p>Quantum length</p></li>
-<li><p>Process / thread priority</p></li>
-<li><p>Each queue is then run round-robin</p></li>
-<li><p>Algorithm (pseudo):</p></li>
-</ul>
+<p>Multiqueue schedulers separate runnable threads by priority or quantum
+length. Each queue can be scheduled round-robin, while the scheduler
+chooses higher-priority queues before lower-priority queues.</p>
+<p>A simple version looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">thread</span> <span class="n">schedule</span><span class="p">(</span><span class="n">thread</span> <span class="n">interruptedThread</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">let</span> <span class="n">highest</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lowest</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
         <span class="n">Queue</span> <span class="n">runQueue</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-        <span class="n">interruptedThread</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">runnable</span> <span class="ow">or</span> <span class="n">blocked</span>
-        <span class="n">queue</span><span class="p">(</span><span class="n">interruptedThread</span><span class="o">.</span><span class="n">priority</span><span class="p">)</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">interruptedThread</span><span class="p">)</span>
+        <span class="n">interruptedThread</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">runnable</span> <span class="ow">or</span> <span class="n">blocked</span><span class="p">;</span>
+        <span class="n">queue</span><span class="p">(</span><span class="n">interruptedThread</span><span class="o">.</span><span class="n">priority</span><span class="p">)</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">interruptedThread</span><span class="p">);</span>
         <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">highest</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">lowest</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">if</span><span class="p">(</span><span class="n">queue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="n">has</span> <span class="nb">any</span> <span class="n">runnable</span> <span class="n">threads</span><span class="p">)</span> <span class="p">{</span>
                         <span class="n">thread</span> <span class="n">t</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">dequeue</span><span class="p">();</span>
@@ -711,93 +591,25 @@ kernel cannot return immediately (blocking call)</p></li>
 <span class="p">}</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>What are some problems with this scheduling algorithm?</p></li>
-<li><p>What happens if higher priority threads are always runnable?</p></li>
-<li><p>How do we give processes that don’t use their entire quantum (I/O bound) more priority?</p></li>
-<li><p>Improved Algorithm (pseudo):</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>thread schedule(thread interruptedThread) {
-        let highest = 0, lowest = 9;
-        Queue runQueue(10);
-        if(interruptedThread.quantumUsed « Quantum) {
-                interruptedThread.priority = max(interruptedThread.priority+1, highest);
-        }
-        interruptedThread.state = runnable or blocked
-        queue(interruptedThread.priority).enqueue(interruptedThread)
-        for(int i = highest; i «= lowest; i++) {
-                if(queue(i) has any runnable threads) {
-                        thread t = queue.dequeue();
-                        t.state = running;
-                        t.priority -= 1;
-                        if(t.priority != t.basePriority &amp;&amp; t.priority »= lowest) {
-                                t.priority = t.basePriority;
-                        }
-                        return t;
-                }
-        }
-}
-</pre></div>
-</div>
-<ul>
-<li><p>The reason that this scheduler is better is because it accomplishes two things:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>It boosts priority of threads that don’t completely use their allotted quantum (typically I/O bound)</p></li>
-<li><p>If a thread is run, then its priority is temporarily decreased. The higher priority a thread is, the more chances it will have to run before it gets to the lowest queue. Also, this ensures that all ready processes will be run at some point.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>There are many variations on this type of scheduling that attempt to fine tune the rate of increase or decrease of thread priority. The most typical enhancement is to increase or decrease the amount of priority change with the number of priority changes.</p></li>
-</ul>
+<p>This policy can starve low-priority work if high-priority threads are
+always runnable. A common improvement is to temporarily boost threads
+that block before using their full quantum, because those threads are
+often interactive or I/O bound. Another improvement is to lower a thread’s
+temporary priority after it runs.</p>
 </section>
 <section id="real-time-schedulers">
 <h2>Real-time Schedulers<a class="headerlink" href="#real-time-schedulers" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>This is most typically used in real-time operating systems where the most important aspect of a process is not its priority but its deadline to complete a unit of work.</p></li>
-<li><p>Attributes of real-time processes:</p>
-<blockquote>
-<div><ul>
-<li><p>Arrival time (some absolute time)</p></li>
-<li><p>Deadline (some time relative to the arrival time)</p></li>
-<li><p>Execution requirement</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Time for computation</p></li>
-<li><p>Time to complete system calls</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>The goal of a real-time scheduler is to make sure as many processes as possible get their full execution requirement before the deadline.</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>This isn’t always possible (two processes arrive at the same time with 100ms requirements, both with deadlines 120ms away).</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>In a real time scheduler, completion of all tasks before deadlines is the most important goal. The next important goal is achieving high CPU utilization.</p></li>
-<li><p>Terms:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Utilization - the sum of the execution time divided by the arrival rate of the process (entering the runnable state)</p></li>
-<li><p>Schedulable - a set of processes is ‘schedulable’ if the utilization of the system is less than 100%</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Example:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Pa requires 2 units of time and arrives at t=0,5,10,15,….</p></li>
-<li><p>Pb requires 1 unit of time and arrives at t=2,4,6,8,10,….</p></li>
-<li><p>Utilization is: 2/5 + 1/2 = 90%. Therefore the system is schedulable.</p></li>
-<li><p>If Pc is added and requires 3 units of time and arrives at t=0,5,10,15,…. then utilization is 2/5 + 3/5 + 1/2 = 150% and the system is not schedulable. (at least some processes will miss their deadlines)</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Real-time scheduling is concerned with deadlines. A real-time task has an
+arrival time, a deadline, and an execution requirement. The scheduler’s
+main goal is to complete required work before deadlines.</p>
+<p>A task set is schedulable when the system can meet all deadlines under
+the chosen policy. A simple utilization estimate is the sum of execution
+time divided by arrival period for each periodic task. If utilization is
+over 100 percent, not all work can finish on time.</p>
+<p>For example, if task <code class="docutils literal notranslate"><span class="pre">Pa</span></code> needs 2 units every 5 units, and task <code class="docutils literal notranslate"><span class="pre">Pb</span></code>
+needs 1 unit every 2 units, utilization is <code class="docutils literal notranslate"><span class="pre">2/5</span> <span class="pre">+</span> <span class="pre">1/2</span> <span class="pre">=</span> <span class="pre">90%</span></code>. If a
+third task needs 3 units every 5 units, utilization becomes
+<code class="docutils literal notranslate"><span class="pre">2/5</span> <span class="pre">+</span> <span class="pre">1/2</span> <span class="pre">+</span> <span class="pre">3/5</span> <span class="pre">=</span> <span class="pre">150%</span></code>, which is not schedulable on one CPU.</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="_images/rts_1.png"><img alt="RTS Scheduler Example 1" src="_images/rts_1.png" style="width: 600px;" />
 </a>
@@ -805,374 +617,135 @@ kernel cannot return immediately (blocking call)</p></li>
 </section>
 <section id="example-real-world-rts-problem">
 <h2>Example Real World RTS Problem<a class="headerlink" href="#example-real-world-rts-problem" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Example problem: Anti-Lock braking system.</p></li>
-<li><p>Problem description:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Each wheel has a sensor that reports wheel speed every 15ms</p></li>
-<li><p>An additional sensor reports vehicle speed every 15ms. Recording values takes 1ms.</p></li>
-<li><p>Wheel angular velocity is (wheel speed) / (wheel radius)</p></li>
-<li><p>Vehicle angular velocity is (vehicle speed) / (wheel radius)</p></li>
-<li><p>Wheel slip is 1 - (wheel angular velocity) / (vehical angular velocity)</p></li>
-<li><p>When slip = 1, a wheel is locked up. Ideal slip is 0.2.</p></li>
-<li><p>Engineers report that slip can change at a rate of 0.1 per 50ms</p></li>
-<li><p>Adjusting anti-lock brakes for all tires takes 6ms.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>What are the scheduling requirements of this system?</p></li>
-<li><p>What are the processes?</p></li>
-<li><p>What are the arrival rates and deadlines of processes?</p></li>
-<li><p>Do we need faster sensors?</p></li>
-<li><p>Can we save money by:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Getting a slower CPU?</p></li>
-<li><p>Getting slower sensors?</p></li>
-<li><p>Getting an ABS system that reacts slower?</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>An anti-lock braking system is a real-time scheduling problem. Wheel
+sensors and a vehicle speed sensor report values every 15 ms. Recording
+values takes 1 ms. Brake adjustment for all tires takes 6 ms.</p>
+<p>The system needs to detect wheel slip and react before slip changes too
+much. If two samples and one adjustment fit inside the required response
+window, the task set is schedulable.</p>
 </section>
 <section id="solution-to-example-real-world-rts-problem">
 <h2>Solution to Example Real World RTS Problem<a class="headerlink" href="#solution-to-example-real-world-rts-problem" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Sensor[A-D]: Period = 15ms, Requirement = 1ms</p></li>
-<li><p>Sensor[V]: Period = 15ms, Requirement = 1ms</p></li>
-<li><p>2 samples can be taken and recorded for each tire in a period of 15ms*2+5ms = 35ms (the first recording period overlaps with the second reading so we don’t count it)</p></li>
-<li><p>If a problem is found, we can schedule a process to adjust anti-lock brakes which will take 6ms. 35ms + 6ms = 41ms. This is faster than the rate of change in slip of 50ms.</p></li>
-<li><p>Is this schedulable? 1/15 + 1/15 + 1/15 + 1/15 + 1/15 + 6/35 = 50.47%. Yes!</p></li>
-</ul>
+<p>Five sensor tasks each need 1 ms every 15 ms. Brake adjustment needs 6 ms
+when scheduled. Two samples can be collected in 35 ms, and adjustment
+brings the total to 41 ms. That is below the 50 ms slip-change window.</p>
+<p>Utilization is approximately <code class="docutils literal notranslate"><span class="pre">1/15</span> <span class="pre">+</span> <span class="pre">1/15</span> <span class="pre">+</span> <span class="pre">1/15</span> <span class="pre">+</span> <span class="pre">1/15</span> <span class="pre">+</span> <span class="pre">1/15</span> <span class="pre">+</span> <span class="pre">6/35</span></code>,
+or 50.47 percent. This leaves enough CPU time for the required work.</p>
 <figure class="align-center">
 <a class="reference internal image-reference" href="_images/rts_2.png"><img alt="RTS Example 2" src="_images/rts_2.png" style="width: 800px;" />
 </a>
 </figure>
-<ul class="simple">
-<li><p>It appears that we also have</p></li>
-<li><p>8ms of extra time before our deadline</p></li>
-<li><p>25ms of idle CPU time every 42ms</p></li>
-<li><p>So, we can save money by using a slower CPU, ABS, and/or sensors.</p></li>
-</ul>
 </section>
 <section id="types-of-real-time-scheduler-implementations">
 <h2>Types of Real-Time Scheduler Implementations<a class="headerlink" href="#types-of-real-time-scheduler-implementations" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Earliest deadline first</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Works with estimates of process runtimes and arrival rates.</p></li>
-<li><p>When system utilization is over 100%, which processes miss deadlines is unpredictable</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Fixed priority</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Gives the highest priority task CPU whenever it is in the ready state.</p></li>
-<li><p>If utilization is over 100%, then lower priority tasks will not meet the deadline. This is more predictable and therefore more often favored</p></li>
-<li><p>Simpler to implement</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Earliest-deadline-first scheduling chooses the runnable task with the
+nearest deadline. It can work well when runtime estimates and arrival
+rates are accurate. When utilization exceeds 100 percent, the missed
+deadlines may be harder to predict.</p>
+<p>Fixed-priority scheduling always runs the highest-priority ready task. If
+the system is overloaded, lower-priority tasks miss deadlines first. This
+is often easier to reason about.</p>
 </section>
 <section id="additional-concerns-in-advanced-scheduler-implementations">
 <h2>Additional Concerns in Advanced Scheduler Implementations<a class="headerlink" href="#additional-concerns-in-advanced-scheduler-implementations" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>In more advanced operating systems, additional issues are considered in schedulers in addition to priority</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>CPU / Core affinity</p></li>
-<li><p>How many pages of the working set of a process are resident</p></li>
-<li><p>NUMA</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>If a process is scheduled on a given core previously:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>There is a decent chance that some of its pages are still in L1/L2/L3 cache.</p></li>
-<li><p>Scheduling on that CPU again is better than not.</p></li>
-<li><p>But, if too many processes are grouped on one CPU, they need to be migrated though.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>NUMA = Non Uniform Memory Access</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>This is common in machines with separate physical CPUs</p></li>
-<li><p>Each CPU gets a memory bus to one bank of CPUs.</p></li>
-<li><p>This means, that some of the memory is faster for for a given CPU and some memory is slower.</p></li>
-<li><p>When choosing a CPU to execute on, where pages are allocated matters.</p></li>
-<li><p>Also, when the OS allocates pages, taking into account which NUMA region has been used before and how crowded / busy it is also matters.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Modern schedulers consider more than priority. CPU affinity matters
+because a thread may still have useful data in a CPU cache. Working-set
+residency matters because running a thread with many resident pages may
+avoid page faults.</p>
+<p>NUMA also matters on machines where memory access time depends on which
+CPU owns a memory bank. A scheduler may prefer a CPU near the memory a
+thread already uses, or it may move work to balance load.</p>
 </section>
 <section id="process-priority-and-scheduling-in-linux">
 <h2>Process Priority and Scheduling in Linux<a class="headerlink" href="#process-priority-and-scheduling-in-linux" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>The Linux scheduler has several available policies:</p>
-<blockquote>
-<div><ul>
-<li><p>Normal policies:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code> - round-robin time sharing polic</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_BATCH</span></code> - batch policy</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_IDLE</span></code> - for running very low priority background jobs</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Real-time policies:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> - first-in, first-out  policy</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_RR</span></code> - round-robin</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Scheduling policy is controlled by:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">sched_setscheduler(pid_t</span> <span class="pre">pid,</span> <span class="pre">int</span> <span class="pre">policy,</span> <span class="pre">sched_param</span> <span class="pre">*param);</span></code></p></li>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">sched_param</span></code> struct, takes amongst other things, a priority value</p></li>
-<li><p>this priority value is only consumed by the real time schedulers</p></li>
-<li><p>normal policies make use of <em>nice</em> values</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Linux supports normal and real-time scheduling policies. Normal policies
+include <code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code>, <code class="docutils literal notranslate"><span class="pre">SCHED_BATCH</span></code>, and <code class="docutils literal notranslate"><span class="pre">SCHED_IDLE</span></code>. Real-time
+policies include <code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> and <code class="docutils literal notranslate"><span class="pre">SCHED_RR</span></code>.</p>
+<p>Scheduling policy can be set with:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">sched_setscheduler</span><span class="p">(</span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">policy</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">sched_param</span><span class="w"> </span><span class="o">*</span><span class="n">param</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">sched_param</span></code> structure includes a priority value. Real-time
+policies use that priority directly. Normal policies use nice values and
+other scheduler-specific rules.</p>
 </section>
 <section id="linux-real-time-scheduler">
 <h2>Linux Real Time Scheduler<a class="headerlink" href="#linux-real-time-scheduler" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>In Linux, real-time processes always have priority over non-real time processes.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code></p>
-<blockquote>
-<div><ul>
-<li><p>Has one FIFO queue per-priority</p></li>
-<li><p>When sched_setscheduler is called, the process goes into the front of the queue.</p></li>
-<li><p>If the process is preempted, it keeps its place in the queue.</p></li>
-<li><p>If sched_yield is called, then the process moves to the back of the queue.</p></li>
-<li><p>Once running, the process will continue running until:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>A higher priority process becomes runnable</p></li>
-<li><p>The process issues an I/O request</p></li>
-<li><p>The process calls sched_yield()</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> processes are prevented from locking the system up by the RLIMIT_RTTIME limit. This is the CPU time limit that a process may take up before issuing a system call. After this soft limit is hit, the process is signaled several time until a hard limit is reached. If the hard limit is reached, the process is killed.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_RR</span></code>:</p>
-<blockquote>
-<div><ul>
-<li><p>Exactly the same as <code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code>, except:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>each process has a finite quantum.</p></li>
-<li><p>if a process is preempted, it moves to the back of the queue</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Linux real-time processes have priority over non-real-time processes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> uses one FIFO queue per priority. A running
+<code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> process continues until a higher-priority process becomes
+runnable, the process blocks, or the process calls <code class="docutils literal notranslate"><span class="pre">sched_yield()</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SCHED_RR</span></code> is similar, but each process has a finite quantum. When the
+quantum expires, the process moves to the back of its priority queue.</p>
+<p>Linux limits real-time CPU consumption with <code class="docutils literal notranslate"><span class="pre">RLIMIT_RTTIME</span></code> so a
+real-time process cannot lock up the whole system indefinitely.</p>
 </section>
 <section id="linux-preemptive-scheduler">
 <h2>Linux Preemptive Scheduler<a class="headerlink" href="#linux-preemptive-scheduler" title="Link to this heading">#</a></h2>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>This is the default scheduling policy in Linux.</p></li>
-<li><p>Uses <em>nice</em> values for prioritization.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_BATCH</span></code>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Same as <code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code>, except…</p></li>
-<li><p>Notifies scheduler that the process is both non-interactive and not I/O intensive</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SCHED_IDLE</span></code>:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Same as <code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code>, except…</p></li>
-<li><p>All processes in this class are always of lower priority than all other processes. This means that if any other process is runnable, these processes do not run.</p></li>
-<li><p><em>nice</em> values are ignored completely</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p><code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code> is the default Linux time-sharing policy. It uses nice
+values as one input to prioritization.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SCHED_BATCH</span></code> is similar but tells the scheduler that the process is
+not interactive. <code class="docutils literal notranslate"><span class="pre">SCHED_IDLE</span></code> is for very low-priority work. A
+<code class="docutils literal notranslate"><span class="pre">SCHED_IDLE</span></code> process runs only when no other normal work is runnable.</p>
 </section>
 <section id="nice-values">
 <h2>Nice Values<a class="headerlink" href="#nice-values" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Common in all Unix schedulers is the use of <em>nice</em> values.</p></li>
-<li><p>The nice value is the priority level of a process.</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>The highest priority is -20</p></li>
-<li><p>The lowest priority is 19</p></li>
-<li><p>The typical default priority is 0.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>When a process calls fork(), the new process inherits the parent’s nice value.</p></li>
-<li><p>Non-root processes can increase the nice value</p></li>
-<li><p>Only root processes can decrease the nice value</p></li>
-<li><p>The effect of the nice value differs between scheduler implementations and is not the only factor taken into account in scheduling decisions</p></li>
-</ul>
+<p>UNIX systems use nice values to express process priority. The highest
+priority nice value is typically <code class="docutils literal notranslate"><span class="pre">-20</span></code>. The lowest is typically <code class="docutils literal notranslate"><span class="pre">19</span></code>.
+The default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<p>A child process inherits its parent’s nice value after <code class="docutils literal notranslate"><span class="pre">fork()</span></code>.
+Non-root users can usually increase the nice value, lowering priority.
+Only root can decrease the nice value, raising priority.</p>
 </section>
 <section id="process-scheduling-in-windows">
 <h2>Process Scheduling in Windows<a class="headerlink" href="#process-scheduling-in-windows" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Windows has 6 process classes with 7 priorities within each class</p></li>
-<li><p>Classes:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Idle</p></li>
-<li><p>Below Normal</p></li>
-<li><p>Normal</p></li>
-<li><p>Above Normal</p></li>
-<li><p>High</p></li>
-<li><p>Realtime</p></li>
-</ol>
-</div></blockquote>
-</li>
-<li><p>Below - High:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Within a class, processes time-share relative to priority</p></li>
-<li><p>Lower classes are not run unless higher classes are not runnable (or there are other idle CPUs)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Idle - only runs if no other process is runnable</p></li>
-<li><p>Realtime - always run when runnable, will not be interrupted until the process makes a system call or goes to sleep.</p></li>
-<li><p>Process scheduler takes NUMA into account in:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>XP Professional, Vista, 7</p></li>
-<li><p>Server 2003 / 2008 / 2008R2</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Supports more advanced heap management and scheduling on systems with more than 64 CPUs in Server 2008R2 through the use of processor groups</p></li>
-<li><p>Multimedia Class Scheduler Service:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Creates classes of processes that have a minimum CPU requirement that the OS must meet.</p></li>
-<li><p>Typically used to make sure audio, video, etc… are responsive in the presence of higher system loads.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>Windows uses process priority classes and thread priorities within each
+class. Common classes include Idle, Below Normal, Normal, Above Normal,
+High, and Realtime.</p>
+<p>Within normal classes, work time-shares according to priority. Idle work
+runs only when no higher-priority work is runnable. Realtime work can run
+ahead of ordinary work and must be used carefully.</p>
+<p>Windows also considers NUMA and processor groups on large systems.
+Multimedia Class Scheduler Service reserves CPU capacity for workloads
+such as audio and video.</p>
 </section>
 <section id="user-mode-schedulers">
 <h2>User-Mode Schedulers<a class="headerlink" href="#user-mode-schedulers" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>User-mode schedulers fall into two categories:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Per-process: N user threads per 1 process (N threads total)</p></li>
-<li><p>Per-thread: N user threads per 1 kernel thread (N*K threads)</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Options:</p>
-<blockquote>
-<div><ul>
-<li><p>Windows:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>UMS Scheduler Component - 64-bit Server 2k8, Win 7</p></li>
-<li><p>Fibers</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Linux/Minix</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>GNU Pth</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Custom:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Use of setjump, longjmp functions to save / switch stacks</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
+<p>User-mode schedulers manage user-level threads without asking the kernel
+to schedule each one independently. They may map many user threads onto
+one process or onto a smaller number of kernel threads.</p>
+<p>Examples include Windows fibers, Windows User-Mode Scheduling, GNU Pth,
+and custom schedulers built with stack-switching mechanisms such as
+<code class="docutils literal notranslate"><span class="pre">setjmp()</span></code> and <code class="docutils literal notranslate"><span class="pre">longjmp()</span></code>.</p>
 </section>
 <section id="user-mode-threads-why">
 <h2>User-Mode Threads: Why?<a class="headerlink" href="#user-mode-threads-why" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>Useful on systems with no support for kernel threads:</p></li>
-<li><p>Minix, Windows 3.x, Mac OS 5-9</p></li>
-<li><p>Useful on systems with huge or volatile thread counts:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>An 8-CPU system with 24-32 active threads that doesn’t create and destroy threads often, works very well.</p></li>
-<li><p>An 8-CPU system with 2000 threads will grind to a halt.</p></li>
-<li><p>An 8-CPU system with 10 threads, then 120 threads, then 5 threads, will waste a lot of time creating and destroying threads.</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>Creating and destroying user mode threads is relatively cheap when compared to kernel threads.</p></li>
-<li><p>Systems like Erlang or others that create a high number of parallel components benefit greatly from being able to abstract an unlimited number of threads without the actual need for there to literally be that number of threads.</p></li>
-</ul>
+<p>User-mode threads are useful on systems without kernel-thread support.
+They are also useful when an application needs a large number of logical
+threads and most of them are not CPU-bound.</p>
+<p>Creating and destroying user-mode threads is usually cheaper than
+creating and destroying kernel threads. Systems such as Erlang benefit
+from this model because they can expose many lightweight concurrent
+activities without requiring one kernel thread per activity.</p>
 </section>
 <section id="user-mode-threads-why-not">
 <h2>User-Mode Threads: Why Not?<a class="headerlink" href="#user-mode-threads-why-not" title="Link to this heading">#</a></h2>
-<ul>
-<li><p>User mode threads have a lower degree of parallelism than do kernel mode threads. If you have 10 user threads on one kernel thread, you still are only executing on one CPU</p></li>
-<li><p>User mode threads don’t benefit from operating system scheduler advantages:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>Knowledge about CPU consumption</p></li>
-<li><p>Knowledge about memory utilization</p></li>
-<li><p>Knowledge about the page table and NUMA configuration</p></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p>If one user mode thread locks up, it locks up its entire kernel thread. Other user mode threads on that kernel thread cannot proceed.</p></li>
-<li><p>If one user mode thread makes a system call, the user mode threading library or the application must use asynchronous I/O function calls (which are more complex) to maintain responsiveness for other user mode threads. Otherwise the entire kernel thread will block.</p></li>
-<li><p>User mode threads do not perform as well as a similar number of kernel threads for number crunching applications (unless the number is » 4 per CPU)</p></li>
-<li><p>The reason for this is that kernel threads will have longer quantums than will user mode threads. User mode threads divide the quantum of one kernel mode thread.</p></li>
-<li><p>This problem is not as important for interactive, I/O based, or mixed applications.</p></li>
-</ul>
+<p>User-mode threads have less true parallelism. Ten user threads on one
+kernel thread still run on one CPU at a time.</p>
+<p>The kernel also cannot schedule user-mode threads individually. It does
+not know their CPU usage, memory behavior, or blocking state. If one user
+thread blocks in a normal system call, it can block the kernel thread
+that carries the other user threads.</p>
+<p>User-mode threads can work well for I/O-bound or interactive workloads
+when the threading library uses nonblocking or asynchronous I/O. They are
+usually a poor fit for CPU-bound parallel computation.</p>
 </section>
 <section id="gnu-pth-user-mode-pthreads">
 <h2>GNU - Pth - User Mode Pthreads<a class="headerlink" href="#gnu-pth-user-mode-pthreads" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>GNU Pth maps pretty closely to normal posix threading libraries.</p></li>
-<li><p>The use of GNU Pth is probably best illustrated with an example.</p></li>
-<li><p>The interesting calls are (pth_accept, pth_write, and pth_sleep).</p></li>
-<li><p>Since this program is I/O bound, we need to use asynchronous I/O calls to make sure all threads are responsive.</p></li>
-<li><p>This is accomplished with pth_* calls such as pth_write, pth_accept.</p></li>
-<li><p>These calls are asynchronous wrappers to normal system calls.</p></li>
-</ul>
+<p>GNU Pth provides a user-mode threading library with an API that resembles
+POSIX threads. Because the threads are scheduled in user mode, I/O-bound
+programs need Pth-aware calls such as <code class="docutils literal notranslate"><span class="pre">pth_accept()</span></code>, <code class="docutils literal notranslate"><span class="pre">pth_write()</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">pth_sleep()</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pth.h&gt;</span>
 <span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
@@ -1250,15 +823,43 @@ kernel cannot return immediately (blocking call)</p></li>
 <span class="linenos">75</span><span class="p">}</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pth_init()</span></code> initializes the user-mode threading runtime.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pth_spawn()</span></code> creates lightweight user-mode threads.</p></li>
+<li><p>The ticker thread sleeps with <code class="docutils literal notranslate"><span class="pre">pth_sleep()</span></code> so the Pth scheduler can
+run other user threads.</p></li>
+<li><p>The server accepts clients with <code class="docutils literal notranslate"><span class="pre">pth_accept()</span></code> rather than blocking
+the whole process in ordinary <code class="docutils literal notranslate"><span class="pre">accept()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pth_write()</span></code> writes to the client connection without bypassing the
+user-mode scheduler.</p></li>
+</ul>
 </section>
 <section id="pthreads-kernel-threads">
 <h2>PThreads - Kernel Threads<a class="headerlink" href="#pthreads-kernel-threads" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Most POSIX compliant systems implement a pthreads library.</p></li>
-<li><p>In Minix, the PThreads library makes use of a layer on top of pth.</p></li>
-<li><p>In Linux, PThreads use the clone() system call to create lightweight processes (aka kernel threads).</p></li>
-<li><p>Example</p></li>
-</ul>
+<p>Most POSIX-compliant systems provide pthreads. In Linux, pthreads are
+implemented with kernel threads created through <code class="docutils literal notranslate"><span class="pre">clone()</span></code>.</p>
+<p>The examples in <code class="docutils literal notranslate"><span class="pre">systems-code-examples/llnl_pthreads_examples</span></code> are
+adapted from the LLNL POSIX Threads Programming tutorial and updated to
+build with this repository.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I ported these examples from the LLNL HPC Tutorials POSIX Threads
+Programming tutorial. LLNL notes that the original tutorial is no
+longer supported and remains available for archival purposes.
+<a class="footnote-reference brackets" href="#llnl-pthreads" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="llnl-pthreads" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Blaise Barney, Lawrence Livermore National
+Laboratory, “POSIX Threads Programming,” LLNL HPC Tutorials,
+<a class="reference external" href="https://hpc-tutorials.llnl.gov/posix/">https://hpc-tutorials.llnl.gov/posix/</a>.</p>
+</aside>
+</aside>
+</section>
+<section id="basic-pthread-creation">
+<h2>Basic pthread creation<a class="headerlink" href="#basic-pthread-creation" title="Link to this heading">#</a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/* adapted from LLNL pthreads tutorial</span>
 <span class="linenos"> 2</span><span class="cm"> * https://computing.llnl.gov/tutorials/pthreads</span>
 <span class="linenos"> 3</span><span class="cm"> */</span>
@@ -1313,7 +914,437 @@ kernel cannot return immediately (blocking call)</p></li>
 <span class="linenos">52</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>This example is adapted from <a class="reference external" href="https://computing.llnl.gov/tutorials/pthreads">LLNL POSIX Threads Programming tutorial</a>. You can find these in our <code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code> repository in the <code class="docutils literal notranslate"><span class="pre">llnl_pthreads_examples</span></code> folder, which have been updated to compile cleanly and have proper build files.</p>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pthread_create()</span></code> starts each worker thread.</p></li>
+<li><p>Each thread receives a pointer to a separate <code class="docutils literal notranslate"><span class="pre">thread_data_t</span></code> entry.</p></li>
+<li><p>The worker casts the <code class="docutils literal notranslate"><span class="pre">void*</span></code> argument back to the expected type.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pthread_exit(NULL)</span></code> exits the calling thread without terminating the
+whole process.</p></li>
+<li><p>The main thread calls <code class="docutils literal notranslate"><span class="pre">pthread_exit(NULL)</span></code> so the process stays alive
+until the worker threads finish.</p></li>
+</ul>
+</section>
+<section id="joinable-pthreads">
+<h2>Joinable pthreads<a class="headerlink" href="#joinable-pthreads" title="Link to this heading">#</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/* adapted from LLNL pthreads tutorial</span>
+<span class="linenos"> 2</span><span class="cm"> * https://computing.llnl.gov/tutorials/pthreads</span>
+<span class="linenos"> 3</span><span class="cm"> */</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="cp">#define NUM_THREADS     5</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span>
+<span class="linenos">12</span><span class="p">{</span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">square</span><span class="p">;</span>
+<span class="linenos">15</span><span class="p">};</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread_data</span><span class="w"> </span><span class="n">thread_data_t</span><span class="p">;</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">PrintHello</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">td_ptr</span><span class="p">)</span>
+<span class="linenos">22</span><span class="p">{</span>
+<span class="linenos">23</span><span class="w">    </span><span class="n">thread_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">td</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">thread_data_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">td_ptr</span><span class="p">;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World! It&#39;s me, thread #%ld!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">);</span>
+<span class="linenos">25</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;sqr(%ld) = %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">tid</span><span class="p">,</span><span class="w"> </span><span class="n">td</span><span class="o">-&gt;</span><span class="n">square</span><span class="p">);</span>
+<span class="linenos">26</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">27</span><span class="p">}</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos">30</span><span class="p">{</span>
+<span class="linenos">31</span><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">threads</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span>
+<span class="linenos">32</span><span class="w">    </span><span class="n">thread_data_t</span><span class="w"> </span><span class="n">thread_data</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span>
+<span class="linenos">33</span><span class="w">    </span><span class="n">pthread_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="linenos">37</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span><span class="w">    </span><span class="n">pthread_attr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+<span class="linenos">40</span><span class="w">    </span><span class="n">pthread_attr_setdetachstate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTHREAD_CREATE_JOINABLE</span><span class="p">);</span>
+<span class="linenos">41</span>
+<span class="linenos">42</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;</span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">43</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">44</span><span class="w">        </span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos">45</span><span class="w">        </span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">].</span><span class="n">square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos">46</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;In main: creating thread %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">);</span>
+<span class="linenos">47</span><span class="w">        </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="n">t</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PrintHello</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">thread_data</span><span class="p">[</span><span class="n">t</span><span class="p">]);</span>
+<span class="linenos">48</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+<span class="linenos">49</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">50</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ERROR; return code from pthread_create() is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">);</span>
+<span class="linenos">51</span><span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="linenos">52</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">53</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="w">    </span><span class="n">pthread_attr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;</span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">58</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">59</span><span class="w">        </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">threads</span><span class="p">[</span><span class="n">t</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+<span class="linenos">60</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+<span class="linenos">61</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">62</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;ERROR; return code from pthread_join() is %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">);</span>
+<span class="linenos">63</span><span class="w">            </span><span class="n">exit</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="linenos">64</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">65</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Main: completed join with thread %ld having a status of %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">t</span><span class="p">,(</span><span class="kt">long</span><span class="p">)</span><span class="n">status</span><span class="p">);</span>
+<span class="linenos">66</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">67</span>
+<span class="linenos">68</span><span class="w">    </span><span class="cm">/* Last thing that main() should do */</span>
+<span class="linenos">69</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Exiting main thread</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="linenos">70</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">71</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The thread attributes are configured with
+<code class="docutils literal notranslate"><span class="pre">PTHREAD_CREATE_JOINABLE</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pthread_join()</span></code> waits for each thread to finish.</p></li>
+<li><p>Joining gives the main thread a synchronization point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pthread_attr_destroy()</span></code> releases the attribute object after thread
+creation.</p></li>
+<li><p>This version makes thread lifetime explicit.</p></li>
+</ul>
+</section>
+<section id="condition-variable-preview">
+<h2>Condition variable preview<a class="headerlink" href="#condition-variable-preview" title="Link to this heading">#</a></h2>
+<p>Condition variables are covered in more detail in the mutual exclusion
+chapter. This example appears here because it shows how scheduled
+threads can block and wake based on shared state.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">  3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos">  5</span>
+<span class="linenos">  6</span><span class="cp">#define NUM_THREADS  3</span>
+<span class="linenos">  7</span><span class="cp">#define TCOUNT 10</span>
+<span class="linenos">  8</span><span class="cp">#define COUNT_LIMIT 12</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span><span class="kt">int</span><span class="w">     </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 11</span><span class="kt">int</span><span class="w">     </span><span class="n">thread_ids</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">};</span>
+<span class="linenos"> 12</span><span class="n">pthread_mutex_t</span><span class="w"> </span><span class="n">count_mutex</span><span class="p">;</span>
+<span class="linenos"> 13</span><span class="n">pthread_cond_t</span><span class="w"> </span><span class="n">count_threshold_cv</span><span class="p">;</span>
+<span class="linenos"> 14</span>
+<span class="linenos"> 15</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">inc_count</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="linenos"> 16</span><span class="p">{</span>
+<span class="linenos"> 17</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="linenos"> 18</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">my_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">t</span><span class="p">;</span>
+<span class="linenos"> 19</span>
+<span class="linenos"> 20</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">TCOUNT</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 21</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 22</span><span class="w">        </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 23</span><span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="linenos"> 24</span>
+<span class="linenos"> 25</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 26</span><span class="cm">        Check the value of count and signal waiting thread when condition is</span>
+<span class="linenos"> 27</span><span class="cm">        reached.  Note that this occurs while mutex is locked.</span>
+<span class="linenos"> 28</span><span class="cm">        */</span>
+<span class="linenos"> 29</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">COUNT_LIMIT</span><span class="p">)</span>
+<span class="linenos"> 30</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 31</span><span class="w">            </span><span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_threshold_cv</span><span class="p">);</span>
+<span class="linenos"> 32</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;inc_count(): thread %ld, count = %d  Threshold reached.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos"> 33</span><span class="w">                   </span><span class="n">my_id</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="linenos"> 34</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 35</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;inc_count(): thread %ld, count = %d, i = %d, unlocking mutex</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos"> 36</span><span class="w">               </span><span class="n">my_id</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="linenos"> 37</span><span class="w">        </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 38</span>
+<span class="linenos"> 39</span><span class="w">        </span><span class="cm">/* Do some &quot;work&quot; so threads can alternate on mutex lock */</span>
+<span class="linenos"> 40</span><span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 41</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 42</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 43</span><span class="p">}</span>
+<span class="linenos"> 44</span>
+<span class="linenos"> 45</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">watch_count</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="linenos"> 46</span><span class="p">{</span>
+<span class="linenos"> 47</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">my_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">t</span><span class="p">;</span>
+<span class="linenos"> 48</span>
+<span class="linenos"> 49</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Starting watch_count(): thread %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">my_id</span><span class="p">);</span>
+<span class="linenos"> 50</span>
+<span class="linenos"> 51</span><span class="w">    </span><span class="cm">/*</span>
+<span class="linenos"> 52</span><span class="cm">    Lock mutex and wait for signal.  Note that the pthread_cond_wait</span>
+<span class="linenos"> 53</span><span class="cm">    routine will automatically and atomically unlock mutex while it waits.</span>
+<span class="linenos"> 54</span><span class="cm">    Also, note that if COUNT_LIMIT is reached before this routine is run by</span>
+<span class="linenos"> 55</span><span class="cm">    the waiting thread, the loop will be skipped to prevent pthread_cond_wait</span>
+<span class="linenos"> 56</span><span class="cm">    from never returning.</span>
+<span class="linenos"> 57</span><span class="cm">    */</span>
+<span class="linenos"> 58</span><span class="w">    </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 59</span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="o">&lt;</span><span class="n">COUNT_LIMIT</span><span class="p">)</span>
+<span class="linenos"> 60</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 61</span><span class="w">        </span><span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_threshold_cv</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 62</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;watch_count(): thread %ld Condition signal received.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">my_id</span><span class="p">);</span>
+<span class="linenos"> 63</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 64</span><span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">125</span><span class="p">;</span>
+<span class="linenos"> 65</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;watch_count(): thread %ld count now = %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">my_id</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="linenos"> 66</span><span class="w">    </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 67</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 68</span><span class="p">}</span>
+<span class="linenos"> 69</span>
+<span class="linenos"> 70</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos"> 71</span><span class="p">{</span>
+<span class="linenos"> 72</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="linenos"> 73</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">t1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">t3</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+<span class="linenos"> 74</span><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">threads</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="linenos"> 75</span><span class="w">    </span><span class="n">pthread_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span>
+<span class="linenos"> 76</span>
+<span class="linenos"> 77</span><span class="w">    </span><span class="cm">/* Initialize mutex and condition variable objects */</span>
+<span class="linenos"> 78</span><span class="w">    </span><span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 79</span><span class="w">    </span><span class="n">pthread_cond_init</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_threshold_cv</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 80</span>
+<span class="linenos"> 81</span><span class="w">    </span><span class="cm">/* For portability, explicitly create threads in a joinable state */</span>
+<span class="linenos"> 82</span><span class="w">    </span><span class="n">pthread_attr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+<span class="linenos"> 83</span><span class="w">    </span><span class="n">pthread_attr_setdetachstate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTHREAD_CREATE_JOINABLE</span><span class="p">);</span>
+<span class="linenos"> 84</span><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">watch_count</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">t1</span><span class="p">);</span>
+<span class="linenos"> 85</span><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">inc_count</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">t2</span><span class="p">);</span>
+<span class="linenos"> 86</span><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">inc_count</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">t3</span><span class="p">);</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span><span class="w">    </span><span class="cm">/* Wait for all threads to complete */</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 90</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 91</span><span class="w">        </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">threads</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 92</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 93</span><span class="w">    </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Main(): Waited on %d  threads. Done.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">NUM_THREADS</span><span class="p">);</span>
+<span class="linenos"> 94</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="cm">/* Clean up and exit */</span>
+<span class="linenos"> 96</span><span class="w">    </span><span class="n">pthread_attr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+<span class="linenos"> 97</span><span class="w">    </span><span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 98</span><span class="w">    </span><span class="n">pthread_cond_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_threshold_cv</span><span class="p">);</span>
+<span class="linenos"> 99</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">100</span>
+<span class="linenos">101</span><span class="p">}</span>
+<span class="linenos">102</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>Two incrementing threads update a shared <code class="docutils literal notranslate"><span class="pre">count</span></code>.</p></li>
+<li><p>A watching thread waits until <code class="docutils literal notranslate"><span class="pre">count</span></code> reaches <code class="docutils literal notranslate"><span class="pre">COUNT_LIMIT</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pthread_cond_wait()</span></code> releases the mutex while the thread waits and
+reacquires it before returning.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pthread_cond_signal()</span></code> wakes a waiting thread when the condition is
+reached.</p></li>
+<li><p>The scheduler can run other threads while the watcher is blocked.</p></li>
+</ul>
+</section>
+<section id="condition-variable-with-explicit-shared-data">
+<h2>Condition variable with explicit shared data<a class="headerlink" href="#condition-variable-with-explicit-shared-data" title="Link to this heading">#</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">  3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos">  5</span>
+<span class="linenos">  6</span><span class="cp">#define NUM_THREADS  3</span>
+<span class="linenos">  7</span><span class="cp">#define TCOUNT 10</span>
+<span class="linenos">  8</span><span class="cp">#define COUNT_LIMIT 12</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span><span class="cm">/* this version eliminates global variable declarations and uses thread-specific data with</span>
+<span class="linenos"> 11</span><span class="cm"> * a pointer to any data that is shared but under mutex control</span>
+<span class="linenos"> 12</span><span class="cm"> */</span>
+<span class="linenos"> 13</span>
+<span class="linenos"> 14</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="linenos"> 15</span><span class="p">{</span>
+<span class="linenos"> 16</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="linenos"> 17</span><span class="w">    </span><span class="n">pthread_mutex_t</span><span class="w"> </span><span class="n">count_mutex</span><span class="p">;</span>
+<span class="linenos"> 18</span><span class="w">    </span><span class="n">pthread_cond_t</span><span class="w"> </span><span class="n">count_threshold_cv</span><span class="p">;</span>
+<span class="linenos"> 19</span><span class="p">}</span><span class="w"> </span><span class="n">shared_data_t</span><span class="p">;</span>
+<span class="linenos"> 20</span>
+<span class="linenos"> 21</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="linenos"> 22</span><span class="p">{</span>
+<span class="linenos"> 23</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">my_id</span><span class="p">;</span>
+<span class="linenos"> 24</span><span class="w">    </span><span class="n">shared_data_t</span><span class="o">*</span><span class="w"> </span><span class="n">common</span><span class="p">;</span><span class="w"> </span><span class="cm">/* the mutex, cv, and count are all kept in a common structure */</span>
+<span class="linenos"> 25</span><span class="p">}</span><span class="w"> </span><span class="n">tsd_t</span><span class="p">;</span>
+<span class="linenos"> 26</span>
+<span class="linenos"> 27</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">inc_count</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="linenos"> 28</span><span class="p">{</span>
+<span class="linenos"> 29</span><span class="w">    </span><span class="n">tsd_t</span><span class="o">*</span><span class="w"> </span><span class="n">tsd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tsd_t</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos"> 30</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">my_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">my_id</span><span class="p">;</span>
+<span class="linenos"> 31</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="linenos"> 32</span>
+<span class="linenos"> 33</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">TCOUNT</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 34</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 35</span><span class="w">        </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 36</span><span class="w">        </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="linenos"> 37</span>
+<span class="linenos"> 38</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 39</span><span class="cm">        Check the value of count and signal waiting thread when condition is</span>
+<span class="linenos"> 40</span><span class="cm">        reached.  Note that this occurs while mutex is locked.</span>
+<span class="linenos"> 41</span><span class="cm">        */</span>
+<span class="linenos"> 42</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">COUNT_LIMIT</span><span class="p">)</span>
+<span class="linenos"> 43</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 44</span><span class="w">            </span><span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_threshold_cv</span><span class="p">);</span>
+<span class="linenos"> 45</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;inc_count(): thread %ld, count = %d  Threshold reached.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos"> 46</span><span class="w">                   </span><span class="n">my_id</span><span class="p">,</span><span class="w"> </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">);</span>
+<span class="linenos"> 47</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 48</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;inc_count(): thread %ld, count = %d, i = %d, unlocking mutex</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="linenos"> 49</span><span class="w">               </span><span class="n">my_id</span><span class="p">,</span><span class="w"> </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
+<span class="linenos"> 50</span><span class="w">        </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 51</span>
+<span class="linenos"> 52</span><span class="w">        </span><span class="cm">/* Do some &quot;work&quot; so threads can alternate on mutex lock */</span>
+<span class="linenos"> 53</span><span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 54</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 55</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 56</span><span class="p">}</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">watch_count</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="linenos"> 59</span><span class="p">{</span>
+<span class="linenos"> 60</span><span class="w">    </span><span class="n">tsd_t</span><span class="o">*</span><span class="w"> </span><span class="n">tsd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tsd_t</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="linenos"> 61</span><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">my_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">my_id</span><span class="p">;</span>
+<span class="linenos"> 62</span>
+<span class="linenos"> 63</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Starting watch_count(): thread %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">my_id</span><span class="p">);</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="w">    </span><span class="cm">/*</span>
+<span class="linenos"> 66</span><span class="cm">    Lock mutex and wait for signal.  Note that the pthread_cond_wait</span>
+<span class="linenos"> 67</span><span class="cm">    routine will automatically and atomically unlock mutex while it waits.</span>
+<span class="linenos"> 68</span><span class="cm">    Also, note that if COUNT_LIMIT is reached before this routine is run by</span>
+<span class="linenos"> 69</span><span class="cm">    the waiting thread, the loop will be skipped to prevent pthread_cond_wait</span>
+<span class="linenos"> 70</span><span class="cm">    from never returning.</span>
+<span class="linenos"> 71</span><span class="cm">    */</span>
+<span class="linenos"> 72</span><span class="w">    </span><span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 73</span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="o">&lt;</span><span class="n">COUNT_LIMIT</span><span class="p">)</span>
+<span class="linenos"> 74</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 75</span><span class="w">        </span><span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_threshold_cv</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 76</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;watch_count(): thread %ld Condition signal received.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">my_id</span><span class="p">);</span>
+<span class="linenos"> 77</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 78</span><span class="w">    </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">125</span><span class="p">;</span>
+<span class="linenos"> 79</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;watch_count(): thread %ld count now = %d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">my_id</span><span class="p">,</span><span class="w"> </span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">);</span>
+<span class="linenos"> 80</span><span class="w">    </span><span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tsd</span><span class="o">-&gt;</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos"> 81</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 82</span><span class="p">}</span>
+<span class="linenos"> 83</span>
+<span class="linenos"> 84</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos"> 85</span><span class="p">{</span>
+<span class="linenos"> 86</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">;</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span><span class="w">    </span><span class="n">shared_data_t</span><span class="w"> </span><span class="n">shared_data</span><span class="p">;</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="n">tsd_t</span><span class="w"> </span><span class="n">tsd</span><span class="p">[</span><span class="n">NUM_THREADS</span><span class="p">];</span>
+<span class="linenos"> 90</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">threads</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="linenos"> 93</span><span class="w">    </span><span class="n">pthread_attr_t</span><span class="w"> </span><span class="n">attr</span><span class="p">;</span>
+<span class="linenos"> 94</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="cm">/* Initialize mutex and condition variable objects */</span>
+<span class="linenos"> 96</span><span class="w">    </span><span class="n">shared_data</span><span class="p">.</span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 97</span><span class="w">    </span><span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shared_data</span><span class="p">.</span><span class="n">count_mutex</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 98</span><span class="w">    </span><span class="n">pthread_cond_init</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">shared_data</span><span class="p">.</span><span class="n">count_threshold_cv</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 99</span>
+<span class="linenos">100</span><span class="w">    </span><span class="cm">/* For portability, explicitly create threads in a joinable state */</span>
+<span class="linenos">101</span><span class="w">    </span><span class="n">pthread_attr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+<span class="linenos">102</span><span class="w">    </span><span class="n">pthread_attr_setdetachstate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">PTHREAD_CREATE_JOINABLE</span><span class="p">);</span>
+<span class="linenos">103</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">104</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">105</span><span class="w">        </span><span class="n">tsd</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">my_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos">106</span><span class="w">        </span><span class="n">tsd</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">common</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shared_data</span><span class="p">;</span>
+<span class="linenos">107</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">watch_count</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">tsd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="linenos">110</span><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">inc_count</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">tsd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="linenos">111</span><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="n">inc_count</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">tsd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<span class="linenos">112</span>
+<span class="linenos">113</span><span class="w">    </span><span class="cm">/* Wait for all threads to complete */</span>
+<span class="linenos">114</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">NUM_THREADS</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">115</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">116</span><span class="w">        </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">threads</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">117</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">118</span><span class="w">    </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Main(): Waited on %d  threads. Done.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">NUM_THREADS</span><span class="p">);</span>
+<span class="linenos">119</span>
+<span class="linenos">120</span><span class="w">    </span><span class="cm">/* Clean up and exit */</span>
+<span class="linenos">121</span><span class="w">    </span><span class="n">pthread_attr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+<span class="linenos">122</span><span class="w">    </span><span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shared_data</span><span class="p">.</span><span class="n">count_mutex</span><span class="p">);</span>
+<span class="linenos">123</span><span class="w">    </span><span class="n">pthread_cond_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shared_data</span><span class="p">.</span><span class="n">count_threshold_cv</span><span class="p">);</span>
+<span class="linenos">124</span><span class="w">    </span><span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">125</span>
+<span class="linenos">126</span><span class="p">}</span>
+<span class="linenos">127</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>Shared state is stored in <code class="docutils literal notranslate"><span class="pre">shared_data_t</span></code> instead of global
+variables.</p></li>
+<li><p>Each thread receives a <code class="docutils literal notranslate"><span class="pre">tsd_t</span></code> structure with its ID and a pointer to
+the shared state.</p></li>
+<li><p>The locking pattern is the same as the previous example.</p></li>
+<li><p>Passing explicit thread data makes dependencies clearer.</p></li>
+<li><p>This style scales better as thread functions need more context.</p></li>
+</ul>
+</section>
+<section id="c-thread-scheduling-case-study">
+<h2>C# Thread Scheduling Case Study<a class="headerlink" href="#c-thread-scheduling-case-study" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/threads_csharp</span></code> example shows the same
+scheduling ideas in a managed runtime. The runtime creates operating
+system threads, and the operating system schedules them.</p>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+<span class="linenos"> 2</span><span class="k">using</span><span class="w"> </span><span class="nn">System.Threading</span><span class="p">;</span>
+<span class="linenos"> 3</span><span class="k">using</span><span class="w"> </span><span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="k">namespace</span><span class="w"> </span><span class="nn">threads</span>
+<span class="linenos"> 6</span><span class="p">{</span>
+<span class="linenos"> 7</span><span class="w">	</span><span class="c1">//begin-class-ParallelComputation</span>
+<span class="linenos"> 8</span><span class="w">	</span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ParallelComputationWorkItem</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos"> 9</span><span class="w">		</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">LowerBound</span><span class="p">;</span>
+<span class="linenos">10</span><span class="w">		</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">UpperBound</span><span class="p">;</span>
+<span class="linenos">11</span><span class="w">		</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Number</span><span class="p">;</span>
+<span class="linenos">12</span><span class="w">		</span><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">ICollection</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Divisors</span><span class="p">;</span>
+<span class="linenos">13</span><span class="w">		</span><span class="k">public</span><span class="w"> </span><span class="nf">ParallelComputationWorkItem</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">upper</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">number</span><span class="p">,</span><span class="w"> </span><span class="n">ICollection</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">divisors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">14</span><span class="w">			</span><span class="n">LowerBound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lower</span><span class="p">;</span>
+<span class="linenos">15</span><span class="w">			</span><span class="n">UpperBound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">upper</span><span class="p">;</span>
+<span class="linenos">16</span><span class="w">			</span><span class="n">Number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">number</span><span class="p">;</span>
+<span class="linenos">17</span><span class="w">			</span><span class="n">Divisors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">divisors</span><span class="p">;</span>
+<span class="linenos">18</span><span class="w">		</span><span class="p">}</span>
+<span class="linenos">19</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="w">	</span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">ParallelComputation</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="w">		</span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PrintFactors</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">24</span><span class="w">			</span><span class="kt">var</span><span class="w"> </span><span class="n">threads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="linenos">25</span><span class="w">			</span><span class="kt">var</span><span class="w"> </span><span class="n">divisors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">();</span>
+<span class="linenos">26</span><span class="w">			</span><span class="kt">var</span><span class="w"> </span><span class="n">cpuCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="n">ProcessorCount</span><span class="p">;</span>
+<span class="linenos">27</span><span class="w">			</span><span class="kt">long</span><span class="w"> </span><span class="n">lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos">28</span><span class="w">			</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cpuCount</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">29</span><span class="w">				</span><span class="kt">var</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="p">(</span><span class="n">Worker</span><span class="p">);</span>
+<span class="linenos">30</span><span class="w">				</span><span class="kt">var</span><span class="w"> </span><span class="n">upper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lower</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cpuCount</span><span class="p">);</span>
+<span class="linenos">31</span><span class="w">				</span><span class="n">thread</span><span class="p">.</span><span class="n">Start</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ParallelComputationWorkItem</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="n">upper</span><span class="p">,</span><span class="w"> </span><span class="n">number</span><span class="p">,</span><span class="w"> </span><span class="n">divisors</span><span class="p">));</span>
+<span class="linenos">32</span><span class="w">				</span><span class="n">threads</span><span class="p">.</span><span class="n">Add</span><span class="w"> </span><span class="p">(</span><span class="n">thread</span><span class="p">);</span>
+<span class="linenos">33</span><span class="w">				</span><span class="n">lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">upper</span><span class="p">;</span>
+<span class="linenos">34</span><span class="w">			</span><span class="p">}</span>
+<span class="linenos">35</span><span class="w">			</span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">threads</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">36</span><span class="w">				</span><span class="n">thread</span><span class="p">.</span><span class="n">Join</span><span class="w"> </span><span class="p">();</span>
+<span class="linenos">37</span><span class="w">			</span><span class="p">}</span>
+<span class="linenos">38</span><span class="w">			</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Divisors - &quot;</span><span class="p">);</span>
+<span class="linenos">39</span><span class="w">			</span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">divisor</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">divisors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">40</span><span class="w">				</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="w"> </span><span class="p">(</span><span class="n">divisor</span><span class="p">);</span>
+<span class="linenos">41</span><span class="w">			</span><span class="p">}</span>
+<span class="linenos">42</span><span class="w">		</span><span class="p">}</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span><span class="w">		</span><span class="k">private</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Worker</span><span class="p">(</span><span class="kt">object</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">45</span><span class="w">			</span><span class="kt">var</span><span class="w"> </span><span class="n">workItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ParallelComputationWorkItem</span><span class="p">)</span><span class="n">args</span><span class="p">;</span>
+<span class="linenos">46</span><span class="w">			</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">workItem</span><span class="p">.</span><span class="n">LowerBound</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">workItem</span><span class="p">.</span><span class="n">UpperBound</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">47</span><span class="w">				</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">workItem</span><span class="p">.</span><span class="n">Number</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">48</span><span class="w">					</span><span class="k">lock</span><span class="w"> </span><span class="p">(</span><span class="n">workItem</span><span class="p">.</span><span class="n">Divisors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">49</span><span class="w">						</span><span class="n">workItem</span><span class="p">.</span><span class="n">Divisors</span><span class="p">.</span><span class="n">Add</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="linenos">50</span><span class="w">					</span><span class="p">}</span>
+<span class="linenos">51</span><span class="w">				</span><span class="p">}</span>
+<span class="linenos">52</span><span class="w">			</span><span class="p">}</span>
+<span class="linenos">53</span><span class="w">		</span><span class="p">}</span>
+<span class="linenos">54</span><span class="w">	</span><span class="p">}</span>
+<span class="linenos">55</span><span class="w">	</span><span class="c1">//end-class-ParallelComputation</span>
+<span class="linenos">56</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The program creates one worker thread per processor reported by the
+runtime.</p></li>
+<li><p>Each worker receives a numeric range to search for divisors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Thread.Start()</span></code> begins execution of the worker method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Thread.Join()</span></code> waits for every worker before printing results.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lock</span></code> protects the shared divisor list while workers add results.</p></li>
+</ul>
 </section>
 </section>
 
@@ -1396,6 +1427,11 @@ kernel cannot return immediately (blocking call)</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-threads-why-not">User-Mode Threads: Why Not?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnu-pth-user-mode-pthreads">GNU - Pth - User Mode Pthreads</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pthreads-kernel-threads">PThreads - Kernel Threads</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-pthread-creation">Basic pthread creation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joinable-pthreads">Joinable pthreads</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-variable-preview">Condition variable preview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#condition-variable-with-explicit-shared-data">Condition variable with explicit shared data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-thread-scheduling-case-study">C# Thread Scheduling Case Study</a></li>
 </ul>
   </nav></div>
 
