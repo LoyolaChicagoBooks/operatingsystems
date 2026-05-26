@@ -96,10 +96,15 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinxawesome_theme'
+html_theme = 'sphinx_book_theme'
 
 
 html_theme_options = {
+    'repository_url': 'https://github.com/LoyolaChicagoBooks/operatingsystems',
+    'repository_branch': 'master',
+    'path_to_docs': 'source',
+    'use_repository_button': True,
+    'use_issues_button': True,
 }
 
 
