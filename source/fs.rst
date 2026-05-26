@@ -1,12 +1,20 @@
 Implementing Files and Folders
 ==============================
 
+.. index::
+   single: filesystem
+   pair: operating system; filesystem
+
 Filesystems organize storage into named files, directories, metadata,
 and free space. Their design depends on the storage medium and on the
 operations the operating system needs to support.
 
 Filesystem Layout
 -----------------
+
+.. index::
+   single: contiguous allocation
+   pair: filesystem; layout
 
 Simple media can store files contiguously with a table of contents.
 
@@ -17,6 +25,10 @@ because files are created, extended, truncated, and deleted over time.
 
 Linked-List Allocation
 ----------------------
+
+.. index::
+   single: linked-list allocation
+   pair: filesystem; linked-list allocation
 
 Linked-list allocation stores each file as a chain of blocks.
 
@@ -32,6 +44,10 @@ the chain through earlier blocks.
 Linked-List Tradeoffs
 ---------------------
 
+.. index::
+   pair: linked-list allocation; tradeoffs
+   pair: filesystem; random access
+
 Linked-list allocation is easy to implement but has practical costs.
 
 The final block can have internal fragmentation if it is not full. Each
@@ -41,6 +57,11 @@ must traverse the chain.
 
 File Allocation Tables
 ----------------------
+
+.. index::
+   single: FAT
+   single: file allocation table
+   pair: filesystem; FAT
 
 A file allocation table, or FAT, stores the block chain in a central
 table instead of inside each data block.
@@ -55,6 +76,9 @@ faster and lets each data block hold only file data.
 FAT Tradeoffs
 -------------
 
+.. index::
+   pair: FAT; tradeoffs
+
 FAT filesystems are simple and practical for small or moderate storage
 devices.
 
@@ -65,6 +89,11 @@ significant memory.
 inodes
 ------
 
+.. index::
+   single: inode
+   pair: filesystem; inode
+   pair: UNIX; inode
+
 An inode is the central metadata structure in a UNIX filesystem.
 
 An inode stores ownership, mode bits, timestamps, file size, device
@@ -73,6 +102,11 @@ contents. Directory entries map names to inode numbers.
 
 Minix inode
 -----------
+
+.. index::
+   single: Minix inode
+   pair: inode; indirect blocks
+   pair: Minix; inode
 
 The Minix inode layout uses direct and indirect zones.
 
@@ -88,6 +122,13 @@ quickly while still supporting larger files.
 inode Strategy
 --------------
 
+.. index::
+   single: ext2
+   single: ext3
+   single: ext4
+   single: extents
+   pair: inode; indirect blocks
+
 Direct, indirect, double-indirect, and triple-indirect blocks are a
 successful filesystem design pattern.
 
@@ -99,6 +140,12 @@ extents.
 Block Caches
 ------------
 
+.. index::
+   single: block cache
+   single: read-ahead
+   single: write-behind
+   pair: filesystem; block cache
+
 A block cache keeps recently used disk blocks in memory.
 
 The cache supports read-ahead and write-behind. A ``write()`` call can
@@ -108,6 +155,10 @@ write dirty blocks.
 
 Minix Block Cache
 -----------------
+
+.. index::
+   single: LRU
+   pair: Minix; block cache
 
 Minix uses an LRU-style block cache.
 
@@ -122,6 +173,10 @@ without repeated disk reads.
 Block Cache Tradeoffs
 ---------------------
 
+.. index::
+   pair: block cache; write-behind
+   pair: block cache; durability
+
 A larger block cache usually improves filesystem performance but uses
 memory that programs could otherwise use.
 
@@ -133,6 +188,10 @@ durability but can reduce I/O scheduling opportunities.
 Folders and Path Traversal
 --------------------------
 
+.. index::
+   single: directory
+   pair: filesystem; directory entry
+
 A directory maps names to filesystem objects.
 
 In UNIX filesystems, directories are represented by inodes whose contents
@@ -142,6 +201,11 @@ looking up the next path component.
 
 Path Traversal
 --------------
+
+.. index::
+   single: path traversal
+   single: mount point
+   pair: filesystem; path traversal
 
 Path traversal can cross mount points and therefore filesystem
 implementations.
@@ -157,6 +221,11 @@ different filesystems.
 Virtual Filesystems
 -------------------
 
+.. index::
+   single: VFS
+   single: virtual filesystem
+   pair: filesystem; VFS
+
 A virtual filesystem, or VFS, defines a common interface between the
 kernel and filesystem implementations.
 
@@ -168,6 +237,10 @@ filesystem.
 VFS Adaptation
 --------------
 
+.. index::
+   single: VFAT
+   pair: VFS; adaptation
+
 The VFS also lets operating systems support foreign or specialized
 filesystems.
 
@@ -178,6 +251,12 @@ contract lets different filesystems participate in the same namespace.
 Filesystem Stacking
 -------------------
 
+.. index::
+   single: filesystem stacking
+   single: UMSDOS
+   single: union filesystem
+   pair: filesystem; stacking
+
 Some VFS designs allow one filesystem to be stacked on another.
 
 UMSDOS adapted VFAT into a more UNIX-like filesystem by adding hidden
@@ -187,6 +266,11 @@ can be expressed as a layer above an existing filesystem.
 
 User-Mode Filesystems
 ---------------------
+
+.. index::
+   single: FUSE
+   single: Dokan
+   pair: filesystem; user-mode
 
 User-mode filesystems move filesystem implementation out of the kernel
 and into ordinary processes.
@@ -199,6 +283,10 @@ debugging tools can be used.
 User-Mode Filesystem Tradeoffs
 ------------------------------
 
+.. index::
+   pair: FUSE; kernel crossings
+   pair: user-mode filesystem; tradeoffs
+
 User-mode filesystems improve development ergonomics but add crossings
 between kernel mode and user mode.
 
@@ -209,6 +297,10 @@ required.
 
 Pass-Through FUSE Filesystem
 ----------------------------
+
+.. index::
+   pair: FUSE; pass-through
+   pair: FUSE; Getattr
 
 A pass-through FUSE filesystem forwards operations to an underlying
 directory.
@@ -244,6 +336,12 @@ Key points:
 
 FUSE Name Operations
 --------------------
+
+.. index::
+   pair: FUSE; Mkdir
+   pair: FUSE; Unlink
+   pair: FUSE; Symlink
+   pair: FUSE; Rename
 
 FUSE callbacks often map directly to familiar UNIX file operations.
 
@@ -295,6 +393,16 @@ Key points:
 FUSE File I/O Operations
 ------------------------
 
+.. index::
+   pair: FUSE; Open
+   pair: FUSE; Read
+   pair: FUSE; Write
+   pair: FUSE; Fsync
+   single: pread()
+   single: pwrite()
+   single: fdatasync()
+   single: fsync()
+
 File I/O callbacks handle opening, reading, writing, and syncing files.
 
 ::
@@ -337,6 +445,11 @@ Key points:
 
 FUSE Directory Operations
 -------------------------
+
+.. index::
+   pair: FUSE; Opendir
+   pair: FUSE; Readdir
+   pair: FUSE; Releasedir
 
 Directory callbacks open, read, and close directories.
 
@@ -385,6 +498,9 @@ Key points:
 
 FUSE
 ----
+
+.. index::
+   pair: FUSE; design
 
 FUSE mirrors the UNIX filesystem contract closely.
 

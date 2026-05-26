@@ -1,12 +1,22 @@
 Storage and Devices
 ===================
 
+.. index::
+   single: storage devices
+   pair: operating system; storage
+
 Storage devices provide persistent or transient places to keep data.
 Operating systems hide many device details behind block devices,
 filesystems, caches, and scheduling policies.
 
 Storage Devices
 ---------------
+
+.. index::
+   single: magnetic storage
+   single: optical storage
+   single: solid-state storage
+   pair: storage; permanent
 
 Permanent storage keeps data after power is removed.
 
@@ -17,6 +27,11 @@ processor caches.
 
 IDE and ATA
 -----------
+
+.. index::
+   single: IDE
+   single: ATA
+   pair: storage; ATA
 
 IDE and ATA moved much of the responsibility for disk control into the
 drive itself.
@@ -29,6 +44,11 @@ rates such as 16, 33, 66, 100, and 133 MB/s.
 ATAPI
 -----
 
+.. index::
+   single: ATAPI
+   single: DMA
+   pair: ATA; ATAPI
+
 ATAPI extends ATA with commands needed by devices other than hard disks.
 
 Commands such as eject allowed CD, DVD, and Zip drives to use an
@@ -38,6 +58,11 @@ interrupting the CPU for every bus operation.
 
 SATA
 ----
+
+.. index::
+   single: SATA
+   single: AHCI
+   pair: storage; SATA
 
 Serial ATA, or SATA, reduces cabling and supports faster serial transfer
 rates than classic parallel ATA.
@@ -50,6 +75,14 @@ supports AHCI.
 
 Hard Disk Geometry
 ------------------
+
+.. index::
+   single: disk geometry
+   single: cylinder
+   single: head
+   single: sector
+   single: CHS
+   pair: disk; geometry
 
 Traditional disk geometry describes storage with cylinders, heads, and
 sectors.
@@ -66,6 +99,11 @@ sector.
 Logical Block Addressing
 ------------------------
 
+.. index::
+   single: LBA
+   single: logical block addressing
+   pair: disk; LBA
+
 Logical block addressing, or LBA, converts physical geometry into a
 linear block number.
 
@@ -81,6 +119,10 @@ track.
 Storage and Failure
 -------------------
 
+.. index::
+   single: disk failure
+   pair: storage; redundancy
+
 Storage devices fail, so operating systems and storage systems must
 design for failure.
 
@@ -92,6 +134,10 @@ assumption that individual devices will keep working.
 Maximizing Availability with RAID
 ---------------------------------
 
+.. index::
+   single: RAID
+   pair: storage; RAID
+
 RAID uses multiple disks to improve capacity, performance, or
 availability.
 
@@ -102,6 +148,11 @@ parity so the system can recover after one or more disk failures.
 RAID Implementation
 -------------------
 
+.. index::
+   single: software RAID
+   single: hardware RAID
+   pair: RAID; implementation
+
 RAID can be implemented in hardware, partly in hardware, or in software.
 
 A full hardware controller presents several disks as one logical device.
@@ -111,6 +162,10 @@ presented upward to the filesystem layer as a storage device.
 
 RAID 0
 ------
+
+.. index::
+   single: RAID 0
+   pair: RAID; striping
 
 RAID 0 stripes data across disks.
 
@@ -124,6 +179,10 @@ If one disk fails, the array loses data.
 RAID 1
 ------
 
+.. index::
+   single: RAID 1
+   pair: RAID; mirroring
+
 RAID 1 mirrors data across disks.
 
 .. figure:: storage/diagrams/raid_1.*
@@ -136,6 +195,10 @@ because each block is stored more than once.
 RAID 5
 ------
 
+.. index::
+   single: RAID 5
+   pair: RAID; parity
+
 RAID 5 stripes data and parity across disks.
 
 .. figure:: storage/diagrams/raid_5.*
@@ -147,6 +210,10 @@ disk. RAID 5 needs at least three disks.
 
 RAID 5 Parity Write
 -------------------
+
+.. index::
+   single: XOR parity
+   pair: RAID 5; parity write
 
 Parity can be computed with exclusive-or.
 
@@ -177,6 +244,10 @@ Key points:
 RAID 5 Parity Read
 ------------------
 
+.. index::
+   pair: RAID 5; parity read
+   pair: RAID 5; recovery
+
 The same XOR operation can recover missing data.
 
 ::
@@ -202,6 +273,9 @@ Key points:
 
 RAID 5 Recovery Example
 -----------------------
+
+.. index::
+   pair: RAID; disk failure recovery
 
 This example writes two data files and one parity file, deletes one data
 file, and reconstructs the missing data.
@@ -254,7 +328,18 @@ Key points:
 Disk Partitioning
 -----------------
 
+.. index::
+   single: disk partitioning
+   single: master boot record
+   single: MBR
+   pair: disk; partition
+
 Partitions divide a disk into regions with different roles or formats.
+
+.. index::
+   single: extended partition
+   single: logical partition
+   pair: disk; extended partition
 
 A disk may contain filesystems, swap space, recovery areas, and
 partitions used by other operating systems. On traditional PC systems,
@@ -265,6 +350,10 @@ logical partitions.
 Disk Arms and Heads
 -------------------
 
+.. index::
+   single: seek time
+   pair: disk; head movement
+
 Mechanical disks have moving parts that affect performance.
 
 The disk motor spins platters under the heads. A head moves to the right
@@ -274,6 +363,10 @@ head is seek time, and disk scheduling algorithms try to reduce it.
 Good Disk Scheduling
 --------------------
 
+.. index::
+   single: disk scheduling
+   pair: scheduling; disk
+
 A good disk scheduling algorithm balances throughput, latency, and
 fairness.
 
@@ -282,6 +375,9 @@ reasonable, and prevent any request from waiting too long.
 
 Disk Scheduling Algorithms
 --------------------------
+
+.. index::
+   pair: disk scheduling; algorithms
 
 Common disk scheduling algorithms include FIFO, shortest seek first, the
 elevator algorithm, and FSCAN.
@@ -294,6 +390,10 @@ internal device behavior.
 FIFO Disk Scheduling
 --------------------
 
+.. index::
+   single: FIFO disk scheduling
+   pair: disk scheduling; FIFO
+
 FIFO serves requests in arrival order.
 
 It is simple and fair, but it does not minimize head movement. A request
@@ -302,6 +402,10 @@ the queue, even if many nearby requests are waiting.
 
 Shortest Seek First
 -------------------
+
+.. index::
+   single: shortest seek first
+   pair: disk scheduling; shortest seek first
 
 Shortest seek first serves the request closest to the current head
 position.
@@ -315,6 +419,10 @@ the current head position if nearby requests keep arriving.
 
 Elevator Algorithm
 ------------------
+
+.. index::
+   single: elevator algorithm
+   pair: disk scheduling; elevator
 
 The elevator algorithm moves the disk head in one direction, serving
 requests along the way, and then reverses direction.
@@ -331,6 +439,9 @@ first.
 Elevator Tradeoffs
 ------------------
 
+.. index::
+   pair: elevator algorithm; tradeoffs
+
 The elevator algorithm improves fairness but is not perfectly balanced.
 
 Middle tracks can receive better average service because they are closer
@@ -339,6 +450,10 @@ logical direction and returning to the beginning before serving again.
 
 FSCAN
 -----
+
+.. index::
+   single: FSCAN
+   pair: disk scheduling; FSCAN
 
 FSCAN separates current requests from new requests.
 
