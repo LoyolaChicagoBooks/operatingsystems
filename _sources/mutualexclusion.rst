@@ -1,6 +1,10 @@
 Mutual Exclusion
 ================
 
+.. index::
+   single: mutual exclusion
+   pair: concurrency; mutual exclusion
+
 Mutual exclusion is the requirement that only one thread or process at a
 time may execute a particular part of a program. We need mutual exclusion
 when shared state can be read and written by more than one execution
@@ -8,6 +12,10 @@ context.
 
 Critical Sections
 -----------------
+
+.. index::
+   single: critical section
+   pair: concurrency; critical section
 
 A critical section is a region of code that accesses shared state and
 must not be executed concurrently unless the program has been designed to
@@ -57,6 +65,10 @@ other thread's update.
 Execution Orders and Atomicity
 ------------------------------
 
+.. index::
+   single: atomicity
+   pair: concurrency; atomicity
+
 Atomicity means that an operation behaves as though it happens all at
 once. Most source-level statements are not atomic at the machine level.
 
@@ -85,6 +97,11 @@ later than the programmer assumes.
 Interleavings
 -------------
 
+.. index::
+   single: interleavings
+   pair: concurrency; interleaving
+   single: race condition
+
 An interleaving is one possible ordering of instructions from two or
 more threads. Some interleavings are equivalent to serial execution, and
 some are not.
@@ -110,6 +127,9 @@ interleavings that are not equivalent to some serial execution.
 Characteristics of a Good Locking Solution
 ------------------------------------------
 
+.. index::
+   single: locking; requirements
+
 A good locking solution protects correctness without adding unnecessary
 assumptions about scheduling, CPU speed, or the number of processors.
 
@@ -125,6 +145,12 @@ The main requirements are:
 
 Achieving Atomicity and Serializability
 ---------------------------------------
+
+.. index::
+   single: serializability
+   single: pessimistic locking
+   single: optimistic locking
+   pair: concurrency; serializability
 
 Serializability means that concurrent execution produces a result that
 is equivalent to some serial ordering of the same operations.
@@ -143,6 +169,14 @@ and some high-concurrency data structures.
 Types of Pessimistic Locks
 --------------------------
 
+.. index::
+   single: pessimistic locking; types
+   single: spin locks
+   single: mutexes
+   single: semaphores
+   single: monitors
+   single: reader-writer locks
+
 Pessimistic locking assumes that a conflict may happen and prevents the
 conflict before it can corrupt shared state.
 
@@ -152,6 +186,11 @@ reader-writer locks.
 
 Types of Optimistic Locks
 -------------------------
+
+.. index::
+   single: optimistic locking; types
+   single: compare-and-swap
+   single: software transactional memory (STM)
 
 Optimistic locking assumes that conflicts are uncommon and checks for a
 conflict before committing the result.
@@ -163,6 +202,10 @@ the protected data structure is sparse.
 
 Software Transactional Memory Example
 -------------------------------------
+
+.. index::
+   single: software transactional memory (STM)
+   pair: concurrency; transactional memory
 
 Software transactional memory lets code make tentative changes and then
 commit them only if the original data has not changed.
@@ -201,6 +244,10 @@ Key points:
 Disabling Interrupts
 --------------------
 
+.. index::
+   single: disabling interrupts
+   pair: mutual exclusion; disabling interrupts
+
 Disabling interrupts prevents timer interrupts from invoking the
 scheduler on the current CPU. This can make a short kernel critical
 section atomic on that CPU.
@@ -212,6 +259,10 @@ does not automatically protect the same data on other CPUs.
 
 Strict Alternation
 ------------------
+
+.. index::
+   single: strict alternation
+   pair: mutual exclusion; strict alternation
 
 Strict alternation lets threads take turns entering a critical section,
 usually through a shared ``turn`` variable.
@@ -241,6 +292,10 @@ critical section even when the critical section is free.
 Spin Locks
 ----------
 
+.. index::
+   single: spin locks
+   pair: mutual exclusion; spin locks
+
 A spin lock is a lock where a waiting thread repeatedly checks whether
 the lock is available. The waiting thread stays runnable while it waits.
 
@@ -264,6 +319,13 @@ especially inside kernels, but they waste CPU time if the wait is long.
 
 Spin Lock Implementation
 ------------------------
+
+.. index::
+   single: test_and_set
+   single: xchg instruction
+   single: cmpxchg instruction
+   pair: x86; atomic instructions
+   single: atomic operations
 
 A spin lock needs an atomic operation that tests the old value and sets a
 new value as one indivisible operation.
@@ -327,6 +389,14 @@ Key points:
 Mutexes
 -------
 
+.. index::
+   single: mutex
+   single: pthread_mutex_t
+   single: pthread_mutex_lock()
+   single: pthread_mutex_unlock()
+   single: pthread_mutex_init()
+   pair: POSIX; mutex
+
 A mutex is a mutual exclusion lock that allows only one owner at a time.
 Unlike a simple spin lock, a system mutex can put a waiting thread to
 sleep instead of making it burn CPU cycles.
@@ -341,6 +411,12 @@ The pthreads library provides mutexes on POSIX systems:
    pthread_mutex_lock(&mutex);
    /* critical section */
    pthread_mutex_unlock(&mutex);
+
+.. index::
+   single: CreateMutex()
+   single: WaitForSingleObject()
+   single: ReleaseMutex()
+   pair: Windows; mutex
 
 Windows provides the same idea through mutex handles:
 
@@ -385,6 +461,13 @@ Key points:
 Semaphores
 ----------
 
+.. index::
+   single: semaphore
+   single: binary semaphore
+   single: counting semaphore
+   single: event semaphore
+   pair: synchronization; semaphore
+
 A semaphore is a synchronization object with an integer count. A thread
 decrements the count before proceeding and increments it when it releases
 or signals the resource.
@@ -396,6 +479,9 @@ signal that something has happened.
 
 Semaphore Implementation
 ------------------------
+
+.. index::
+   pair: semaphore; implementation
 
 A semaphore can be built from a lock that protects the count and
 operations that adjust the count.
@@ -458,6 +544,11 @@ Key points:
 
 Producer-Consumer with Semaphores
 ---------------------------------
+
+.. index::
+   single: producer-consumer problem
+   pair: concurrency; producer-consumer
+   single: bounded buffer
 
 The producer-consumer problem uses one or more producers to place items
 in a bounded queue and one or more consumers to remove them.
@@ -529,6 +620,10 @@ Key points:
 Reader-Writer Locks
 -------------------
 
+.. index::
+   single: reader-writer locks
+   pair: synchronization; reader-writer locks
+
 A reader-writer lock allows many readers to hold the lock at the same
 time but gives writers exclusive access.
 
@@ -581,6 +676,12 @@ can create different starvation and deadlock risks.
 POSIX Semaphores
 ----------------
 
+.. index::
+   single: sem_init()
+   single: sem_wait()
+   single: sem_post()
+   pair: POSIX; semaphores
+
 POSIX semaphores provide a system interface for counting semaphores.
 
 The basic initialization call is:
@@ -605,6 +706,12 @@ sets the initial count.
 Windows Semaphores
 ------------------
 
+.. index::
+   single: CreateSemaphore()
+   single: ReleaseSemaphore()
+   pair: Windows; semaphores
+   single: named semaphores
+
 Windows also provides semaphore objects through the Win32 API.
 
 ::
@@ -623,6 +730,10 @@ or opens a named semaphore and then waits on it with
 
 Monitors and Condition Variables
 --------------------------------
+
+.. index::
+   single: monitors
+   pair: synchronization; monitors
 
 A monitor combines mutual exclusion with a way for threads to wait until
 a condition becomes true.
@@ -688,6 +799,13 @@ Key points:
 Pthreads Condition Variables
 ----------------------------
 
+.. index::
+   single: pthread_cond_t
+   single: pthread_cond_wait()
+   single: pthread_cond_signal()
+   single: pthread_cond_init()
+   pair: POSIX; condition variables
+
 Pthreads condition variables implement the monitor pattern with an
 explicit mutex and condition variable.
 
@@ -712,6 +830,12 @@ critical section and change the condition.
 
 Windows Condition Variables
 ---------------------------
+
+.. index::
+   single: CONDITION_VARIABLE
+   single: SleepConditionVariableCS()
+   single: WakeConditionVariable()
+   pair: Windows; condition variables
 
 Windows condition variables provide the same basic pattern as pthread
 condition variables.
@@ -738,6 +862,10 @@ thread can atomically release the lock and block.
 C# Bounded Buffer
 -----------------
 
+.. index::
+   pair: C#; bounded buffer
+   pair: C#; semaphores
+
 The ``systems-code-examples/threads_csharp`` directory includes a C#
 bounded buffer implemented with .NET semaphores.
 
@@ -757,6 +885,11 @@ Key points:
 
 C# Monitor Pipeline
 -------------------
+
+.. index::
+   pair: C#; monitor
+   single: Monitor.Wait()
+   single: Monitor.Pulse()
 
 The C# pipeline examples use ``lock``, ``Monitor.Wait()``, and
 ``Monitor.Pulse()`` to coordinate staged work.
@@ -821,6 +954,13 @@ Key points:
 
 Dining Philosophers
 -------------------
+
+.. index::
+   single: dining philosophers problem
+   single: deadlock
+   pair: concurrency; dining philosophers
+   single: lock ordering
+   single: resource contention
 
 The dining philosophers problem is a classic example of lock ordering,
 resource contention, and deadlock.

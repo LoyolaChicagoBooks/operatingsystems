@@ -150,6 +150,7 @@
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookindex.html">Book Index</a></li>
 </ul>
 
     </div>
@@ -387,26 +388,26 @@
                   
   <section id="introduction-to-processes">
 <h1>Introduction to Processes<a class="headerlink" href="#introduction-to-processes" title="Link to this heading">#</a></h1>
-<p>A process is an executing program. It has a memory address space, a
+<p id="index-0">A process is an executing program. It has a memory address space, a
 program image, handles to files, and the operating system state needed
 for interprocess communication.</p>
-<p>Every process has a parent. In traditional UNIX systems, the top of the
+<p id="index-1">Every process has a parent. In traditional UNIX systems, the top of the
 process tree is <code class="docutils literal notranslate"><span class="pre">init</span></code>. On Windows, several system processes fill
 similar roles, including <code class="docutils literal notranslate"><span class="pre">system.exe</span></code> for the kernel, <code class="docutils literal notranslate"><span class="pre">csrss.exe</span></code> for
 user-mode Win32 support, <code class="docutils literal notranslate"><span class="pre">wininit.exe</span></code> for system services,
 <code class="docutils literal notranslate"><span class="pre">explorer.exe</span></code> for the shell, and <code class="docutils literal notranslate"><span class="pre">winlogin.exe</span></code> for login services.</p>
 <section id="process-memory-layout">
 <h2>Process Memory Layout<a class="headerlink" href="#process-memory-layout" title="Link to this heading">#</a></h2>
-<p>A process address space is normally divided into a few major regions.
+<p id="index-2">A process address space is normally divided into a few major regions.
 The text segment contains the machine instructions of the program. The
 data segment contains initialized static data and constants. The BSS
 segment contains uninitialized static data.</p>
-<p>The heap is used for dynamic memory allocation. A process may have one
+<p id="index-3">The heap is used for dynamic memory allocation. A process may have one
 or more heaps. The stack contains local variables, call frames, and
 return values. Kernel-mode threads normally have one stack per thread.
 User-mode threading libraries may multiplex many user threads over a
 smaller number of kernel-thread stacks.</p>
-<p>The loader is responsible for laying out the text, data, BSS, initial
+<p id="index-4">The loader is responsible for laying out the text, data, BSS, initial
 heap, and initial stack. After the process starts, stack and heap
 management are handled by the program, its runtime library, and the
 operating system.</p>
@@ -502,7 +503,7 @@ data, and BSS sections discussed above.</p></li>
 </section>
 <section id="loading-programs">
 <h2>Loading Programs<a class="headerlink" href="#loading-programs" title="Link to this heading">#</a></h2>
-<p>When a program is loaded, the loader allocates memory for the executable
+<p id="index-5">When a program is loaded, the loader allocates memory for the executable
 text, data, BSS, heap, and stack. It then loads the program image into
 memory.</p>
 <p>The loader also handles shared libraries. It asks the operating system
@@ -541,7 +542,7 @@ behavior.</p></li>
 </section>
 <section id="loading-shared-libraries-so">
 <h2>Loading shared libraries (.so)<a class="headerlink" href="#loading-shared-libraries-so" title="Link to this heading">#</a></h2>
-<p>Libraries also have text, data, and BSS sections. Shared libraries must
+<p id="index-6">Libraries also have text, data, and BSS sections. Shared libraries must
 use position-independent memory references so the same library can be
 mapped at different addresses in different processes. GCC uses the
 <code class="docutils literal notranslate"><span class="pre">-fpic</span></code> or <code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> flags for this. Newer GCC versions often make PIC
@@ -590,7 +591,7 @@ before the call to <code class="docutils literal notranslate"><span class="pre">
 </section>
 <section id="more-about-gcc-pic-option">
 <h2>more about GCC pic option<a class="headerlink" href="#more-about-gcc-pic-option" title="Link to this heading">#</a></h2>
-<p>Based on the <em>man page</em> for <code class="docutils literal notranslate"><span class="pre">gcc</span></code>:</p>
+<p id="index-7">Based on the <em>man page</em> for <code class="docutils literal notranslate"><span class="pre">gcc</span></code>:</p>
 <p>Generate position-independent code (PIC) suitable for use in a shared
 library, if supported for the target machine. Such code accesses all
 constant addresses through a global offset table (GOT). The dynamic
@@ -601,7 +602,7 @@ linker reports that <code class="docutils literal notranslate"><span class="pre"
 </section>
 <section id="loading-static-libraries">
 <h2>Loading static libraries<a class="headerlink" href="#loading-static-libraries" title="Link to this heading">#</a></h2>
-<p>Static libraries do not contain position-independent code. A static
+<p id="index-8">Static libraries do not contain position-independent code. A static
 library is a collection of unlinked <code class="docutils literal notranslate"><span class="pre">.o</span></code> object files. When the program
 is linked, the linker copies the needed object code into the final
 executable.</p>
@@ -756,7 +757,7 @@ table so the code can be loaded at different virtual addresses.</p></li>
 </section>
 <section id="shared-libraries-evaluation">
 <h2>Shared Libraries - Evaluation<a class="headerlink" href="#shared-libraries-evaluation" title="Link to this heading">#</a></h2>
-<p>Shared libraries reduce memory use when multiple processes load the same
+<p id="index-9">Shared libraries reduce memory use when multiple processes load the same
 library because the text segment can be reused. They also allow programs
 to benefit from library updates without rebuilding the executable.</p>
 <p>The cost is complexity. Shared libraries require virtual memory support,
@@ -765,7 +766,7 @@ version and path compatibility.</p>
 </section>
 <section id="static-libraries-evaluation">
 <h2>Static Libraries - Evaluation<a class="headerlink" href="#static-libraries-evaluation" title="Link to this heading">#</a></h2>
-<p>Static libraries make sense when reuse is not important, when deployment
+<p id="index-10">Static libraries make sense when reuse is not important, when deployment
 must avoid runtime dependencies, or when the program must be self
 contained. Static linking can also avoid version and path problems.</p>
 <p>The main cost is memory use. Common code is copied into each executable,
@@ -773,7 +774,7 @@ so there is less sharing across processes.</p>
 </section>
 <section id="libraries-vs-statically-linked-programs">
 <h2>Libraries vs. Statically-Linked Programs<a class="headerlink" href="#libraries-vs-statically-linked-programs" title="Link to this heading">#</a></h2>
-<p>Dynamic linking is usually chosen for memory footprint, code reuse,
+<p id="index-11">Dynamic linking is usually chosen for memory footprint, code reuse,
 smaller executables, and easier library updates. Static linking is useful
 when deployment simplicity matters more than sharing. It can also make
 whole-program optimization and obfuscation easier because more code is
@@ -781,7 +782,7 @@ available to the linker at once.</p>
 </section>
 <section id="process-protection">
 <h2>Process Protection<a class="headerlink" href="#process-protection" title="Link to this heading">#</a></h2>
-<p>Modern operating systems use virtual memory and privilege separation to
+<p id="index-12">Modern operating systems use virtual memory and privilege separation to
 protect processes from each other and from the kernel.</p>
 <p>One process cannot read another process’s memory unless the operating
 system explicitly permits it. A process can manage the memory it owns,
@@ -793,11 +794,11 @@ space, user code cannot modify kernel memory or other protected pages.</p>
 </section>
 <section id="process-creation-with-fork">
 <h2>Process Creation with fork()<a class="headerlink" href="#process-creation-with-fork" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process. The
+<p id="index-13"><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process. The
 new process is the child. The calling process is the parent. The child has
 its own process ID, and its parent process ID is the parent’s process ID.
 The parent’s threads are not recreated in the child.</p>
-<p>In Linux, the C library implementation of <code class="docutils literal notranslate"><span class="pre">fork()</span></code> uses <code class="docutils literal notranslate"><span class="pre">clone()</span></code>.
+<p id="index-14">In Linux, the C library implementation of <code class="docutils literal notranslate"><span class="pre">fork()</span></code> uses <code class="docutils literal notranslate"><span class="pre">clone()</span></code>.
 From the programmer’s point of view, <code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns the child PID to
 the parent, returns <code class="docutils literal notranslate"><span class="pre">0</span></code> to the child, and returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> if the child
 cannot be created.</p>
@@ -863,7 +864,7 @@ the child branch.</p></li>
 </section>
 <section id="fork-and-exec-example">
 <h2>fork() and exec() example<a class="headerlink" href="#fork-and-exec-example" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_exec</span></code> example creates a pipe, forks,
+<p id="index-15">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_exec</span></code> example creates a pipe, forks,
 redirects standard input and standard output with <code class="docutils literal notranslate"><span class="pre">dup2()</span></code>, and then
 uses <code class="docutils literal notranslate"><span class="pre">execvp()</span></code> to replace each process image. The parent runs <code class="docutils literal notranslate"><span class="pre">wc</span></code>.
 The child runs <code class="docutils literal notranslate"><span class="pre">echo</span></code>.</p>
@@ -929,7 +930,7 @@ after a successful <code class="docutils literal notranslate"><span class="pre">
 </section>
 <section id="process-creation-with-clone">
 <h2>Process Creation with clone()<a class="headerlink" href="#process-creation-with-clone" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> because it creates a child execution
+<p id="index-16"><code class="docutils literal notranslate"><span class="pre">clone()</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> because it creates a child execution
 context. Unlike <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, it allows selected parts of the parent process
 to be shared with the child.</p>
 <p>Linux uses flags to control what is shared. <code class="docutils literal notranslate"><span class="pre">CLONE_FS</span></code> shares file
@@ -943,7 +944,7 @@ operating system.</p>
 </section>
 <section id="windows-createprocess-and-createthread">
 <h2>Windows CreateProcess() and CreateThread()<a class="headerlink" href="#windows-createprocess-and-createthread" title="Link to this heading">#</a></h2>
-<p>Windows does not expose the same process-sharing model as UNIX
+<p id="index-17">Windows does not expose the same process-sharing model as UNIX
 <code class="docutils literal notranslate"><span class="pre">fork()</span></code> and Linux <code class="docutils literal notranslate"><span class="pre">clone()</span></code>. <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> creates a new
 process and is closest to calling <code class="docutils literal notranslate"><span class="pre">fork()</span></code> followed by <code class="docutils literal notranslate"><span class="pre">execve()</span></code> on
 UNIX. <code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code> creates a new thread and is closest to using
@@ -954,7 +955,7 @@ for thread creation.</p>
 </section>
 <section id="emulating-fork-on-windows">
 <h2>Emulating fork() on Windows<a class="headerlink" href="#emulating-fork-on-windows" title="Link to this heading">#</a></h2>
-<p>Cygwin implements <code class="docutils literal notranslate"><span class="pre">fork()</span></code> on Windows by combining <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code>,
+<p id="index-18">Cygwin implements <code class="docutils literal notranslate"><span class="pre">fork()</span></code> on Windows by combining <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code>,
 saved register state, copied memory regions, and synchronization. The
 parent creates a suspended child process, saves register state with
 <code class="docutils literal notranslate"><span class="pre">setjmp()</span></code>, copies the BSS and data sections to the child, wakes the
@@ -965,7 +966,7 @@ UNIX <code class="docutils literal notranslate"><span class="pre">fork()</span><
 </section>
 <section id="system-call-boundary-example">
 <h2>System Call Boundary Example<a class="headerlink" href="#system-call-boundary-example" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/syscall</span></code> example compares three ways to
+<p id="index-19">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/syscall</span></code> example compares three ways to
 write output: the C library <code class="docutils literal notranslate"><span class="pre">printf()</span></code>, the POSIX <code class="docutils literal notranslate"><span class="pre">write()</span></code> wrapper,
 and a direct <code class="docutils literal notranslate"><span class="pre">syscall()</span></code> invocation.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -1002,7 +1003,7 @@ call interface directly.</p></li>
 </section>
 <section id="command-line-option-example">
 <h2>Command-Line Option Example<a class="headerlink" href="#command-line-option-example" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/getopt</span></code> example shows how a process receives
+<p id="index-20">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/getopt</span></code> example shows how a process receives
 command-line arguments through <code class="docutils literal notranslate"><span class="pre">argc</span></code> and <code class="docutils literal notranslate"><span class="pre">argv</span></code> and turns them into
 structured options.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cl.h&quot;</span>
@@ -1064,7 +1065,7 @@ command line was valid.</p></li>
 </section>
 <section id="process-termination">
 <h2>Process Termination<a class="headerlink" href="#process-termination" title="Link to this heading">#</a></h2>
-<p>A process can terminate normally by returning from <code class="docutils literal notranslate"><span class="pre">main()</span></code>. It can
+<p id="index-21">A process can terminate normally by returning from <code class="docutils literal notranslate"><span class="pre">main()</span></code>. It can
 also terminate with an error code, by encountering a fatal error, or by
 being terminated externally by another process.</p>
 <p>Fatal errors include segmentation faults or bus errors from invalid
@@ -1073,7 +1074,7 @@ instructions, and instruction faults such as divide by zero.</p>
 </section>
 <section id="wait-and-waitpid-examples">
 <h2>wait() and waitpid() examples<a class="headerlink" href="#wait-and-waitpid-examples" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> example shows how a parent process can
+<p id="index-22">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> example shows how a parent process can
 wait for a child process to terminate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
@@ -1119,7 +1120,7 @@ processes.</p></li>
 </section>
 <section id="sigchld-examples">
 <h2>SIGCHLD examples<a class="headerlink" href="#sigchld-examples" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_sigchld</span></code> example handles <code class="docutils literal notranslate"><span class="pre">SIGCHLD</span></code> to
+<p id="index-23">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_sigchld</span></code> example handles <code class="docutils literal notranslate"><span class="pre">SIGCHLD</span></code> to
 notice when a child process exits. It uses <code class="docutils literal notranslate"><span class="pre">wait()</span></code> in the signal
 handler to collect the child’s exit status.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -1319,7 +1320,7 @@ for children that are still running.</p></li>
 </section>
 <section id="process-oriented-c-case-studies">
 <h2>Process-Oriented C Case Studies<a class="headerlink" href="#process-oriented-c-case-studies" title="Link to this heading">#</a></h2>
-<p>Some examples in the repository are best treated as short systems C case
+<p id="index-24">Some examples in the repository are best treated as short systems C case
 studies. They support the process chapter because they make memory,
 calling conventions, and low-level representation concrete.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/objects</span></code> example shows object-style
@@ -1400,7 +1401,7 @@ methods by taking an <code class="docutils literal notranslate"><span class="pre
 <li><p>The example uses dynamic allocation, so it also previews memory
 management issues handled later.</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strlen</span></code> example is a small C string and
+<p id="index-25">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strlen</span></code> example is a small C string and
 memory-layout demonstration.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span>
@@ -1436,7 +1437,7 @@ memory-layout demonstration.</p>
 used by the array.</p></li>
 <li><p>The example is useful for connecting string behavior to memory layout.</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/parity</span></code> example is a low-level bit
+<p id="index-26">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/parity</span></code> example is a low-level bit
 manipulation example.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>

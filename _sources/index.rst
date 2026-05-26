@@ -26,3 +26,4 @@ the Computer Science Department.
    userlandmm
    storage
    fs
+   bookindex

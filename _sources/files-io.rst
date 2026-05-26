@@ -1,6 +1,16 @@
 Files and I/O
 ===========================
 
+.. index::
+   single: files; UNIX
+   pair: UNIX; file abstraction
+   single: file descriptor
+   single: open()
+   single: read()
+   single: write()
+   single: close()
+   single: select()
+
 UNIX systems use files as a common interface for many resources. Regular
 files, directories, devices, pipes, and sockets have different behavior,
 but they are all named in the filesystem and many of them support the
@@ -9,6 +19,13 @@ and ``select()``.
 
 Common attributes of all (UNIX) files
 -------------------------------------
+
+.. index::
+   single: filesystem namespace
+   single: file permissions
+   single: file attributes
+   pair: UNIX; file attributes
+   single: extended attributes
 
 Files live in the filesystem namespace under ``/``. UNIX paths do not use
 drive letters. Each file has a name, an owning user, an owning group, and
@@ -21,12 +38,27 @@ types vary widely in structure and behavior.
 Types of Files in Unix
 ----------------------
 
+.. index::
+   single: file types; UNIX
+   single: regular files
+   single: symbolic links
+   single: directories
+   single: block device files
+   single: character device files
+   single: named pipes
+   single: UNIX domain sockets
+
 UNIX file types include regular files, symbolic links, directories, block
 device files, character device files, named pipes, UNIX domain sockets,
 and, on Solaris, doors.
 
 Regular Files
 -------------
+
+.. index::
+   single: regular files
+   single: sparse files
+   pair: files; random access
 
 Regular files persist program data in a filesystem. They have ownership,
 permissions, and a defined size. They can normally be accessed
@@ -38,6 +70,11 @@ blocks for every byte.
 
 Folders
 -------
+
+.. index::
+   single: directories
+   pair: filesystem; directories
+   pair: permissions; execute bit
 
 Directories map names to filesystem entries. Early UNIX implementations
 represented directories as special files that listed other files. Modern
@@ -52,6 +89,11 @@ resolution. Read permission controls whether entries can be listed.
 Symbolic Links
 --------------
 
+.. index::
+   single: symbolic links
+   pair: filesystem; symbolic links
+   single: unlink()
+
 A symbolic link is a file whose contents point to another file or
 directory. The target may be an absolute path or a relative path. If the
 target does not exist, the symbolic link is broken.
@@ -62,6 +104,12 @@ itself.
 
 Block Device Files
 ------------------
+
+.. index::
+   single: block device files
+   single: devfs
+   single: sysfs
+   pair: Linux; device files
 
 Block device files expose devices that operate in fixed-size blocks.
 Common examples are disks, optical drives, USB media, and RAM disks.
@@ -75,6 +123,12 @@ including device files and special filesystems such as ``devfs`` and
 Character Device Files
 ----------------------
 
+.. index::
+   single: character device files
+   single: terminal
+   single: serial ports
+   pair: devices; character devices
+
 Character device files expose stream-oriented devices. Common examples
 include terminals, serial ports, modems, network interfaces, sound
 devices, video devices, and tape drives.
@@ -85,6 +139,11 @@ seeking is often expensive or device-specific.
 Named Pipes/FIFOs
 -----------------
 
+.. index::
+   single: named pipes
+   single: FIFOs
+   pair: IPC; named pipes
+
 Named pipes are pipes with names in the filesystem. They let unrelated
 processes communicate even when the processes do not share a parent-child
 relationship. We cover pipes in more detail in the IPC chapter.
@@ -92,12 +151,26 @@ relationship. We cover pipes in more detail in the IPC chapter.
 Unix Domain Sockets
 -------------------
 
+.. index::
+   single: UNIX domain sockets
+   pair: IPC; UNIX domain sockets
+
 UNIX domain sockets are sockets with names in the filesystem. They are
 similar to named pipes, but can support stream or datagram communication.
 Unlike network sockets, they do not use TCP/IP or UDP/IP.
 
 Filesystem System Calls
 -----------------------
+
+.. index::
+   single: filesystem system calls
+   single: creat()
+   single: lseek()
+   single: fcntl()
+   single: ioctl()
+   single: stat()
+   single: access()
+   single: umask()
 
 Most UNIX systems have many file-oriented system calls. The basic pattern
 is simple: open a resource, perform operations on its file descriptor,
@@ -157,6 +230,23 @@ Filesystem System Calls
 
 More Filesystem System Calls
 ------------------------------
+
+.. index::
+   single: truncate()
+   single: link()
+   single: rmdir()
+   single: remove()
+   single: rename()
+   single: symlink()
+   single: readlink()
+   single: utime()
+   single: opendir()
+   single: readdir()
+   single: rewinddir()
+   single: closedir()
+   single: chdir()
+   single: getcwd()
+   single: sync()
 
 .. list-table:: Filesystem Calls
    :widths: 10 20
@@ -222,6 +312,17 @@ More Filesystem System Calls
 Opening Files with open()
 -------------------------
 
+.. index::
+   single: open(); flags
+   single: O_APPEND
+   single: O_CREAT
+   single: O_TRUNC
+   single: O_SYNC
+   single: O_DIRECT
+   single: O_ASYNC
+   single: mode_t
+   pair: open(); permission bits
+
 ``open()`` opens a file and returns a file descriptor.
 
 .. code-block:: c
@@ -243,6 +344,10 @@ The return value is a file descriptor on success and ``-1`` on error.
 Closing files with close()
 --------------------------
 
+.. index::
+   single: close()
+   pair: system call; close
+
 ``close()`` releases a file descriptor.
 
 .. code-block:: c
@@ -255,6 +360,10 @@ on failure.
 
 Writing to a File
 -----------------
+
+.. index::
+   single: write(); partial writes
+   pair: system call; write
 
 ``write()`` copies bytes from a user buffer to a file descriptor.
 
@@ -288,6 +397,10 @@ Key points:
 
 Reading from a File
 -------------------
+
+.. index::
+   single: read(); end of file
+   pair: system call; read
 
 ``read()`` copies bytes from a file descriptor into a user buffer.
 
@@ -340,6 +453,14 @@ Key points:
 Seeking within a File
 ---------------------
 
+.. index::
+   single: lseek()
+   single: SEEK_SET
+   single: SEEK_CUR
+   single: SEEK_END
+   pair: system call; lseek
+   pair: files; seeking
+
 Not all files support seeking. Regular files usually do. Pipes, sockets,
 and many character devices do not.
 
@@ -356,6 +477,13 @@ on filesystems that support sparse allocation.
 
 Standard File Descriptors
 -------------------------
+
+.. index::
+   single: standard file descriptors
+   single: stdin
+   single: stdout
+   single: stderr
+   pair: file descriptor; standard
 
 Every process starts with three standard file descriptors.
 
@@ -374,6 +502,11 @@ runs.
 Duplicating File Descriptors
 ----------------------------
 
+.. index::
+   single: dup()
+   pair: system call; dup
+   pair: file descriptor; duplication
+
 ``dup()`` duplicates a file descriptor and returns a new descriptor
 number.
 
@@ -387,6 +520,11 @@ the same open file. They are also useful in shell-style redirection.
 Redirecting File Descriptors
 ----------------------------
 
+.. index::
+   single: dup2()
+   pair: system call; dup2
+   pair: shell; I/O redirection
+
 ``dup2()`` redirects one descriptor to refer to another open file.
 
 .. code-block:: c
@@ -399,6 +537,13 @@ how shells redirect standard input, output, and error.
 
 Reading Folders
 ---------------
+
+.. index::
+   single: opendir()
+   single: readdir()
+   single: closedir()
+   single: DIR*
+   pair: directory; traversal
 
 Directories are read with directory-specific library calls such as
 ``opendir()``, ``readdir()``, and ``closedir()``.
@@ -424,6 +569,10 @@ Key points:
 Directory Traversal in C++
 --------------------------
 
+.. index::
+   pair: C++; filesystem library
+   single: std::filesystem::directory_iterator
+
 The ``systems-code-examples/dir_list_cpp`` example performs the same
 basic operation with C++17 filesystem support.
 
@@ -443,6 +592,11 @@ Key points:
 
 Text Input
 ----------
+
+.. index::
+   single: text input
+   pair: C; line input
+   pair: C; buffer management
 
 Text-oriented programs often read a line, split it into words, and then
 process those words. C gives you low-level tools for this, which means
@@ -475,6 +629,11 @@ Key points:
 Tokenizing Input with strtok()
 ------------------------------
 
+.. index::
+   single: strtok()
+   pair: C library; strtok
+   single: string tokenization
+
 The ``systems-code-examples/strtok`` example splits a string into tokens
 using whitespace delimiters.
 
@@ -494,6 +653,12 @@ Key points:
 
 Dynamic String Buffer
 ---------------------
+
+.. index::
+   single: dynamic string buffer
+   single: realloc()
+   pair: C library; realloc
+   single: strbuffer_t
 
 The ``systems-code-examples/strbuffer_t`` example builds a small dynamic
 string buffer. It supports appending characters and returning a
@@ -540,6 +705,12 @@ Key points:
 Regular Expression Example
 --------------------------
 
+.. index::
+   single: regular expressions
+   single: regcomp()
+   single: regfree()
+   pair: POSIX; regular expressions
+
 The ``systems-code-examples/regex-demo`` example reads text and extracts
 matches using the POSIX regular expression API.
 
@@ -562,6 +733,10 @@ Key points:
 Character List Case Study
 -------------------------
 
+.. index::
+   single: tail queue (TAILQ)
+   pair: data structures; linked list
+
 The ``systems-code-examples/charlist_t`` example stores characters in a
 tail queue. It is a small data-structure case study for text processing.
 
@@ -580,6 +755,11 @@ Key points:
 
 Word Counting with Hash Tables
 ------------------------------
+
+.. index::
+   single: hash tables
+   single: hsearch
+   pair: data structures; hash table
 
 The ``systems-code-examples/std-hsearch`` example uses the standard
 ``hsearch`` family to maintain word counts.
@@ -601,6 +781,13 @@ Key points:
 Word Counting with Trees
 ------------------------
 
+.. index::
+   single: binary search tree
+   single: tsearch()
+   single: twalk()
+   single: tdestroy()
+   pair: data structures; binary search tree
+
 The ``systems-code-examples/std-tsearch`` example stores word information
 in a binary search tree.
 
@@ -619,6 +806,12 @@ Key points:
 Looking Ahead: I/O Performance
 ------------------------------
 
+.. index::
+   single: I/O performance
+   single: buffering strategy
+   pair: I/O; buffering
+   single: producer-consumer pattern
+
 Good I/O performance depends on choosing the right buffering strategy.
 Small buffers increase the number of system calls and lower throughput.
 Very large buffers may cause longer waits before processing can continue.
@@ -630,6 +823,10 @@ approach, and we return to it in the IPC chapter.
 
 Simple I/O Performance Experiment
 ---------------------------------
+
+.. index::
+   single: dd command
+   pair: I/O; block size
 
 The ``dd`` command gives a quick view of how block size can affect
 throughput.
@@ -651,12 +848,22 @@ cache state can affect the numbers.
 Reading/Writing Performance
 ---------------------------
 
+.. index::
+   single: vectored I/O
+   single: gather-scatter I/O
+   pair: I/O; vectored
+
 Vectored I/O, also called gather-scatter I/O, combines multiple buffers
 into one read or write operation. This reduces the number of system calls
 when a program has data split across several buffers.
 
 Vectored I/O Example
 --------------------
+
+.. index::
+   single: writev()
+   single: iovec
+   pair: system call; writev
 
 The ``systems-code-examples/vectored_io`` example writes three separate
 buffers with one ``writev()`` call.

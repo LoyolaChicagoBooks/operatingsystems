@@ -1,0 +1,4 @@
+Book Index
+==========
+
+:ref:`genindex`

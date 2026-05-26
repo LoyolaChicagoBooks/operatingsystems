@@ -150,6 +150,7 @@
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookindex.html">Book Index</a></li>
 </ul>
 
     </div>
@@ -394,14 +395,14 @@
                   
   <section id="files-and-i-o">
 <h1>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Link to this heading">#</a></h1>
-<p>UNIX systems use files as a common interface for many resources. Regular
+<p id="index-0">UNIX systems use files as a common interface for many resources. Regular
 files, directories, devices, pipes, and sockets have different behavior,
 but they are all named in the filesystem and many of them support the
 same basic operations: <code class="docutils literal notranslate"><span class="pre">open()</span></code>, <code class="docutils literal notranslate"><span class="pre">read()</span></code>, <code class="docutils literal notranslate"><span class="pre">write()</span></code>, <code class="docutils literal notranslate"><span class="pre">close()</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">select()</span></code>.</p>
 <section id="common-attributes-of-all-unix-files">
 <h2>Common attributes of all (UNIX) files<a class="headerlink" href="#common-attributes-of-all-unix-files" title="Link to this heading">#</a></h2>
-<p>Files live in the filesystem namespace under <code class="docutils literal notranslate"><span class="pre">/</span></code>. UNIX paths do not use
+<p id="index-1">Files live in the filesystem namespace under <code class="docutils literal notranslate"><span class="pre">/</span></code>. UNIX paths do not use
 drive letters. Each file has a name, an owning user, an owning group, and
 permission bits for the owner, group, and other users.</p>
 <p>Many filesystems also store extended attributes, creation time, last
@@ -410,13 +411,13 @@ types vary widely in structure and behavior.</p>
 </section>
 <section id="types-of-files-in-unix">
 <h2>Types of Files in Unix<a class="headerlink" href="#types-of-files-in-unix" title="Link to this heading">#</a></h2>
-<p>UNIX file types include regular files, symbolic links, directories, block
+<p id="index-2">UNIX file types include regular files, symbolic links, directories, block
 device files, character device files, named pipes, UNIX domain sockets,
 and, on Solaris, doors.</p>
 </section>
 <section id="regular-files">
 <h2>Regular Files<a class="headerlink" href="#regular-files" title="Link to this heading">#</a></h2>
-<p>Regular files persist program data in a filesystem. They have ownership,
+<p id="index-3">Regular files persist program data in a filesystem. They have ownership,
 permissions, and a defined size. They can normally be accessed
 sequentially or with random access through seek operations.</p>
 <p>Sparse files are an important exception to the simple size model. A
@@ -425,7 +426,7 @@ blocks for every byte.</p>
 </section>
 <section id="folders">
 <h2>Folders<a class="headerlink" href="#folders" title="Link to this heading">#</a></h2>
-<p>Directories map names to filesystem entries. Early UNIX implementations
+<p id="index-4">Directories map names to filesystem entries. Early UNIX implementations
 represented directories as special files that listed other files. Modern
 systems still expose some of that model, but programs modify directories
 through directory-specific system calls rather than by writing directory
@@ -436,7 +437,7 @@ resolution. Read permission controls whether entries can be listed.</p>
 </section>
 <section id="symbolic-links">
 <h2>Symbolic Links<a class="headerlink" href="#symbolic-links" title="Link to this heading">#</a></h2>
-<p>A symbolic link is a file whose contents point to another file or
+<p id="index-5">A symbolic link is a file whose contents point to another file or
 directory. The target may be an absolute path or a relative path. If the
 target does not exist, the symbolic link is broken.</p>
 <p>Most filesystem operations follow a symbolic link and operate on its
@@ -445,7 +446,7 @@ itself.</p>
 </section>
 <section id="block-device-files">
 <h2>Block Device Files<a class="headerlink" href="#block-device-files" title="Link to this heading">#</a></h2>
-<p>Block device files expose devices that operate in fixed-size blocks.
+<p id="index-6">Block device files expose devices that operate in fixed-size blocks.
 Common examples are disks, optical drives, USB media, and RAM disks.
 Block devices usually support random access and buffered I/O.</p>
 <p>Operating systems expose block devices through special filesystems or
@@ -455,7 +456,7 @@ including device files and special filesystems such as <code class="docutils lit
 </section>
 <section id="character-device-files">
 <h2>Character Device Files<a class="headerlink" href="#character-device-files" title="Link to this heading">#</a></h2>
-<p>Character device files expose stream-oriented devices. Common examples
+<p id="index-7">Character device files expose stream-oriented devices. Common examples
 include terminals, serial ports, modems, network interfaces, sound
 devices, video devices, and tape drives.</p>
 <p>Most character devices do not support random access. When they do,
@@ -463,19 +464,19 @@ seeking is often expensive or device-specific.</p>
 </section>
 <section id="named-pipes-fifos">
 <h2>Named Pipes/FIFOs<a class="headerlink" href="#named-pipes-fifos" title="Link to this heading">#</a></h2>
-<p>Named pipes are pipes with names in the filesystem. They let unrelated
+<p id="index-8">Named pipes are pipes with names in the filesystem. They let unrelated
 processes communicate even when the processes do not share a parent-child
 relationship. We cover pipes in more detail in the IPC chapter.</p>
 </section>
 <section id="unix-domain-sockets">
 <h2>Unix Domain Sockets<a class="headerlink" href="#unix-domain-sockets" title="Link to this heading">#</a></h2>
-<p>UNIX domain sockets are sockets with names in the filesystem. They are
+<p id="index-9">UNIX domain sockets are sockets with names in the filesystem. They are
 similar to named pipes, but can support stream or datagram communication.
 Unlike network sockets, they do not use TCP/IP or UDP/IP.</p>
 </section>
 <section id="filesystem-system-calls">
 <h2>Filesystem System Calls<a class="headerlink" href="#filesystem-system-calls" title="Link to this heading">#</a></h2>
-<p>Most UNIX systems have many file-oriented system calls. The basic pattern
+<p id="index-10">Most UNIX systems have many file-oriented system calls. The basic pattern
 is simple: open a resource, perform operations on its file descriptor,
 and close the descriptor when finished.</p>
 </section>
@@ -541,7 +542,7 @@ and close the descriptor when finished.</p>
 </section>
 <section id="more-filesystem-system-calls">
 <h2>More Filesystem System Calls<a class="headerlink" href="#more-filesystem-system-calls" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table" id="id4">
+<div class="pst-scrollable-table-container"><span id="index-11"></span><table class="table" id="id4">
 <caption><span class="caption-text">Filesystem Calls</span><a class="headerlink" href="#id4" title="Link to this table">#</a></caption>
 <colgroup>
 <col style="width: 33.3%" />
@@ -613,7 +614,7 @@ and close the descriptor when finished.</p>
 </section>
 <section id="opening-files-with-open">
 <h2>Opening Files with open()<a class="headerlink" href="#opening-files-with-open" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">open()</span></code> opens a file and returns a file descriptor.</p>
+<p id="index-12"><code class="docutils literal notranslate"><span class="pre">open()</span></code> opens a file and returns a file descriptor.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="kt">mode_t</span><span class="w"> </span><span class="n">mode</span><span class="p">);</span>
 <span class="kt">int</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pathname</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="p">);</span>
 </pre></div>
@@ -629,7 +630,7 @@ permissions. <code class="docutils literal notranslate"><span class="pre">0660</
 </section>
 <section id="closing-files-with-close">
 <h2>Closing files with close()<a class="headerlink" href="#closing-files-with-close" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">close()</span></code> releases a file descriptor.</p>
+<p id="index-13"><code class="docutils literal notranslate"><span class="pre">close()</span></code> releases a file descriptor.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -639,7 +640,7 @@ on failure.</p>
 </section>
 <section id="writing-to-a-file">
 <h2>Writing to a File<a class="headerlink" href="#writing-to-a-file" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">write()</span></code> copies bytes from a user buffer to a file descriptor.</p>
+<p id="index-14"><code class="docutils literal notranslate"><span class="pre">write()</span></code> copies bytes from a user buffer to a file descriptor.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -685,7 +686,7 @@ than requested.</p></li>
 </section>
 <section id="reading-from-a-file">
 <h2>Reading from a File<a class="headerlink" href="#reading-from-a-file" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">read()</span></code> copies bytes from a file descriptor into a user buffer.</p>
+<p id="index-15"><code class="docutils literal notranslate"><span class="pre">read()</span></code> copies bytes from a file descriptor into a user buffer.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">ssize_t</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -825,7 +826,7 @@ the example.</p></li>
 </section>
 <section id="seeking-within-a-file">
 <h2>Seeking within a File<a class="headerlink" href="#seeking-within-a-file" title="Link to this heading">#</a></h2>
-<p>Not all files support seeking. Regular files usually do. Pipes, sockets,
+<p id="index-16">Not all files support seeking. Regular files usually do. Pipes, sockets,
 and many character devices do not.</p>
 <p><code class="docutils literal notranslate"><span class="pre">lseek()</span></code> changes the current file offset for a descriptor.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">off_t</span><span class="w"> </span><span class="nf">lseek</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="kt">off_t</span><span class="w"> </span><span class="n">offset</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">whence</span><span class="p">);</span>
@@ -838,7 +839,7 @@ on filesystems that support sparse allocation.</p>
 </section>
 <section id="standard-file-descriptors">
 <h2>Standard File Descriptors<a class="headerlink" href="#standard-file-descriptors" title="Link to this heading">#</a></h2>
-<p>Every process starts with three standard file descriptors.</p>
+<p id="index-17">Every process starts with three standard file descriptors.</p>
 <dl class="simple">
 <dt>stdin</dt><dd><p>Standard input. The default descriptor value is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </dd>
@@ -852,7 +853,7 @@ runs.</p>
 </section>
 <section id="duplicating-file-descriptors">
 <h2>Duplicating File Descriptors<a class="headerlink" href="#duplicating-file-descriptors" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">dup()</span></code> duplicates a file descriptor and returns a new descriptor
+<p id="index-18"><code class="docutils literal notranslate"><span class="pre">dup()</span></code> duplicates a file descriptor and returns a new descriptor
 number.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">dup</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">);</span>
 </pre></div>
@@ -862,7 +863,7 @@ the same open file. They are also useful in shell-style redirection.</p>
 </section>
 <section id="redirecting-file-descriptors">
 <h2>Redirecting File Descriptors<a class="headerlink" href="#redirecting-file-descriptors" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">dup2()</span></code> redirects one descriptor to refer to another open file.</p>
+<p id="index-19"><code class="docutils literal notranslate"><span class="pre">dup2()</span></code> redirects one descriptor to refer to another open file.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">dup2</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">oldfd</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">newfd</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -872,7 +873,7 @@ how shells redirect standard input, output, and error.</p>
 </section>
 <section id="reading-folders">
 <h2>Reading Folders<a class="headerlink" href="#reading-folders" title="Link to this heading">#</a></h2>
-<p>Directories are read with directory-specific library calls such as
+<p id="index-20">Directories are read with directory-specific library calls such as
 <code class="docutils literal notranslate"><span class="pre">opendir()</span></code>, <code class="docutils literal notranslate"><span class="pre">readdir()</span></code>, and <code class="docutils literal notranslate"><span class="pre">closedir()</span></code>.</p>
 </section>
 <section id="directory-traversal-in-c">
@@ -914,7 +915,7 @@ directory.</p>
 </section>
 <section id="id2">
 <h2>Directory Traversal in C++<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/dir_list_cpp</span></code> example performs the same
+<p id="index-21">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/dir_list_cpp</span></code> example performs the same
 basic operation with C++17 filesystem support.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span>
@@ -947,7 +948,7 @@ operations.</p></li>
 </section>
 <section id="text-input">
 <h2>Text Input<a class="headerlink" href="#text-input" title="Link to this heading">#</a></h2>
-<p>Text-oriented programs often read a line, split it into words, and then
+<p id="index-22">Text-oriented programs often read a line, split it into words, and then
 process those words. C gives you low-level tools for this, which means
 programs must be careful about buffer sizes, terminators, and ownership
 of allocated memory.</p>
@@ -1134,7 +1135,7 @@ larger systems programs.</p></li>
 </section>
 <section id="tokenizing-input-with-strtok">
 <h2>Tokenizing Input with strtok()<a class="headerlink" href="#tokenizing-input-with-strtok" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strtok</span></code> example splits a string into tokens
+<p id="index-23">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strtok</span></code> example splits a string into tokens
 using whitespace delimiters.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
@@ -1220,7 +1221,7 @@ each token.</p></li>
 </section>
 <section id="dynamic-string-buffer">
 <h2>Dynamic String Buffer<a class="headerlink" href="#dynamic-string-buffer" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strbuffer_t</span></code> example builds a small dynamic
+<p id="index-24">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strbuffer_t</span></code> example builds a small dynamic
 string buffer. It supports appending characters and returning a
 heap-allocated C string.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/*</span>
@@ -1398,7 +1399,7 @@ a small stack buffer.</p></li>
 </section>
 <section id="regular-expression-example">
 <h2>Regular Expression Example<a class="headerlink" href="#regular-expression-example" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/regex-demo</span></code> example reads text and extracts
+<p id="index-25">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/regex-demo</span></code> example reads text and extracts
 matches using the POSIX regular expression API.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cm">/* Credit: https://www.lemoda.net/c/unix-regex/ */</span>
 <span class="linenos"> 2</span><span class="cm">/* Credit: GNU C docs */</span>
@@ -1467,7 +1468,7 @@ expression.</p></li>
 </section>
 <section id="character-list-case-study">
 <h2>Character List Case Study<a class="headerlink" href="#character-list-case-study" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/charlist_t</span></code> example stores characters in a
+<p id="index-26">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/charlist_t</span></code> example stores characters in a
 tail queue. It is a small data-structure case study for text processing.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -1556,7 +1557,7 @@ string buffer.</p></li>
 </section>
 <section id="word-counting-with-hash-tables">
 <h2>Word Counting with Hash Tables<a class="headerlink" href="#word-counting-with-hash-tables" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/std-hsearch</span></code> example uses the standard
+<p id="index-27">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/std-hsearch</span></code> example uses the standard
 <code class="docutils literal notranslate"><span class="pre">hsearch</span></code> family to maintain word counts.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -1639,7 +1640,7 @@ counts.</p></li>
 </section>
 <section id="word-counting-with-trees">
 <h2>Word Counting with Trees<a class="headerlink" href="#word-counting-with-trees" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/std-tsearch</span></code> example stores word information
+<p id="index-28">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/std-tsearch</span></code> example stores word information
 in a binary search tree.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
@@ -1736,7 +1737,7 @@ in a binary search tree.</p>
 </section>
 <section id="looking-ahead-i-o-performance">
 <h2>Looking Ahead: I/O Performance<a class="headerlink" href="#looking-ahead-i-o-performance" title="Link to this heading">#</a></h2>
-<p>Good I/O performance depends on choosing the right buffering strategy.
+<p id="index-29">Good I/O performance depends on choosing the right buffering strategy.
 Small buffers increase the number of system calls and lower throughput.
 Very large buffers may cause longer waits before processing can continue.
 Programs often need a balance.</p>
@@ -1746,7 +1747,7 @@ approach, and we return to it in the IPC chapter.</p>
 </section>
 <section id="simple-i-o-performance-experiment">
 <h2>Simple I/O Performance Experiment<a class="headerlink" href="#simple-i-o-performance-experiment" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">dd</span></code> command gives a quick view of how block size can affect
+<p id="index-30">The <code class="docutils literal notranslate"><span class="pre">dd</span></code> command gives a quick view of how block size can affect
 throughput.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span> <span class="n">count</span><span class="o">=</span><span class="mi">1000000</span> <span class="o">-</span> <span class="mi">671</span> <span class="n">kB</span><span class="o">/</span><span class="n">s</span>
 <span class="n">dd</span> <span class="k">if</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">zero</span> <span class="n">of</span><span class="o">=</span><span class="n">tmp</span><span class="o">.</span><span class="n">dat</span> <span class="n">bs</span><span class="o">=</span><span class="mi">10</span> <span class="n">count</span><span class="o">=</span><span class="mi">100000</span> <span class="o">-</span> <span class="mf">5.9</span> <span class="n">MB</span><span class="o">/</span><span class="n">s</span>
@@ -1763,13 +1764,13 @@ cache state can affect the numbers.</p>
 </section>
 <section id="reading-writing-performance">
 <h2>Reading/Writing Performance<a class="headerlink" href="#reading-writing-performance" title="Link to this heading">#</a></h2>
-<p>Vectored I/O, also called gather-scatter I/O, combines multiple buffers
+<p id="index-31">Vectored I/O, also called gather-scatter I/O, combines multiple buffers
 into one read or write operation. This reduces the number of system calls
 when a program has data split across several buffers.</p>
 </section>
 <section id="vectored-i-o-example">
 <h2>Vectored I/O Example<a class="headerlink" href="#vectored-i-o-example" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/vectored_io</span></code> example writes three separate
+<p id="index-32">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/vectored_io</span></code> example writes three separate
 buffers with one <code class="docutils literal notranslate"><span class="pre">writev()</span></code> call.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>

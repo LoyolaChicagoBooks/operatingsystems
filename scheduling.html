@@ -150,6 +150,7 @@
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookindex.html">Book Index</a></li>
 </ul>
 
     </div>
@@ -392,13 +393,13 @@
                   
   <section id="process-thread-scheduling">
 <h1>Process/Thread Scheduling<a class="headerlink" href="#process-thread-scheduling" title="Link to this heading">#</a></h1>
-<p>Scheduling is the operating system activity that decides which runnable
+<p id="index-0">Scheduling is the operating system activity that decides which runnable
 process or thread uses a CPU next. The scheduler has to balance
 responsiveness, fairness, throughput, and overhead. No policy optimizes
 all of these goals at the same time.</p>
 <section id="kernel-mode-vs-user-mode">
 <h2>Kernel Mode vs. User Mode<a class="headerlink" href="#kernel-mode-vs-user-mode" title="Link to this heading">#</a></h2>
-<p>Kernel mode can use the full instruction set of the CPU. This includes
+<p id="index-1">Kernel mode can use the full instruction set of the CPU. This includes
 privileged operations such as enabling and disabling interrupts, updating
 page table registers, and installing interrupt table pointers. Kernel
 mode can also modify page tables and access memory that user programs
@@ -409,7 +410,7 @@ interfaces such as system calls.</p>
 </section>
 <section id="interrupts">
 <h2>Interrupts<a class="headerlink" href="#interrupts" title="Link to this heading">#</a></h2>
-<p>An interrupt is an event that requires the CPU to stop its current flow
+<p id="index-2">An interrupt is an event that requires the CPU to stop its current flow
 of execution and run an interrupt handler.</p>
 <p>The general interrupt path is:</p>
 <ol class="arabic simple">
@@ -431,7 +432,7 @@ the interrupt.</p>
 </section>
 <section id="hardware-interrupts-sources">
 <h2>Hardware Interrupts - Sources<a class="headerlink" href="#hardware-interrupts-sources" title="Link to this heading">#</a></h2>
-<p>Hardware interrupts come from devices and CPU components. Traditional PC
+<p id="index-3">Hardware interrupts come from devices and CPU components. Traditional PC
 systems routed many slower device interrupts through southbridge-related
 hardware. Multiprocessor systems use interrupt controllers such as APICs
 to route interrupts across CPUs.</p>
@@ -442,7 +443,7 @@ chance to run the scheduler.</p>
 </section>
 <section id="software-interrupts">
 <h2>Software Interrupts<a class="headerlink" href="#software-interrupts" title="Link to this heading">#</a></h2>
-<p>Operating systems use software interrupts or related CPU mechanisms to
+<p id="index-4">Operating systems use software interrupts or related CPU mechanisms to
 implement system calls. A user program cannot jump directly into kernel
 memory. Instead, it uses the system call interface, which switches into
 kernel mode in a controlled way.</p>
@@ -467,7 +468,7 @@ ordinary program errors.</p>
 </section>
 <section id="goals-of-a-process-scheduler">
 <h2>Goals of a Process Scheduler<a class="headerlink" href="#goals-of-a-process-scheduler" title="Link to this heading">#</a></h2>
-<p>A scheduler policy is judged by several goals:</p>
+<p id="index-5">A scheduler policy is judged by several goals:</p>
 <ul class="simple">
 <li><p>Fairness: each process gets a reasonable share of the CPU.</p></li>
 <li><p>Efficiency: the CPU stays busy.</p></li>
@@ -481,7 +482,7 @@ responsive to a user.</p>
 </section>
 <section id="types-of-scheduling-strategies">
 <h2>Types of Scheduling Strategies<a class="headerlink" href="#types-of-scheduling-strategies" title="Link to this heading">#</a></h2>
-<p>Common strategies include preemptive scheduling, round-robin scheduling,
+<p id="index-6">Common strategies include preemptive scheduling, round-robin scheduling,
 priority scheduling, real-time scheduling, cooperative scheduling, and
 run-to-completion scheduling.</p>
 <p>Most modern general-purpose operating systems use preemptive scheduling
@@ -489,7 +490,7 @@ with time sharing and priorities.</p>
 </section>
 <section id="os-support">
 <h2>OS Support<a class="headerlink" href="#os-support" title="Link to this heading">#</a></h2>
-<p>Older systems such as CP/M and MS-DOS were not multitasking operating
+<p id="index-7">Older systems such as CP/M and MS-DOS were not multitasking operating
 systems. Windows 1.x through 3.x, classic Mac OS, and NetWare used
 cooperative multitasking, where programs had to yield control.</p>
 <p>Modern systems such as Linux, BSD, Windows NT and later, macOS, VMS, and
@@ -497,7 +498,7 @@ most UNIX systems use preemptive multitasking.</p>
 </section>
 <section id="types-of-processes-to-schedule">
 <h2>Types of Processes to Schedule<a class="headerlink" href="#types-of-processes-to-schedule" title="Link to this heading">#</a></h2>
-<p>Interactive processes spend much of their time waiting for user input or
+<p id="index-8">Interactive processes spend much of their time waiting for user input or
 I/O. They often need low latency when they become runnable.</p>
 <p>CPU-intensive processes spend most of their time ready to run. They need
 enough CPU time for throughput, but they can usually tolerate longer
@@ -505,7 +506,7 @@ latency than interactive processes.</p>
 </section>
 <section id="preemptive-scheduling-key-terms">
 <h2>Preemptive Scheduling Key Terms<a class="headerlink" href="#preemptive-scheduling-key-terms" title="Link to this heading">#</a></h2>
-<p>A time quantum is the amount of time a process or thread can run before a
+<p id="index-9">A time quantum is the amount of time a process or thread can run before a
 scheduling decision is made. On many systems the quantum is related to
 clock ticks.</p>
 <p>The clock is a hardware timer that periodically interrupts the CPU. The
@@ -516,14 +517,14 @@ system calls, blocking I/O, faults, and other events.</p>
 </section>
 <section id="process-states">
 <h2>Process states<a class="headerlink" href="#process-states" title="Link to this heading">#</a></h2>
-<p>A process or thread is running when it is executing on a CPU. It is ready
+<p id="index-10">A process or thread is running when it is executing on a CPU. It is ready
 when it can run but is not currently selected. It is not ready when it is
 blocked waiting for an event. It is terminated when it has exited and is
 being cleaned up.</p>
 </section>
 <section id="choosing-a-quantum">
 <h2>Choosing a Quantum<a class="headerlink" href="#choosing-a-quantum" title="Link to this heading">#</a></h2>
-<p>A shorter quantum improves responsiveness because a runnable process
+<p id="index-11">A shorter quantum improves responsiveness because a runnable process
 waits less time before getting a turn. A longer quantum improves
 efficiency because the system spends less time context switching.</p>
 <p>For example, if context-switch overhead is 5 ms and the quantum is 20 ms,
@@ -533,7 +534,7 @@ a shorter quantum can reduce the time between turns.</p>
 </section>
 <section id="context-switches">
 <h2>Context Switches<a class="headerlink" href="#context-switches" title="Link to this heading">#</a></h2>
-<p>A context switch saves the state of the current process or thread and
+<p id="index-12">A context switch saves the state of the current process or thread and
 restores the state of another. The saved state includes CPU registers and
 the program counter. The operating system also updates process state in
 its process or thread tables.</p>
@@ -549,7 +550,7 @@ that context’s registers and returns to user mode.</p>
 </section>
 <section id="degrees-of-preemption">
 <h2>Degrees of Preemption<a class="headerlink" href="#degrees-of-preemption" title="Link to this heading">#</a></h2>
-<p>Operating systems differ in how much kernel code can be preempted. Simple
+<p id="index-13">Operating systems differ in how much kernel code can be preempted. Simple
 systems may preempt user-mode tasks but not kernel-mode tasks. Systems
 with preemptive kernels can interrupt more kernel activity, which can
 improve responsiveness.</p>
@@ -561,7 +562,7 @@ level. Older or simpler systems may schedule only processes.</p>
 </section>
 <section id="round-robin-process-scheduling">
 <h2>Round - Robin Process Scheduling<a class="headerlink" href="#round-robin-process-scheduling" title="Link to this heading">#</a></h2>
-<p>Round-robin scheduling is simple. The operating system keeps a runnable
+<p id="index-14">Round-robin scheduling is simple. The operating system keeps a runnable
 list and gives each runnable process or thread a turn. On a system with
 multiple CPUs, several items from the runnable list may run at once.</p>
 <p>Round robin is fair in a basic sense, but it does not account for
@@ -569,7 +570,7 @@ priority, I/O behavior, or deadlines.</p>
 </section>
 <section id="scheduling-with-multiple-queues">
 <h2>Scheduling with Multiple Queues<a class="headerlink" href="#scheduling-with-multiple-queues" title="Link to this heading">#</a></h2>
-<p>Multiqueue schedulers separate runnable threads by priority or quantum
+<p id="index-15">Multiqueue schedulers separate runnable threads by priority or quantum
 length. Each queue can be scheduled round-robin, while the scheduler
 chooses higher-priority queues before lower-priority queues.</p>
 <p>A simple version looks like this:</p>
@@ -596,7 +597,7 @@ temporary priority after it runs.</p>
 </section>
 <section id="real-time-schedulers">
 <h2>Real-time Schedulers<a class="headerlink" href="#real-time-schedulers" title="Link to this heading">#</a></h2>
-<p>Real-time scheduling is concerned with deadlines. A real-time task has an
+<p id="index-16">Real-time scheduling is concerned with deadlines. A real-time task has an
 arrival time, a deadline, and an execution requirement. The scheduler’s
 main goal is to complete required work before deadlines.</p>
 <p>A task set is schedulable when the system can meet all deadlines under
@@ -614,7 +615,7 @@ third task needs 3 units every 5 units, utilization becomes
 </section>
 <section id="example-real-world-rts-problem">
 <h2>Example Real World RTS Problem<a class="headerlink" href="#example-real-world-rts-problem" title="Link to this heading">#</a></h2>
-<p>An anti-lock braking system is a real-time scheduling problem. Wheel
+<p id="index-17">An anti-lock braking system is a real-time scheduling problem. Wheel
 sensors and a vehicle speed sensor report values every 15 ms. Recording
 values takes 1 ms. Brake adjustment for all tires takes 6 ms.</p>
 <p>The system needs to detect wheel slip and react before slip changes too
@@ -635,7 +636,7 @@ or 50.47 percent. This leaves enough CPU time for the required work.</p>
 </section>
 <section id="types-of-real-time-scheduler-implementations">
 <h2>Types of Real-Time Scheduler Implementations<a class="headerlink" href="#types-of-real-time-scheduler-implementations" title="Link to this heading">#</a></h2>
-<p>Earliest-deadline-first scheduling chooses the runnable task with the
+<p id="index-18">Earliest-deadline-first scheduling chooses the runnable task with the
 nearest deadline. It can work well when runtime estimates and arrival
 rates are accurate. When utilization exceeds 100 percent, the missed
 deadlines may be harder to predict.</p>
@@ -645,7 +646,7 @@ is often easier to reason about.</p>
 </section>
 <section id="additional-concerns-in-advanced-scheduler-implementations">
 <h2>Additional Concerns in Advanced Scheduler Implementations<a class="headerlink" href="#additional-concerns-in-advanced-scheduler-implementations" title="Link to this heading">#</a></h2>
-<p>Modern schedulers consider more than priority. CPU affinity matters
+<p id="index-19">Modern schedulers consider more than priority. CPU affinity matters
 because a thread may still have useful data in a CPU cache. Working-set
 residency matters because running a thread with many resident pages may
 avoid page faults.</p>
@@ -655,7 +656,7 @@ thread already uses, or it may move work to balance load.</p>
 </section>
 <section id="process-priority-and-scheduling-in-linux">
 <h2>Process Priority and Scheduling in Linux<a class="headerlink" href="#process-priority-and-scheduling-in-linux" title="Link to this heading">#</a></h2>
-<p>Linux supports normal and real-time scheduling policies. Normal policies
+<p id="index-20">Linux supports normal and real-time scheduling policies. Normal policies
 include <code class="docutils literal notranslate"><span class="pre">SCHED_OTHER</span></code>, <code class="docutils literal notranslate"><span class="pre">SCHED_BATCH</span></code>, and <code class="docutils literal notranslate"><span class="pre">SCHED_IDLE</span></code>. Real-time
 policies include <code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> and <code class="docutils literal notranslate"><span class="pre">SCHED_RR</span></code>.</p>
 <p>Scheduling policy can be set with:</p>
@@ -668,7 +669,7 @@ other scheduler-specific rules.</p>
 </section>
 <section id="linux-real-time-scheduler">
 <h2>Linux Real Time Scheduler<a class="headerlink" href="#linux-real-time-scheduler" title="Link to this heading">#</a></h2>
-<p>Linux real-time processes have priority over non-real-time processes.</p>
+<p id="index-21">Linux real-time processes have priority over non-real-time processes.</p>
 <p><code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> uses one FIFO queue per priority. A running
 <code class="docutils literal notranslate"><span class="pre">SCHED_FIFO</span></code> process continues until a higher-priority process becomes
 runnable, the process blocks, or the process calls <code class="docutils literal notranslate"><span class="pre">sched_yield()</span></code>.</p>
@@ -687,7 +688,7 @@ not interactive. <code class="docutils literal notranslate"><span class="pre">SC
 </section>
 <section id="nice-values">
 <h2>Nice Values<a class="headerlink" href="#nice-values" title="Link to this heading">#</a></h2>
-<p>UNIX systems use nice values to express process priority. The highest
+<p id="index-22">UNIX systems use nice values to express process priority. The highest
 priority nice value is typically <code class="docutils literal notranslate"><span class="pre">-20</span></code>. The lowest is typically <code class="docutils literal notranslate"><span class="pre">19</span></code>.
 The default is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <p>A child process inherits its parent’s nice value after <code class="docutils literal notranslate"><span class="pre">fork()</span></code>.
@@ -696,7 +697,7 @@ Only root can decrease the nice value, raising priority.</p>
 </section>
 <section id="process-scheduling-in-windows">
 <h2>Process Scheduling in Windows<a class="headerlink" href="#process-scheduling-in-windows" title="Link to this heading">#</a></h2>
-<p>Windows uses process priority classes and thread priorities within each
+<p id="index-23">Windows uses process priority classes and thread priorities within each
 class. Common classes include Idle, Below Normal, Normal, Above Normal,
 High, and Realtime.</p>
 <p>Within normal classes, work time-shares according to priority. Idle work
@@ -708,7 +709,7 @@ such as audio and video.</p>
 </section>
 <section id="user-mode-schedulers">
 <h2>User-Mode Schedulers<a class="headerlink" href="#user-mode-schedulers" title="Link to this heading">#</a></h2>
-<p>User-mode schedulers manage user-level threads without asking the kernel
+<p id="index-24">User-mode schedulers manage user-level threads without asking the kernel
 to schedule each one independently. They may map many user threads onto
 one process or onto a smaller number of kernel threads.</p>
 <p>Examples include Windows fibers, Windows User-Mode Scheduling, GNU Pth,
@@ -739,7 +740,7 @@ usually a poor fit for CPU-bound parallel computation.</p>
 </section>
 <section id="gnu-pth-user-mode-pthreads">
 <h2>GNU - Pth - User Mode Pthreads<a class="headerlink" href="#gnu-pth-user-mode-pthreads" title="Link to this heading">#</a></h2>
-<p>GNU Pth provides a user-mode threading library with an API that resembles
+<p id="index-25">GNU Pth provides a user-mode threading library with an API that resembles
 POSIX threads. Because the threads are scheduled in user mode, I/O-bound
 programs need Pth-aware calls such as <code class="docutils literal notranslate"><span class="pre">pth_accept()</span></code>, <code class="docutils literal notranslate"><span class="pre">pth_write()</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">pth_sleep()</span></code>.</p>
@@ -834,7 +835,7 @@ user-mode scheduler.</p></li>
 </section>
 <section id="pthreads-kernel-threads">
 <h2>PThreads - Kernel Threads<a class="headerlink" href="#pthreads-kernel-threads" title="Link to this heading">#</a></h2>
-<p>Most POSIX-compliant systems provide pthreads. In Linux, pthreads are
+<p id="index-26">Most POSIX-compliant systems provide pthreads. In Linux, pthreads are
 implemented with kernel threads created through <code class="docutils literal notranslate"><span class="pre">clone()</span></code>.</p>
 <p>The examples in <code class="docutils literal notranslate"><span class="pre">systems-code-examples/llnl_pthreads_examples</span></code> are
 adapted from the LLNL POSIX Threads Programming tutorial and updated to
@@ -1010,7 +1011,7 @@ creation.</p></li>
 </section>
 <section id="condition-variable-preview">
 <h2>Condition variable preview<a class="headerlink" href="#condition-variable-preview" title="Link to this heading">#</a></h2>
-<p>Condition variables are covered in more detail in the mutual exclusion
+<p id="index-27">Condition variables are covered in more detail in the mutual exclusion
 chapter. This example appears here because it shows how scheduled
 threads can block and wake based on shared state.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
@@ -1272,7 +1273,7 @@ the shared state.</p></li>
 </section>
 <section id="c-thread-scheduling-case-study">
 <h2>C# Thread Scheduling Case Study<a class="headerlink" href="#c-thread-scheduling-case-study" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/threads_csharp</span></code> example shows the same
+<p id="index-28">The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/threads_csharp</span></code> example shows the same
 scheduling ideas in a managed runtime. The runtime creates operating
 system threads, and the operating system schedules them.</p>
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
