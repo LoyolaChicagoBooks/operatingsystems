@@ -1,81 +1,150 @@
+
 <!DOCTYPE html>
 
-<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" data-content_root="./" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
-<head>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta charset="utf-8"/>
-<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
-<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Deadlock | Operating Systems: updated 26 May 2026</title>
-<meta content="Deadlock | Operating Systems: updated 26 May 2026" property="og:title"/>
-<meta content="Deadlock | Operating Systems: updated 26 May 2026" name="twitter:title"/>
-<link href="_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
-<link href="_static/theme.css?v=cede9724" rel="stylesheet" type="text/css"/>
-<link href="search.html" rel="search" title="Search"/>
-<link href="genindex.html" rel="index" title="Index"/>
-<link href="ipc.html" rel="next" title="IPC Topics"/>
-<link href="mutualexclusion.html" rel="prev" title="Mutual Exclusion"/>
-<script>
-    <!-- Prevent Flash of wrong theme -->
-      const userPreference = localStorage.getItem('darkMode');
-      let mode;
-      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        mode = 'dark';
-        document.documentElement.classList.add('dark');
-      } else {
-        mode = 'light';
-      }
-      if (!userPreference) {localStorage.setItem('darkMode', mode)}
-    </script>
-</head>
-<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
-<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
-      Skip to content
-    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
-<div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 26 May 2026</span>
-</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
-<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
-</svg>
-<span class="sr-only">Toggle navigation menu</span>
-</button>
-<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
-<div class="flex-1 w-full md:w-auto md:flex-none"><form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
-<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
-<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
-<span class="text-xs">⌘</span>
-    K
-  </kbd>
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Deadlock &#8212; Operating Systems: updated 26 May 2026</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=42adc577"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'deadlock';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="IPC Topics" href="ipc.html" />
+    <link rel="prev" title="Mutual Exclusion" href="mutualexclusion.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="26 May 2026" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-<nav class="flex items-center space-x-1">
-<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
-<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
-</svg>
-<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
-</svg>
-</button>
-</nav>
-</div>
-</div>
-</header>
-<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 26 May 2026</span>
-</a>
-<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
-<ul class="current">
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Operating Systems: updated 26 May 2026</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Deadlock</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Deadlock</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
@@ -85,31 +154,232 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-</nav>
-</div>
-</div>
-<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
-<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
-</svg>
-</button>
-</aside>
-<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
-<div class="w-full min-w-0 mx-auto">
-<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
-<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
-<span class="hidden md:inline">Operating Systems: updated 26 May 2026</span>
-<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
-<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
-</svg>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/LoyolaChicagoBooks/operatingsystems" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
 </a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Deadlock</span>
-</nav>
-<div id="content" role="main">
-<section id="deadlock">
-<h1>Deadlock<a class="headerlink" href="#deadlock" title="Link to this heading">¶</a></h1>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/issues/new?title=Issue%20on%20page%20%2Fdeadlock.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/deadlock.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Deadlock</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-definition">Deadlock - definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-problem">Dining Philosophers Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-deadlock-scenario">Dining Philosophers - deadlock scenario</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-lock-graph">Dining Philosophers - Lock Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers">Dining Philosophers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-solution-1">Dining Philosophers - solution 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-solution-2">Dining Philosophers - solution 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dijkstra-s-solution-bankers-algorithm">Dijkstra’s Solution / Bankers Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-to-dijkstra-s-solution">Optimization to Dijkstra’s Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-avoidance-implementation">Deadlock Avoidance Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-prevention-implementation">Deadlock Prevention Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-deadlock">Example of Deadlock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-lock-solutions-in-windows">Multi-Lock Solutions in Windows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-lock-solutions-in-linux-minix">Multi-Lock Solutions in Linux/Minix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-with-lock-ordering">Deadlock with Lock Ordering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starvation">Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidlines-to-avoid-starvation">Guidlines to Avoid Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#livelock">Livelock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-fairness">Lock Fairness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-fairness-pros-cons">Lock Fairness. Pros / Cons</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deadlock">
+<h1>Deadlock<a class="headerlink" href="#deadlock" title="Link to this heading">#</a></h1>
 <section id="deadlock-definition">
-<h2>Deadlock - definition<a class="headerlink" href="#deadlock-definition" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deadlock-definition'">¶</a></h2>
+<h2>Deadlock - definition<a class="headerlink" href="#deadlock-definition" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Formal: A condition when two or more threads of execution are each waiting for resources in a cycle.</p></li>
 <li><p>Informal: When two threads get into a chicken before the egg situation in locking.</p></li>
@@ -118,7 +388,7 @@
 </ul>
 </section>
 <section id="dining-philosophers-problem">
-<h2>Dining Philosophers Problem<a class="headerlink" href="#dining-philosophers-problem" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dining-philosophers-problem'">¶</a></h2>
+<h2>Dining Philosophers Problem<a class="headerlink" href="#dining-philosophers-problem" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>a philosopher can be either eating or thinking</p></li>
 <li><p>philosophers cannot communicate with each other in any way</p></li>
@@ -126,7 +396,7 @@
 </ul>
 </section>
 <section id="dining-philosophers-deadlock-scenario">
-<h2>Dining Philosophers - deadlock scenario<a class="headerlink" href="#dining-philosophers-deadlock-scenario" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dining-philosophers-deadlock-scenario'">¶</a></h2>
+<h2>Dining Philosophers - deadlock scenario<a class="headerlink" href="#dining-philosophers-deadlock-scenario" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eat</span><span class="p">()</span> <span class="p">{</span>
         <span class="n">pick</span> <span class="n">up</span> <span class="n">right</span> <span class="n">fork</span><span class="p">;</span>
         <span class="n">pick</span> <span class="n">up</span> <span class="n">left</span> <span class="n">fork</span><span class="p">;</span>
@@ -143,23 +413,24 @@
 </ul>
 </section>
 <section id="dining-philosophers-lock-graph">
-<h2>Dining Philosophers - Lock Graph<a class="headerlink" href="#dining-philosophers-lock-graph" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dining-philosophers-lock-graph'">¶</a></h2>
+<h2>Dining Philosophers - Lock Graph<a class="headerlink" href="#dining-philosophers-lock-graph" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>In the first algorithm, locks can be obtained in any order. Given this, it is possible to draw a cycle on the graph and deadlock.</p></li>
 </ul>
 <figure class="align-center">
-<a class="reference internal image-reference" href="_images/undirected_lock_graph.png"><img alt="Undirected Lock Graph" src="_images/undirected_lock_graph.png" style="width: 450px;"/></a>
+<a class="reference internal image-reference" href="_images/undirected_lock_graph.png"><img alt="Undirected Lock Graph" src="_images/undirected_lock_graph.png" style="width: 450px;" />
+</a>
 </figure>
 </section>
 <section id="dining-philosophers">
-<h2>Dining Philosophers<a class="headerlink" href="#dining-philosophers" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dining-philosophers'">¶</a></h2>
+<h2>Dining Philosophers<a class="headerlink" href="#dining-philosophers" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>What algorithm can we implement for eat() so that there will be no deadlock?</p></li>
 <li><p>Why did we encounter deadlock?</p></li>
 </ul>
 </section>
 <section id="dining-philosophers-solution-1">
-<h2>Dining Philosophers - solution 1<a class="headerlink" href="#dining-philosophers-solution-1" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dining-philosophers-solution-1'">¶</a></h2>
+<h2>Dining Philosophers - solution 1<a class="headerlink" href="#dining-philosophers-solution-1" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eat</span><span class="p">()</span> <span class="p">{</span>
         <span class="k">while</span><span class="p">(</span><span class="n">does</span> <span class="ow">not</span> <span class="n">have</span> <span class="n">both</span> <span class="n">forks</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">pickup</span> <span class="n">left</span> <span class="n">fork</span>
@@ -179,7 +450,7 @@
 </ul>
 </section>
 <section id="dining-philosophers-solution-2">
-<h2>Dining Philosophers - solution 2<a class="headerlink" href="#dining-philosophers-solution-2" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dining-philosophers-solution-2'">¶</a></h2>
+<h2>Dining Philosophers - solution 2<a class="headerlink" href="#dining-philosophers-solution-2" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>each fork is assigned a number</p></li>
 </ul>
@@ -196,11 +467,12 @@
 <li><p>Given these rules, you cannot draw a cycle on this graph and cannot deadlock</p></li>
 </ul>
 <figure class="align-center">
-<a class="reference internal image-reference" href="_images/directed_lock_graph.png"><img alt="Undirected Lock Graph" src="_images/directed_lock_graph.png" style="width: 450px;"/></a>
+<a class="reference internal image-reference" href="_images/directed_lock_graph.png"><img alt="Undirected Lock Graph" src="_images/directed_lock_graph.png" style="width: 450px;" />
+</a>
 </figure>
 </section>
 <section id="dijkstra-s-solution-bankers-algorithm">
-<h2>Dijkstra’s Solution / Bankers Algorithm<a class="headerlink" href="#dijkstra-s-solution-bankers-algorithm" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#dijkstra-s-solution-bankers-algorithm'">¶</a></h2>
+<h2>Dijkstra’s Solution / Bankers Algorithm<a class="headerlink" href="#dijkstra-s-solution-bankers-algorithm" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Solution #2 to the dining philosopher’s problem is also known as Dijkstra’s solution or the banker’s algorithm</p></li>
 <li><dl class="simple">
@@ -223,7 +495,7 @@
 </ul>
 </section>
 <section id="optimization-to-dijkstra-s-solution">
-<h2>Optimization to Dijkstra’s Solution<a class="headerlink" href="#optimization-to-dijkstra-s-solution" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#optimization-to-dijkstra-s-solution'">¶</a></h2>
+<h2>Optimization to Dijkstra’s Solution<a class="headerlink" href="#optimization-to-dijkstra-s-solution" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Solution #1 represents an optimization to Dijkstra’s solution.</p></li>
 <li><p>In solution #1, the graph remains undirected and cyclic, but the heuristic is changed to only obtain both resources if they can be obtained atomically.</p></li>
@@ -232,7 +504,7 @@
 </ul>
 </section>
 <section id="deadlock-avoidance-implementation">
-<h2>Deadlock Avoidance Implementation<a class="headerlink" href="#deadlock-avoidance-implementation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deadlock-avoidance-implementation'">¶</a></h2>
+<h2>Deadlock Avoidance Implementation<a class="headerlink" href="#deadlock-avoidance-implementation" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>aka. Banker’s algorithm</p></li>
 <li><p>aka. Dijkstra’s solution</p></li>
@@ -252,7 +524,7 @@
 </div>
 </section>
 <section id="deadlock-prevention-implementation">
-<h2>Deadlock Prevention Implementation<a class="headerlink" href="#deadlock-prevention-implementation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deadlock-prevention-implementation'">¶</a></h2>
+<h2>Deadlock Prevention Implementation<a class="headerlink" href="#deadlock-prevention-implementation" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>aka. optimization to Dijkstra’s solution</p></li>
 <li><p>This is just one implementation approach. Others involving lock tables or coordinators also exist</p></li>
@@ -282,7 +554,7 @@ void multi_lock(lock* locks, int count) {
 </div>
 </section>
 <section id="example-of-deadlock">
-<h2>Example of Deadlock<a class="headerlink" href="#example-of-deadlock" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-of-deadlock'">¶</a></h2>
+<h2>Example of Deadlock<a class="headerlink" href="#example-of-deadlock" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Where is the Deadlock?</p></li>
 </ul>
@@ -317,7 +589,7 @@ void multi_lock(lock* locks, int count) {
 </div>
 </section>
 <section id="multi-lock-solutions-in-windows">
-<h2>Multi-Lock Solutions in Windows<a class="headerlink" href="#multi-lock-solutions-in-windows" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#multi-lock-solutions-in-windows'">¶</a></h2>
+<h2>Multi-Lock Solutions in Windows<a class="headerlink" href="#multi-lock-solutions-in-windows" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>C++ method in Windows is WaitForMultipleObjects().</p></li>
 <li><p>The method accepts N many lock handles</p></li>
@@ -335,7 +607,7 @@ void multi_lock(lock* locks, int count) {
 </ul>
 </section>
 <section id="multi-lock-solutions-in-linux-minix">
-<h2>Multi-Lock Solutions in Linux/Minix<a class="headerlink" href="#multi-lock-solutions-in-linux-minix" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#multi-lock-solutions-in-linux-minix'">¶</a></h2>
+<h2>Multi-Lock Solutions in Linux/Minix<a class="headerlink" href="#multi-lock-solutions-in-linux-minix" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>To my knowledge, there are no multi-lock solutions provided for free in Linux or Minix</p></li>
 <li><p>The general rule of thumb is to try to avoid multi-locking if possible by design or if it is necessary to use the memory order of the locks as an ordering.</p></li>
@@ -343,7 +615,7 @@ void multi_lock(lock* locks, int count) {
 </ul>
 </section>
 <section id="deadlock-with-lock-ordering">
-<h2>Deadlock with Lock Ordering<a class="headerlink" href="#deadlock-with-lock-ordering" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deadlock-with-lock-ordering'">¶</a></h2>
+<h2>Deadlock with Lock Ordering<a class="headerlink" href="#deadlock-with-lock-ordering" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>While having multiple locks obtained out of order can lead to deadlock, it is possible for correctly ordered locks to end up in deadlock in other ways.</p></li>
 <li><dl class="simple">
@@ -359,7 +631,7 @@ void multi_lock(lock* locks, int count) {
 </ul>
 </section>
 <section id="starvation">
-<h2>Starvation<a class="headerlink" href="#starvation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#starvation'">¶</a></h2>
+<h2>Starvation<a class="headerlink" href="#starvation" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Starvation is a close cousin to deadlock. Starvation means that practically, one thread will have exclusive lock on a resource and one or more threads will not.</p></li>
 <li><p>This is similar to a scheduling problem in terms of fairness.</p></li>
@@ -374,7 +646,7 @@ void add() {
                 _mutex-»Lock();
                 while(_queue-»count() » 0) {
                         value += _queue-»Dequeue();
-                        printf("current value = %d\n", value);
+                        printf(&quot;current value = %d\n&quot;, value);
                 }
                 _mutex-»Unlock();
         }
@@ -388,7 +660,7 @@ void add() {
         while(1) {
                 int value = 0;
                 _mutex-»Lock();
-                scanf("%d\n", &amp;value);
+                scanf(&quot;%d\n&quot;, &amp;value);
                 _queue-»Enqueue(value);
                 _mutex-»Unlock();
         }
@@ -411,7 +683,7 @@ void add() {
                 while(_queue-»count() » 0) {
                         value += _queue-»Dequeue();
                         _mutex-&gt;Unlock();
-                        printf("current value = %d\n", value);
+                        printf(&quot;current value = %d\n&quot;, value);
                         _mutex-&gt;Lock();
                 }
                 _mutex-»Unlock();
@@ -425,7 +697,7 @@ void add() {
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>void read_values() {
         while(1) {
                 int value = 0;
-                scanf("%d\n", &amp;value);
+                scanf(&quot;%d\n&quot;, &amp;value);
                 _mutex-»Lock();
                 _queue-»Enqueue(value);
                 _mutex-»Unlock();
@@ -439,7 +711,7 @@ void add() {
 </ul>
 </section>
 <section id="guidlines-to-avoid-starvation">
-<h2>Guidlines to Avoid Starvation<a class="headerlink" href="#guidlines-to-avoid-starvation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#guidlines-to-avoid-starvation'">¶</a></h2>
+<h2>Guidlines to Avoid Starvation<a class="headerlink" href="#guidlines-to-avoid-starvation" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Where possible, limit locks to computationally bound code</p></li>
 <li><p>Keep critical sections short. If a computation is longer running, design code to give up a lock periodically.</p></li>
@@ -461,7 +733,7 @@ void add() {
 </ul>
 </section>
 <section id="livelock">
-<h2>Livelock<a class="headerlink" href="#livelock" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#livelock'">¶</a></h2>
+<h2>Livelock<a class="headerlink" href="#livelock" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Livelock is similar to deadlock.</p></li>
 <li><p>Livelock is basically a race condition in avoidance of deadlock.</p></li>
@@ -500,7 +772,7 @@ void add() {
 </ul>
 </section>
 <section id="lock-fairness">
-<h2>Lock Fairness<a class="headerlink" href="#lock-fairness" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#lock-fairness'">¶</a></h2>
+<h2>Lock Fairness<a class="headerlink" href="#lock-fairness" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Lock fairness is best described as having each executing thread waiting for a lock having a similar average wait time for that lock.</p></li>
 <li><p>Locks that are unfair can lead to resource starvation.</p></li>
@@ -515,7 +787,7 @@ void add() {
 </ul>
 </section>
 <section id="lock-fairness-pros-cons">
-<h2>Lock Fairness. Pros / Cons<a class="headerlink" href="#lock-fairness-pros-cons" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#lock-fairness-pros-cons'">¶</a></h2>
+<h2>Lock Fairness. Pros / Cons<a class="headerlink" href="#lock-fairness-pros-cons" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Remember, while the word ‘fair’ sounds good, that ‘fairness’ comes at some expense.</p></li>
 <li><p>The key point to remember, is that when a thread is “chosen” to acquire a lock, there will be a non zero time between that choice and when that thread executes. That can be thought of as the “fairness cost”.</p></li>
@@ -538,45 +810,126 @@ void add() {
 </ul>
 </section>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#deadlock-definition'" class="reference internal" href="#deadlock-definition">Deadlock - definition</a></li>
-<li><a :data-current="activeSection === '#dining-philosophers-problem'" class="reference internal" href="#dining-philosophers-problem">Dining Philosophers Problem</a></li>
-<li><a :data-current="activeSection === '#dining-philosophers-deadlock-scenario'" class="reference internal" href="#dining-philosophers-deadlock-scenario">Dining Philosophers - deadlock scenario</a></li>
-<li><a :data-current="activeSection === '#dining-philosophers-lock-graph'" class="reference internal" href="#dining-philosophers-lock-graph">Dining Philosophers - Lock Graph</a></li>
-<li><a :data-current="activeSection === '#dining-philosophers'" class="reference internal" href="#dining-philosophers">Dining Philosophers</a></li>
-<li><a :data-current="activeSection === '#dining-philosophers-solution-1'" class="reference internal" href="#dining-philosophers-solution-1">Dining Philosophers - solution 1</a></li>
-<li><a :data-current="activeSection === '#dining-philosophers-solution-2'" class="reference internal" href="#dining-philosophers-solution-2">Dining Philosophers - solution 2</a></li>
-<li><a :data-current="activeSection === '#dijkstra-s-solution-bankers-algorithm'" class="reference internal" href="#dijkstra-s-solution-bankers-algorithm">Dijkstra’s Solution / Bankers Algorithm</a></li>
-<li><a :data-current="activeSection === '#optimization-to-dijkstra-s-solution'" class="reference internal" href="#optimization-to-dijkstra-s-solution">Optimization to Dijkstra’s Solution</a></li>
-<li><a :data-current="activeSection === '#deadlock-avoidance-implementation'" class="reference internal" href="#deadlock-avoidance-implementation">Deadlock Avoidance Implementation</a></li>
-<li><a :data-current="activeSection === '#deadlock-prevention-implementation'" class="reference internal" href="#deadlock-prevention-implementation">Deadlock Prevention Implementation</a></li>
-<li><a :data-current="activeSection === '#example-of-deadlock'" class="reference internal" href="#example-of-deadlock">Example of Deadlock</a></li>
-<li><a :data-current="activeSection === '#multi-lock-solutions-in-windows'" class="reference internal" href="#multi-lock-solutions-in-windows">Multi-Lock Solutions in Windows</a></li>
-<li><a :data-current="activeSection === '#multi-lock-solutions-in-linux-minix'" class="reference internal" href="#multi-lock-solutions-in-linux-minix">Multi-Lock Solutions in Linux/Minix</a></li>
-<li><a :data-current="activeSection === '#deadlock-with-lock-ordering'" class="reference internal" href="#deadlock-with-lock-ordering">Deadlock with Lock Ordering</a></li>
-<li><a :data-current="activeSection === '#starvation'" class="reference internal" href="#starvation">Starvation</a></li>
-<li><a :data-current="activeSection === '#guidlines-to-avoid-starvation'" class="reference internal" href="#guidlines-to-avoid-starvation">Guidlines to Avoid Starvation</a></li>
-<li><a :data-current="activeSection === '#livelock'" class="reference internal" href="#livelock">Livelock</a></li>
-<li><a :data-current="activeSection === '#lock-fairness'" class="reference internal" href="#lock-fairness">Lock Fairness</a></li>
-<li><a :data-current="activeSection === '#lock-fairness-pros-cons'" class="reference internal" href="#lock-fairness-pros-cons">Lock Fairness. Pros / Cons</a></li>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="mutualexclusion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Mutual Exclusion</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ipc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">IPC Topics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-definition">Deadlock - definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-problem">Dining Philosophers Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-deadlock-scenario">Dining Philosophers - deadlock scenario</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-lock-graph">Dining Philosophers - Lock Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers">Dining Philosophers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-solution-1">Dining Philosophers - solution 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dining-philosophers-solution-2">Dining Philosophers - solution 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dijkstra-s-solution-bankers-algorithm">Dijkstra’s Solution / Bankers Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-to-dijkstra-s-solution">Optimization to Dijkstra’s Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-avoidance-implementation">Deadlock Avoidance Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-prevention-implementation">Deadlock Prevention Implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-deadlock">Example of Deadlock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-lock-solutions-in-windows">Multi-Lock Solutions in Windows</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-lock-solutions-in-linux-minix">Multi-Lock Solutions in Linux/Minix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock-with-lock-ordering">Deadlock with Lock Ordering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#starvation">Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidlines-to-avoid-starvation">Guidlines to Avoid Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#livelock">Livelock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-fairness">Lock Fairness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-fairness-pros-cons">Lock Fairness. Pros / Cons</a></li>
 </ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
-</aside>
-</main>
-</div>
-</div><footer class="py-6 border-t border-border md:py-0">
-<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
-</div>
-</div>
-</footer>
-</div>
-<script src="_static/documentation_options.js?v=84a96fc7"></script>
-<script src="_static/doctools.js?v=888ff710"></script>
-<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-<script defer="defer" src="_static/theme.js?v=e8bd915e"></script>
-</body>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

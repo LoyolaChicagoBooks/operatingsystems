@@ -1,76 +1,145 @@
+
 <!DOCTYPE html>
 
-<html :class="{'dark': darkMode === 'dark' || (darkMode === 'system' &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)}" class="scroll-smooth" data-content_root="./" lang="en" x-data="{ darkMode: localStorage.getItem('darkMode') || localStorage.setItem('darkMode', 'system'), activeSection: '' }" x-init="$watch('darkMode', val =&gt; localStorage.setItem('darkMode', val))">
-<head>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta charset="utf-8"/>
-<meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
-<meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Introduction | Operating Systems: updated 26 May 2026</title>
-<meta content="Introduction | Operating Systems: updated 26 May 2026" property="og:title"/>
-<meta content="Introduction | Operating Systems: updated 26 May 2026" name="twitter:title"/>
-<link href="_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
-<link href="_static/theme.css?v=cede9724" rel="stylesheet" type="text/css"/>
-<link href="search.html" rel="search" title="Search"/>
-<link href="genindex.html" rel="index" title="Index"/>
-<link href="processes.html" rel="next" title="Introduction to Processes"/>
-<link href="meta.html" rel="prev" title="About the Book"/>
-<script>
-    <!-- Prevent Flash of wrong theme -->
-      const userPreference = localStorage.getItem('darkMode');
-      let mode;
-      if (userPreference === 'dark' || window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        mode = 'dark';
-        document.documentElement.classList.add('dark');
-      } else {
-        mode = 'light';
-      }
-      if (!userPreference) {localStorage.setItem('darkMode', mode)}
-    </script>
-</head>
-<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false }">
-<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
-      Skip to content
-    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
-<div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 26 May 2026</span>
-</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
-<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
-</svg>
-<span class="sr-only">Toggle navigation menu</span>
-</button>
-<div class="flex items-center justify-between flex-1 space-x-2 sm:space-x-4 md:justify-end">
-<div class="flex-1 w-full md:w-auto md:flex-none"><form @keydown.k.window.meta="$refs.search.focus()" action="search.html" class="relative flex items-center group" id="searchbox" method="get">
-<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
-<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
-<span class="text-xs">⌘</span>
-    K
-  </kbd>
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction &#8212; Operating Systems: updated 26 May 2026</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=42adc577"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to Processes" href="processes.html" />
+    <link rel="prev" title="About the Book" href="meta.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="26 May 2026" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
 </div>
-<nav class="flex items-center space-x-1">
-<button @click="darkMode = darkMode === 'light' ? 'dark' : 'light'" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button">
-<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
-</svg>
-<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
-</svg>
-</button>
-</nav>
-</div>
-</div>
-</header>
-<div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 26 May 2026</span>
-</a>
-<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
-<ul class="current">
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Operating Systems: updated 26 May 2026</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
@@ -85,107 +154,326 @@
 <li class="toctree-l1"><a class="reference internal" href="linux_vm.html">Installing a Linux Virtual Machine with VMware</a></li>
 <li class="toctree-l1"><a class="reference internal" href="windows_vm.html">Installing a Windows Virtual Machine with VMware</a></li>
 </ul>
-</nav>
-</div>
-</div>
-<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
-<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
-<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
-</svg>
-</button>
-</aside>
-<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
-<div class="w-full min-w-0 mx-auto">
-<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
-<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
-<span class="hidden md:inline">Operating Systems: updated 26 May 2026</span>
-<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
-<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
-</svg>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/LoyolaChicagoBooks/operatingsystems" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
 </a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Introduction</span>
-</nav>
-<div id="content" role="main">
-<section id="introduction">
-<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/introduction.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-operating-systems">History of Operating Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-generation-operating-systems">First Generation Operating Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-generation-systems">Second Generation Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-generation-systems">Third Generation Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourth-generation-systems">Fourth Generation Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-nt-xp-vista-7">Windows NT/XP/Vista/7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">Linux</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-computer-systems">Types of Computer Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#personal-computers">Personal Computers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-computers">Parallel Computers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-systems">Distributed Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-processing-systems">Batch Processing Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clusters">Clusters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-computing">Cloud Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-computing">Grid Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing">Quantum Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-operating-systems">Types of Operating Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-shell-operations">Basic Shell Operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-file-contents">Displaying File Contents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-directories-and-files">Creating Directories and Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-text-to-console">Print Text to Console</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-working-directory-pwd">Print Working Directory (pwd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-files-and-directories-ls">List Files and Directories (ls)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-directory-cd">Change Directory (cd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-files-and-directories-cp">Copy Files and Directories (cp)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-rename-files-mv">Move/Rename Files (mv)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-files-and-directories-rm">Remove Files and Directories (rm)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-file-contents-less-more-cat">View File Contents (less, more, cat)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-files-and-directories-find-locate">Find Files and Directories (find, locate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions-and-ownership-chmod-chown">File Permissions and Ownership (chmod, chown)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process-management-ps-top-kill">Process Management (ps, top, kill)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="introduction">
+<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
 <section id="history-of-operating-systems">
-<span id="history-operating-systems"></span><h2>History of Operating Systems<a class="headerlink" href="#history-of-operating-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#history-of-operating-systems'">¶</a></h2>
+<span id="history-operating-systems"></span><h2>History of Operating Systems<a class="headerlink" href="#history-of-operating-systems" title="Link to this heading">#</a></h2>
 <p>The journey through operating systems starts from the first-generation systems, characterized by vacuum tubes and punch cards, to the present-day advanced systems. This evolution includes several generations, each marked by significant technological advancements and changes in computing paradigms.</p>
 <section id="first-generation-operating-systems">
-<span id="first-generation-systems"></span><h3>First Generation Operating Systems<a class="headerlink" href="#first-generation-operating-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#first-generation-operating-systems'">¶</a></h3>
+<span id="first-generation-systems"></span><h3>First Generation Operating Systems<a class="headerlink" href="#first-generation-operating-systems" title="Link to this heading">#</a></h3>
 <p>In the early days, computers like EDVAC used vacuum tubes and were programmed with machine language. There were no operating systems, and programming was primarily for numerical calculations.</p>
 </section>
 <section id="second-generation-systems">
-<span id="id2"></span><h3>Second Generation Systems<a class="headerlink" href="#second-generation-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#second-generation-systems'">¶</a></h3>
+<span id="id2"></span><h3>Second Generation Systems<a class="headerlink" href="#second-generation-systems" title="Link to this heading">#</a></h3>
 <p>The era of the 1950s and 1960s introduced transistors, leading to the mainframe and batch processing systems. Assembly languages and FORTRAN were prominent, and batch systems consisted of card readers, processors, and printers.</p>
 </section>
 <section id="third-generation-systems">
-<span id="id3"></span><h3>Third Generation Systems<a class="headerlink" href="#third-generation-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#third-generation-systems'">¶</a></h3>
+<span id="id3"></span><h3>Third Generation Systems<a class="headerlink" href="#third-generation-systems" title="Link to this heading">#</a></h3>
 <p>From the 1960s to the 1980s, integrated circuits came into play. This period marked the beginning of machine images/abstractions and multi-programming, with systems like IBM System/360 playing a significant role.</p>
 </section>
 <section id="fourth-generation-systems">
-<span id="id4"></span><h3>Fourth Generation Systems<a class="headerlink" href="#fourth-generation-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fourth-generation-systems'">¶</a></h3>
+<span id="id4"></span><h3>Fourth Generation Systems<a class="headerlink" href="#fourth-generation-systems" title="Link to this heading">#</a></h3>
 <p>The period from the 1980s to the present saw the rise of micro-processors and the era of mini-computers. Operating systems like UNIX and early versions of MS-DOS emerged during this time.</p>
 </section>
 <section id="windows-nt-xp-vista-7">
-<span id="history-windows-nt-xp-vista-7"></span><h3>Windows NT/XP/Vista/7<a class="headerlink" href="#windows-nt-xp-vista-7" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#windows-nt-xp-vista-7'">¶</a></h3>
+<span id="history-windows-nt-xp-vista-7"></span><h3>Windows NT/XP/Vista/7<a class="headerlink" href="#windows-nt-xp-vista-7" title="Link to this heading">#</a></h3>
 <p>This section details the evolution of Windows operating systems from Windows NT, a competitor to OS/2, through various versions like Windows 2000, XP, Vista, to Windows 7. Each version brought new advancements, from virtual memory support and Active Directory in Windows 2000 to major UI improvements and 64-bit support in Windows 7.</p>
 </section>
 <section id="linux">
-<span id="history-linux"></span><h3>Linux<a class="headerlink" href="#linux" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#linux'">¶</a></h3>
+<span id="history-linux"></span><h3>Linux<a class="headerlink" href="#linux" title="Link to this heading">#</a></h3>
 <p>The Linux operating system saw its inception from 0.x versions in the early ’90s, inspired by Minix, to the significant improvements in the 2.6 version. The evolution covers improvements in hardware support, performance, and kernel development, with Linux becoming a formidable player in server and desktop operating systems.</p>
 </section>
 </section>
 <section id="types-of-computer-systems">
-<span id="id5"></span><h2>Types of Computer Systems<a class="headerlink" href="#types-of-computer-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-computer-systems'">¶</a></h2>
+<span id="id5"></span><h2>Types of Computer Systems<a class="headerlink" href="#types-of-computer-systems" title="Link to this heading">#</a></h2>
 <p>This section explores various types of computer systems, including batch processing systems, personal/parallel computers, clusters, grid computers, distributed systems, gaming consoles, handheld/tablet computers, and smartphones, each with its unique characteristics and uses.</p>
 <section id="personal-computers">
-<span id="id6"></span><h3>Personal Computers<a class="headerlink" href="#personal-computers" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#personal-computers'">¶</a></h3>
+<span id="id6"></span><h3>Personal Computers<a class="headerlink" href="#personal-computers" title="Link to this heading">#</a></h3>
 <p>Personal computers, commonly referred to as PCs, are designed for individual use. These computers are prevalent in both professional and personal settings, offering a range of functionalities from word processing and web browsing to gaming and media consumption. Their versatility, ease of use, and affordability have made them a staple in modern daily life.</p>
 </section>
 <section id="parallel-computers">
-<span id="id7"></span><h3>Parallel Computers<a class="headerlink" href="#parallel-computers" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#parallel-computers'">¶</a></h3>
+<span id="id7"></span><h3>Parallel Computers<a class="headerlink" href="#parallel-computers" title="Link to this heading">#</a></h3>
 <p>Parallel computers are designed to perform complex computations by dividing the tasks across multiple processors. These systems are characterized by their ability to run processes simultaneously, significantly increasing computational speed and efficiency. They are especially useful in scientific research, engineering simulations, and other fields requiring extensive data processing and computation.</p>
 </section>
 <section id="distributed-systems">
-<span id="id8"></span><h3>Distributed Systems<a class="headerlink" href="#distributed-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#distributed-systems'">¶</a></h3>
+<span id="id8"></span><h3>Distributed Systems<a class="headerlink" href="#distributed-systems" title="Link to this heading">#</a></h3>
 <p>Distributed systems involve a network of interconnected computers that interact with each other to achieve a common goal. These systems distribute processing and data storage across multiple nodes, offering resilience, scalability, and resource sharing, making them ideal for applications that require reliability across multiple networked environments.</p>
 </section>
 <section id="batch-processing-systems">
-<span id="id9"></span><h3>Batch Processing Systems<a class="headerlink" href="#batch-processing-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#batch-processing-systems'">¶</a></h3>
+<span id="id9"></span><h3>Batch Processing Systems<a class="headerlink" href="#batch-processing-systems" title="Link to this heading">#</a></h3>
 <p>Batch processing systems process large volumes of data in batches without continuous user interaction. These systems are integral in environments where vast datasets are processed, like financial transaction processing or large-scale data analytics.</p>
 </section>
 <section id="clusters">
-<span id="id10"></span><h3>Clusters<a class="headerlink" href="#clusters" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#clusters'">¶</a></h3>
+<span id="id10"></span><h3>Clusters<a class="headerlink" href="#clusters" title="Link to this heading">#</a></h3>
 <p>Clusters consist of multiple computers connected to work together as a single system, enhancing performance, and providing high availability. They are often used in environments that require a high degree of computational power or high availability of resources, like scientific computing or web services.</p>
 </section>
 <section id="cloud-computing">
-<span id="id11"></span><h3>Cloud Computing<a class="headerlink" href="#cloud-computing" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#cloud-computing'">¶</a></h3>
+<span id="id11"></span><h3>Cloud Computing<a class="headerlink" href="#cloud-computing" title="Link to this heading">#</a></h3>
 <p>Cloud computing delivers computing services—including servers, storage, databases, networking, software, analytics, and intelligence—over the internet (“the cloud”). It offers faster innovation, flexible resources, and economies of scale, typically paying only for cloud services used.</p>
 </section>
 <section id="grid-computing">
-<span id="id12"></span><h3>Grid Computing<a class="headerlink" href="#grid-computing" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#grid-computing'">¶</a></h3>
+<span id="id12"></span><h3>Grid Computing<a class="headerlink" href="#grid-computing" title="Link to this heading">#</a></h3>
 <p>Grid computing connects disparate computers, often geographically dispersed, to create a distributed computing system capable of handling large-scale processing tasks. This system is often utilized in scientific research, where massive computational tasks are distributed across various nodes in the grid.</p>
 </section>
 <section id="quantum-computing">
-<h3>Quantum Computing<a class="headerlink" href="#quantum-computing" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#quantum-computing'">¶</a></h3>
+<h3>Quantum Computing<a class="headerlink" href="#quantum-computing" title="Link to this heading">#</a></h3>
 <p>Quantum computing represents a significant leap forward in computational capabilities, utilizing the principles of quantum mechanics. Unlike classical computers which use bits as the smallest unit of data, quantum computers use quantum bits or qubits, which can exist in multiple states simultaneously. This allows quantum computers to perform complex calculations at speeds unattainable by traditional computing systems. Quantum computing holds immense potential for solving intricate problems in fields like cryptography, materials science, and complex system modeling, which are beyond the reach of classical computers.</p>
 </section>
 <section id="summary">
-<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#summary'">¶</a></h3>
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h3>
 <p>Each type of computing system has its unique characteristics and applications, contributing to the diverse landscape of modern computing. If further details or adjustments are needed, please let me know.</p>
 </section>
 </section>
 <section id="types-of-operating-systems">
-<h2>Types of Operating Systems<a class="headerlink" href="#types-of-operating-systems" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#types-of-operating-systems'">¶</a></h2>
+<h2>Types of Operating Systems<a class="headerlink" href="#types-of-operating-systems" title="Link to this heading">#</a></h2>
 <p>Operating systems are categorized into several types, such as single program/simple OS, real-time OS, microkernel, monolithic kernel, and distributed OS. Each type serves different purposes and is suited for specific applications and hardware environments.</p>
 <p>Welcome to this Crash Course on the UNIX Shell, where we delve into the basics of using <cite>/bin/bash</cite>, one of the most commonly used shells. The shell is a powerful interface that lets users interact efficiently with the system through various commands.</p>
 </section>
 <section id="basic-shell-operations">
-<span id="basic-operations"></span><h2>Basic Shell Operations<a class="headerlink" href="#basic-shell-operations" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#basic-shell-operations'">¶</a></h2>
+<span id="basic-operations"></span><h2>Basic Shell Operations<a class="headerlink" href="#basic-shell-operations" title="Link to this heading">#</a></h2>
 <p>The UNIX shell is versatile, allowing you to perform a wide range of operations with simple commands. Here are some fundamental operations:</p>
 <section id="displaying-file-contents">
-<span id="id13"></span><h3>Displaying File Contents<a class="headerlink" href="#displaying-file-contents" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#displaying-file-contents'">¶</a></h3>
+<span id="id13"></span><h3>Displaying File Contents<a class="headerlink" href="#displaying-file-contents" title="Link to this heading">#</a></h3>
 <p>You can display the contents of a file or multiple files using the <cite>cat</cite> command. For a single file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cat<span class="w"> </span>file
 </pre></div>
@@ -200,7 +488,7 @@
 </div>
 </section>
 <section id="creating-directories-and-files">
-<span id="creating-directories-files"></span><h3>Creating Directories and Files<a class="headerlink" href="#creating-directories-and-files" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-directories-and-files'">¶</a></h3>
+<span id="creating-directories-files"></span><h3>Creating Directories and Files<a class="headerlink" href="#creating-directories-and-files" title="Link to this heading">#</a></h3>
 <p>Creating directories and files is a common task. To create a directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>foobar
 </pre></div>
@@ -225,10 +513,10 @@ $<span class="w"> </span>touch<span class="w"> </span><span class="o">{</span>fi
 <p>Be cautious with these commands as some can be destructive if not used properly.</p>
 </section>
 <section id="print-text-to-console">
-<span id="more-useful-commands"></span><h3>Print Text to Console<a class="headerlink" href="#print-text-to-console" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#print-text-to-console'">¶</a></h3>
+<span id="more-useful-commands"></span><h3>Print Text to Console<a class="headerlink" href="#print-text-to-console" title="Link to this heading">#</a></h3>
 <p id="print-text-console">Print text to the console:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello world"</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"hello\t\t world\n"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;hello\t\t world\n&quot;</span>
 </pre></div>
 </div>
 <p id="read-file-content">Read the contents of a file, one screen at a time:</p>
@@ -236,22 +524,22 @@ $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>-e<
 </pre></div>
 </div>
 <p id="search-file-text">Search a file for specific text:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">"hello world"</span><span class="w"> </span>file1.txt
-$<span class="w"> </span>grep<span class="w"> </span>-e<span class="w"> </span><span class="s2">"hello.* d"</span><span class="w"> </span>file1.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;hello world&quot;</span><span class="w"> </span>file1.txt
+$<span class="w"> </span>grep<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;hello.* d&quot;</span><span class="w"> </span>file1.txt
 </pre></div>
 </div>
 <p>The sections above provide a foundation in UNIX shell commands. The following sections will continue to explore more advanced operations and concepts in UNIX, such as file permissions, combining commands, background processes, and an introduction to C programming.
 i</p>
 </section>
 <section id="print-working-directory-pwd">
-<h3>Print Working Directory (pwd)<a class="headerlink" href="#print-working-directory-pwd" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#print-working-directory-pwd'">¶</a></h3>
+<h3>Print Working Directory (pwd)<a class="headerlink" href="#print-working-directory-pwd" title="Link to this heading">#</a></h3>
 <p>The <cite>pwd</cite> command displays the current working directory’s absolute path. It’s an essential command for orienting yourself in the filesystem and ensuring you’re in the correct directory before performing operations.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">pwd</span>
 </pre></div>
 </div>
 </section>
 <section id="list-files-and-directories-ls">
-<span id="list-files-directories"></span><h3>List Files and Directories (ls)<a class="headerlink" href="#list-files-and-directories-ls" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#list-files-and-directories-ls'">¶</a></h3>
+<span id="list-files-directories"></span><h3>List Files and Directories (ls)<a class="headerlink" href="#list-files-and-directories-ls" title="Link to this heading">#</a></h3>
 <p><cite>ls</cite> is one of the most frequently used commands. It lists files and directories in the current directory. With options like <cite>-l</cite> for a detailed list and <cite>-a</cite> to include hidden files, it provides a versatile way to view directory contents.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ls
 $<span class="w"> </span>ls<span class="w"> </span>-l
@@ -260,7 +548,7 @@ $<span class="w"> </span>ls<span class="w"> </span>-a
 </div>
 </section>
 <section id="change-directory-cd">
-<span id="change-directory"></span><h3>Change Directory (cd)<a class="headerlink" href="#change-directory-cd" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#change-directory-cd'">¶</a></h3>
+<span id="change-directory"></span><h3>Change Directory (cd)<a class="headerlink" href="#change-directory-cd" title="Link to this heading">#</a></h3>
 <p>Navigating the filesystem is a fundamental task in the shell, and <cite>cd</cite> is the command that makes it possible. It changes the current directory to another one specified in the command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/path/to/directory
 $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
@@ -269,7 +557,7 @@ $<span class="w"> </span><span class="nb">cd</span>
 </div>
 </section>
 <section id="copy-files-and-directories-cp">
-<span id="copy-files-directories"></span><h3>Copy Files and Directories (cp)<a class="headerlink" href="#copy-files-and-directories-cp" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#copy-files-and-directories-cp'">¶</a></h3>
+<span id="copy-files-directories"></span><h3>Copy Files and Directories (cp)<a class="headerlink" href="#copy-files-and-directories-cp" title="Link to this heading">#</a></h3>
 <p>The <cite>cp</cite> command is used for copying files and directories. It’s crucial for duplicating data, creating backups, or moving data around. The <cite>-r</cite> option is used to copy directories recursively.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cp<span class="w"> </span>source_file<span class="w"> </span>destination_file
 $<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>source_directory<span class="w"> </span>destination_directory
@@ -277,7 +565,7 @@ $<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>sou
 </div>
 </section>
 <section id="move-rename-files-mv">
-<span id="move-rename-files"></span><h3>Move/Rename Files (mv)<a class="headerlink" href="#move-rename-files-mv" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#move-rename-files-mv'">¶</a></h3>
+<span id="move-rename-files"></span><h3>Move/Rename Files (mv)<a class="headerlink" href="#move-rename-files-mv" title="Link to this heading">#</a></h3>
 <p><cite>mv</cite> serves a dual purpose: it moves files and directories and renames them. This command is especially useful for organizing files and directories or changing file names.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mv<span class="w"> </span>old_filename<span class="w"> </span>new_filename
 $<span class="w"> </span>mv<span class="w"> </span>file<span class="w"> </span>/path/to/new/location
@@ -285,7 +573,7 @@ $<span class="w"> </span>mv<span class="w"> </span>file<span class="w"> </span>/
 </div>
 </section>
 <section id="remove-files-and-directories-rm">
-<span id="remove-files-directories"></span><h3>Remove Files and Directories (rm)<a class="headerlink" href="#remove-files-and-directories-rm" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#remove-files-and-directories-rm'">¶</a></h3>
+<span id="remove-files-directories"></span><h3>Remove Files and Directories (rm)<a class="headerlink" href="#remove-files-and-directories-rm" title="Link to this heading">#</a></h3>
 <p><cite>rm</cite> is used to delete files and directories. Caution is advised with this command, especially with the <cite>-r</cite> option for recursive deletion, as it permanently removes data.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>rm<span class="w"> </span>file
 $<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>directory
@@ -293,7 +581,7 @@ $<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>dir
 </div>
 </section>
 <section id="view-file-contents-less-more-cat">
-<span id="view-file-contents"></span><h3>View File Contents (less, more, cat)<a class="headerlink" href="#view-file-contents-less-more-cat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#view-file-contents-less-more-cat'">¶</a></h3>
+<span id="view-file-contents"></span><h3>View File Contents (less, more, cat)<a class="headerlink" href="#view-file-contents-less-more-cat" title="Link to this heading">#</a></h3>
 <p>Commands like <cite>less</cite>, <cite>more</cite>, and <cite>cat</cite> are used for viewing the contents of files. <cite>less</cite> and <cite>more</cite> are particularly useful for navigating through larger files.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>less<span class="w"> </span>file
 $<span class="w"> </span>more<span class="w"> </span>file
@@ -302,15 +590,15 @@ $<span class="w"> </span>cat<span class="w"> </span>file
 </div>
 </section>
 <section id="find-files-and-directories-find-locate">
-<span id="find-files-directories"></span><h3>Find Files and Directories (find, locate)<a class="headerlink" href="#find-files-and-directories-find-locate" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#find-files-and-directories-find-locate'">¶</a></h3>
+<span id="find-files-directories"></span><h3>Find Files and Directories (find, locate)<a class="headerlink" href="#find-files-and-directories-find-locate" title="Link to this heading">#</a></h3>
 <p>The <cite>find</cite> and <cite>locate</cite> commands are powerful tools for searching files and directories. They can search based on different criteria like name, size, or modification date.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>find<span class="w"> </span>/path<span class="w"> </span>-name<span class="w"> </span><span class="s2">"filename"</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>find<span class="w"> </span>/path<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;filename&quot;</span>
 $<span class="w"> </span>locate<span class="w"> </span>filename
 </pre></div>
 </div>
 </section>
 <section id="file-permissions-and-ownership-chmod-chown">
-<span id="file-permissions-ownership"></span><h3>File Permissions and Ownership (chmod, chown)<a class="headerlink" href="#file-permissions-and-ownership-chmod-chown" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#file-permissions-and-ownership-chmod-chown'">¶</a></h3>
+<span id="file-permissions-ownership"></span><h3>File Permissions and Ownership (chmod, chown)<a class="headerlink" href="#file-permissions-and-ownership-chmod-chown" title="Link to this heading">#</a></h3>
 <p><cite>chmod</cite> and <cite>chown</cite> are vital for managing file permissions and ownership. They ensure security and proper access control of files and directories.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>file
 $<span class="w"> </span>chown<span class="w"> </span>user:group<span class="w"> </span>file
@@ -318,7 +606,7 @@ $<span class="w"> </span>chown<span class="w"> </span>user:group<span class="w">
 </div>
 </section>
 <section id="process-management-ps-top-kill">
-<span id="process-management"></span><h3>Process Management (ps, top, kill)<a class="headerlink" href="#process-management-ps-top-kill" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-management-ps-top-kill'">¶</a></h3>
+<span id="process-management"></span><h3>Process Management (ps, top, kill)<a class="headerlink" href="#process-management-ps-top-kill" title="Link to this heading">#</a></h3>
 <p>Managing processes is a critical aspect of system administration. Commands like <cite>ps</cite>, <cite>top</cite>, and <cite>kill</cite> allow users to view active processes, monitor system resources, and terminate processes when necessary.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>ps
 $<span class="w"> </span>top
@@ -328,63 +616,144 @@ $<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>PID
 </section>
 </section>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#history-of-operating-systems'" class="reference internal" href="#history-of-operating-systems">History of Operating Systems</a><ul>
-<li><a :data-current="activeSection === '#first-generation-operating-systems'" class="reference internal" href="#first-generation-operating-systems">First Generation Operating Systems</a></li>
-<li><a :data-current="activeSection === '#second-generation-systems'" class="reference internal" href="#second-generation-systems">Second Generation Systems</a></li>
-<li><a :data-current="activeSection === '#third-generation-systems'" class="reference internal" href="#third-generation-systems">Third Generation Systems</a></li>
-<li><a :data-current="activeSection === '#fourth-generation-systems'" class="reference internal" href="#fourth-generation-systems">Fourth Generation Systems</a></li>
-<li><a :data-current="activeSection === '#windows-nt-xp-vista-7'" class="reference internal" href="#windows-nt-xp-vista-7">Windows NT/XP/Vista/7</a></li>
-<li><a :data-current="activeSection === '#linux'" class="reference internal" href="#linux">Linux</a></li>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="meta.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">About the Book</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="processes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to Processes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-operating-systems">History of Operating Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#first-generation-operating-systems">First Generation Operating Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-generation-systems">Second Generation Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#third-generation-systems">Third Generation Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourth-generation-systems">Fourth Generation Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-nt-xp-vista-7">Windows NT/XP/Vista/7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">Linux</a></li>
 </ul>
 </li>
-<li><a :data-current="activeSection === '#types-of-computer-systems'" class="reference internal" href="#types-of-computer-systems">Types of Computer Systems</a><ul>
-<li><a :data-current="activeSection === '#personal-computers'" class="reference internal" href="#personal-computers">Personal Computers</a></li>
-<li><a :data-current="activeSection === '#parallel-computers'" class="reference internal" href="#parallel-computers">Parallel Computers</a></li>
-<li><a :data-current="activeSection === '#distributed-systems'" class="reference internal" href="#distributed-systems">Distributed Systems</a></li>
-<li><a :data-current="activeSection === '#batch-processing-systems'" class="reference internal" href="#batch-processing-systems">Batch Processing Systems</a></li>
-<li><a :data-current="activeSection === '#clusters'" class="reference internal" href="#clusters">Clusters</a></li>
-<li><a :data-current="activeSection === '#cloud-computing'" class="reference internal" href="#cloud-computing">Cloud Computing</a></li>
-<li><a :data-current="activeSection === '#grid-computing'" class="reference internal" href="#grid-computing">Grid Computing</a></li>
-<li><a :data-current="activeSection === '#quantum-computing'" class="reference internal" href="#quantum-computing">Quantum Computing</a></li>
-<li><a :data-current="activeSection === '#summary'" class="reference internal" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-computer-systems">Types of Computer Systems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#personal-computers">Personal Computers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-computers">Parallel Computers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-systems">Distributed Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-processing-systems">Batch Processing Systems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clusters">Clusters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-computing">Cloud Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-computing">Grid Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-computing">Quantum Computing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li><a :data-current="activeSection === '#types-of-operating-systems'" class="reference internal" href="#types-of-operating-systems">Types of Operating Systems</a></li>
-<li><a :data-current="activeSection === '#basic-shell-operations'" class="reference internal" href="#basic-shell-operations">Basic Shell Operations</a><ul>
-<li><a :data-current="activeSection === '#displaying-file-contents'" class="reference internal" href="#displaying-file-contents">Displaying File Contents</a></li>
-<li><a :data-current="activeSection === '#creating-directories-and-files'" class="reference internal" href="#creating-directories-and-files">Creating Directories and Files</a></li>
-<li><a :data-current="activeSection === '#print-text-to-console'" class="reference internal" href="#print-text-to-console">Print Text to Console</a></li>
-<li><a :data-current="activeSection === '#print-working-directory-pwd'" class="reference internal" href="#print-working-directory-pwd">Print Working Directory (pwd)</a></li>
-<li><a :data-current="activeSection === '#list-files-and-directories-ls'" class="reference internal" href="#list-files-and-directories-ls">List Files and Directories (ls)</a></li>
-<li><a :data-current="activeSection === '#change-directory-cd'" class="reference internal" href="#change-directory-cd">Change Directory (cd)</a></li>
-<li><a :data-current="activeSection === '#copy-files-and-directories-cp'" class="reference internal" href="#copy-files-and-directories-cp">Copy Files and Directories (cp)</a></li>
-<li><a :data-current="activeSection === '#move-rename-files-mv'" class="reference internal" href="#move-rename-files-mv">Move/Rename Files (mv)</a></li>
-<li><a :data-current="activeSection === '#remove-files-and-directories-rm'" class="reference internal" href="#remove-files-and-directories-rm">Remove Files and Directories (rm)</a></li>
-<li><a :data-current="activeSection === '#view-file-contents-less-more-cat'" class="reference internal" href="#view-file-contents-less-more-cat">View File Contents (less, more, cat)</a></li>
-<li><a :data-current="activeSection === '#find-files-and-directories-find-locate'" class="reference internal" href="#find-files-and-directories-find-locate">Find Files and Directories (find, locate)</a></li>
-<li><a :data-current="activeSection === '#file-permissions-and-ownership-chmod-chown'" class="reference internal" href="#file-permissions-and-ownership-chmod-chown">File Permissions and Ownership (chmod, chown)</a></li>
-<li><a :data-current="activeSection === '#process-management-ps-top-kill'" class="reference internal" href="#process-management-ps-top-kill">Process Management (ps, top, kill)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-operating-systems">Types of Operating Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-shell-operations">Basic Shell Operations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-file-contents">Displaying File Contents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-directories-and-files">Creating Directories and Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-text-to-console">Print Text to Console</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-working-directory-pwd">Print Working Directory (pwd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-files-and-directories-ls">List Files and Directories (ls)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-directory-cd">Change Directory (cd)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-files-and-directories-cp">Copy Files and Directories (cp)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#move-rename-files-mv">Move/Rename Files (mv)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-files-and-directories-rm">Remove Files and Directories (rm)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-file-contents-less-more-cat">View File Contents (less, more, cat)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-files-and-directories-find-locate">Find Files and Directories (find, locate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-permissions-and-ownership-chmod-chown">File Permissions and Ownership (chmod, chown)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process-management-ps-top-kill">Process Management (ps, top, kill)</a></li>
 </ul>
 </li>
 </ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Author name not set
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2013-2020, Operating Systems Faculty at Loyola University Chicago.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
-</aside>
-</main>
-</div>
-</div><footer class="py-6 border-t border-border md:py-0">
-<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2013-2020, Operating Systems Faculty at Loyola University Chicago Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 7.2.6</a></p>
-</div>
-</div>
-</footer>
-</div>
-<script src="_static/documentation_options.js?v=84a96fc7"></script>
-<script src="_static/doctools.js?v=888ff710"></script>
-<script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-<script defer="defer" src="_static/theme.js?v=e8bd915e"></script>
-</body>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>
