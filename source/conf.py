@@ -215,9 +215,11 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
+latex_author = u'Loyola University Chicago\\\\\nComputer Science Department'
+
 latex_documents = [
-  ('index', 'OperatingSystems.tex', u'Operating Systems Documentation',
-   authors, 'manual'),
+  ('index', 'OperatingSystems.tex', u'Operating Systems',
+   latex_author, 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
