@@ -1,694 +1,415 @@
 Userland Memory Management
 ==========================
 
-Why Userland Memory Management?
--------------------------------
-
--  Why discuss user land memory management in an OS course?
-
--  After all, user land memory management is almost always an
-   implementation detail of a standard library or virtual machine.
-
--  The reason that this is important is that the OS allocates to user
-   programs memory as units of contiguous virtual pages.
-
--  The unit of the page is not very useful for many programs. Most
-   programs work in terms of structured objects that are composed of
-   primitive data types and pointers to other structured objects or
-   primitive data types.
+Userland memory management is the layer that turns pages from the
+operating system into objects, buffers, and runtime data structures used
+by programs.
 
 Why Userland Memory Management?
 -------------------------------
 
--  Because programs need a view of the machine as something other than
-   pages, we can consider the topic of user land memory management as a
-   detail of the virtual machine that the system provides.
+Operating systems allocate memory to processes in units of virtual
+pages. Most programs do not work directly in pages.
 
--  Because the details of the memory management system differ based on
-   language needs, it is impractical for this component to exist within
-   the operating system implementation.
+Programs usually allocate objects, arrays, strings, and linked data
+structures. A C program may request 24 bytes for a structure or 1024
+bytes for a buffer. A Java or C# program may allocate an object with
+``new``. The operating system provides the virtual address space, but the
+language runtime or standard library manages the smaller allocations
+inside that space.
+
+Userland Memory as Runtime Policy
+---------------------------------
+
+Userland memory management belongs in libraries and language runtimes
+because allocation policy depends on the language.
+
+C and C++ need explicit allocation and deallocation. Java, C#, Python,
+and many other languages need allocation plus garbage collection. These
+policies are too language-specific to live entirely inside the kernel,
+but they still depend on operating-system services such as pages,
+``sbrk()``, and ``mmap()``.
 
 Heap Management
 ---------------
 
-The Heap
---------
+The heap is the part of a process address space used for data whose
+lifetime is not tied to one stack frame.
 
--  The heap is the portion of a process’ memory that is used for data
-   that lives beyond the lifetime of any one function or method. The
-   lifetime of this data is defined by when it is allocated and when the
-   heap manager either explicitly deletes it or garbage collects it.
-
--  Languages like C or C++ allocate chunks of memory manually through
-   explicit statements like malloc, free, new, delete, etc...
-
--  Languages like C# or Java allocate chunks of memory through
-   statements like new and deallocate memory with garbage collectors
+Stack memory is allocated and freed as functions call and return. Heap
+memory is allocated and freed according to program logic. In C and C++,
+the program manages this lifetime explicitly with calls such as
+``malloc()``, ``free()``, ``new``, and ``delete``. In garbage-collected
+languages, the runtime decides when unreachable heap objects can be
+reclaimed.
 
 The Memory Manager
 ------------------
 
--  The memory manager has the following responsibilities:
+A memory manager tracks allocated regions and free regions inside the
+heap.
 
-   -  Manages list of allocated sections of memory
+When a program requests memory, the manager finds a contiguous free
+region large enough for the request. If no suitable region exists, the
+manager asks the operating system for more heap space. When memory is
+freed, the manager returns the region to its free-space data structures.
+Most allocators do not immediately return every freed region to the
+operating system.
 
-   -  Manages list of free regions in memory
+Characteristics of Allocation
+-----------------------------
 
-   -  Allocation - When a program manages memory for an object, the
-      memory manager will find a chunk of contiguous memory at least as
-      large as the object. If not enough contiguous memory is available,
-      it asks the operating system for more heap space
+Heap allocation requests vary in size and are freed in unpredictable
+orders.
 
-   -  Deallocation - When a program deallocates heap memory, the memory
-      manager returns the deallocated space to the free list. Memory is
-      typically not returned to the operating system in most
-      implementations.
+Unlike stack allocation, heap allocation is not first-in, last-out. A
+program may allocate many small objects, free some of them, allocate a
+large buffer, and keep other objects alive for the rest of the process.
+The allocator must handle this pattern efficiently.
 
-Characteristics of Memory Allocation
-------------------------------------
+Over-Allocation and Buckets
+---------------------------
 
--  Requests from a program for chunks of the heap are typically not of
-   the same size
+Allocators often return a block that is slightly larger than the request.
 
--  Deallocation is not predictable. In the stack, memory is allocated
-   and freed in First In Last Out order. This is not true of the heap.
-
--  Therefore, the memory manager must be prepared to handle requests of
-   differing size in unpredictable order
-
--  Most of the time, the majority of requests are for small regions of
-   memory that are measured in bytes or kilo-bytes.
-
-Characteristics of Memory Allocation
-------------------------------------
-
--  Although not optimal, it is acceptable for an allocator to return a
-   region of memory larger than the requested size.
-
--  Many allocators will split the heap into buckets of a different chunk
-   sizes.
-
--  So, for example an allocator may service a request for 31 bytes of
-   memory with a region of memory that is 32 bytes in size.s
+For example, a request for 31 bytes may be served from a 32-byte bucket.
+This wastes a small amount of memory inside the block, but it simplifies
+allocation and can make free-list management faster.
 
 Characteristics of a Good Memory Manager
 ----------------------------------------
 
--  Space Efficiency - The memory manager should minimize the total heap
-   needed by a program. This is accomplished by minimizing heap
-   fragmentation.
+A good memory manager balances space efficiency, speed, and locality.
 
--  Program Efficiency - Allocations should be arranged in memory to
-   preserve locality
+Space efficiency means minimizing fragmentation and total heap size.
+Program efficiency means placing related allocations close enough to
+benefit from cache locality. Low overhead matters because allocations
+and deallocations are frequent operations, especially for small objects.
 
--  Low Overhead - Memory allocations / deallocations are frequent
-   operations in a program. Because of this, the overhead of the memory
-   manager should be minimized. Efficiency for smaller memory
-   allocations should be a priority over efficiency for larger
-   allocations since smaller allocations happen more frequently.
+Memory Hierarchy Refresher
+--------------------------
 
-A Refresher on the Memory Hierarchy
------------------------------------
+Memory performance depends on where data is located in the hierarchy.
 
--  Memory Type / Memory Size / Access Time
-
--  Registers / 32 words / 1 ns
-
--  L1 Cache / 16 - 64KB / 5-10 ns
-
--  L2 Cache / 128KB - 4MB / 40-60 ns
-
--  Physical Memory / 512MB - 8GB / 100 - 150 ns
-
--  Swap File / 512MB - 8GB / 3 - 15 ms
+Registers are fastest and smallest. L1 cache is larger but slower. L2
+and later caches are slower still. Physical memory is much slower than
+cache, and swap is slower by orders of magnitude. A memory manager cannot
+control all of these layers, but allocation placement can affect cache
+locality and page behavior.
 
 Program Locality
 ----------------
 
--  Often, programs contain many instructions that are never executed.
+Programs usually use a small part of their code and data heavily.
 
--  Programs built with reusable libraries, often only use a small
-   fraction of the capability of these libraries.
-
--  Programs typically spend most of their time executing innermost loops
-   and recursive functions.
-
--  Only a small fraction of code that could be executed is actually
-   executed. This means, that within any given method, there are basic
-   blocks of code dedicated to exception and error handling that is
-   often not invoked.
+Most execution time is spent in inner loops, recursive calls, and common
+paths. Libraries may contain many functions that a particular program
+never calls. Good memory management tries to preserve this locality by
+keeping related objects near each other and avoiding unnecessary heap
+growth.
 
 Fragmentation
 -------------
 
--  Internal fragmentation - When a request for memory is answered with a
-   region of memory that is larger than the request, the remainder is
-   wasted.
+Fragmentation is wasted memory caused by allocation size and placement.
 
--  External fragmentation - Regions of contiguous memory that are not
-   large enough to service requests.
+Internal fragmentation occurs when an allocator returns a block larger
+than the request. External fragmentation occurs when the heap has enough
+total free memory, but the free memory is split into regions too small to
+satisfy a request.
 
--  External fragmentation = 1 - (largest free region / total free
-   memory)
+One way to express external fragmentation is:
 
--  Fragmentation comes about because while decisions can be made about
-   where heap allocations are placed, the order of their eventual
-   deallocations cannot be controlled or predicted.
+::
 
-Reducing Fragmentation of the Heap
-----------------------------------
+   1 - (largest free region / total free memory)
 
--  The heap starts as one contiguous free space
+Reducing Heap Fragmentation
+---------------------------
 
--  As the program allocates and deallocates memory, the free space will
-   no longer be contiguous
+The heap starts as one contiguous free region, but allocation and
+deallocation split it over time.
 
--  After a while, there may be regions of free space that are not large
-   enough to service a memory allocation request.
+After enough activity, the heap may contain many small free regions that
+cannot serve larger requests. An allocator reduces fragmentation by
+choosing where to place allocations, coalescing adjacent free regions,
+and using size classes or buckets for common request sizes.
 
--  If the free space becomes sufficiently fragmented, then it is
-   possible that even though there is enough total free memory, a
-   request for more memory could fail because there isn’t a contiguous
-   free region that is large enough.
+First Fit and Best Fit
+----------------------
 
-Best-Fit vs Next-Fit
---------------------
+First fit and best fit are two basic policies for choosing a free block.
 
--  The best-fit allocation policy is to fit each request into the free
-   memory region that is the smallest that will satisfy the request
+First fit uses the first free region large enough for the request. Best
+fit uses the smallest free region that can satisfy the request. Best fit
+can reduce wasted space, but it requires more searching unless the
+allocator uses data structures that organize free blocks by size.
 
--  The first-fit allocation policy is to fit each request into the first
-   free memory region encountered in a search that will satisfy the
-   request
+Best-Fit Buckets
+----------------
 
--  Overall, the best-fit policy provides the best performance in most
-   cases.
+Bucket allocators approximate best fit with size classes.
 
--  The downside to the best-fit policy is that it results in a more
-   complex allocator and there is some cost to the search for the best
-   fitting free region (although there are ways around this).
-
-Best-Fit
---------
-
--  To avoid the costs associated with searching for the best-fit free
-   space region for an allocation, best-fit allocators commonly will
-   split up the heap into different buckets.
-
--  Each of these buckets will be responsible for serving different sized
-   requests.
-
--  In the GNU Standard C Library, there are buckets of size 8-byte,
-   16-byte, 24-byte, .... 512-byte. For larger allocations, there are
-   additional buckets for sizes spread out logarithmically (512, 576,
-   640, ....)
-
--  To service an allocation request, the allocator will use the free
-   list in the bucket that is the smallest that is also the same size or
-   larger than the request. If that bucket is empty, then the next
-   largest one is used. If all buckets are full, then the allocator asks
-   the operating system for more heap space.
+The allocator keeps separate free lists for common sizes. A request is
+rounded up to the nearest size class, and the allocator uses that
+bucket's free list. If the bucket is empty, the allocator tries a larger
+bucket or asks the operating system for more heap space.
 
 Managing Free Space
 -------------------
 
--  There are three approaches to managing free space:
+Allocators need data structures that record which heap regions are free.
 
-   -  If buckets are being used, then a bitmap of which items in each
-      bucket are free can be maintained. This is pretty straightforward.
-
-   -  Boundary Tags - At the high and low end of each chunk, we keep a
-      bit telling us if the chunk is free or allocated and how big the
-      chunk is
-
-   -  Doubly Linked, Embedded Free List - The free chunks contain
-      pointers to a previous free chunk and a next free chunk. Often
-      these lists are sorted to help best-fit algorithms.
+Common approaches include bitmaps for fixed-size buckets, boundary tags
+at the start and end of chunks, and embedded doubly linked free lists
+inside free chunks. Boundary tags and embedded lists are flexible, but
+they are vulnerable to memory overwrites because allocator metadata sits
+near program data.
 
 Bugs and Explicit Allocators
 ----------------------------
 
--  For languages like C, when programs write beyond the boundaries of
-   allocated sections of the memory explicitly allocated, it is possible
-   that these overwrites will write into structures used by the
-   allocator.
+Explicit allocators are vulnerable to bugs in the program using them.
 
--  Because of this possibility, different allocators are more or less
-   susceptible to different types of errors. In general, Boundary Tags,
-   and Doubly Linked Embedded Free List are fairly vulnerable to these
-   types of bugs. Bucket allocators with bitmaps are less susceptible.
+If a C program writes past the end of an allocated block, it may corrupt
+allocator metadata. If it frees the same pointer twice or uses a pointer
+after freeing it, the allocator can later return overlapping or invalid
+memory. Debug allocators often add padding and checks around allocations
+to detect these errors.
 
--  This reality can be of use during debugging. There are some
-   debug-only allocators that return extra large regions of memory for
-   each allocation and pad the front and back of each region. At
-   deallocation time, if the padded values are altered, then the
-   allocator can print an error to the console.
+Debugging malloc and free
+-------------------------
 
-Debugging malloc / free
------------------------
+Debugging allocators help find memory leaks, buffer overruns, double
+frees, and use-after-free errors.
 
--  An excellent way to debug common malloc / free issues is to use the
-   dmalloc library.
-
--  This library is available at http://dmalloc.com. It can be used in
-   existing applications without modification.
-
--  This library can help you discover:
-
-   -  Where un-freed objects were originally allocated.
-
-   -  Where any buffer overruns are if they are encountered.
+Tools such as ``dmalloc`` can be linked into existing C programs to
+record allocation sites and check heap consistency. Modern toolchains
+also provide sanitizers and leak detectors that serve the same purpose.
 
 Expanding the Heap
 ------------------
 
--  There are two ways that UNIX allocators expand the heap:
+UNIX allocators usually expand the heap with ``sbrk()`` or ``mmap()``.
 
-   -  sbrk - Asks the OS to increase the data segment by N bytes.
+``sbrk()`` moves the program break and grows the traditional contiguous
+heap. ``mmap()`` can allocate separate non-contiguous regions, which are
+often easier to return to the operating system. Many allocators use
+``mmap()`` for large allocations because large regions do not fit well in
+small-object buckets.
 
-   -  mmap/mfree - Requests from the OS to allocate a separate
-      non-contiguous region of memory. Since these regions are
-      non-contiguous, it is simpler to return them to the OS. mmap/mfree
-      have a fairly large overhead. Often, mmap/mfree are used to
-      service requests for larger allocations that don’t fit into a
-      bucket (> 1MB).
+Simple malloc Case Study
+------------------------
 
-Recommended Reading
--------------------
+The ``systems-code-examples/malloc`` example implements a small allocator
+using ``sbrk()``.
 
--  Article by Doug Lea, the author of the GNU libc malloc/realloc/free -
-   http://g.oswego.edu/dl/html/malloc.html
+.. literalinclude:: ../examples/systems-code-examples/malloc/malloc.h
+   :language: c
+   :linenos:
 
-Problems with manual deallocation
----------------------------------
+Key points:
 
--  Manual memory deallocation can lead to memory leaks. Memory leaks are
-   defined as memory that has been allocated, but not deallocated and
-   will not be referenced at any point in the future.
+- The public interface mirrors the shape of ``malloc()`` and ``free()``.
+- ``mymalloc()`` returns a pointer to usable memory.
+- ``myfree()`` marks a previously allocated block as available.
 
--  Memory leaks do not cause a program to be incorrect or to crash as
-   long as enough free memory is available. For short lived programs
-   this is not a problem. For longer lived programs this is a problem.
+.. literalinclude:: ../examples/systems-code-examples/malloc/malloc.c
+   :language: c
+   :linenos:
 
-Problems with manual deallocation
----------------------------------
+Key points:
 
--  Manual memory deallocation can lead to problems if after the
-   deallocation, a pointer refers to the deallocated space and the
-   program dereferences that pointer in the future. This can lead to
-   modification of memory that was allocated to different pointers or to
-   memory that has been released to the operating system. This can lead
-   to crashes or incorrect program behavior.
+- ``malloc_init()`` records the current program break as the start of the
+  managed heap.
+- Each allocation stores a small control block before the returned
+  memory.
+- ``mymalloc()`` scans existing blocks for a free block large enough for
+  the request.
+- If no block is available, ``sbrk()`` grows the heap.
+- ``myfree()`` marks the block available but does not coalesce adjacent
+  free blocks or return memory to the operating system.
 
-Avoiding problems with manual deallocation
-------------------------------------------
+.. literalinclude:: ../examples/systems-code-examples/malloc/demo.c
+   :language: c
+   :linenos:
 
--  When designing an application, make sure each allocated object has a
-   defined owner. This can be an instance of a class, or a function.
-   This is applicable when the owner can be determined statically.
+Key points:
 
--  When the owner cannot be determined statically, using reference
-   counters is advisable. Whenever a reference to an object is created,
-   we increment the reference counter. Whenever a reference goes away,
-   we decrease the reference counter. When the counter reaches zero, we
-   deallocate the object. This runs into trouble with cyclic structures.
+- The demo allocates enough memory for ``hello world`` and the null byte.
+- The buffer is initialized before use.
+- ``strncpy()`` copies the message into the allocated region.
+- ``myfree()`` returns the block to the allocator's free list.
 
-A simple Malloc / Free Implementation (Example from IBM Developer Works)
-------------------------------------------------------------------------
+Manual Deallocation Problems
+----------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
+Manual memory management can create leaks and dangling pointers.
 
-::
+A memory leak occurs when allocated memory will never be freed and can no
+longer be reached by the program. A dangling pointer occurs when a
+pointer still refers to memory after that memory has been freed. Leaks
+usually waste memory over time. Dangling pointers can corrupt data,
+crash the program, or create security vulnerabilities.
 
-    #include <unistd.h>
-    int has_initialized = 0;
-    void *managed_memory_start;
-    void *last_valid_address;
-
-    struct mem_control_block {
-      int is_available;
-      int size;
-    };
-
-    void malloc_init()
-    {
-      last_valid_address = sbrk(0);
-      managed_memory_start = last_valid_address;
-       has_initialized = 1;
-    }
-
-A simple Malloc / Free Implementation
+Avoiding Manual Deallocation Problems
 -------------------------------------
 
-{language=C, basicstyle=, indent=xleftmargin}
+Explicit memory management works best when ownership is clear.
 
-::
-
-    void myfree(void *firstbyte) {
-      struct mem_control_block *mcb;
-      mcb = (struct mem_control_block*)
-               (firstbyte - sizeof(struct mem_control_block));
-      mcb->is_available = 1;
-      return;
-    }
-
-A simple Malloc / Free Implementation
--------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
-
-::
-
-    void *mymalloc(long numbytes) {
-      void *current_location;
-      struct mem_control_block *current_location_mcb;
-      void *memory_location;
-      if(! has_initialized)   {
-        malloc_init();
-      }
-      numbytes = numbytes + sizeof(struct mem_control_block);
-      memory_location = 0;
-      current_location = managed_memory_start;
-
-A simple Malloc / Free Implementation
--------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
-
-::
-
-      while(current_location != last_valid_address)
-      {
-        current_location_mcb = 
-               (struct mem_control_block *)current_location;
-        if(current_location_mcb->is_available)
-        {
-          if(current_location_mcb->size >= numbytes)
-          {
-            current_location_mcb->is_available = 0;
-            memory_location = current_location;
-            break;
-          }
-        }
-        current_location = current_location + 
-                          current_location_mcb->size;
-      }
-
-A simple Malloc / Free Implementation
--------------------------------------
-
-{language=C, basicstyle=, indent=xleftmargin}
-
-::
-
-      if(!memory_location)
-      {
-        sbrk(numbytes);
-        memory_location = last_valid_address;
-        last_valid_address = last_valid_address + numbytes;
-        current_location_mcb = 
-                   (struct mem_control_block*)memory_location;
-        current_location_mcb->is_available = 0;
-        current_location_mcb->size = numbytes;
-      }
-      memory_location = memory_location + 
-                  sizeof(struct mem_control_block);
-      return memory_location;
-    }
+Each allocated object should have a defined owner responsible for freeing
+it. When ownership cannot be determined statically, reference counting
+can help. A reference count is incremented when a reference is created
+and decremented when a reference is removed. When the count reaches zero,
+the object can be freed. Reference counting does not handle cycles by
+itself.
 
 Garbage Collection
 ------------------
 
-Garbage Collection
-------------------
+Garbage collection automatically reclaims heap objects that can no longer
+be reached by the program.
 
--  Data that can’t be referenced is considered garbage
-
--  One problem that explicit allocators have is that deallocation is the
-   source of bugs
-
--  Some runtimes and programming languages provide automatic garbage
-   collectors.
-
--  The first garbage collector implementation was for the LISP
-   programming language in 1958.
+The first garbage collector was implemented for Lisp in 1958. Since then,
+garbage collection has become a common feature of language runtimes. It
+reduces many manual deallocation errors, but it introduces runtime costs
+and does not eliminate every kind of memory leak.
 
 Requirements for Garbage Collectors
 -----------------------------------
 
--  Most garbage collectors require that a system be type safe to support
-   a collector.
+Garbage collectors need reliable information about references.
 
--  Most garbage collectors require that references / pointers refer to
-   the beginning of an object and not somewhere in the middle
-
--  In general, these guarantees cannot be made for C programs.
-
--  Garbage collectors exist for C, but programmers have to limit their
-   use of the full capability of C
+Most collectors require type safety and a way to find the root set of
+references. They also need references to point to recognizable objects,
+not arbitrary locations inside objects. These guarantees are difficult in
+C because pointer arithmetic and casts can hide references from the
+collector.
 
 Goals for a Garbage Collector
 -----------------------------
 
--  Overall execution time for collection - Garbage collectors must
-   access a lot of data. The faster they are the better
+A garbage collector should reclaim memory without causing unacceptable
+pause times or memory overhead.
 
--  Space Usage - Garbage collectors must keep fragmentation to a minimum
+Important goals include low total collection time, low space overhead,
+short maximum pauses, and good locality after collection. Different
+collectors make different tradeoffs among these goals.
 
--  Wait time - Many garbage collectors require that a program be
-   temporarily halted while running. So, it is desirable that the
-   maximum wait time be small.
-
--  Locality - Like explicit allocators, garbage collectors can help
-   preserve locality by allocating memory from regions that are recently
-   deallocated.
-
-Disadvantages to Garbage Collection
+Disadvantages of Garbage Collection
 -----------------------------------
 
--  Garbage collectors consume processing time determining which objects
-   are garbage
+Garbage collection consumes CPU time and can run at inconvenient moments.
 
--  Garbage collectors run interval is not predictable. This can cause
-   trouble for:
-
-   -  The garbage collector may run too late, allowing too much garbage
-      to pile up
-
-   -  Garbage collectors need to halt execution to one degree or
-      another. This can degrade performance.
-
-Disadvantages to Garbage Collection
------------------------------------
-
--  Garbage collectors can’t detect when low physical memory conditions
-   occur. With manual deallocation, the memory usage should always be
-   the minimum needed, but with garbage collectors, this can be
-   variable. So, it is possible that a garbage collector can encourage
-   overuse of physical memory or unnecessary paging.
-
--  Garbage collectors cannot remove all possible memory leaks. Garbage
-   collectors can only collect garbage.
+Many collectors pause program execution at least briefly. If collection
+runs too late, garbage can accumulate and increase memory pressure. A
+collector also may not know about system-wide low-memory pressure early
+enough to prevent paging.
 
 Reachability
 ------------
 
--  Every program has a concept of a root set of references. The root set
-   is the list of references held on the stack of every executing
-   thread.
+Reachability determines whether an object is still live.
 
--  Some programming language and compiler support is required to make
-   sure that this list is available to the garbage collector.
+The root set includes references from thread stacks, registers, and
+global variables. Objects reachable from the root set are live. Objects
+not reachable from the root set are garbage. Allocations, parameter
+passing, assignments, and function returns all change the reachability
+graph.
 
--  Operations that change reachability:
+Reference Counting
+------------------
 
-   -  Allocations - allocating new objects create new reachable objects
+Reference counting frees an object when its count reaches zero.
 
-   -  Method "out" parameters and return values - Values returned from
-      allocations within a method remain reachable by the caller
+New objects start with a reference count. Passing, copying, or storing a
+reference increments the count. Removing or overwriting a reference
+decrements the count. When the count reaches zero, the object is freed
+and references held by that object are decremented.
 
-   -  Reference copying - Copying a reference from one reference
-      variable to another.
+Reference Counting Tradeoffs
+----------------------------
 
-   -  Method returns - When a method returns, all of the references on
-      the stack that are not a part of the return are lost.
+Reference counting is simple but expensive in busy programs.
 
-Reference Counting Garbage Collectors
--------------------------------------
-
--  Reference counting garbage collectors work by detecting when an
-   object’s reference count reaches zero and at that time deallocate the
-   object. References are increased and decreased in the following
-   manner:
-
-   -  Allocation - New objects start with a reference count of 1
-
-   -  Parameter passing - when a parameter is passed to a method, it’s
-      reference count is incremented
-
-   -  Reference assignments - If a copy of the reference is made, the
-      reference count goes up by 1
-
-   -  Method returns - when a method returns, all references on that
-      method’s stack have their counts decremented by 1
-
-   -  Transitive - if a reference count of an object reaches 0, then it
-      also decrements the reference of every object it refers to.
-
-Pros-Cons of Reference Counting Garbage Collectors
---------------------------------------------------
-
--  Pros
-
-   -  The implementation is very simple.
-
--  Cons
-
-   -  There is a lot of book keeping overhead. Every time a method is
-      called and returned from, each parameter and stack variable has to
-      be touched an additional time.
-
-   -  Reference counting cannot collect unreachable, cyclic data
-      structures.
+Every reference update requires bookkeeping. Function calls and returns
+can touch many references. Reference counting also cannot collect cycles:
+two unreachable objects can keep each other's counts above zero.
 
 Mark-and-Sweep Garbage Collection
 ---------------------------------
 
--  Mark-and-Sweep collectors work by stopping the execution of a program
-   and use an algorithm to determine which objects are not reachable and
-   return those unreachable objects to the free list.
+Mark-and-sweep collection finds reachable objects and frees the rest.
 
--  The algorithm works by maintaining four sets
-
-   -  The free list - a list of free memory regions
-
-   -  The root set - a list of all references on the stacks of all
-      executing threads and global variables.
-
-   -  The referenced list - a list of objects that are referenced.
-
-   -  The unscanned list - a list of allocated objects that have not yet
-      been found to be referenced.
-
--  The algorithm then does a depth first search form all items in the
-   root set. If an item is reached in the scan, it is removed from the
-   unscanned list to the referenced list.
-
--  After the scan is complete, items remaining in the unscanned list are
-   moved to the free list as garbage.
+The collector starts from the root set and traverses references to mark
+live objects. After marking finishes, allocated objects that were not
+marked are moved to the free list. Mark-and-sweep can collect cycles, but
+it can pause the program and leave the heap fragmented.
 
 Mark-and-Compact Garbage Collection
 -----------------------------------
 
--  Compacting garbage collectors take the additional step of moving
-   objects around in memory after collection to make free space
-   contiguous and to make allocated objects closer to each other in
-   memory.
+Mark-and-compact collectors move live objects so free memory becomes
+contiguous.
 
--  The most popular type of these collectors are copying collectors.
-
--  Copying collectors modify the Mark-and-Sweep collector algorithm by
-   performing a copy operation to a contiguous free memory region that
-   is set aside at collection time instead of adding the objects to the
-   referenced list. Then, after collection is complete, the previous
-   memory region becomes the free memory region.
-
--  For more details, see "Cheney’s Algorithm" in a paper by C.J. Cheney
-   in the ACM library.
+Copying collectors are a common form of compacting collection. Live
+objects are copied into a new contiguous region. After the copy, the old
+region becomes free. This improves allocation speed and locality, but it
+requires updating references to moved objects.
 
 Garbage Collection Costs
 ------------------------
 
--  Mark-and-Sweep collectors costs are related to the number of
-   reachable objects
+Collector cost depends on what the collector must scan or move.
 
--  Compacting (Copying) collectors costs are related to the total size
-   of reachable objects.
-
-Incremental Garbage Collection
-------------------------------
-
--  The previously mentioned garbage collectors stop the execution of all
-   threads in a program to run. This can cause programs to pause for
-   long periods of time.
-
--  To keep programs responsive, incremental garbage collection is
-   desirable.
-
--  Instead of collecting all garbage, incremental garbage collectors
-   just collect objects that can be found to be unreachable without
-   performing a mark and sweep algorithm.
-
--  Then, in subsequent collections, the collector will be able to
-   collect objects that became unreachable by the previous collection in
-   addition to any newly unreachable objects.
+Mark-and-sweep cost is related to the number of reachable objects.
+Compacting and copying collector cost is related to the total size of
+reachable objects. Large live heaps are therefore expensive even when
+little garbage is present.
 
 Incremental Garbage Collection
 ------------------------------
 
--  Why in general do incremental garbage collectors work well?
+Incremental collectors divide collection work into smaller pieces.
 
--  For most programs, objects become garbage rapidly. This means that
-   most allocations in a program become unreferenced fairly soon after
-   being allocated.
+Instead of stopping all program threads for a full collection, an
+incremental collector does part of the work at a time. This can reduce
+pause times and improve responsiveness, but it makes the collector more
+complex.
 
--  Often, the number of objects that become garbage rapidly is in the
-   range of 80 - 95 percent. These objects are typically easily
-   collected and at a high rate by an incremental garbage collector
+Why Incremental Collection Works
+--------------------------------
 
--  The downside is that, very often an object that survives a first
-   round of incremental collection, will often survive more than one
-   round. In copying incremental collectors, this means that they will
-   also be copied multiple times.
+Many objects die young.
 
-Generational Garbage Collection
--------------------------------
-
--  Generational garbage collectors are a specific way of implementing a
-   copying incremental garbage collector.
-
--  Generational collectors split the heap into N sections. Section 0 is
-   the oldest, 1 is the next oldest, ....
-
--  When section 0 becomes full, then the collector is invoked and copies
-   reachable objects into section 1, making the entire section 0 free.
-
--  When any 1...N section becomes full, the same algorithm takes place.
-
--  Occasionally, garbage collection is run for some value of i between 1
-   and N to free objects in sections 1...N.
-
--  This type of collection is very fast because it favors scanning young
-   objects which are objects most likely to be garbage.
+For many programs, most allocations become unreachable soon after they
+are created. Incremental collectors benefit from this pattern because
+they can reclaim young garbage quickly. The downside is that objects that
+survive early collections may be copied or scanned more than once.
 
 Generational Garbage Collection
 -------------------------------
 
--  Generational garbage collectors are used in many platforms -
+Generational garbage collection divides the heap by object age.
 
--  Java
-
--  .NET
-
--  Python
+Young objects are collected frequently because most objects die young.
+Objects that survive are promoted to older generations, which are scanned
+less often. Java, .NET, Python, and many other runtimes use generational
+ideas in their collectors.
 
 Buyer Beware
 ------------
 
--  Even with advanced and efficient garbage collection algorithms, it is
-   still possible in theory to "leak" memory.
+Garbage collection does not make memory leaks impossible.
 
--  Programs that have poorly defined object lifetimes or hang on to
-   references for too long can accumulate objects that will never be
-   referenced in the future.
+A program can still hold references longer than necessary. If an object
+remains reachable, the collector must keep it, even if the program will
+never use it again. Large reachable structures and long-lived caches can
+therefore still exhaust memory.
 
--  Programs like these will slowly run out of memory without creating
-   any garbage for the collector to reclaim.
+Recommended Reading
+-------------------
 
--  It is also important to remember that with incremental / generational
-   collectors, not all garbage is collected every time. Also some of
-   these collectors will never reclaim large objects (greater than 8KB)
-   due to the cost. It is possible in these systems to run out of memory
-   artificially.
-
-
+Doug Lea's allocator article is a useful follow-up for explicit memory
+management and the design of ``malloc()`` implementations:
+http://gee.cs.oswego.edu/dl/html/malloc.html

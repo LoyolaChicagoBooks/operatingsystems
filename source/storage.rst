@@ -1,483 +1,348 @@
 Storage and Devices
 ===================
 
+Storage devices provide persistent or transient places to keep data.
+Operating systems hide many device details behind block devices,
+filesystems, caches, and scheduling policies.
 
 Storage Devices
 ---------------
 
--  Types of permanent devices:
+Permanent storage keeps data after power is removed.
 
-   -  Magnetic - hard disk, tape, floppy disk
+Common permanent media include magnetic devices such as hard disks and
+tape, optical devices such as CD, DVD, and Blu-ray, and solid-state
+devices such as flash storage. Transient storage includes RAM and
+processor caches.
 
-   -  Optical - CD/DVD/Blu-Ray, Laser Disc, Paper, Punch Cards, Photo
-      Film
+IDE and ATA
+-----------
 
-   -  Solid State - CMOS, NAND based flash, battery backed dynamic
-      memory
+IDE and ATA moved much of the responsibility for disk control into the
+drive itself.
 
--  Types of transient devices:
-
-   -  RAM, Processor Caches
-
-IDE/ATA
--------
-
--  Created by Western Digital Corp in 1986. Reused an existing disk
-   interface.
-
--  Improved greatly over older interfaces due to moving the
-   responsibility of managing the disk arm to the hard disk itself. This
-   allowed for a greater variation in disk and motor types regardless of
-   motherboard support.
-
--  Connector uses 40 pins.
-
--  Data bus width is 16 bits.
-
--  Transfer rates are 16, 33, 66, 100, and 133 MB/s
-
--  Presents to the computer a set of 512-byte blocks.
+This made systems less dependent on motherboard-specific details about
+disk arms and motors. ATA devices present storage as 512-byte blocks.
+Classic ATA uses a 40-pin connector, a 16-bit data bus, and transfer
+rates such as 16, 33, 66, 100, and 133 MB/s.
 
 ATAPI
 -----
 
--  Improved upon ATA by adding extra commands (such as ’eject’) to
-   support other devices.
+ATAPI extends ATA with commands needed by devices other than hard disks.
 
--  These improvements allowed CD, DVD, and Zip drives to conform to ATA
+Commands such as eject allowed CD, DVD, and Zip drives to use an
+ATA-compatible interface. ATAPI also helped improve performance through
+DMA, which lets devices transfer data directly to physical memory without
+interrupting the CPU for every bus operation.
 
--  Also helped improve performance by introducing DMA. DMA allowed for
-   data transfers to be sent directly to physical memory without
-   interrupting the CPU for every bus operation
+SATA
+----
 
-SATA - Serial ATA
------------------
+Serial ATA, or SATA, reduces cabling and supports faster serial transfer
+rates than classic parallel ATA.
 
--  Helped to reduce cost by reducing the number of pins.
+SATA supports hot swapping, the ATAPI command interface, and transfer
+rates such as 1.5 Gb/s, 3 Gb/s, and 6 Gb/s. Many SATA controllers use
+AHCI, which supports hotplug and native command queuing. Older operating
+systems may fall back to ATA-style behavior even when the hardware
+supports AHCI.
 
--  Allows hot-swapping or replacing of devices without powering down the
-   main board.
+Hard Disk Geometry
+------------------
 
--  Supports the full ATAPI command interface
+Traditional disk geometry describes storage with cylinders, heads, and
+sectors.
 
--  Supports transfer rates of 1.5G/s (1.0), 3G/S (2.0), and 6G/s (3.0)
+A sector is the basic addressable unit on the disk. A cylinder is a set
+of tracks at the same radius across platters. A head reads or writes one
+side of a platter. A CHS address is a tuple of cylinder, head, and
+sector.
 
--  The main board hosting SATA typically implement an AHCI controller
-   (created by Intel). It supports hotplug capabilities and native
-   command queuing. Main boards that do not implement AHCI will
-   typically communicate with the SATA device using the ATAPI command
-   set.
+.. figure:: storage/diagrams/disk_diagram.*
+   :align: center
+   :alt: Disk geometry
 
--  SATA is best supported in Linux 2.6.20 or newer, Windows Vista or 7,
-   and more recent versions of OSX. Older operating systems will often
-   revert to ATAPI even with an AHCI controller
-
-Hard Disk Geometry - CHS
+Logical Block Addressing
 ------------------------
 
--  Composed of Cylinders, Heads, and Sectors
+Logical block addressing, or LBA, converts physical geometry into a
+linear block number.
 
--  Sector - The unit of storage on a disc. Typically 512, 1024, or 2048
-   bytes.
+For a CHS tuple, one common conversion is:
 
--  Cylinder - A physical, circular disc. Aka "platter". One or more may
-   be present in a device.
+::
 
--  Heads - Refers to either the top or bottom sides of a Cylinder.
+   A = (C * Nh + H) * Ns + (S - 1)
 
--  The CHS address on a disk is a tuple of the {Cylinder, Head, Sector}
-
-Hard Disk Geometry - CHS
-------------------------
-
-    .. figure:: storage/diagrams/disk_diagram.*
-       :align: center
-       :alt: image
-
-       image
-
-Hard Disk Geometry - LBA
-------------------------
-
--  A CHS tuple can be converted to an LBA address with the following
-   formula: :math:`$A = (C x Nh + H) * Ns + (S - 1)$`
-
--  :math:`$Nh$` is the total number of heads
-
--  :math:`$Ns$` is the total number of sectors
+``Nh`` is the number of heads, and ``Ns`` is the number of sectors per
+track.
 
 Storage and Failure
 -------------------
 
--  An excellent paper about hard disk failure rates at Google is
-   available here:
+Storage devices fail, so operating systems and storage systems must
+design for failure.
 
--  http://labs.google.com/papers/disk_failures.pdf
+Large-scale studies have shown that disk failure rates vary by age,
+model, workload, and environment. The practical lesson is simple: durable
+systems need redundancy, monitoring, and recovery plans rather than an
+assumption that individual devices will keep working.
 
--  At Google, the failure rates of disks of a given age are:
+Maximizing Availability with RAID
+---------------------------------
 
-   -  3-months - 2.5
+RAID uses multiple disks to improve capacity, performance, or
+availability.
 
-   -  6-months - 2.0
+RAID 0 stripes data across disks but provides no redundancy. RAID 1
+mirrors data across disks. RAID 5 and RAID 6 stripe data and store
+parity so the system can recover after one or more disk failures.
 
-   -  1-year - 2
+RAID Implementation
+-------------------
 
-   -  2-year - 8
+RAID can be implemented in hardware, partly in hardware, or in software.
 
-   -  3-year - 8.5
+A full hardware controller presents several disks as one logical device.
+A partial hardware controller may still depend on the host CPU for parity
+or buffering. Software RAID is implemented by the operating system and
+presented upward to the filesystem layer as a storage device.
 
-Maximizing Availability - RAID
-------------------------------
+RAID 0
+------
 
--  To prevent the loss of availability of data, the use of RAID
-   (Redundant Array of Inexpensive Disks) allows for redundant copies of
-   data to be stored.
+RAID 0 stripes data across disks.
 
--  Common RAID levels are:
+.. figure:: storage/diagrams/raid_0.*
+   :align: center
+   :alt: RAID 0
 
-   -  RAID 0 - splits data across disks. Increases disk space and
-      provides no redundancy. 2 or more disks are needed.
+RAID 0 improves capacity and throughput but does not provide redundancy.
+If one disk fails, the array loses data.
 
-   -  RAID 1 - creates an exact copy of data on two or more disks.
+RAID 1
+------
 
-   -  RAID 5/6 - splits data across disks. Uses one or more disks for
-      parity. This allows 1-K out of N disks to fail and allow the data
-      of any lost disk to be recovered. 3 or more disks are needed.
+RAID 1 mirrors data across disks.
 
-RAID
-----
+.. figure:: storage/diagrams/raid_1.*
+   :align: center
+   :alt: RAID 1
 
--  RAID has three common implementation approaches:
+RAID 1 can survive the loss of one mirrored disk. It costs more capacity
+because each block is stored more than once.
 
-   -  Complete hardware implementation - a disk controller or expansion
-      card implements RAID. Several disks are connected to this
-      controller and it is presented to the operating system as a single
-      storage device. Often have reliability guarantees.
+RAID 5
+------
 
-   -  Partial hardware implementation - Same as the complete hardware
-      implementation, except parity calculations, and buffering are
-      delegated to the host CPU and memory. Don’t often have reliability
-      guarantees.
+RAID 5 stripes data and parity across disks.
 
-   -  Software implementation - The operating system itself manages
-      several disks and presents to the file-system layer a single
-      storage device.
+.. figure:: storage/diagrams/raid_5.*
+   :align: center
+   :alt: RAID 5
 
-RAID - 0
---------
+The parity information lets the array reconstruct data from a failed
+disk. RAID 5 needs at least three disks.
 
-    .. figure:: storage/diagrams/raid_0.*
-       :align: center
-       :alt: image
+RAID 5 Parity Write
+-------------------
 
-       image
-
-RAID - 1
---------
-
-    .. figure:: storage/diagrams/raid_1.*
-       :align: center
-       :alt: image
-
-       image
-
-RAID - 5
---------
-
-    .. figure:: storage/diagrams/raid_5.*
-       :align: center
-       :alt: image
-
-       image
-
-RAID - 5 Parity
----------------
+Parity can be computed with exclusive-or.
 
 ::
 
-    size_t parityWrite(
-            int fd0, int fd1, int fd2, 
-            const void *buf0, const void *buf1, 
-            size_t count) {
-            for(size_t i = 0; i < count; i++) {
-                    char byte0 = ((char*)buf0)[i];
-                    char byte1 = ((char*)buf1)[i];
-                    char parity = byte0 ^ byte1;
-                    write(fd0, &byte0, sizeof(char));
-                    write(fd1, &byte1, sizeof(char));
-                    write(fd2, &parity, sizeof(char));
-            }
-            return count;
-    }
+   size_t parityWrite(
+      int fd0, int fd1, int fd2,
+      const void *buf0, const void *buf1,
+      size_t count) {
+      for(size_t i = 0; i < count; i++) {
+         char byte0 = ((char*)buf0)[i];
+         char byte1 = ((char*)buf1)[i];
+         char parity = byte0 ^ byte1;
+         write(fd0, &byte0, sizeof(char));
+         write(fd1, &byte1, sizeof(char));
+         write(fd2, &parity, sizeof(char));
+      }
+      return count;
+   }
 
-RAID - 5 Parity
----------------
+Key points:
 
-::
+- Two data streams are written to ``fd0`` and ``fd1``.
+- The parity byte is computed with XOR.
+- The parity stream is written to ``fd2``.
+- Any one of the three streams can be reconstructed from the other two.
 
-    size_t parityRead(int fd0, int fd1, void *buf, size_t count) {
-            char *buff0 = (char*)malloc(count);
-            char *buff1 = (char*)malloc(count);
-            char *buff = (char*)buf;
-            read(fd0, buff0, count);
-            read(fd1, buff1, count);
-            for(size_t i = 0; i < count; i++) {
-                    buff[i] = buff0[i] ^ buff1[i];
-            }
-            return count;
-    }
+RAID 5 Parity Read
+------------------
 
-RAID - 5 Parity
----------------
+The same XOR operation can recover missing data.
 
 ::
 
-    int main(int argc, char** argv) {
-            int fd0 = open("f0", O_CREAT|O_TRUNC|O_RDWR, 0666);
-            int fd1 = open("f1", O_CREAT|O_TRUNC|O_RDWR, 0666);
-            int fd2 = open("f2", O_CREAT|O_TRUNC|O_RDWR, 0666);
+   size_t parityRead(int fd0, int fd1, void *buf, size_t count) {
+      char *buff0 = (char*)malloc(count);
+      char *buff1 = (char*)malloc(count);
+      char *buff = (char*)buf;
+      read(fd0, buff0, count);
+      read(fd1, buff1, count);
+      for(size_t i = 0; i < count; i++) {
+         buff[i] = buff0[i] ^ buff1[i];
+      }
+      return count;
+   }
 
-            const char* msg0 = "hello world\n";
-            const char* msg1 = "testing 123\n";
+Key points:
 
-            parityWrite(fd0,fd1,fd2,msg0,msg1,strlen(msg0)+1);
-           
-            close(fd0);
-            close(fd1);
-            close(fd2);
+- The function reads two surviving streams.
+- XOR reconstructs the missing stream.
+- The caller chooses which two files represent the surviving data.
+- This example shows the parity idea, not a full RAID implementation.
 
-            unlink("f1");
+RAID 5 Recovery Example
+-----------------------
 
-RAID - 5 Parity
----------------
+This example writes two data files and one parity file, deletes one data
+file, and reconstructs the missing data.
 
 ::
 
-            fd0 = open("f0", O_RDWR, 0666);
-            fd2 = open("f2", O_RDWR, 0666);
+   int main(int argc, char** argv) {
+      int fd0 = open("f0", O_CREAT|O_TRUNC|O_RDWR, 0666);
+      int fd1 = open("f1", O_CREAT|O_TRUNC|O_RDWR, 0666);
+      int fd2 = open("f2", O_CREAT|O_TRUNC|O_RDWR, 0666);
 
-            size_t msgSize = sizeof(char)*strlen(msg0)+1;
-            char *buff = (char*)malloc(msgSize);
+      const char* msg0 = "hello world\n";
+      const char* msg1 = "testing 123\n";
 
-            parityRead(fd0, fd2, buff, msgSize);
+      parityWrite(fd0,fd1,fd2,msg0,msg1,strlen(msg0)+1);
 
-            printf("f1 contents are = %s\n", buff);
+      close(fd0);
+      close(fd1);
+      close(fd2);
 
-            close(fd0);
-            close(fd2);
+      unlink("f1");
 
-            free(buff);
-            unlink("f0");
-            unlink("f2");
-            return 0;
-    }
+      fd0 = open("f0", O_RDWR, 0666);
+      fd2 = open("f2", O_RDWR, 0666);
 
-RAID 5 - Parity and Recovery
-----------------------------
+      size_t msgSize = sizeof(char)*strlen(msg0)+1;
+      char *buff = (char*)malloc(msgSize);
 
--  In the above example, three files are created, f0, f1, and f2
+      parityRead(fd0, fd2, buff, msgSize);
 
--  Two different messages are written to each of f0 and f1. Parity data
-   is written to f2.
+      printf("f1 contents are = %s\n", buff);
 
--  Failure scenarios:
+      close(fd0);
+      close(fd2);
 
-   -  f0 is deleted - f0 can be recovered from f1 and the parity data of
-      f2
+      free(buff);
+      unlink("f0");
+      unlink("f2");
+      return 0;
+   }
 
-   -  f1 is deleted - f1 can be recovered from f0 and the parity data of
-      f2
+Key points:
 
-   -  f2 is deleted - f2 can be recovered by recalculating the parity
-      between f0 and f1
-
--  In each case, the loss of one storage medium causes no data loss.
+- ``f0`` and ``f1`` hold data while ``f2`` holds parity.
+- Deleting ``f1`` simulates losing one storage device.
+- ``parityRead()`` reconstructs the missing contents from ``f0`` and
+  ``f2``.
+- Losing any one stream causes no data loss in this simplified model.
 
 Disk Partitioning
 -----------------
 
--  Operating systems divide disks into partitions (or slices).
+Partitions divide a disk into regions with different roles or formats.
 
--  Partitions are a useful concept in that they allow an operating
-   system to divide parts of the disk into different types of disk
-   formats. Among these will be a filesystem implementation, in some
-   cases a swap partition, and filesystems not managed by the operating
-   system (such as in a dual boot configuration).
+A disk may contain filesystems, swap space, recovery areas, and
+partitions used by other operating systems. On traditional PC systems,
+the master boot record format supports up to four primary partitions.
+One primary partition can be an extended partition containing multiple
+logical partitions.
 
-Disk Partitioning
------------------
+Disk Arms and Heads
+-------------------
 
--  On the PC, the most common format for partitions is the MBR (master
-   boot record) scheme. The MBR scheme allows a disk to be divided into
-   up to four partitions. The offsets and sizes of these partitions are
-   located in the MBR record at the beginning of the disk.
+Mechanical disks have moving parts that affect performance.
 
--  To raise the limitation on four partitions, the MBR schema allows for
-   one partition to be considered an "extended" partition which can be
-   further subdivided into multiple "logical" partitions.
+The disk motor spins platters under the heads. A head moves to the right
+track before a sector can be read or written. The time spent moving the
+head is seek time, and disk scheduling algorithms try to reduce it.
 
-Disk Arms / Heads
------------------
+Good Disk Scheduling
+--------------------
 
--  For mechanical disks, there are two moving parts:
+A good disk scheduling algorithm balances throughput, latency, and
+fairness.
 
-   -  The head - driven by a stepper motor. Moves to the correct track
-      on the platter
-
-   -  The disk motor - spins the platters under the head.
-
--  For a sector to be read from or written to a hard disk, the platter
-   must be rotated to the correct position and the head must be moved to
-   the right position to perform the operation.
-
--  So for a given operation, there is a concept of a physical distance
-   the device must ’seek’ to perform the operation.
-
--  The performance of disk operations are governed by:
-
-   -  The speed of the disk and head motors
-
-   -  The algorithm that orders one or more possible disk operations.
-
-Hard Disk Geometry - CHS
-------------------------
-
-    .. figure:: storage/diagrams/disk_diagram.*
-       :align: center
-       :alt: image
-
-       image
-
-Characteristics of a Good Disk Scheduling Algorithm
----------------------------------------------------
-
--  Like a process scheduler, decisions involve avoiding starvation and
-   addressing both latency and throughput.
-
--  Goals of a good algorithm:
-
-   -  Should avoid moving the head if another request exists in the same
-      track.
-
-   -  Should minimize moving the head overall.
-
-   -  Should minimize the average distance from the current position of
-      the head and the next request at any given time.
-
-   -  When ordering requests, an individual request should not be
-      delayed for too long.
+It should avoid unnecessary head movement, prefer nearby requests when
+reasonable, and prevent any request from waiting too long.
 
 Disk Scheduling Algorithms
 --------------------------
 
--  FIFO
+Common disk scheduling algorithms include FIFO, shortest seek first, the
+elevator algorithm, and FSCAN.
 
--  Shortest Seek First
+These algorithms were most important for mechanical disks. Solid-state
+storage changes the cost model because there is no physical head seek,
+but request ordering can still matter for queues, controllers, and
+internal device behavior.
 
--  Elevator
+FIFO Disk Scheduling
+--------------------
 
--  FSCAN
+FIFO serves requests in arrival order.
 
-FIFO
-----
-
--  FIFO is the simplest disk scheduling algorithm
-
--  FIFO simply serves the requests in order as they arrive.
-
--  FIFO is far from optimal. It does not make any attempt to minimize
-   the seeking of the head.
-
--  FIFO does guarantee fairness. Requests are answered in the order that
-   they are received.
+It is simple and fair, but it does not minimize head movement. A request
+far from the current head position is served when it reaches the front of
+the queue, even if many nearby requests are waiting.
 
 Shortest Seek First
 -------------------
 
--  Shortest Seek First scans the request queue for the request that is
-   nearest the head and serves that request first.
+Shortest seek first serves the request closest to the current head
+position.
 
--  This algorithm minimizes the total seeking that the head must perform
+This reduces total seek distance, but it can starve requests far from
+the current head position if nearby requests keep arriving.
 
--  This algorithm can allow requests to starve. If new requests keep
-   coming in that are near the current position of the head at a
-   sufficient rate, the disk head will never move near enough to other
-   requests to service them.
-
-Shortest Seek First
--------------------
-
-    .. figure:: storage/diagrams/shortest_seek_first.*
-       :align: center
-       :alt: image
-
-       image
+.. figure:: storage/diagrams/shortest_seek_first.*
+   :align: center
+   :alt: Shortest seek first
 
 Elevator Algorithm
 ------------------
 
--  A good way to visualize a disk scheduling algorithm is to think of
-   how to make the operation of an elevator in a building that has
-   several floors optimal.
+The elevator algorithm moves the disk head in one direction, serving
+requests along the way, and then reverses direction.
 
--  To guarantee that every floor is visited and no one is kept waiting
-   forever, the elevator algorithm’s rule is that the elevator should go
-   all the way to the top floor before reversing direction to go back to
-   the bottom floor.
+The idea is similar to an elevator serving floors. Requests in the
+current direction are served in order, and the direction changes only at
+the end of the sweep. This prevents starvation better than shortest seek
+first.
 
--  This means that the algorithm has a concept of a direction. Given a
-   list of requests, the requests that will be served are those that are
-   in the current track or those that are in the direction of the head’s
-   movement (in order).
+.. figure:: storage/diagrams/elevator.*
+   :align: center
+   :alt: Elevator disk scheduling
 
--  Once the head reaches the final track, the direction is reversed and
-   the algorithm is repeated.
-
-Elevator Algorithm
+Elevator Tradeoffs
 ------------------
 
-    .. figure:: storage/diagrams/elevator.*
-       :align: center
-       :alt: image
+The elevator algorithm improves fairness but is not perfectly balanced.
 
-       image
-
-Evaluation of the Elevator Algorithm
-------------------------------------
-
--  Pros:
-
-   -  Prevents starvation of requests
-
--  Cons:
-
-   -  Sectors in the middle of the disk are serviced faster on average
-      because their average distance from the head is the least.
-
--  The elevator algorithm can remove the imbalance by starting at the
-   innermost track, seeking to the outermost and then returning to the
-   innermost. This way the direction never changes. Unfortunately, this
-   particular seek takes more time than others due to the greater
-   distance.
+Middle tracks can receive better average service because they are closer
+to more sweeps. Variants can reduce this imbalance by sweeping in one
+logical direction and returning to the beginning before serving again.
 
 FSCAN
 -----
 
--  FSCAN works by taking the existing set of requests and putting them
-   in one queue
+FSCAN separates current requests from new requests.
 
--  All new requests received while completing work in the first queue
-   are put into a second queue.
-
--  FSCAN then services the items in the first queue by serving requests
-   nearest the head to the requests furthest from the head in order
-
--  Once the first queue is empty, items from the second queue are moved
-   to the first queue and the algorithm repeats
-
--  FSCAN guarantees that there will be no starvation because there will
-   be at most a fixed set of N items that need to be served before any
-   given item is served.
-
-
-
+The scheduler services a fixed queue of requests while placing new
+requests into a second queue. When the first queue is empty, the second
+queue becomes the active queue. This bounds waiting time because new
+arrivals cannot constantly jump ahead of older requests.
