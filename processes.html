@@ -7,10 +7,10 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Introduction to Processes | Operating Systems: updated 11 Jan 2024</title>
-<meta content="Introduction to Processes | Operating Systems: updated 11 Jan 2024" property="og:title"/>
-<meta content="Introduction to Processes | Operating Systems: updated 11 Jan 2024" name="twitter:title"/>
-<link href="_static/pygments.css?v=fa44fd50" rel="stylesheet" type="text/css"/>
+<title>Introduction to Processes | Operating Systems: updated 26 May 2026</title>
+<meta content="Introduction to Processes | Operating Systems: updated 26 May 2026" property="og:title"/>
+<meta content="Introduction to Processes | Operating Systems: updated 26 May 2026" name="twitter:title"/>
+<link href="_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
 <link href="_static/theme.css?v=cede9724" rel="stylesheet" type="text/css"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="genindex.html" rel="index" title="Index"/>
@@ -34,7 +34,7 @@
       Skip to content
     </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
 <div class="hidden mr-4 md:flex">
-<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 11 Jan 2024</span>
+<a class="flex items-center mr-6" href="index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Operating Systems: updated 26 May 2026</span>
 </a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
 <svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
 <path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
@@ -64,7 +64,7 @@
 </div>
 </header>
 <div class="flex-1"><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full shrink-0 overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
-<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 11 Jan 2024</span>
+<a class="!justify-start text-sm md:!hidden bg-background" href="index.html"><span class="font-bold text-clip whitespace-nowrap">Operating Systems: updated 26 May 2026</span>
 </a>
 <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
@@ -98,7 +98,7 @@
 <div class="w-full min-w-0 mx-auto">
 <nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
 <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="index.html">
-<span class="hidden md:inline">Operating Systems: updated 11 Jan 2024</span>
+<span class="hidden md:inline">Operating Systems: updated 26 May 2026</span>
 <svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
@@ -108,61 +108,37 @@
 <div id="content" role="main">
 <section id="introduction-to-processes">
 <h1>Introduction to Processes<a class="headerlink" href="#introduction-to-processes" title="Link to this heading">¶</a></h1>
-<ul class="simple">
-<li><p>An executing program or job</p></li>
-<li><p>Components</p>
-<ul>
-<li><p>Memory address space</p></li>
-<li><p>Program image</p></li>
-<li><p>Handles to files</p></li>
-<li><p>Interprocess communication</p></li>
-</ul>
-</li>
-<li><p>Every process has a parent</p>
-<ul>
-<li><p>top most process in UNIX is “init”</p></li>
-<li><p>Windows top most processes are:</p>
-<ul>
-<li><p>system.exe - OS kernel</p></li>
-<li><p>csrss.exe - handles user mode win32 calls</p></li>
-<li><p>wininit.exe - manages system services</p></li>
-<li><p>explorer.exe - OS shell</p></li>
-<li><p>winlogin.exe - OS login service</p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>A process is an executing program. It has a memory address space, a
+program image, handles to files, and the operating system state needed
+for interprocess communication.</p>
+<p>Every process has a parent. In traditional UNIX systems, the top of the
+process tree is <code class="docutils literal notranslate"><span class="pre">init</span></code>. On Windows, several system processes fill
+similar roles, including <code class="docutils literal notranslate"><span class="pre">system.exe</span></code> for the kernel, <code class="docutils literal notranslate"><span class="pre">csrss.exe</span></code> for
+user-mode Win32 support, <code class="docutils literal notranslate"><span class="pre">wininit.exe</span></code> for system services,
+<code class="docutils literal notranslate"><span class="pre">explorer.exe</span></code> for the shell, and <code class="docutils literal notranslate"><span class="pre">winlogin.exe</span></code> for login services.</p>
 <section id="process-memory-layout">
 <h2>Process Memory Layout<a class="headerlink" href="#process-memory-layout" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-memory-layout'">¶</a></h2>
-<ul class="simple">
-<li><p>Text - machine instructions of a program.</p></li>
-<li><p>Data - initialized static data and constants</p></li>
-<li><p>BSS - uninitialized static data</p></li>
-<li><p>Heap - dynamic memory of a process</p>
-<ul>
-<li><p>one or more per process</p></li>
-</ul>
-</li>
-<li><p>Stack - local variables, call stack, return values</p>
-<ul>
-<li><p>one per thread for kernel mode threads</p></li>
-<li><p>one per n-threads for user mode threads</p></li>
-</ul>
-</li>
-<li><p>layout of and allocation of text, data, bss, and initial values for
-first thread’s stack and heap are the responsibility of the loader</p></li>
-<li><p>management of stack and heap are through the process’s runtime
-library and program instructions</p></li>
-</ul>
+<p>A process address space is normally divided into a few major regions.
+The text segment contains the machine instructions of the program. The
+data segment contains initialized static data and constants. The BSS
+segment contains uninitialized static data.</p>
+<p>The heap is used for dynamic memory allocation. A process may have one
+or more heaps. The stack contains local variables, call frames, and
+return values. Kernel-mode threads normally have one stack per thread.
+User-mode threading libraries may multiplex many user threads over a
+smaller number of kernel-thread stacks.</p>
+<p>The loader is responsible for laying out the text, data, BSS, initial
+heap, and initial stack. After the process starts, stack and heap
+management are handled by the program, its runtime library, and the
+operating system.</p>
 </section>
 <section id="id1">
 <h2>Process Memory Layout<a class="headerlink" href="#id1" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h2>
 <blockquote>
-<div><figure class="align-center" id="id3">
+<div><figure class="align-center" id="id2">
 <img alt="Memory Layout" src="_images/memory_layout.png"/>
 <figcaption>
-<p><span class="caption-text">Memory Layout</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
+<p><span class="caption-text">Memory Layout</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
@@ -170,71 +146,47 @@ library and program instructions</p></li>
 <section id="multithreaded-memory-layout">
 <h2>Multithreaded Memory Layout<a class="headerlink" href="#multithreaded-memory-layout" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#multithreaded-memory-layout'">¶</a></h2>
 <blockquote>
-<div><figure class="align-center" id="id4">
+<div><figure class="align-center" id="id3">
 <img alt="Memory Layout for Multithreaded Programs" src="_images/memory_layout_multithreaded.png"/>
 <figcaption>
-<p><span class="caption-text">Memory Layout for Multithreaded Programs</span><a class="headerlink" href="#id4" title="Link to this image">¶</a></p>
+<p><span class="caption-text">Memory Layout for Multithreaded Programs</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </div></blockquote>
 </section>
 <section id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#preliminaries'">¶</a></h2>
-<ul class="simple">
-<li><p>Code for examples in maintained at <a class="reference external" href="https://github.com/gkthiruvathukal/systems-code-examples">https://github.com/gkthiruvathukal/systems-code-examples</a></p></li>
-<li><p>You can use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code> to clone to a folder <code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code>.</p></li>
-<li><p>All subsequent examples that are full-working demonstrations will be referenced as <code class="docutils literal notranslate"><span class="pre">systems-code-examples/&lt;example-name&gt;</span></code>.</p></li>
-<li><p>To run examples, make sure you have <cite>gcc</cite>, <cite>cmake</cite>, and <cite>make</cite> on your computer.</p></li>
-<li><p>We only have tested on Ubuntu Linux, MacOS, and Windows Subsystem for Linux 2 (with Ubuntu 20.04 LTS). Most others should work.</p></li>
-</ul>
+<p>The code examples are maintained at <a class="reference external" href="https://github.com/gkthiruvathukal/systems-code-examples">https://github.com/gkthiruvathukal/systems-code-examples</a>. You can
+use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code> to clone them into a folder named
+<code class="docutils literal notranslate"><span class="pre">systems-code-examples</span></code>.</p>
+<p>Full working demonstrations are referenced by directory name, such as
+<code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork</span></code>. To build most examples, install <code class="docutils literal notranslate"><span class="pre">gcc</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cmake</span></code>, and <code class="docutils literal notranslate"><span class="pre">make</span></code>. The examples have been tested on Ubuntu Linux,
+macOS, and Windows Subsystem for Linux 2 with Ubuntu.</p>
+<p>Most examples use the same pattern:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd systems-code-examples/&lt;example-name&gt;
+$ cmake .
+$ make
+</pre></div>
+</div>
+<p>The output executable is normally written to the example’s <code class="docutils literal notranslate"><span class="pre">bin</span></code>
+subdirectory.</p>
 </section>
 <section id="examine-process-layout-example">
 <h2>Examine Process Layout Example<a class="headerlink" href="#examine-process-layout-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#examine-process-layout-example'">¶</a></h2>
-<ul>
-<li><p>Most of our examples are written in C with some C++.</p></li>
-<li><p>Getting the code</p>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code>
-<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">systems-code-examples/c_intro</span></code></p>
-</li>
-<li><p>Generate the <cite>Makefile</cite> using <cite>cmake</cite>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd c_intro
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/c_intro</span></code> example is a small C++ program used
+to examine process layout and the basic build process. It is also a
+useful first example because it has separate source files and a CMake
+build.</p>
+<p>Get and build the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/SoftwareSystemsLaboratory/systems-code-examples
+$ cd systems-code-examples/c_intro
 $ cmake .
--- The C compiler identification is GNU 9.3.0
--- The CXX compiler identification is GNU 9.3.0
--- Check for working C compiler: /usr/bin/cc
--- Check for working C compiler: /usr/bin/cc -- works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Detecting C compile features
--- Detecting C compile features - done
--- Check for working CXX compiler: /usr/bin/c++
--- Check for working CXX compiler: /usr/bin/c++ -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Detecting CXX compile features
--- Detecting CXX compile features - done
-&gt;&gt; Linux
--- Configuring done
--- Generating done
--- Build files have been written to: /home/gkt/Work/systems-code-examples/c_intro
+$ make
 </pre></div>
 </div>
-</li>
-<li><p>Run <cite>make</cite> to crate the executable:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make
-Scanning dependencies of target c-intro-demo
-[ 20%] Building CXX object CMakeFiles/c-intro-demo.dir/main.cc.o
-[ 40%] Building CXX object CMakeFiles/c-intro-demo.dir/debug.cc.o
-[ 60%] Building CXX object CMakeFiles/c-intro-demo.dir/list.cc.o
-[ 80%] Building CXX object CMakeFiles/c-intro-demo.dir/tests.cc.o
-[100%] Linking CXX executable bin/c-intro-demo
-[100%] Built target c-intro-demo
-</pre></div>
-</div>
-</li>
-<li><p>Note that for all of our examples, the output executable appears in the <cite>bin</cite> subdirectory.</p></li>
-<li><p>Note also that almost all of our examples use <cite>cmake</cite> and <cite>make</cite> as shown here.</p></li>
-<li><p>Run the <cite>layout</cite> shell script, which shows the size of the text, data, and bss in <em>bytes</em>:</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">layout</span></code> shell script to show the size of the text, data, and
+BSS sections in bytes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./layout
 
 section               size   addr
@@ -243,82 +195,151 @@ section               size   addr
 .bss                     8   20504
 </pre></div>
 </div>
-</li>
+<p>The main program for this example is:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"list.hh"</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"debug.hh"</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tests.hh"</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos"> 7</span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">passCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">runTests</span><span class="p">();</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d tests passed</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">passCount</span><span class="p">);</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">13</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The program is split across multiple source files, so the build has to
+compile each file and link the resulting object files.</p></li>
+<li><p>The example gives us an executable we can inspect with tools such as
+<code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">nm</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">layout</span></code> script connects the compiled program back to the text,
+data, and BSS sections discussed above.</p></li>
 </ul>
 </section>
 <section id="loading-programs">
 <h2>Loading Programs<a class="headerlink" href="#loading-programs" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-programs'">¶</a></h2>
+<p>When a program is loaded, the loader allocates memory for the executable
+text, data, BSS, heap, and stack. It then loads the program image into
+memory.</p>
+<p>The loader also handles shared libraries. It asks the operating system
+which shared libraries are already loaded and loads the ones that are
+not. Each shared library has its own text, data, and BSS sections. The
+loader then resolves external symbols so references in the executable
+point to the correct locations in memory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nm</span></code> command shows symbols in a compiled object file or executable.
+After the executable is ready, the loader invokes <code class="docutils literal notranslate"><span class="pre">_start()</span></code>.
+<code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls <code class="docutils literal notranslate"><span class="pre">_init()</span></code> for each shared library, initializes static
+constructors for global objects, and then calls <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p>
+</section>
+<section id="simple-executable-example">
+<h2>Simple Executable Example<a class="headerlink" href="#simple-executable-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#simple-executable-example'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/hello-exe</span></code> example is the smallest complete
+executable example in the repository. It is useful for confirming the
+build process before looking at larger programs.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"hello.h"</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="linenos">4</span><span class="p">{</span>
+<span class="linenos">5</span><span class="w">    </span><span class="n">say_hi</span><span class="p">(</span><span class="s">"George"</span><span class="p">);</span>
+<span class="linenos">6</span><span class="p">}</span>
+<span class="linenos">7</span>
+</pre></div>
+</div>
+<p>Key points:</p>
 <ul class="simple">
-<li><p>loader allocates memory for executable’s text, data, bss, heap, and
-stack. and loads program’s image into memory</p></li>
-<li><p>loader gets information from OS where shared libraries are already
-allocated in memory and loads the ones that are not already loaded.
-each shared library has its own text, data, and bss</p></li>
-<li><p>loader goes through executable and adjusts the list of external
-symbols to point to the correct spots in memory (to shared libraries)</p></li>
-<li><p>try the <code class="docutils literal notranslate"><span class="pre">nm</span></code> command to see the symbols in a compiled object/executable.</p></li>
-<li><p>once program is ready, loader invokes <code class="docutils literal notranslate"><span class="pre">_start()</span></code> method</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls <code class="docutils literal notranslate"><span class="pre">_init()</span></code> for each shared library</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> initializes static constructors of objects defined as
-global variables</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_start()</span></code> calls main() and program begins</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">main()</span></code> is the entry point that application programmers normally
+write, even though the loader starts execution before <code class="docutils literal notranslate"><span class="pre">main()</span></code>.</p></li>
+<li><p>The program calls a function from a header-defined interface rather
+than doing all work inline.</p></li>
+<li><p>This is a minimal executable for checking compiler, linker, and loader
+behavior.</p></li>
 </ul>
 </section>
 <section id="loading-shared-libraries-so">
 <h2>Loading shared libraries (.so)<a class="headerlink" href="#loading-shared-libraries-so" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-shared-libraries-so'">¶</a></h2>
+<p>Libraries also have text, data, and BSS sections. Shared libraries must
+use position-independent memory references so the same library can be
+mapped at different addresses in different processes. GCC uses the
+<code class="docutils literal notranslate"><span class="pre">-fpic</span></code> or <code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> flags for this. Newer GCC versions often make PIC
+the default. Use <code class="docutils literal notranslate"><span class="pre">-fno-pic</span></code> when you need to compare against non-PIC
+output.</p>
+<p>The dynamic linker resolves position-independent memory accesses by
+writing entries in the global offset table, or GOT, for each process.
+This is necessary because a shared library may be loaded at different
+offsets in different executions, while still allowing the operating
+system to share the library’s text segment among processes.</p>
+</section>
+<section id="shared-library-example">
+<h2>Shared Library Example<a class="headerlink" href="#shared-library-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#shared-library-example'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/hello-lib</span></code> example separates a function into
+a small library and calls it from an executable. This is the simplest
+repository example for discussing the boundary between application code
+and library code.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"hello.h"</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="kt">void</span><span class="w"> </span><span class="nf">say_hi</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">person</span><span class="p">)</span>
+<span class="linenos">5</span><span class="p">{</span>
+<span class="linenos">6</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Hello, %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">person</span><span class="p">);</span>
+<span class="linenos">7</span><span class="p">}</span>
+<span class="linenos">8</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="cp">#ifndef _HELLO_H_</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="cp">#define _HELLO_H_</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">say_hi</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">person</span><span class="p">);</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="cp">#endif</span>
+<span class="linenos">8</span>
+</pre></div>
+</div>
+<p>Key points:</p>
 <ul class="simple">
-<li><p>Libraries also have a data, bss, and text segment</p></li>
-<li><p>Memory references in shared libraries are position independent (GCC
-<code class="docutils literal notranslate"><span class="pre">-fpic</span></code> or <code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> flagsA. Newer GCC makes PIC defualt. Use <code class="docutils literal notranslate"><span class="pre">-fno-pic</span></code>
-if you notice this.</p></li>
-<li><p>Linker must resolve all of these position independent memory accesses
-to local accesses. This is accomplished by writing the GOT for each
-linked process.</p></li>
-<li><p>The need for the memory addresses to be position independent is
-because the offset that a shared library will be loaded will differ
-between executions of the same program and among other programs.</p></li>
-<li><p>Also, the same loaded shared library will be shared with other
-processes without reloading. So, the same library may have different
-offsets for different programs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hello.h</span></code> declares the interface that other source files can include.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hello.c</span></code> provides the implementation that can be compiled into a
+library.</p></li>
+<li><p>The executable depends on the library code being linked or loaded
+before the call to <code class="docutils literal notranslate"><span class="pre">say_hi()</span></code> can run.</p></li>
 </ul>
 </section>
 <section id="more-about-gcc-pic-option">
 <h2>more about GCC pic option<a class="headerlink" href="#more-about-gcc-pic-option" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#more-about-gcc-pic-option'">¶</a></h2>
-<p>Based on the <em>man page</em> for <code class="docutils literal notranslate"><span class="pre">gcc</span></code></p>
+<p>Based on the <em>man page</em> for <code class="docutils literal notranslate"><span class="pre">gcc</span></code>:</p>
 <p>Generate position-independent code (PIC) suitable for use in a shared
 library, if supported for the target machine. Such code accesses all
 constant addresses through a global offset table (GOT). The dynamic
-loader resolves the GOT entries when the program starts (the dynamic
-loader is not part of GCC; it is part of the operating system). If the
-GOT size for the linked executable exceeds a machine-specific maximum
-size, you get an error message from the linker indicating that -fpic
-does not work; in that case, recompile with -fPIC instead. (These
-maximums are 8k on the SPARC and 32k on the m68k and RS/6000. The 386
-has no such limit.)</p>
+loader resolves the GOT entries when the program starts. If the GOT size
+for the linked executable exceeds a machine-specific maximum size, the
+linker reports that <code class="docutils literal notranslate"><span class="pre">-fpic</span></code> does not work. In that case, recompile with
+<code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> instead.</p>
 </section>
-<section id="id2">
-<h2>Loading shared libraries (.so)<a class="headerlink" href="#id2" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h2>
-<ul class="simple">
-<li><p>Static libraries do not contain position independent code</p></li>
-<li><p>Static libraries are simply a collection of unlinked <code class="docutils literal notranslate"><span class="pre">.o</span></code> (object)
-files</p></li>
-<li><p>The dynamic linker simply loads the text, data, and bss sections of
-each object file into the program’s address space</p></li>
-</ul>
+<section id="loading-static-libraries">
+<h2>Loading static libraries<a class="headerlink" href="#loading-static-libraries" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#loading-static-libraries'">¶</a></h2>
+<p>Static libraries do not contain position-independent code. A static
+library is a collection of unlinked <code class="docutils literal notranslate"><span class="pre">.o</span></code> object files. When the program
+is linked, the linker copies the needed object code into the final
+executable.</p>
 </section>
 <section id="position-independent-code-example">
 <h2>Position Independent Code Example<a class="headerlink" href="#position-independent-code-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#position-independent-code-example'">¶</a></h2>
-<ul>
-<li><p>Get the code</p>
-<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/gkthiruvathukal/systems-code-examples</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">systems-code-examples/pic</span></code></p>
-</li>
-<li><p>For this example, you can build it using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-f</span> <span class="pre">Makefile.pic</span></code>.</p></li>
-<li><p>The main purpose of this example is to show the difference between generating PIC vs. non-PIC.</p></li>
-</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/pic</span></code> example shows the difference between
+generating PIC and non-PIC assembly.</p>
+<p>Get the code and build it with the example makefile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/SoftwareSystemsLaboratory/systems-code-examples
+$ cd systems-code-examples/pic
+$ make -f Makefile.pic
+</pre></div>
+</div>
 </section>
-<section id="main-cc">
-<h2>main.cc<a class="headerlink" href="#main-cc" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#main-cc'">¶</a></h2>
+<section id="main-c">
+<h2>main.c<a class="headerlink" href="#main-c" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#main-c'">¶</a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"abcdefg"</span><span class="p">;</span>
@@ -444,100 +465,70 @@ each object file into the program’s address space</p></li>
 <span class="linenos">14</span><span class="o">&gt;</span> 	<span class="n">call</span>	<span class="n">write</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The C source is intentionally small so the assembly differences are
+easier to see.</p></li>
+<li><p>The non-PIC version can use more direct addressing because it assumes a
+fixed relationship between code and data.</p></li>
+<li><p>The PIC version uses relative addressing through the global offset
+table so the code can be loaded at different virtual addresses.</p></li>
+</ul>
 </section>
 <section id="shared-libraries-evaluation">
 <h2>Shared Libraries - Evaluation<a class="headerlink" href="#shared-libraries-evaluation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#shared-libraries-evaluation'">¶</a></h2>
-<p>Strengths</p>
-<ul class="simple">
-<li><p>Reduced memory footprint. If two programs load the same shared
-library, the .text segment is reused across processes thanks to the
-GOT</p></li>
-</ul>
-<p>Weaknesses</p>
-<ul class="simple">
-<li><p>Requires a more advanced virtual memory implementation in the
-operating system. Sometimes not practical for simple or embedded
-systems</p></li>
-<li><p>Requires more advanced compiler code generators. Different processors
-have special features regarding memory offset registers or function
-table size limitations.</p></li>
-</ul>
+<p>Shared libraries reduce memory use when multiple processes load the same
+library because the text segment can be reused. They also allow programs
+to benefit from library updates without rebuilding the executable.</p>
+<p>The cost is complexity. Shared libraries require virtual memory support,
+dynamic linking, position-independent code, and careful handling of
+version and path compatibility.</p>
 </section>
 <section id="static-libraries-evaluation">
 <h2>Static Libraries - Evaluation<a class="headerlink" href="#static-libraries-evaluation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#static-libraries-evaluation'">¶</a></h2>
-<p>Strengths</p>
-<ul class="simple">
-<li><p>Makes sense when re-use is not desired. A good example would be
-installer executables with very large .data segments.</p></li>
-<li><p>Faster first load loading time than shared libraries.</p></li>
-<li><p>Fewer instructions generated for GOT lookups (minor issue)</p></li>
-</ul>
-<p>Weaknesses</p>
-<ul class="simple">
-<li><p>Much larger memory footprint. Little reuse of common code between
-applications.</p></li>
-</ul>
+<p>Static libraries make sense when reuse is not important, when deployment
+must avoid runtime dependencies, or when the program must be self
+contained. Static linking can also avoid version and path problems.</p>
+<p>The main cost is memory use. Common code is copied into each executable,
+so there is less sharing across processes.</p>
 </section>
 <section id="libraries-vs-statically-linked-programs">
 <h2>Libraries vs. Statically-Linked Programs<a class="headerlink" href="#libraries-vs-statically-linked-programs" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#libraries-vs-statically-linked-programs'">¶</a></h2>
-<p>Dynamic Linking advantages:</p>
-<ul class="simple">
-<li><p>Memory footprint</p></li>
-<li><p>Code reuse</p></li>
-<li><p>Improvement with new versions of shared libraries</p></li>
-<li><p>Smaller executables</p></li>
-</ul>
-<p>Static linking advantages:</p>
-<ul class="simple">
-<li><p>When deploying software, dependencies are less of a concern (e.g.
-missing dependencies, incorrectly upgraded dependencies, custom
-patches and alterations to shared code)</p></li>
-<li><p>Versioning and path problems are less of a concern</p></li>
-<li><p>Code obfuscation can obfuscate across object files</p></li>
-<li><p>Compiler optimizers can optimize across object files</p></li>
-</ul>
+<p>Dynamic linking is usually chosen for memory footprint, code reuse,
+smaller executables, and easier library updates. Static linking is useful
+when deployment simplicity matters more than sharing. It can also make
+whole-program optimization and obfuscation easier because more code is
+available to the linker at once.</p>
 </section>
 <section id="process-protection">
 <h2>Process Protection<a class="headerlink" href="#process-protection" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-protection'">¶</a></h2>
-<p>In modern operating systems with virtual memory and privileged
-separation the following protections are afforded:</p>
-<ul class="simple">
-<li><p>One process cannot read the memory of another process (except when
-explicitly permitted)</p></li>
-<li><p>A process can fully manage the memory that it can access - garbage
-collection, explicit allocation/deallocation, method call and
-parameter passing standards, stack management, etc.</p></li>
-<li><p>A crash, exception, resource starvation, deadlock, or other fault in
-one process does not directly affect other processes</p></li>
-<li><p>While mapped to the same address space, the process cannot modify
-kernel memory or memory otherwise protected by the operating system
-(such as text pages).</p></li>
-</ul>
+<p>Modern operating systems use virtual memory and privilege separation to
+protect processes from each other and from the kernel.</p>
+<p>One process cannot read another process’s memory unless the operating
+system explicitly permits it. A process can manage the memory it owns,
+including allocation, deallocation, garbage collection, calling
+conventions, and stack management. A crash, exception, resource
+starvation, or deadlock in one process does not directly modify another
+process. Even though kernel memory may be mapped into the process address
+space, user code cannot modify kernel memory or other protected pages.</p>
 </section>
 <section id="process-creation-with-fork">
 <h2>Process Creation with fork()<a class="headerlink" href="#process-creation-with-fork" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-creation-with-fork'">¶</a></h2>
-<p>From the <code class="docutils literal notranslate"><span class="pre">fork()</span></code> man page:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process.
-The new process, referred to as the child, is an exact duplicate of the calling process,
-referred to as the parent, except for the following points:</p></li>
-<li><p>the child has its own unique process id (PID)</p></li>
-<li><p>the child’s parent PID is the same as the parent’s PID</p></li>
-<li><p>the parent’s threads are not recreated on the child</p></li>
-</ul>
-<p>interesting point: in Linux, <code class="docutils literal notranslate"><span class="pre">fork()</span> <span class="pre">!=</span> <span class="pre">fork()</span></code>; <code class="docutils literal notranslate"><span class="pre">fork()</span></code> calls <code class="docutils literal notranslate"><span class="pre">clone()</span></code></p>
-<p>From the man page:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns the child PID to the parent</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns 0 to the child</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns -1 if the child cannot be created</p></li>
-</ul>
+<p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates a new process by duplicating the calling process. The
+new process is the child. The calling process is the parent. The child has
+its own process ID, and its parent process ID is the parent’s process ID.
+The parent’s threads are not recreated in the child.</p>
+<p>In Linux, the C library implementation of <code class="docutils literal notranslate"><span class="pre">fork()</span></code> uses <code class="docutils literal notranslate"><span class="pre">clone()</span></code>.
+From the programmer’s point of view, <code class="docutils literal notranslate"><span class="pre">fork()</span></code> returns the child PID to
+the parent, returns <code class="docutils literal notranslate"><span class="pre">0</span></code> to the child, and returns <code class="docutils literal notranslate"><span class="pre">-1</span></code> if the child
+cannot be created.</p>
 </section>
 <section id="fork-example">
 <h2>fork() example<a class="headerlink" href="#fork-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fork-example'">¶</a></h2>
-<p>See <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork</span></code> if you want to run this program.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork</span></code> example shows the basic return-value
+pattern used to distinguish parent and child execution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd systems-code-examples/fork
-$ cmake
+$ cmake .
 $ make
 </pre></div>
 </div>
@@ -582,93 +573,229 @@ $ make
 <span class="linenos">39</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The call to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> creates two processes that continue from the
+same point in the program.</p></li>
+<li><p>The parent sees the child’s process ID as the return value.</p></li>
+<li><p>The child sees <code class="docutils literal notranslate"><span class="pre">0</span></code> as the return value, which is how the code chooses
+the child branch.</p></li>
+</ul>
+</section>
+<section id="fork-and-exec-example">
+<h2>fork() and exec() example<a class="headerlink" href="#fork-and-exec-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#fork-and-exec-example'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_exec</span></code> example creates a pipe, forks,
+redirects standard input and standard output with <code class="docutils literal notranslate"><span class="pre">dup2()</span></code>, and then
+uses <code class="docutils literal notranslate"><span class="pre">execvp()</span></code> to replace each process image. The parent runs <code class="docutils literal notranslate"><span class="pre">wc</span></code>.
+The child runs <code class="docutils literal notranslate"><span class="pre">echo</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos"> 7</span><span class="p">{</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="linenos">10</span><span class="w">    </span><span class="n">pipe</span><span class="p">(</span><span class="n">pipes</span><span class="p">);</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">inputPartOfPipe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">outputPartOfPipe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pipes</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">  	</span><span class="c1">//parent process</span>
+<span class="linenos">18</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">19</span><span class="w">        </span><span class="n">dup2</span><span class="p">(</span><span class="n">inputPartOfPipe</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// redirect STDIN</span>
+<span class="linenos">20</span><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">outputPartOfPipe</span><span class="p">);</span><span class="w">  </span><span class="c1">// close unused half of pipe</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">wcArgs</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"-l"</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">};</span>
+<span class="linenos">23</span><span class="w">        </span><span class="n">execvp</span><span class="p">(</span><span class="s">"wc"</span><span class="p">,</span><span class="w"> </span><span class="n">wcArgs</span><span class="p">);</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"should not be able to reach here!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">26</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">27</span><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">  	</span><span class="c1">//child process</span>
+<span class="linenos">28</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">29</span><span class="w">        </span><span class="n">dup2</span><span class="p">(</span><span class="n">outputPartOfPipe</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// redirect STDOUT</span>
+<span class="linenos">30</span><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">inputPartOfPipe</span><span class="p">);</span><span class="w">     </span><span class="c1">// close unused half of pipe</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">echoArgs</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">"-ne"</span><span class="p">,</span><span class="w"> </span><span class="s">"</span><span class="se">\"</span><span class="s">hello</span><span class="se">\\</span><span class="s">nworld</span><span class="se">\\</span><span class="s">n</span><span class="se">\"\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">};</span>
+<span class="linenos">33</span><span class="w">        </span><span class="n">execvp</span><span class="p">(</span><span class="s">"echo"</span><span class="p">,</span><span class="w"> </span><span class="n">echoArgs</span><span class="p">);</span>
+<span class="linenos">34</span>
+<span class="linenos">35</span><span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">"should not be able to reach here!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">36</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">37</span><span class="w">    </span><span class="k">else</span>
+<span class="linenos">38</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">39</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"fork failed!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">40</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">41</span>
+<span class="linenos">42</span><span class="w">    </span><span class="c1">//don't worry about closing remaining pipes,</span>
+<span class="linenos">43</span><span class="w">    </span><span class="c1">//process exit does this for us</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">46</span><span class="p">}</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pipe()</span></code> creates a kernel buffer with one file descriptor for reading
+and one for writing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dup2()</span></code> redirects standard input or standard output before the
+process image is replaced.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">execvp()</span></code> replaces the current program with another executable; code
+after a successful <code class="docutils literal notranslate"><span class="pre">execvp()</span></code> call does not run.</p></li>
+</ul>
 </section>
 <section id="process-creation-with-clone">
 <h2>Process Creation with clone()<a class="headerlink" href="#process-creation-with-clone" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-creation-with-clone'">¶</a></h2>
-<ul class="simple">
-<li><p>similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in that a child process is created.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> allows different parts of the parent process to be shared
-with the child process</p></li>
-<li><p>flags for creating a light weight process (kernel thread):</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_FS</span></code> - share FS information (chroot, chdir, umask)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_FILES</span></code> - share file descriptor table</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_SIGHAND</span></code> - share signal handlers</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CLONE_VM</span></code> - share page table</p></li>
-</ul>
-</li>
-<li><p>many more flags exist - don’t forget this little known capability!</p></li>
-<li><p>glibc’s version of <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, calls <code class="docutils literal notranslate"><span class="pre">clone()</span></code> without any of these flags</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> not present in every UNIX OS (available in Linux but not
-Minix)</p></li>
-</ul>
+<p><code class="docutils literal notranslate"><span class="pre">clone()</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> because it creates a child execution
+context. Unlike <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, it allows selected parts of the parent process
+to be shared with the child.</p>
+<p>Linux uses flags to control what is shared. <code class="docutils literal notranslate"><span class="pre">CLONE_FS</span></code> shares file
+system information such as <code class="docutils literal notranslate"><span class="pre">chroot</span></code>, <code class="docutils literal notranslate"><span class="pre">chdir</span></code>, and <code class="docutils literal notranslate"><span class="pre">umask</span></code>.
+<code class="docutils literal notranslate"><span class="pre">CLONE_FILES</span></code> shares the file descriptor table. <code class="docutils literal notranslate"><span class="pre">CLONE_SIGHAND</span></code>
+shares signal handlers. <code class="docutils literal notranslate"><span class="pre">CLONE_VM</span></code> shares the page table. These flags
+are part of how Linux creates lightweight processes and kernel threads.</p>
+<p>glibc’s <code class="docutils literal notranslate"><span class="pre">fork()</span></code> calls <code class="docutils literal notranslate"><span class="pre">clone()</span></code> without these sharing flags.
+<code class="docutils literal notranslate"><span class="pre">clone()</span></code> is Linux-specific and is not present in every UNIX-like
+operating system.</p>
 </section>
 <section id="windows-createprocess-and-createthread">
 <h2>Windows CreateProcess() and CreateThread()<a class="headerlink" href="#windows-createprocess-and-createthread" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#windows-createprocess-and-createthread'">¶</a></h2>
-<ul class="simple">
-<li><p>Different from UNIX <code class="docutils literal notranslate"><span class="pre">fork()</span></code>/<code class="docutils literal notranslate"><span class="pre">clone()</span></code> - parts of processes are not
-shared</p></li>
-<li><p>Windows has two flavors:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> - creates a new process, equivalent of calling
-<code class="docutils literal notranslate"><span class="pre">fork()</span></code> then <code class="docutils literal notranslate"><span class="pre">execve()</span></code> in UNIX</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code> - equivalent of creating <code class="docutils literal notranslate"><span class="pre">clone()</span></code> with thread flags</p></li>
-</ul>
-</li>
-<li><p>Is this a disadvantage?</p>
-<ul>
-<li><p>For most use cases and most programs, no.</p></li>
-<li><p>The vast majority of calls to <code class="docutils literal notranslate"><span class="pre">clone()</span></code> in UNIX are equivalent to
-<code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code></p></li>
-<li><p>The vast majority of calls to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> in UNIX are equivalent to
-<code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code></p></li>
-</ul>
-</li>
-</ul>
+<p>Windows does not expose the same process-sharing model as UNIX
+<code class="docutils literal notranslate"><span class="pre">fork()</span></code> and Linux <code class="docutils literal notranslate"><span class="pre">clone()</span></code>. <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> creates a new
+process and is closest to calling <code class="docutils literal notranslate"><span class="pre">fork()</span></code> followed by <code class="docutils literal notranslate"><span class="pre">execve()</span></code> on
+UNIX. <code class="docutils literal notranslate"><span class="pre">CreateThread()</span></code> creates a new thread and is closest to using
+<code class="docutils literal notranslate"><span class="pre">clone()</span></code> with thread-sharing flags.</p>
+<p>For most programs, this is not a practical disadvantage. Most UNIX uses
+of <code class="docutils literal notranslate"><span class="pre">fork()</span></code> are followed by <code class="docutils literal notranslate"><span class="pre">exec()</span></code>, and most uses of <code class="docutils literal notranslate"><span class="pre">clone()</span></code> are
+for thread creation.</p>
 </section>
 <section id="emulating-fork-on-windows">
 <h2>Emulating fork() on Windows<a class="headerlink" href="#emulating-fork-on-windows" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#emulating-fork-on-windows'">¶</a></h2>
-<p>A well known system, Cygwin, implements <code class="docutils literal notranslate"><span class="pre">fork()</span></code> on Windows as follows:</p>
-<ol class="arabic simple">
-<li><p>cygwin.dll calls <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code> to create a suspended child process</p></li>
-<li><p>parent process calls <code class="docutils literal notranslate"><span class="pre">setjmp()</span></code> to save registers</p></li>
-<li><p>parent process copies its BSS and DATA sections to the child’s
-address space.</p></li>
-<li><p>parent wakes child up and waits on a named mutex (mutual exclusion mechanism).</p></li>
-<li><p>child wakes up, realizes it was a forked process, then longjumps to
-the saved jump buffer. child unlock’s</p></li>
-<li><p>parent’s named mutex and waits on a second mutex</p></li>
-<li><p>parent wakes up, copies its stack and heap to the child process.
-release’s child’s named mutex</p></li>
-<li><p>Child wakes up and copies any memory mapped regions the parent
-signals to the child through shared memory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> system call in Cygwin does not use copy on write, but “copy on
-fork”. this is similar to <code class="docutils literal notranslate"><span class="pre">fork()</span></code> implementations in early UNIX
-operating systems</p></li>
-</ol>
+<p>Cygwin implements <code class="docutils literal notranslate"><span class="pre">fork()</span></code> on Windows by combining <code class="docutils literal notranslate"><span class="pre">CreateProcess()</span></code>,
+saved register state, copied memory regions, and synchronization. The
+parent creates a suspended child process, saves register state with
+<code class="docutils literal notranslate"><span class="pre">setjmp()</span></code>, copies the BSS and data sections to the child, wakes the
+child, and then coordinates stack, heap, and memory-mapped region copies.</p>
+<p>This approach is closer to “copy on fork” than modern UNIX copy-on-write.
+It is useful for compatibility, but it is more expensive than a native
+UNIX <code class="docutils literal notranslate"><span class="pre">fork()</span></code> implementation.</p>
 </section>
-<section id="causes-of-process-termination">
-<h2>Causes of process termination<a class="headerlink" href="#causes-of-process-termination" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#causes-of-process-termination'">¶</a></h2>
+<section id="system-call-boundary-example">
+<h2>System Call Boundary Example<a class="headerlink" href="#system-call-boundary-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#system-call-boundary-example'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/syscall</span></code> example compares three ways to
+write output: the C library <code class="docutils literal notranslate"><span class="pre">printf()</span></code>, the POSIX <code class="docutils literal notranslate"><span class="pre">write()</span></code> wrapper,
+and a direct <code class="docutils literal notranslate"><span class="pre">syscall()</span></code> invocation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos"> 7</span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">hello_with_syscall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hello World with syscall</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">hello_without_syscall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hello World without syscall</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="linenos">10</span><span class="w">    </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">hello_with_printf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hello World with printf</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">hello_without_syscall</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="w"> </span><span class="n">hello_without_syscall</span><span class="w"> </span><span class="p">));</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="w"> </span><span class="n">SYS_write</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">hello_with_syscall</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="w"> </span><span class="n">hello_with_syscall</span><span class="w"> </span><span class="p">));</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="w"> </span><span class="s">"%s"</span><span class="p">,</span><span class="w"> </span><span class="n">hello_with_printf</span><span class="w"> </span><span class="p">);</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">19</span><span class="p">}</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>
+</pre></div>
+</div>
+<p>Key points:</p>
 <ul class="simple">
-<li><p>Normal exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code></p></li>
-<li><p>Error exit–return from <code class="docutils literal notranslate"><span class="pre">main(...)</span></code> with an error code</p></li>
-<li><p>Fatal error</p>
-<ul>
-<li><p>segfault/bus error–process tries to read/write inaccessible memory
-or write to read-only memory.</p></li>
-<li><p>stack overflow–stack pointer grows to larger than stack area</p></li>
-<li><p>protection fault–trying to run privileged instructions such as
-enabling/disabling interrupts</p></li>
-<li><p>instruction faults–divide by zero</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">printf()</span></code> is a C library call, not a direct system call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">write()</span></code> is the usual POSIX wrapper for the kernel’s write system
+call.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">syscall(SYS_write,</span> <span class="pre">...)</span></code> bypasses the wrapper and invokes the system
+call interface directly.</p></li>
 </ul>
-</li>
-<li><p>External termination by another process either through signals or
-system calls</p></li>
+</section>
+<section id="command-line-option-example">
+<h2>Command-Line Option Example<a class="headerlink" href="#command-line-option-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#command-line-option-example'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/getopt</span></code> example shows how a process receives
+command-line arguments through <code class="docutils literal notranslate"><span class="pre">argc</span></code> and <code class="docutils literal notranslate"><span class="pre">argv</span></code> and turns them into
+structured options.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">"cl.h"</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos"> 4</span><span class="p">{</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="n">my_options_t</span><span class="o">*</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_program_options_get</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">options</span><span class="o">-&gt;</span><span class="n">success</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="n">print_options</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
+<span class="linenos">10</span><span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">EXIT_SUCCESS</span><span class="p">);</span>
+<span class="linenos">11</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">12</span><span class="w">    </span><span class="k">else</span>
+<span class="linenos">13</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">14</span><span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+<span class="linenos">15</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">16</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#ifndef _CL_H_</span>
+<span class="linenos"> 2</span><span class="cp">#define _CL_H_</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ctype.h&gt;</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos"> 8</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;regex.h&gt;</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">my_options_t</span>
+<span class="linenos">11</span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">how_many</span><span class="p">;</span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">last_n_words</span><span class="p">;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">min_length</span><span class="p">;</span>
+<span class="linenos">15</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">every_steps</span><span class="p">;</span>
+<span class="linenos">16</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ignore_case</span><span class="p">;</span>
+<span class="linenos">17</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">success</span><span class="p">;</span>
+<span class="linenos">18</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">print_options</span><span class="p">;</span>
+<span class="linenos">19</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">do_timing</span><span class="p">;</span>
+<span class="linenos">20</span><span class="w">    </span><span class="n">regex_t</span><span class="w"> </span><span class="n">regex</span><span class="p">;</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="p">}</span><span class="w"> </span><span class="n">my_options_t</span><span class="p">;</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="k">extern</span><span class="w"> </span><span class="n">my_options_t</span><span class="w"> </span><span class="o">*</span><span class="nf">my_program_options_new</span><span class="p">();</span>
+<span class="linenos">25</span><span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">my_mrogram_options_delete</span><span class="p">(</span><span class="n">my_options_t</span><span class="w"> </span><span class="o">*</span><span class="n">options</span><span class="p">);</span>
+<span class="linenos">26</span><span class="k">extern</span><span class="w"> </span><span class="n">my_options_t</span><span class="o">*</span><span class="w"> </span><span class="nf">my_program_options_get</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">);</span>
+<span class="linenos">27</span><span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print_options</span><span class="p">(</span><span class="n">my_options_t</span><span class="w"> </span><span class="o">*</span><span class="n">options</span><span class="p">);</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">argc</span></code> and <code class="docutils literal notranslate"><span class="pre">argv</span></code> are the process’s command-line interface.</p></li>
+<li><p>The parsing code converts raw strings into a structured options object.</p></li>
+<li><p>The program exits with success or failure depending on whether the
+command line was valid.</p></li>
 </ul>
+</section>
+<section id="process-termination">
+<h2>Process Termination<a class="headerlink" href="#process-termination" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-termination'">¶</a></h2>
+<p>A process can terminate normally by returning from <code class="docutils literal notranslate"><span class="pre">main()</span></code>. It can
+also terminate with an error code, by encountering a fatal error, or by
+being terminated externally by another process.</p>
+<p>Fatal errors include segmentation faults or bus errors from invalid
+memory access, stack overflow, protection faults from privileged
+instructions, and instruction faults such as divide by zero.</p>
 </section>
 <section id="wait-and-waitpid-examples">
 <h2>wait() and waitpid() examples<a class="headerlink" href="#wait-and-waitpid-examples" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#wait-and-waitpid-examples'">¶</a></h2>
-<p>See <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> if you want to run this program.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/wait</span></code> example shows how a parent process can
+wait for a child process to terminate.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
 <span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
 <span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -702,6 +829,422 @@ system calls</p></li>
 <span class="linenos">31</span>
 </pre></div>
 </div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The parent process uses <code class="docutils literal notranslate"><span class="pre">wait()</span></code> or <code class="docutils literal notranslate"><span class="pre">waitpid()</span></code> to collect child
+exit status.</p></li>
+<li><p>Waiting also prevents terminated children from remaining as zombie
+processes.</p></li>
+<li><p>The status value encodes how the child terminated.</p></li>
+</ul>
+</section>
+<section id="sigchld-examples">
+<h2>SIGCHLD examples<a class="headerlink" href="#sigchld-examples" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#sigchld-examples'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_sigchld</span></code> example handles <code class="docutils literal notranslate"><span class="pre">SIGCHLD</span></code> to
+notice when a child process exits. It uses <code class="docutils literal notranslate"><span class="pre">wait()</span></code> in the signal
+handler to collect the child’s exit status.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="kt">int</span><span class="w"> </span><span class="n">child_exit_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">-5</span><span class="p">);</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="kt">void</span><span class="w"> </span><span class="nf">clean_up_child_process</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signal_number</span><span class="p">)</span>
+<span class="linenos">11</span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"SIGCHLD recieved.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">13</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">child_exit_status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="linenos">16</span><span class="p">}</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="kt">void</span><span class="w"> </span><span class="nf">parent</span><span class="p">()</span>
+<span class="linenos">19</span><span class="p">{</span>
+<span class="linenos">20</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"parent continuing...."</span><span class="p">);</span>
+<span class="linenos">21</span><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">child_exit_status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mi">-5</span><span class="p">))</span>
+<span class="linenos">22</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">23</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"parent waiting...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">24</span><span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">25</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">26</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"child exit status = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">child_exit_status</span><span class="p">);</span>
+<span class="linenos">27</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"parent exiting</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">28</span><span class="p">}</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="kt">void</span><span class="w"> </span><span class="nf">child</span><span class="p">()</span>
+<span class="linenos">31</span><span class="p">{</span>
+<span class="linenos">32</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"child starting.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">33</span><span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="linenos">34</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"child exiting.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">35</span><span class="p">}</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="linenos">38</span><span class="p">{</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="w"> </span><span class="n">sigchld_action</span><span class="p">;</span>
+<span class="linenos">41</span><span class="w">    </span><span class="n">memset</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">sigchld_action</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="p">));</span>
+<span class="linenos">42</span><span class="w">    </span><span class="n">sigchld_action</span><span class="p">.</span><span class="n">sa_handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">clean_up_child_process</span><span class="p">;</span>
+<span class="linenos">43</span><span class="w">    </span><span class="n">sigaction</span><span class="w"> </span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sigchld_action</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">46</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">47</span><span class="w">        </span><span class="n">parent</span><span class="p">();</span>
+<span class="linenos">48</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">49</span><span class="w">    </span><span class="k">else</span>
+<span class="linenos">50</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">51</span><span class="w">        </span><span class="n">child</span><span class="p">();</span>
+<span class="linenos">52</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">53</span>
+<span class="linenos">54</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">55</span><span class="p">}</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sigaction()</span></code> installs a handler for <code class="docutils literal notranslate"><span class="pre">SIGCHLD</span></code> before the fork.</p></li>
+<li><p>The kernel sends <code class="docutils literal notranslate"><span class="pre">SIGCHLD</span></code> to the parent when the child exits.</p></li>
+<li><p>The handler calls <code class="docutils literal notranslate"><span class="pre">wait()</span></code> to collect the child’s exit status.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/fork_sigchld2</span></code> example extends this pattern
+to multiple child processes. It uses <code class="docutils literal notranslate"><span class="pre">waitpid()</span></code> with <code class="docutils literal notranslate"><span class="pre">WNOHANG</span></code> so the
+handler can collect every child that has exited without blocking.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos">  3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;signal.h&gt;</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos">  5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/wait.h&gt;</span>
+<span class="linenos">  6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="linenos">  7</span>
+<span class="linenos">  8</span><span class="cp">#define MAX_PID (1000)</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span><span class="kt">int</span><span class="w"> </span><span class="n">childProcesses</span><span class="p">[</span><span class="n">MAX_PID</span><span class="p">];</span>
+<span class="linenos"> 11</span>
+<span class="linenos"> 12</span><span class="kt">void</span><span class="w"> </span><span class="nf">addProcess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">childPid</span><span class="p">)</span>
+<span class="linenos"> 13</span><span class="p">{</span>
+<span class="linenos"> 14</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"add(%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">childPid</span><span class="p">);</span>
+<span class="linenos"> 15</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_PID</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 16</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 17</span><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">childProcesses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">))</span>
+<span class="linenos"> 18</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 19</span><span class="w">            </span><span class="n">childProcesses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">childPid</span><span class="p">;</span>
+<span class="linenos"> 20</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"added child pid = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">childPid</span><span class="p">);</span>
+<span class="linenos"> 21</span><span class="w">            </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 22</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 23</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 24</span><span class="p">}</span>
+<span class="linenos"> 25</span>
+<span class="linenos"> 26</span><span class="kt">void</span><span class="w"> </span><span class="nf">removeProcess</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">childPid</span><span class="p">)</span>
+<span class="linenos"> 27</span><span class="p">{</span>
+<span class="linenos"> 28</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"remove(%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">childPid</span><span class="p">);</span>
+<span class="linenos"> 29</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_PID</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 30</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 31</span><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">childProcesses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">childPid</span><span class="p">)</span>
+<span class="linenos"> 32</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 33</span><span class="w">            </span><span class="n">childProcesses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="linenos"> 34</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"removed child pid = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">childPid</span><span class="p">);</span>
+<span class="linenos"> 35</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 36</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 37</span><span class="p">}</span>
+<span class="linenos"> 38</span>
+<span class="linenos"> 39</span><span class="kt">int</span><span class="w"> </span><span class="nf">countProcesses</span><span class="p">()</span>
+<span class="linenos"> 40</span><span class="p">{</span>
+<span class="linenos"> 41</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 42</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_PID</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 43</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 44</span><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">childProcesses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 45</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 46</span><span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos"> 47</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 48</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 49</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="linenos"> 50</span><span class="p">}</span>
+<span class="linenos"> 51</span>
+<span class="linenos"> 52</span><span class="kt">void</span><span class="w"> </span><span class="nf">clean_up_child_process</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">signal_number</span><span class="p">)</span>
+<span class="linenos"> 53</span><span class="p">{</span>
+<span class="linenos"> 54</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"SIGCHLD recieved.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos"> 55</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="linenos"> 56</span><span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<span class="linenos"> 57</span><span class="w">    </span><span class="k">while</span><span class="p">((</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">waitpid</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">WNOHANG</span><span class="p">))</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 58</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 59</span><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 60</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 61</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"pid %d exited</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">);</span>
+<span class="linenos"> 62</span><span class="w">            </span><span class="n">removeProcess</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">pid</span><span class="p">);</span>
+<span class="linenos"> 63</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 64</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 65</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 66</span><span class="p">}</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span><span class="kt">void</span><span class="w"> </span><span class="nf">parent</span><span class="p">()</span>
+<span class="linenos"> 69</span><span class="p">{</span>
+<span class="linenos"> 70</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"parent continuing....</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos"> 71</span><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">countProcesses</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos"> 72</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"parent exiting</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos"> 73</span><span class="p">}</span>
+<span class="linenos"> 74</span>
+<span class="linenos"> 75</span><span class="kt">void</span><span class="w"> </span><span class="nf">child</span><span class="p">()</span>
+<span class="linenos"> 76</span><span class="p">{</span>
+<span class="linenos"> 77</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"child starting.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos"> 78</span><span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="linenos"> 79</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"child exiting.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos"> 80</span><span class="p">}</span>
+<span class="linenos"> 81</span>
+<span class="linenos"> 82</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="linenos"> 83</span><span class="p">{</span>
+<span class="linenos"> 84</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">MAX_PID</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 85</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="n">childProcesses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span>
+<span class="linenos"> 87</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="w"> </span><span class="n">sigchld_action</span><span class="p">;</span>
+<span class="linenos"> 90</span><span class="w">    </span><span class="n">memset</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">sigchld_action</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">sigaction</span><span class="p">));</span>
+<span class="linenos"> 91</span><span class="w">    </span><span class="n">sigchld_action</span><span class="p">.</span><span class="n">sa_handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">clean_up_child_process</span><span class="p">;</span>
+<span class="linenos"> 92</span><span class="w">    </span><span class="n">sigaction</span><span class="w"> </span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sigchld_action</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 96</span><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">childProcess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
+<span class="linenos"> 97</span><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">childProcess</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 98</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 99</span><span class="w">            </span><span class="n">child</span><span class="p">();</span>
+<span class="linenos">100</span><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">101</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">102</span><span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">childProcess</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">103</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">104</span><span class="w">            </span><span class="n">addProcess</span><span class="p">(</span><span class="n">childProcess</span><span class="p">);</span>
+<span class="linenos">105</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">106</span><span class="w">        </span><span class="k">else</span>
+<span class="linenos">107</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">108</span><span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">109</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">110</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">111</span><span class="w">    </span><span class="n">parent</span><span class="p">();</span>
+<span class="linenos">112</span>
+<span class="linenos">113</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">114</span><span class="p">}</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The parent tracks child process IDs in a small table.</p></li>
+<li><p>The signal handler loops with <code class="docutils literal notranslate"><span class="pre">waitpid(-1,</span> <span class="pre">...,</span> <span class="pre">WNOHANG)</span></code> to collect
+all children that have exited.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WNOHANG</span></code> matters because a signal handler should not block waiting
+for children that are still running.</p></li>
+</ul>
+</section>
+<section id="process-oriented-c-case-studies">
+<h2>Process-Oriented C Case Studies<a class="headerlink" href="#process-oriented-c-case-studies" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#process-oriented-c-case-studies'">¶</a></h2>
+<p>Some examples in the repository are best treated as short systems C case
+studies. They support the process chapter because they make memory,
+calling conventions, and low-level representation concrete.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/objects</span></code> example shows object-style
+programming in C using <code class="docutils literal notranslate"><span class="pre">struct</span></code> values and functions.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="linenos"> 6</span><span class="p">{</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">Name</span><span class="p">[</span><span class="mi">30</span><span class="p">];</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Age</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">NumberOfTeamMates</span><span class="p">;</span>
+<span class="linenos">10</span><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Employee</span><span class="o">**</span><span class="w"> </span><span class="n">TeamMates</span><span class="p">;</span>
+<span class="linenos">11</span><span class="p">}</span><span class="w"> </span><span class="n">Employee</span><span class="p">;</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="n">Employee</span><span class="o">*</span><span class="w"> </span><span class="nf">Employee_New</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">)</span>
+<span class="linenos">14</span><span class="p">{</span>
+<span class="linenos">15</span><span class="w">    </span><span class="n">Employee</span><span class="o">*</span><span class="w"> </span><span class="n">newEmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Employee</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Employee</span><span class="p">));</span>
+<span class="linenos">16</span><span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="n">newEmp</span><span class="o">-&gt;</span><span class="n">Name</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">17</span><span class="w">    </span><span class="n">newEmp</span><span class="o">-&gt;</span><span class="n">Age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span>
+<span class="linenos">18</span><span class="w">    </span><span class="n">newEmp</span><span class="o">-&gt;</span><span class="n">TeamMates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="linenos">19</span><span class="w">    </span><span class="n">newEmp</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">20</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">newEmp</span><span class="p">;</span>
+<span class="linenos">21</span><span class="p">}</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="kt">void</span><span class="w"> </span><span class="nf">Employee_Print</span><span class="p">(</span><span class="n">Employee</span><span class="o">*</span><span class="w"> </span><span class="n">employee</span><span class="p">)</span>
+<span class="linenos">24</span><span class="p">{</span>
+<span class="linenos">25</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Name: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">Name</span><span class="p">);</span>
+<span class="linenos">26</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Age:  %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">Age</span><span class="p">);</span>
+<span class="linenos">27</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"Number of TeamMates: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="p">);</span>
+<span class="linenos">28</span><span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">29</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">30</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">31</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">32</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">33</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">34</span><span class="w">        </span><span class="n">Employee</span><span class="o">*</span><span class="w"> </span><span class="n">teamMate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Employee</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">TeamMates</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="linenos">35</span><span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">"%s, "</span><span class="p">,</span><span class="w"> </span><span class="n">teamMate</span><span class="o">-&gt;</span><span class="n">Name</span><span class="p">);</span>
+<span class="linenos">36</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">37</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="linenos">38</span><span class="p">}</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="kt">void</span><span class="w"> </span><span class="nf">Employee_AddTeamMate</span><span class="p">(</span><span class="n">Employee</span><span class="o">*</span><span class="w"> </span><span class="n">employee</span><span class="p">,</span><span class="w"> </span><span class="n">Employee</span><span class="o">*</span><span class="w"> </span><span class="n">teamMate</span><span class="p">)</span>
+<span class="linenos">41</span><span class="p">{</span>
+<span class="linenos">42</span><span class="w">    </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos">43</span><span class="w">    </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">TeamMates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">Employee</span><span class="o">**</span><span class="p">)</span><span class="n">realloc</span><span class="p">(</span>
+<span class="linenos">44</span><span class="w">                              </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">TeamMates</span><span class="p">,</span>
+<span class="linenos">45</span><span class="w">                              </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Employee</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="p">);</span>
+<span class="linenos">46</span><span class="w">    </span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">TeamMates</span><span class="p">[</span><span class="n">employee</span><span class="o">-&gt;</span><span class="n">NumberOfTeamMates</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">Employee</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">teamMate</span><span class="p">;</span>
+<span class="linenos">47</span><span class="p">}</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos">50</span><span class="p">{</span>
+<span class="linenos">51</span><span class="w">    </span><span class="n">Employee</span><span class="w"> </span><span class="o">*</span><span class="n">joe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Employee_New</span><span class="p">(</span><span class="s">"Joe"</span><span class="p">,</span><span class="w"> </span><span class="mi">29</span><span class="p">);</span>
+<span class="linenos">52</span><span class="w">    </span><span class="n">Employee</span><span class="w"> </span><span class="o">*</span><span class="n">tom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Employee_New</span><span class="p">(</span><span class="s">"Tom"</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">);</span>
+<span class="linenos">53</span><span class="w">    </span><span class="n">Employee</span><span class="w"> </span><span class="o">*</span><span class="n">bill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Employee_New</span><span class="p">(</span><span class="s">"Bill"</span><span class="p">,</span><span class="w"> </span><span class="mi">35</span><span class="p">);</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="w">    </span><span class="n">Employee_Print</span><span class="p">(</span><span class="n">joe</span><span class="p">);</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="w">    </span><span class="n">Employee_AddTeamMate</span><span class="p">(</span><span class="n">joe</span><span class="p">,</span><span class="w"> </span><span class="n">tom</span><span class="p">);</span>
+<span class="linenos">58</span><span class="w">    </span><span class="n">Employee_AddTeamMate</span><span class="p">(</span><span class="n">joe</span><span class="p">,</span><span class="w"> </span><span class="n">bill</span><span class="p">);</span>
+<span class="linenos">59</span>
+<span class="linenos">60</span><span class="w">    </span><span class="n">Employee_Print</span><span class="p">(</span><span class="n">joe</span><span class="p">);</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">63</span><span class="p">}</span>
+<span class="linenos">64</span>
+<span class="linenos">65</span>
+<span class="linenos">66</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Employee</span></code> structure groups related fields in one allocation.</p></li>
+<li><p>Functions such as <code class="docutils literal notranslate"><span class="pre">Employee_New</span></code> and <code class="docutils literal notranslate"><span class="pre">Employee_Print</span></code> act like
+methods by taking an <code class="docutils literal notranslate"><span class="pre">Employee*</span></code> argument.</p></li>
+<li><p>The example uses dynamic allocation, so it also previews memory
+management issues handled later.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/strlen</span></code> example is a small C string and
+memory-layout demonstration.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="kt">int</span><span class="w"> </span><span class="nf">my_strlen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="p">{</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 8</span><span class="w">        </span><span class="n">str</span><span class="o">++</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="n">length</span><span class="o">++</span><span class="p">;</span>
+<span class="linenos">10</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">length</span><span class="p">;</span>
+<span class="linenos">12</span><span class="p">}</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<span class="linenos">16</span><span class="p">{</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"hello world"</span><span class="p">;</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">25</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>C strings are byte arrays terminated by <code class="docutils literal notranslate"><span class="pre">'\0'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">strlen()</span></code> counts characters before the terminator, not the storage
+used by the array.</p></li>
+<li><p>The example is useful for connecting string behavior to memory layout.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">systems-code-examples/parity</span></code> example is a low-level bit
+manipulation example.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="linenos"> 2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos"> 4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/stat.h&gt;</span>
+<span class="linenos"> 6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<span class="linenos"> 7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="kt">size_t</span><span class="w"> </span><span class="nf">parityWrite</span><span class="p">(</span>
+<span class="linenos">10</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd2</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf1</span><span class="p">,</span>
+<span class="linenos">12</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="linenos">13</span><span class="p">{</span>
+<span class="linenos">14</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">15</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">16</span><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">byte0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">buf0</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
+<span class="linenos">17</span><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">byte1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">buf1</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
+<span class="linenos">18</span><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="n">parity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">byte0</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">byte1</span><span class="p">;</span>
+<span class="linenos">19</span><span class="w">        </span><span class="n">write</span><span class="p">(</span><span class="n">fd0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">byte0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="linenos">20</span><span class="w">        </span><span class="n">write</span><span class="p">(</span><span class="n">fd1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">byte1</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="linenos">21</span><span class="w">        </span><span class="n">write</span><span class="p">(</span><span class="n">fd2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">parity</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="linenos">22</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">23</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="linenos">24</span><span class="p">}</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="kt">size_t</span><span class="w"> </span><span class="nf">parityRead</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd0</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd1</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="linenos">27</span><span class="p">{</span>
+<span class="linenos">28</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
+<span class="linenos">29</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
+<span class="linenos">30</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">buf</span><span class="p">;</span>
+<span class="linenos">31</span><span class="w">    </span><span class="n">read</span><span class="p">(</span><span class="n">fd0</span><span class="p">,</span><span class="w"> </span><span class="n">buff0</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="linenos">32</span><span class="w">    </span><span class="n">read</span><span class="p">(</span><span class="n">fd1</span><span class="p">,</span><span class="w"> </span><span class="n">buff1</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="linenos">33</span><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">34</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">35</span><span class="w">        </span><span class="n">buff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buff0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">buff1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="linenos">36</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">37</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="linenos">38</span><span class="p">}</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="linenos">41</span><span class="p">{</span>
+<span class="linenos">42</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"f0"</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="linenos">43</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"f1"</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="linenos">44</span><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fd2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"f2"</span><span class="p">,</span><span class="w"> </span><span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">msg0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"hello world</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="linenos">47</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">msg1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"testing 123</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="w">    </span><span class="n">parityWrite</span><span class="p">(</span><span class="n">fd0</span><span class="p">,</span><span class="n">fd1</span><span class="p">,</span><span class="n">fd2</span><span class="p">,</span><span class="n">msg0</span><span class="p">,</span><span class="n">msg1</span><span class="p">,</span><span class="n">strlen</span><span class="p">(</span><span class="n">msg0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">50</span>
+<span class="linenos">51</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd0</span><span class="p">);</span>
+<span class="linenos">52</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd1</span><span class="p">);</span>
+<span class="linenos">53</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd2</span><span class="p">);</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="s">"f1"</span><span class="p">);</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span><span class="w">    </span><span class="n">fd0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"f0"</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="linenos">58</span><span class="w">    </span><span class="n">fd2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">"f2"</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">);</span>
+<span class="linenos">59</span>
+<span class="linenos">60</span><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">msgSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="n">strlen</span><span class="p">(</span><span class="n">msg0</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos">61</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">msgSize</span><span class="p">);</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span><span class="w">    </span><span class="n">parityRead</span><span class="p">(</span><span class="n">fd0</span><span class="p">,</span><span class="w"> </span><span class="n">fd2</span><span class="p">,</span><span class="w"> </span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="n">msgSize</span><span class="p">);</span>
+<span class="linenos">64</span>
+<span class="linenos">65</span><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"f1 contents are = %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">buff</span><span class="p">);</span>
+<span class="linenos">66</span>
+<span class="linenos">67</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd0</span><span class="p">);</span>
+<span class="linenos">68</span><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd2</span><span class="p">);</span>
+<span class="linenos">69</span>
+<span class="linenos">70</span><span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">buff</span><span class="p">);</span>
+<span class="linenos">71</span>
+<span class="linenos">72</span><span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="s">"f0"</span><span class="p">);</span>
+<span class="linenos">73</span><span class="w">    </span><span class="n">unlink</span><span class="p">(</span><span class="s">"f2"</span><span class="p">);</span>
+<span class="linenos">74</span>
+<span class="linenos">75</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">76</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Key points:</p>
+<ul class="simple">
+<li><p>The code works directly with integer bits rather than higher-level data
+structures.</p></li>
+<li><p>Bit operations are common in operating systems code for flags, masks,
+and packed state.</p></li>
+<li><p>Small examples like this help make machine representation visible.</p></li>
+</ul>
 </section>
 </section>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
@@ -713,11 +1256,13 @@ system calls</p></li>
 <li><a :data-current="activeSection === '#preliminaries'" class="reference internal" href="#preliminaries">Preliminaries</a></li>
 <li><a :data-current="activeSection === '#examine-process-layout-example'" class="reference internal" href="#examine-process-layout-example">Examine Process Layout Example</a></li>
 <li><a :data-current="activeSection === '#loading-programs'" class="reference internal" href="#loading-programs">Loading Programs</a></li>
+<li><a :data-current="activeSection === '#simple-executable-example'" class="reference internal" href="#simple-executable-example">Simple Executable Example</a></li>
 <li><a :data-current="activeSection === '#loading-shared-libraries-so'" class="reference internal" href="#loading-shared-libraries-so">Loading shared libraries (.so)</a></li>
+<li><a :data-current="activeSection === '#shared-library-example'" class="reference internal" href="#shared-library-example">Shared Library Example</a></li>
 <li><a :data-current="activeSection === '#more-about-gcc-pic-option'" class="reference internal" href="#more-about-gcc-pic-option">more about GCC pic option</a></li>
-<li><a :data-current="activeSection === '#id2'" class="reference internal" href="#id2">Loading shared libraries (.so)</a></li>
+<li><a :data-current="activeSection === '#loading-static-libraries'" class="reference internal" href="#loading-static-libraries">Loading static libraries</a></li>
 <li><a :data-current="activeSection === '#position-independent-code-example'" class="reference internal" href="#position-independent-code-example">Position Independent Code Example</a></li>
-<li><a :data-current="activeSection === '#main-cc'" class="reference internal" href="#main-cc">main.cc</a></li>
+<li><a :data-current="activeSection === '#main-c'" class="reference internal" href="#main-c">main.c</a></li>
 <li><a :data-current="activeSection === '#main-nopic-s-non-position-independent-code-gcc-fno-pic'" class="reference internal" href="#main-nopic-s-non-position-independent-code-gcc-fno-pic">main.nopic.s - non-position independent code (gcc -fno-pic)</a></li>
 <li><a :data-current="activeSection === '#main-nopic-s-position-independent-code-gcc-fpic-default-option'" class="reference internal" href="#main-nopic-s-position-independent-code-gcc-fpic-default-option">main.nopic.s - position independent code (gcc -fpic, default option)</a></li>
 <li><a :data-current="activeSection === '#what-s-the-difference'" class="reference internal" href="#what-s-the-difference">What’s the difference?</a></li>
@@ -727,11 +1272,16 @@ system calls</p></li>
 <li><a :data-current="activeSection === '#process-protection'" class="reference internal" href="#process-protection">Process Protection</a></li>
 <li><a :data-current="activeSection === '#process-creation-with-fork'" class="reference internal" href="#process-creation-with-fork">Process Creation with fork()</a></li>
 <li><a :data-current="activeSection === '#fork-example'" class="reference internal" href="#fork-example">fork() example</a></li>
+<li><a :data-current="activeSection === '#fork-and-exec-example'" class="reference internal" href="#fork-and-exec-example">fork() and exec() example</a></li>
 <li><a :data-current="activeSection === '#process-creation-with-clone'" class="reference internal" href="#process-creation-with-clone">Process Creation with clone()</a></li>
 <li><a :data-current="activeSection === '#windows-createprocess-and-createthread'" class="reference internal" href="#windows-createprocess-and-createthread">Windows CreateProcess() and CreateThread()</a></li>
 <li><a :data-current="activeSection === '#emulating-fork-on-windows'" class="reference internal" href="#emulating-fork-on-windows">Emulating fork() on Windows</a></li>
-<li><a :data-current="activeSection === '#causes-of-process-termination'" class="reference internal" href="#causes-of-process-termination">Causes of process termination</a></li>
+<li><a :data-current="activeSection === '#system-call-boundary-example'" class="reference internal" href="#system-call-boundary-example">System Call Boundary Example</a></li>
+<li><a :data-current="activeSection === '#command-line-option-example'" class="reference internal" href="#command-line-option-example">Command-Line Option Example</a></li>
+<li><a :data-current="activeSection === '#process-termination'" class="reference internal" href="#process-termination">Process Termination</a></li>
 <li><a :data-current="activeSection === '#wait-and-waitpid-examples'" class="reference internal" href="#wait-and-waitpid-examples">wait() and waitpid() examples</a></li>
+<li><a :data-current="activeSection === '#sigchld-examples'" class="reference internal" href="#sigchld-examples">SIGCHLD examples</a></li>
+<li><a :data-current="activeSection === '#process-oriented-c-case-studies'" class="reference internal" href="#process-oriented-c-case-studies">Process-Oriented C Case Studies</a></li>
 </ul>
 </div>
 </aside>
@@ -745,7 +1295,7 @@ system calls</p></li>
 </div>
 </footer>
 </div>
-<script src="_static/documentation_options.js?v=e6282843"></script>
+<script src="_static/documentation_options.js?v=84a96fc7"></script>
 <script src="_static/doctools.js?v=888ff710"></script>
 <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="_static/theme.js?v=e8bd915e"></script>
