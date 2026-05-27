@@ -1,0 +1,871 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Systems and Discrete Math Recap &#8212; Introduction to Operating Systems: Principles and Practice: updated 27 May 2026</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=87e73992" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=ddef51ed"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'systems-recap';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to Processes" href="processes.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="27 May 2026" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Introduction to Operating Systems: Principles and Practice: updated 27 May 2026</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="meta.html">About the Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Systems and Discrete Math Recap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Introduction to Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="files-io.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling.html">Process/Thread Scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutualexclusion.html">Mutual Exclusion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deadlock.html">Deadlock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ipc.html">IPC Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernelmm.html">Virtual Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userlandmm.html">Userland Memory Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage and Devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fs.html">Implementing Files and Folders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bookindex.html">Book Index</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/LoyolaChicagoBooks/operatingsystems" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/issues/new?title=Issue%20on%20page%20%2Fsystems-recap.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/systems-recap.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Systems and Discrete Math Recap</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-logic">Boolean Logic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-equivalence">Logical Equivalence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-morgan-s-laws">De Morgan’s Laws</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#short-circuit-evaluation">Short-Circuit Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bitwise-operations">Bitwise Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xor-and-parity">XOR and Parity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#number-systems-and-data-representation">Number Systems and Data Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signed-and-unsigned-values">Signed and Unsigned Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modular-arithmetic">Modular Arithmetic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sets">Sets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-sets">Power Sets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relations-and-partial-orders">Relations and Partial Orders</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs">Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trees">Trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-and-interleavings">Counting and Interleavings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-complexity-thinking">Basic Complexity Thinking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-hardware-overview">Computer Hardware Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-hierarchy">Memory Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-level-data">Machine-Level Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instruction-execution-and-assembly">Instruction Execution and Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bitwise-assembly">Bitwise Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-as-a-systems-language">C as a Systems Language</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-kernel-mode-and-system-calls">User Mode, Kernel Mode, and System Calls</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files-processes-and-interfaces">Files, Processes, and Interfaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-review-before-continuing">What to Review Before Continuing</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="systems-and-discrete-math-recap">
+<h1>Systems and Discrete Math Recap<a class="headerlink" href="#systems-and-discrete-math-recap" title="Link to this heading">#</a></h1>
+<p>This chapter reviews ideas students are expected to know before starting
+the main operating systems material. It is not a replacement for
+Discrete Structures or Computer Systems. It is a short reminder of the
+parts of those courses that show up repeatedly in operating systems.</p>
+<section id="boolean-logic">
+<h2>Boolean Logic<a class="headerlink" href="#boolean-logic" title="Link to this heading">#</a></h2>
+<p>Boolean logic works with truth values and logical operations. The
+operations most often used in systems code are AND, OR, NOT, and XOR.</p>
+<p>Truth tables are a simple way to check all possible inputs to a logical
+expression. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;AND Truth Table</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;true AND true = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;true AND false = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;false AND true = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;false AND false = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Operating systems use Boolean logic in conditionals, permission checks,
+state tests, and lock conditions.</p>
+</section>
+<section id="logical-equivalence">
+<h2>Logical Equivalence<a class="headerlink" href="#logical-equivalence" title="Link to this heading">#</a></h2>
+<p>Two logical expressions are equivalent when they have the same truth
+value for every possible input. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Logical equivalence matters when simplifying conditions. In systems
+code, a small change to a condition can alter when a process sleeps,
+wakes, enters a critical section, or handles an error.</p>
+</section>
+<section id="de-morgan-s-laws">
+<h2>De Morgan’s Laws<a class="headerlink" href="#de-morgan-s-laws" title="Link to this heading">#</a></h2>
+<p>De Morgan’s laws are useful transformations for negated logical
+expressions. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">a</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">));</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">a</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="p">));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>These laws often appear when code tests the opposite of a condition. For
+example, a scheduler or monitor may wait while a condition is not true.</p>
+</section>
+<section id="short-circuit-evaluation">
+<h2>Short-Circuit Evaluation<a class="headerlink" href="#short-circuit-evaluation" title="Link to this heading">#</a></h2>
+<p>Short-circuit evaluation means the second operand is evaluated only when
+the first operand does not already determine the result. This example is
+written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">expensive_test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;expensive_test ran</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">expensive_test</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This matters in systems code because the second expression may read a
+pointer, call a function, or touch shared state. The order of evaluation
+can be part of the program’s correctness.</p>
+</section>
+<section id="bitwise-operations">
+<h2>Bitwise Operations<a class="headerlink" href="#bitwise-operations" title="Link to this heading">#</a></h2>
+<p>Bitwise operations apply logic to individual bits. They are used for
+flags, masks, permissions, page-table entries, device registers, and
+parity. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">READABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">WRITABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1u</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">READABLE</span><span class="p">;</span>
+<span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">WRITABLE</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">WRITABLE</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;page is writable</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The shift operator creates a mask with one bit set. The AND operation
+tests whether that bit is present.</p>
+</section>
+<section id="xor-and-parity">
+<h2>XOR and Parity<a class="headerlink" href="#xor-and-parity" title="Link to this heading">#</a></h2>
+<p>Exclusive OR, or XOR, returns true when exactly one input is true. At the
+bit level, XOR is useful because the same operation can create and
+recover parity. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x35</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x7a</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">parity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">recovered_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">parity</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This is the same idea used in the RAID parity example later in the book.</p>
+</section>
+<section id="number-systems-and-data-representation">
+<h2>Number Systems and Data Representation<a class="headerlink" href="#number-systems-and-data-representation" title="Link to this heading">#</a></h2>
+<p>Systems code frequently uses decimal, hexadecimal, octal, and binary
+views of the same value. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Decimal: %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hexadecimal: 0x%x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Octal: %o</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Binary: &quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Hexadecimal is common because each hex digit represents four bits. This
+makes addresses, masks, and binary layouts easier to read.</p>
+</section>
+<section id="signed-and-unsigned-values">
+<h2>Signed and Unsigned Values<a class="headerlink" href="#signed-and-unsigned-values" title="Link to this heading">#</a></h2>
+<p>Signed and unsigned integers use the same bits but interpret them
+differently. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">signed_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">unsigned_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="n">signed_value</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">signed_value</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">unsigned_value</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This matters for sizes, offsets, system call arguments, and error values.
+Many system interfaces use unsigned types for sizes and signed types for
+return values.</p>
+</section>
+<section id="modular-arithmetic">
+<h2>Modular Arithmetic<a class="headerlink" href="#modular-arithmetic" title="Link to this heading">#</a></h2>
+<p>Modulo arithmetic is arithmetic with wraparound. This example is written
+in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">mod</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Circular buffers, periodic timers, hash tables, and scheduler queues all
+use wraparound behavior. When an index reaches the end of a fixed-size
+array, modulo arithmetic brings it back to the beginning.</p>
+</section>
+<section id="sets">
+<h2>Sets<a class="headerlink" href="#sets" title="Link to this heading">#</a></h2>
+<p>A set is a collection of distinct values. Sets are useful for describing
+membership, ownership, permissions, and active resources. This example is
+written in C++.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ready</span><span class="p">;</span>
+<span class="n">ready</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+<span class="n">ready</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">19</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ready</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;process 12 is ready</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Operating systems use set-like ideas for ready processes, open files,
+allocated pages, mounted filesystems, and held locks.</p>
+</section>
+<section id="power-sets">
+<h2>Power Sets<a class="headerlink" href="#power-sets" title="Link to this heading">#</a></h2>
+<p>The power set of a set is the set of all subsets. This example is written
+in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print_power_set</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">set</span><span class="p">[],</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">power_set_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">power_set_size</span><span class="p">;</span><span class="w"> </span><span class="n">mask</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;{ &quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">mask</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">set</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The implementation uses bits to decide whether each element is in a
+subset. This is a direct connection between set theory and bit masks.</p>
+</section>
+<section id="relations-and-partial-orders">
+<h2>Relations and Partial Orders<a class="headerlink" href="#relations-and-partial-orders" title="Link to this heading">#</a></h2>
+<p>A relation describes which pairs of values are connected. A partial
+order is a relation that can describe a consistent ordering without
+requiring every pair to be comparable.</p>
+<p>Lock ordering is a partial-order idea. If every thread acquires locks in
+the same order, the program avoids circular wait and therefore avoids
+one common cause of deadlock.</p>
+</section>
+<section id="graphs">
+<h2>Graphs<a class="headerlink" href="#graphs" title="Link to this heading">#</a></h2>
+<p>A graph has nodes and edges. Edges may be directed or undirected.</p>
+<p>Deadlock analysis uses graphs. A node can represent a process or a
+resource, and an edge can represent ownership or waiting. A cycle in a
+resource graph is a warning sign for deadlock. This example is written in
+C++.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">graph</span><span class="p">;</span>
+<span class="n">graph</span><span class="p">[</span><span class="s">&quot;thread1&quot;</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;lockA&quot;</span><span class="p">);</span>
+<span class="n">graph</span><span class="p">[</span><span class="s">&quot;lockA&quot;</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="s">&quot;thread2&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The graph representation is simple. The hard part is deciding what each
+node and edge means in the system being modeled.</p>
+</section>
+<section id="trees">
+<h2>Trees<a class="headerlink" href="#trees" title="Link to this heading">#</a></h2>
+<p>A tree is a graph with a root and no cycles. Trees show up throughout
+operating systems.</p>
+<p>Directory hierarchies are trees or tree-like graphs. Multi-level page
+tables are trees. Search trees and indexed structures appear in file
+systems, caches, and memory managers.</p>
+</section>
+<section id="counting-and-interleavings">
+<h2>Counting and Interleavings<a class="headerlink" href="#counting-and-interleavings" title="Link to this heading">#</a></h2>
+<p>Counting is useful when reasoning about how many orders of execution are
+possible.</p>
+<p>With concurrency, the number of interleavings grows quickly. Even a
+short critical section can have many possible instruction orderings when
+two threads run at the same time. This is why systems code uses locks,
+atomic operations, and careful ordering rules.</p>
+</section>
+<section id="basic-complexity-thinking">
+<h2>Basic Complexity Thinking<a class="headerlink" href="#basic-complexity-thinking" title="Link to this heading">#</a></h2>
+<p>Complexity thinking asks how time and space costs grow as input size
+grows.</p>
+<p>This matters for schedulers, allocators, page replacement algorithms,
+filesystem lookup, and cache design. A policy that is acceptable for ten
+items may be too expensive for one million items.</p>
+</section>
+<section id="computer-hardware-overview">
+<h2>Computer Hardware Overview<a class="headerlink" href="#computer-hardware-overview" title="Link to this heading">#</a></h2>
+<p>Computer systems combine CPU, memory, I/O devices, and software.</p>
+<p>The operating system manages these resources and gives programs a safer,
+more regular interface. Programs use system calls and libraries rather
+than directly controlling every hardware device.</p>
+</section>
+<section id="memory-hierarchy">
+<h2>Memory Hierarchy<a class="headerlink" href="#memory-hierarchy" title="Link to this heading">#</a></h2>
+<p>The memory hierarchy moves from small and fast storage to large and slow
+storage.</p>
+<p>Registers are fastest. Caches are next. Physical memory is slower.
+Secondary storage and swap are much slower. Operating systems try to
+make good use of this hierarchy through caching, paging, and locality.</p>
+</section>
+<section id="machine-level-data">
+<h2>Machine-Level Data<a class="headerlink" href="#machine-level-data" title="Link to this heading">#</a></h2>
+<p>At the machine level, data is stored as bytes and words at addresses.</p>
+<p>C exposes this model more directly than many higher-level languages.
+Pointers hold addresses. Structs describe memory layouts. Arrays are
+contiguous regions. These ideas are necessary for understanding process
+memory, page tables, and system call interfaces.</p>
+</section>
+<section id="instruction-execution-and-assembly">
+<h2>Instruction Execution and Assembly<a class="headerlink" href="#instruction-execution-and-assembly" title="Link to this heading">#</a></h2>
+<p>Assembly language shows the machine-facing view of execution. It uses
+registers, instructions, comparisons, branches, and memory operations.
+This example is written in ARM assembly.</p>
+<div class="highlight-asm notranslate"><div class="highlight"><pre><span></span><span class="nf">MOV</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
+<span class="nf">MOV</span><span class="w"> </span><span class="no">R1</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
+<span class="nf">CMP</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R1</span>
+<span class="nf">BEQ</span><span class="w"> </span><span class="no">equivalent</span>
+</pre></div>
+</div>
+<p>The comparison sets condition flags, and the branch uses those flags.
+This is the low-level version of an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement.</p>
+</section>
+<section id="bitwise-assembly">
+<h2>Bitwise Assembly<a class="headerlink" href="#bitwise-assembly" title="Link to this heading">#</a></h2>
+<p>Assembly also makes bit operations explicit. This example is written in
+ARM assembly.</p>
+<div class="highlight-asm notranslate"><div class="highlight"><pre><span></span><span class="nf">MOV</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
+<span class="nf">MOV</span><span class="w"> </span><span class="no">R1</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span>
+<span class="nf">EOR</span><span class="w"> </span><span class="no">R2</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R1</span>
+
+<span class="nf">AND</span><span class="w"> </span><span class="no">R3</span><span class="p">,</span><span class="w"> </span><span class="no">R0</span><span class="p">,</span><span class="w"> </span><span class="no">R1</span>
+<span class="nf">MVN</span><span class="w"> </span><span class="no">R3</span><span class="p">,</span><span class="w"> </span><span class="no">R3</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">EOR</span></code> computes XOR. <code class="docutils literal notranslate"><span class="pre">AND</span></code> computes bitwise AND. <code class="docutils literal notranslate"><span class="pre">MVN</span></code> moves the
+bitwise NOT of a value. These operations are the same ideas used in
+flags, masks, and parity.</p>
+</section>
+<section id="c-as-a-systems-language">
+<h2>C as a Systems Language<a class="headerlink" href="#c-as-a-systems-language" title="Link to this heading">#</a></h2>
+<p>C is central to systems programming because it exposes memory, pointers,
+layout, and system interfaces directly. This example is written in C.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">process</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">state</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">stack</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">process</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">stack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>C++ adds abstraction while preserving low-level control. Rust is designed
+to provide systems-level access with stronger memory-safety guarantees.
+Assembly is used when direct control of the hardware is required. Go is
+often used for infrastructure and systems tools.</p>
+</section>
+<section id="user-mode-kernel-mode-and-system-calls">
+<h2>User Mode, Kernel Mode, and System Calls<a class="headerlink" href="#user-mode-kernel-mode-and-system-calls" title="Link to this heading">#</a></h2>
+<p>User mode is where ordinary programs run. Kernel mode is where the
+operating system can execute privileged operations.</p>
+<p>A system call is a controlled entry from user mode into kernel mode.
+Programs use system calls to create processes, open files, allocate
+memory mappings, communicate with devices, and wait for events.</p>
+</section>
+<section id="files-processes-and-interfaces">
+<h2>Files, Processes, and Interfaces<a class="headerlink" href="#files-processes-and-interfaces" title="Link to this heading">#</a></h2>
+<p>Operating systems expose many resources through interfaces that look
+like files, processes, memory regions, and synchronization objects.</p>
+<p>This course builds on those interfaces. The early chapters start with
+processes and files, then move to scheduling, synchronization, memory,
+IPC, storage, and filesystems.</p>
+</section>
+<section id="what-to-review-before-continuing">
+<h2>What to Review Before Continuing<a class="headerlink" href="#what-to-review-before-continuing" title="Link to this heading">#</a></h2>
+<p>Before continuing, students should be comfortable with Boolean logic,
+bitwise operations, binary and hexadecimal notation, pointers, arrays,
+structs, basic assembly, graphs, trees, and the idea that a system call
+crosses from user mode into the kernel.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="processes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to Processes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-logic">Boolean Logic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-equivalence">Logical Equivalence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-morgan-s-laws">De Morgan’s Laws</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#short-circuit-evaluation">Short-Circuit Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bitwise-operations">Bitwise Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xor-and-parity">XOR and Parity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#number-systems-and-data-representation">Number Systems and Data Representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signed-and-unsigned-values">Signed and Unsigned Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modular-arithmetic">Modular Arithmetic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sets">Sets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#power-sets">Power Sets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relations-and-partial-orders">Relations and Partial Orders</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs">Graphs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trees">Trees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-and-interleavings">Counting and Interleavings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-complexity-thinking">Basic Complexity Thinking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computer-hardware-overview">Computer Hardware Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-hierarchy">Memory Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-level-data">Machine-Level Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instruction-execution-and-assembly">Instruction Execution and Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bitwise-assembly">Bitwise Assembly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-as-a-systems-language">C as a Systems Language</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#user-mode-kernel-mode-and-system-calls">User Mode, Kernel Mode, and System Calls</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files-processes-and-interfaces">Files, Processes, and Interfaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-review-before-continuing">What to Review Before Continuing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Loyola University Chicago Computer Science Department; Edited by George K. Thiruvathukal
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Loyola University Chicago Computer Science Department.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
