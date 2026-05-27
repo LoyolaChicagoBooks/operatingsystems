@@ -14,6 +14,7 @@ the Computer Science Department.
 
    meta
    introduction
+   systems-recap
    processes
    files-io
    scheduling
