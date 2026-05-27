@@ -6,7 +6,8 @@ Build Status
 
 .. raw:: html
 
-   <p><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml"><img src="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg" alt="Build Status" /></a></p>
+   <p><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml"><img src="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg" alt="Build Status" /></a>
+   <a href="https://github.com/LoyolaChicagoBooks/operatingsystems/releases/latest"><img src="https://img.shields.io/github/v/release/LoyolaChicagoBooks/operatingsystems?label=release" alt="Latest Release" /></a></p>
 
 This book automatically builds and deploys using GitHub Actions (a continuous integration system).
 All commits trigger a rebuild of the book and, if successful, a deployment to GitHub pages.
@@ -14,7 +15,7 @@ All commits trigger a rebuild of the book and, if successful, a deployment to Gi
 Book Web Site
    `os.cs.luc.edu <https://os.cs.luc.edu>`__
 
-Book PDF (Latest Relase)
+Book PDF (Latest Release)
    `github.com/LoyolaChicagoBooks/operatingsystems/releases/latest/download/OperatingSystems.pdf <https://github.com/LoyolaChicagoBooks/operatingsystems/releases/latest/download/OperatingSystems.pdf>`__
 
 Book Source Code

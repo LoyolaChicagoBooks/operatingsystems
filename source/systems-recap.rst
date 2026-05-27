@@ -393,9 +393,27 @@ layout, and system interfaces directly. This example is written in C.
    p.stack = NULL;
 
 C++ adds abstraction while preserving low-level control. Rust is designed
-to provide systems-level access with stronger memory-safety guarantees.
-Assembly is used when direct control of the hardware is required. Go is
-often used for infrastructure and systems tools.
+in part as a better C, and it remains essential in many high-performance
+domains. The experience of using C++ can vary across platforms,
+compilers, libraries, and project conventions. Knowing C well also helps
+when learning C++, because many of C++'s lower-level abstractions build
+directly on ideas from C.
+
+Modern practice is increasingly interested in newer systems languages
+such as Rust and Go. Both are promising and already see significant use,
+especially in systems and software engineering tools. Rust and Go are
+unlikely to replace C everywhere, especially in embedded systems,
+microcontrollers, accelerators, device drivers, firmware, and other
+specialized hardware contexts.
+
+There is still value in the clarity of C's programming model. With
+discipline, careful testing, and tools such as Valgrind, it is possible
+to write safer C code. Even when a modern language provides an unsafe
+mode or a foreign-function interface, you still need to understand the
+lower-level programming abstractions that C exposes directly: pointers,
+memory layout, calling conventions, and sometimes assembly language. For
+this book, C remains the main language because it exposes the operating
+system concepts with the least abstraction.
 
 User Mode, Kernel Mode, and System Calls
 ----------------------------------------
