@@ -144,13 +144,8 @@ Book Index
 The :doc:`Book Index <bookindex>` provides index entries for important
 terms, system calls, abstractions, and examples used throughout the book.
 
-Build Status
---------------
-
-.. raw:: html
-
-   <p><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml"><img src="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg" alt="Build Status" /></a>
-   <a href="https://github.com/LoyolaChicagoBooks/operatingsystems/releases/latest"><img src="https://img.shields.io/github/v/release/LoyolaChicagoBooks/operatingsystems?label=release" alt="Latest Release" /></a></p>
+Key Download Links
+-------------------
 
 This book automatically builds and deploys using GitHub Actions (a continuous integration system).
 All commits trigger a rebuild of the book and, if successful, a deployment to GitHub pages.
