@@ -14,6 +14,11 @@ History of Operating Systems
 
 The journey through operating systems starts from the first-generation systems, characterized by vacuum tubes and punch cards, to the present-day advanced systems. This evolution includes several generations, each marked by significant technological advancements and changes in computing paradigms.
 
+Operating systems came relatively late in the history of computing.
+For broader background on early electronic computing, see the
+`Computing History <https://introcs-python.cs.luc.edu/computing_history/overview.html>`_
+chapter in *Introduction to Computer Science in Python*.
+
 .. _first_generation_systems:
 
 First Generation Operating Systems
