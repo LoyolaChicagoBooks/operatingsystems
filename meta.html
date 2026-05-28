@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>About the Book &#8212; Introduction to Operating Systems: Principles and Practice: updated 27 May 2026</title>
+    <title>About the Book &#8212; Introduction to Operating Systems: Principles and Practice: updated 28 May 2026</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=ddef51ed"></script>
+    <script src="_static/documentation_options.js?v=96f203ff"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -51,7 +51,7 @@
     <link rel="prev" title="Welcome to Operating Systems" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="27 May 2026" />
+  <meta name="docsearch:version" content="28 May 2026" />
   </head>
   
   
@@ -126,7 +126,7 @@
   
   
   
-    <p class="title logo__title">Introduction to Operating Systems: Principles and Practice: updated 27 May 2026</p>
+    <p class="title logo__title">Introduction to Operating Systems: Principles and Practice: updated 28 May 2026</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -345,6 +345,23 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-organization">Book Organization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#systems-and-discrete-math-recap">Systems and Discrete Math Recap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-processes">Introduction to Processes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#files-and-i-o">Files and I/O</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process-thread-scheduling">Process/Thread Scheduling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutual-exclusion">Mutual Exclusion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock">Deadlock</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipc-topics">IPC Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-memory">Virtual Memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#userland-memory-management">Userland Memory Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#storage-and-devices">Storage and Devices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-files-and-folders">Implementing Files and Folders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#book-index">Book Index</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-status">Build Status</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-info">Book Info</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-examples">Book Examples</a></li>
@@ -362,6 +379,130 @@
                   
   <section id="about-the-book">
 <h1>About the Book<a class="headerlink" href="#about-the-book" title="Link to this heading">#</a></h1>
+<p>This book grew out of an effort that began nearly fifteen years ago with
+George K. Thiruvathukal, the lead editor, students in his research
+laboratory, and faculty colleagues.</p>
+<p>Dr. Thiruvathukal has been teaching operating systems and distributed
+systems since the early 1990s, when he taught Operating System Design and
+Implementation at the Illinois Institute of Technology while completing
+his PhD.</p>
+<p>The motivation for the book is practical. Many operating systems
+textbooks are encyclopedic. They cover a large number of topics, but they
+often spend less time on the implementation ideas that students need in
+order to understand how operating systems are actually built. This book
+focuses on the ideas that generally made it into modern operating-system
+implementation, backed by coding examples that we hope actually work.</p>
+<p>The book is designed as a companion for instructors who want to give
+students a concise introduction to operating systems and the practice of
+learning C programming without requiring an expensive textbook. C is not
+the only systems language, and modern practice is increasingly interested
+in Rust, Go, and other options. We introduce those ideas gradually where
+they fit. Still, C remains useful because it exposes pointers, memory
+layout, calling conventions, system calls, and hardware-facing details
+with relatively little abstraction. In that sense, it can be thought of
+as a portable assembly language. We also expect C to remain important in
+embedded systems, accelerators, firmware, device drivers, and hardware
+contexts where direct control still matters.</p>
+<section id="approach">
+<h2>Approach<a class="headerlink" href="#approach" title="Link to this heading">#</a></h2>
+<p>The chapters are meant to be read alongside code. The goal is not to
+catalog every operating-system feature. The goal is to explain the core
+ideas clearly enough that students can connect the concept, the system
+call or data structure, and the behavior they observe when running a
+program.</p>
+<p>Most examples are written in C, with C++ used where it does not distract
+from the systems idea. Some examples and case studies use other
+languages, but the main programming model is deliberately close to the
+machine.</p>
+</section>
+<section id="book-organization">
+<h2>Book Organization<a class="headerlink" href="#book-organization" title="Link to this heading">#</a></h2>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="introduction.html"><span class="doc">Introduction</span></a> chapter gives historical context.
+It traces operating systems from early batch systems through UNIX,
+personal computers, and modern systems.</p>
+</section>
+<section id="systems-and-discrete-math-recap">
+<h3>Systems and Discrete Math Recap<a class="headerlink" href="#systems-and-discrete-math-recap" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="systems-recap.html"><span class="doc">Systems and Discrete Math Recap</span></a> chapter
+reviews background material students are expected to know before the main
+operating-systems chapters. It includes Boolean logic, binary numbers,
+bit operations, memory layout, pointers, and small C examples.</p>
+</section>
+<section id="introduction-to-processes">
+<h3>Introduction to Processes<a class="headerlink" href="#introduction-to-processes" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="processes.html"><span class="doc">Introduction to Processes</span></a> chapter explains
+processes, address spaces, process creation, <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, <code class="docutils literal notranslate"><span class="pre">exec()</span></code>, and
+related process-control ideas.</p>
+</section>
+<section id="files-and-i-o">
+<h3>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="files-io.html"><span class="doc">Files and I/O</span></a> chapter introduces the UNIX file
+abstraction. It explains file descriptors, regular files, directories,
+devices, pipes, sockets, and the common operations used to work with
+them.</p>
+</section>
+<section id="process-thread-scheduling">
+<h3>Process/Thread Scheduling<a class="headerlink" href="#process-thread-scheduling" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="scheduling.html"><span class="doc">Process/Thread Scheduling</span></a> chapter explains how an
+operating system decides what runs next. It covers user mode, kernel
+mode, interrupts, context switching, scheduling goals, and scheduling
+policies.</p>
+</section>
+<section id="mutual-exclusion">
+<h3>Mutual Exclusion<a class="headerlink" href="#mutual-exclusion" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="mutualexclusion.html"><span class="doc">Mutual Exclusion</span></a> chapter introduces shared
+state, critical sections, atomicity, locks, semaphores, monitors, and
+other synchronization mechanisms used to make concurrent programs
+correct.</p>
+</section>
+<section id="deadlock">
+<h3>Deadlock<a class="headerlink" href="#deadlock" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="deadlock.html"><span class="doc">Deadlock</span></a> chapter explains how threads can become
+stuck waiting for one another. It covers the dining philosophers problem,
+lock graphs, deadlock conditions, and practical ways to avoid deadlock.</p>
+</section>
+<section id="ipc-topics">
+<h3>IPC Topics<a class="headerlink" href="#ipc-topics" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="ipc.html"><span class="doc">IPC Topics</span></a> chapter covers interprocess communication.
+It compares pipes, named pipes, signals, shared memory, memory-mapped
+files, UNIX domain sockets, Solaris doors, and network sockets.</p>
+</section>
+<section id="virtual-memory">
+<h3>Virtual Memory<a class="headerlink" href="#virtual-memory" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="kernelmm.html"><span class="doc">Virtual Memory</span></a> chapter explains the kernel side of
+memory management. It covers address spaces, MMUs, page tables, page
+replacement, demand paging, and case studies drawn from kernel memory
+systems.</p>
+</section>
+<section id="userland-memory-management">
+<h3>Userland Memory Management<a class="headerlink" href="#userland-memory-management" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="userlandmm.html"><span class="doc">Userland Memory Management</span></a> chapter explains how
+language runtimes and libraries manage memory inside a process. It
+covers heaps, allocation, garbage collection, smart pointers, reference
+counting, and stack allocation.</p>
+</section>
+<section id="storage-and-devices">
+<h3>Storage and Devices<a class="headerlink" href="#storage-and-devices" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="storage.html"><span class="doc">Storage and Devices</span></a> chapter introduces storage
+hardware and the operating-system policies used to manage it. It covers
+device interfaces, buses, disks, flash storage, disk scheduling, RAID,
+and storage services.</p>
+</section>
+<section id="implementing-files-and-folders">
+<h3>Implementing Files and Folders<a class="headerlink" href="#implementing-files-and-folders" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="fs.html"><span class="doc">Implementing Files and Folders</span></a> chapter explains how
+filesystems represent files, directories, metadata, free space, and
+paths. It also includes case studies of filesystem designs and research
+systems.</p>
+</section>
+<section id="book-index">
+<h3>Book Index<a class="headerlink" href="#book-index" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="bookindex.html"><span class="doc">Book Index</span></a> provides index entries for important
+terms, system calls, abstractions, and examples used throughout the book.</p>
+</section>
+</section>
 <section id="build-status">
 <h2>Build Status<a class="headerlink" href="#build-status" title="Link to this heading">#</a></h2>
 <p><a href="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml"><img src="https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg" alt="Build Status" /></a>
@@ -380,7 +521,7 @@ All commits trigger a rebuild of the book and, if successful, a deployment to Gi
 <h2>Book Info<a class="headerlink" href="#book-info" title="Link to this heading">#</a></h2>
 <p>This book is hosted on GitHub Pages.
 It is written using the delightful Python Sphinx documentation tool.
-In addition, we use the Sphinx RTD Theme.</p>
+In addition, we use the Sphinx Book Theme.</p>
 <p>You can checkout the book from the Book Source Code and build it yourself.
 This could be useful if you wish to help us correct bugs/errors by issuing a pull request.
 While we welcome pull requests, we ask that you make sure your request can build successfully, especially if it requires changes to the book and any of the accompanying repositories.</p>
@@ -454,6 +595,23 @@ The future of systems remains bright!</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-organization">Book Organization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#systems-and-discrete-math-recap">Systems and Discrete Math Recap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-processes">Introduction to Processes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#files-and-i-o">Files and I/O</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#process-thread-scheduling">Process/Thread Scheduling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mutual-exclusion">Mutual Exclusion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deadlock">Deadlock</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipc-topics">IPC Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-memory">Virtual Memory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#userland-memory-management">Userland Memory Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#storage-and-devices">Storage and Devices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-files-and-folders">Implementing Files and Folders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#book-index">Book Index</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-status">Build Status</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-info">Book Info</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-examples">Book Examples</a></li>
