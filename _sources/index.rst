@@ -6,6 +6,16 @@
 Welcome to Operating Systems
 =============================
 
+.. only:: html
+
+   .. image:: https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml/badge.svg
+      :target: https://github.com/LoyolaChicagoBooks/operatingsystems/actions/workflows/main.yml
+      :alt: Build Status
+
+   .. image:: https://img.shields.io/github/v/release/LoyolaChicagoBooks/operatingsystems
+      :target: https://github.com/LoyolaChicagoBooks/operatingsystems/releases/latest
+      :alt: Latest Release
+
 This site contains lecture notes, examples, and supporting materials for
 Operating Systems.
 
