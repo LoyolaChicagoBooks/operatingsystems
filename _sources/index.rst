@@ -6,8 +6,8 @@
 Welcome to Operating Systems
 =============================
 
-You have reached the home of Operating Systems (COMP 310-410) at Loyola University Chicago in
-the Computer Science Department. 
+This site contains lecture notes, examples, and supporting materials for
+Operating Systems.
 
 .. toctree::
    :maxdepth: 2
@@ -25,4 +25,6 @@ the Computer Science Department.
    userlandmm
    storage
    fs
+   contributors
+   code-of-conduct
    bookindex

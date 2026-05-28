@@ -15,9 +15,16 @@ Prerequisites
 -------------
 C programming background will be assumed. If you lack knowledge of it or decided to forget it, you'll have about a week to learn it. There will be a warm-up programming assignment aimed at helping you determine whether you have adequate programming background to complete this course.
 
-COMP 264 (Systems Programming) and COMP 271 (Data Structures) are both required for COMP 374 (and COMP 410). Regarding data structures, you must know and understand how to work with lists, trees, and other connected structures, which includes the algorithms for working with these abstract types. For those coming from a Java-only background, you must know and understand the concept of pointers and memory management. If you don't, please make sure you learn these concepts within the first week of class.
+Students should have prior background in systems programming and data
+structures. Regarding data structures, you must know and understand how
+to work with lists, trees, and other connected structures, which includes
+the algorithms for working with these abstract types. For those coming
+from a Java-only background, you must know and understand the concept of
+pointers and memory management. If you don't, please make sure you learn
+these concepts within the first week of class.
 
-Graduate students in particular are advised that COMP 271 or equivalent without COMP 264 is probably insufficient, especially for this offering of COMP 410.
+Graduate students in particular are advised that data structures alone is
+probably insufficient without prior systems programming experience.
 
 Graduate students are also expected to do work above and beyond the undergraduate version. This is likely to include a research/survey paper on at least one operating system or an additional assignment to modify or add a new service to Minix or Linux. Details will follow.
 
@@ -92,4 +99,3 @@ Academic Honesty Policy
 - Assisting another student in debugging their project is encouraged.
 - Posting a code fragment / snippet (not entire source files) to the discussion board is encouraged as a way to foster discussion.
 - Asking questions about the academic honesty policy is encouraged.
-
